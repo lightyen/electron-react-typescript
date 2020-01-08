@@ -30,13 +30,15 @@ export class MainWindow extends Electron.BrowserWindow {
         setMenu()
         setRouter()
 
-        this.on("maximize", (e: Electron.IpcMainEvent) => {
-            ipc.send(e.sender)("window.maximized", { data: true })
+        this.on("maximize", (e: Electron.Event) => {
+            ipc.send(this.webContents)("window.maximized", { data: true })
         })
 
-        this.on("unmaximize", (e: Electron.IpcMainEvent) => {
-            ipc.send(e.sender)("window.maximized", { data: false })
+        this.on("unmaximize", (e: Electron.Event) => {
+            ipc.send(this.webContents)("window.maximized", { data: false })
         })
+
+        this.webContents.send("window.maximized", this.isMaximized())
 
         const loadURL = isDevMode()
             ? this.loadURL(
@@ -58,8 +60,6 @@ export class MainWindow extends Electron.BrowserWindow {
               )
 
         loadURL.then(() => {
-            this.show()
-
             const readFile = promisify(fs.readFile)
             readFile(path.join(appPath, "assets", "appicons", "64x64.png"))
                 .then(buffer => ipc.send(this.webContents)("app.icon", { data: buffer.toString("base64") }))
@@ -67,8 +67,7 @@ export class MainWindow extends Electron.BrowserWindow {
             readFile(path.join(appPath, "assets", "images", "logo.svg"))
                 .then(buffer => ipc.send(this.webContents)("app.logo", { data: buffer.toString("base64") }))
                 .catch(err => ipc.send(this.webContents)("app.logo", { error: serializeError(err) }))
+            this.show()
         })
-
-        this.webContents.send("titlebar.ismaxmized", this.isMaximized())
     }
 }
