@@ -41,6 +41,7 @@ const config = {
         public: `localhost:${defaultPort}`,
         publicPath: "/",
         clientLogLevel: "warning",
+        contentBase: false,
         stats: {
             all: false,
             colors: true,
