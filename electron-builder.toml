@@ -1,0 +1,46 @@
+# electron-builder configuration in TOML
+# https://www.electron.build/configuration/configuration
+
+# Auto Update: https://www.electron.build/auto-update
+
+productName = "electron-react-typescript"
+appId = "com.electron.electron-react-typescript"
+asar = false
+compression = "normal"
+files = ["dist/**/*", "assets/**/*"]
+
+[directories]
+buildResources = "assets/"
+output = "build/"
+
+# Windows Store App
+
+[appx]
+displayName= "electron react typescript"
+identityName= "electron.react.typescript"
+publisherDisplayName= "lightyen"
+
+# For Windows
+
+[win]
+target = ["appx"]
+certificateFile= "certificate.pfx"
+icon= "./assets/appicons/256x256.png"
+
+# For Linux
+
+[linux]
+target = ["AppImage"]
+executableName= "electron-react-typescript"
+icon= "assets/appicons/"
+synopsis= "A electron example"
+vendor= "lightyen"
+maintainer= "lightyen <lightyen0123@gmail.com>"
+description= "electron react typescript"
+category= "Network"
+
+# For MacOS (I haven't try it yet!!!)
+
+[mac]
+target = ["default"]
+category = "public.app-category.social-networking"

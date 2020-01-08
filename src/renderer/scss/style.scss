@@ -1,0 +1,22 @@
+@import "variables";
+@import "bootstrap/scss/bootstrap.scss";
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: Fira Code;
+    src: local("Fira Code"), url(../assets/fonts/FiraCode-Regular.woff2);
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100%;
+}

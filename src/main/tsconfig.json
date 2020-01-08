@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.base",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "types": [
+      "uuid",
+      "shelljs",
+      "serialize-error",
+      "electron-store",
+      "electron-devtools-installer"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"]
+    }
+  }
+}
