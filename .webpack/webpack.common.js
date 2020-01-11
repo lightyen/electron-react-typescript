@@ -53,10 +53,6 @@ module.exports = function(options) {
             filename: "[name].[contenthash:8].css",
             chunkFilename: "[name].[contenthash:8].chunk.css",
         }),
-        new ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-        }),
     ]
 
     for (const name in entry) {
