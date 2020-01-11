@@ -4,7 +4,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": false,
     "isolatedModules": true,
-    "noImplicitAny": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

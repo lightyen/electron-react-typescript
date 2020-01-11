@@ -32,3 +32,15 @@ export function* subscibeChannel(channel: string) {
         }),
     )
 }
+
+export function* consoleChannel(channel: string) {
+    return yield call(() =>
+        eventChannel(emitter => {
+            function cb(e: IpcRendererEvent, res: unknown) {
+                emitter(res)
+            }
+            ipcRenderer.on(channel, cb)
+            return () => ipcRenderer.removeListener(channel, cb)
+        }),
+    )
+}

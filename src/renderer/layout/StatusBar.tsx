@@ -19,8 +19,7 @@ const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
             <Bar
                 textColor={theme.textColor}
                 background={theme.primaryColor}
-                className="d-block p-2"
-                style={{ userSelect: "none" }}
+                style={{ userSelect: "none", padding: "0.5rem" }}
             >
                 <BarContent />
             </Bar>
@@ -64,9 +63,9 @@ const BarContent: React.FC = () => {
     }
 
     return (
-        <div className="row">
-            <div className="col">{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>
-            <div className="col">
+        <div style={{ display: "flex" }}>
+            <div style={{ width: "50%" }}>{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>
+            <div style={{ width: "50%" }}>
                 {memory.free
                     ? `Memory: ${getMemInfoString(memory.total - memory.free)}/${getMemInfoString(memory.total)}`
                     : "～"}

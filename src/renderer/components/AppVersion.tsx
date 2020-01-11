@@ -7,6 +7,7 @@ const Header = styled.h1``
 const Versions = styled.div`
     font-family: Fira Code;
     background: #eeeeee;
+    color: #000000;
     text-align: center;
 `
 
@@ -27,8 +28,6 @@ const Image = styled.img`
     user-select: none;
 `
 
-import image from "assets/appicons/128x128.png"
-
 interface Versions {
     electron: string
     node: string
@@ -42,39 +41,35 @@ const AppVersion: React.FC = () => {
         getVersion()
     }, [getVersion])
     return (
-        <div className="row align-items-center my-3">
-            <div className="col-12">
-                <Versions>
-                    <Header>Versions</Header>
-                    <Table>
-                        <THead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Number</th>
-                            </tr>
-                        </THead>
-                        <TBody>
-                            <tr>
-                                <td>Electron</td>
-                                <td>{version.electron}</td>
-                            </tr>
-                            <tr>
-                                <td>NodeJS</td>
-                                <td>{version.node}</td>
-                            </tr>
-                            <tr>
-                                <td>Chrome</td>
-                                <td>{version.chrome}</td>
-                            </tr>
-                            <tr>
-                                <td>{version.os.name}</td>
-                                <td>{version.os.version}</td>
-                            </tr>
-                        </TBody>
-                    </Table>
-                </Versions>
-            </div>
-        </div>
+        <Versions>
+            <Header>Versions</Header>
+            <Table>
+                <THead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Number</th>
+                    </tr>
+                </THead>
+                <TBody>
+                    <tr>
+                        <td>Electron</td>
+                        <td>{version.electron}</td>
+                    </tr>
+                    <tr>
+                        <td>NodeJS</td>
+                        <td>{version.node}</td>
+                    </tr>
+                    <tr>
+                        <td>Chrome</td>
+                        <td>{version.chrome}</td>
+                    </tr>
+                    <tr>
+                        <td>{version.os.name}</td>
+                        <td>{version.os.version}</td>
+                    </tr>
+                </TBody>
+            </Table>
+        </Versions>
     )
 }
 

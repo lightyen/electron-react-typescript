@@ -1,4 +1,4 @@
-import { request, subscibeChannel } from "~/ipc"
+import { request, subscibeChannel, consoleChannel } from "~/ipc"
 import { put, take, fork, all, call, takeEvery, select } from "redux-saga/effects"
 
 import {
@@ -17,7 +17,6 @@ import {
     GetAppCpuUsageAction,
     GetAppSystemMemoryAction,
 } from "./action"
-import { RootStore } from "~/store"
 
 function* getAppVersion() {
     try {
@@ -56,28 +55,22 @@ function* subscribeWindowMaxmized() {
     }
 }
 
-function* subscribeAppIcon() {
-    const chan = yield subscibeChannel("app.icon")
-    while (true) {
-        const icon: string = yield take(chan)
-        if (icon) {
-            yield put<GetAppIconAction>({ type: GET_APP_ICON.SUCCESS, icon })
-        }
-    }
+function* getAppIcon() {
+    try {
+        const icon = yield call(request, "app.icon")
+        yield put<GetAppIconAction>({ type: GET_APP_ICON.SUCCESS, icon })
+    } catch (e) {}
 }
 
-function* subscribeAppLogo() {
-    const chan = yield subscibeChannel("app.logo")
-    while (true) {
-        const src: string = yield take(chan)
-        if (src) {
-            yield put<GetAppLogoAction>({ type: GET_APP_LOGO.SUCCESS, src })
-        }
-    }
+function* getAppLogo() {
+    try {
+        const src = yield call(request, "app.logo")
+        yield put<GetAppLogoAction>({ type: GET_APP_LOGO.SUCCESS, src })
+    } catch (e) {}
 }
 
 function* sysemConsoleLog() {
-    const chan = yield subscibeChannel("console.log")
+    const chan = yield consoleChannel("console.log")
     while (true) {
         const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
         if (obj.message || obj.optionalParams.length) {
@@ -87,7 +80,7 @@ function* sysemConsoleLog() {
 }
 
 function* sysemConsoleWarning() {
-    const chan = yield subscibeChannel("console.warn")
+    const chan = yield consoleChannel("console.warn")
     while (true) {
         const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
         if (obj.message || obj.optionalParams.length) {
@@ -97,7 +90,7 @@ function* sysemConsoleWarning() {
 }
 
 function* sysemConsoleError() {
-    const chan = yield subscibeChannel("console.error")
+    const chan = yield consoleChannel("console.error")
     while (true) {
         const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
         if (obj.message || obj.optionalParams.length) {
@@ -107,7 +100,7 @@ function* sysemConsoleError() {
 }
 
 function* sysemConsoleClear() {
-    const chan = yield subscibeChannel("console.error")
+    const chan = yield consoleChannel("console.error")
     while (true) {
         yield take(chan)
         console.clear()
@@ -118,8 +111,8 @@ export default function* sagas() {
     yield takeEvery(GET_APP_VERSION.REQUEST, getAppVersion)
     yield takeEvery(GET_APP_CPU_USAGE.REQUEST, getCPUUsage)
     yield takeEvery(GET_APP_SYSTEM_MEMORY.REQUEST, getSystemMemory)
-    yield fork(subscribeAppIcon)
-    yield fork(subscribeAppLogo)
+    yield takeEvery(GET_APP_ICON.REQUEST, getAppIcon)
+    yield takeEvery(GET_APP_LOGO.REQUEST, getAppLogo)
     yield fork(subscribeWindowFullScreen)
     yield fork(subscribeWindowMaxmized)
     yield fork(sysemConsoleLog)

@@ -65,6 +65,7 @@ interface ControlButtonProps {
 }
 
 const ControlButton = styled.div`
+    display: flex;
     width: 44px;
     height: 100%;
     justify-content: center;
@@ -94,6 +95,11 @@ const TitleBar: React.FC = () => {
     const maximized = useSelector(state => state.app.maximized)
     const icon = useSelector(state => state.app.icon)
     const hide = useSelector(state => state.app.hide)
+
+    const { getAppIcon } = useAction().app
+    React.useEffect(() => {
+        getAppIcon()
+    }, [getAppIcon])
 
     return (
         <HeaderTitleBar height={30} hide={hide} titleBarColor={theme.primaryColor} textTolor={theme.textColor}>

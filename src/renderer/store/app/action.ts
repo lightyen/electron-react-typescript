@@ -68,6 +68,14 @@ export interface GetAppSystemMemoryAction {
     usage?: SystemMemoryInfo
 }
 
+export const getAppIcon = (): GetAppIconAction => {
+    return { type: GET_APP_ICON.REQUEST }
+}
+
+export const getAppLogo = (): GetAppLogoAction => {
+    return { type: GET_APP_LOGO.REQUEST }
+}
+
 export const getVersion = (): GetAppVersionAction => {
     return { type: GET_APP_VERSION.REQUEST }
 }
@@ -81,6 +89,8 @@ export const getSystemMemoryInfo = (): GetAppSystemMemoryAction => {
 }
 
 const actionCreators = {
+    getAppIcon,
+    getAppLogo,
     getVersion,
     getCpuUsage,
     getSystemMemoryInfo,

@@ -137,6 +137,13 @@ module.exports = function(options) {
         },
     }
 
+    /*
+     * @type {import("webpack").Loader}
+     */
+    const jsxLoader = {
+        loader: "babel-loader",
+    }
+
     return {
         entry,
         output: {

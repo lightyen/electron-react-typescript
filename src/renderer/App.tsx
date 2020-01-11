@@ -1,9 +1,9 @@
 import React from "react"
 import { Provider } from "react-redux"
-import AppContainer from "~/AppContainer"
+import AppContainer from "~/layout/AppContainer"
 
+import "~/css/style.css"
 import "~/scss/style.scss"
-import "bootstrap"
 
 import { configureStore, rootReducer } from "~/store"
 

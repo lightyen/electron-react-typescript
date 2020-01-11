@@ -1,18 +1,14 @@
 import React from "react"
 import { HashRouter, Switch, Route } from "react-router-dom"
-import classnames from "classnames"
 import { useSelector } from "~/store"
 
 import Home from "~/views/Home"
 import Version from "~/views/Version"
 
 const Viewer: React.FC = () => {
-    const name = useSelector(state => state.theme.name)
+    const backgroundColor = useSelector(state => state.theme.backgroundColor)
     return (
-        <div
-            className={classnames("flex-grow-1", name === "light" ? "bg-light" : "bg-dark")}
-            style={{ overflowY: "auto" }}
-        >
+        <div style={{ flexGrow: 1, backgroundColor }}>
             <HashRouter>
                 <Switch>
                     <Route path="/" exact render={props => <Home {...props} />} />

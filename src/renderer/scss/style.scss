@@ -1,13 +1,4 @@
 @import "variables";
-@import "bootstrap/scss/bootstrap.scss";
-
-body::-webkit-scrollbar {
-    display: none;
-}
-
-body {
-    overflow: hidden;
-}
 
 @font-face {
     font-family: Fira Code;
