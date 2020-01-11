@@ -15,8 +15,8 @@ export class MainWindow extends Electron.BrowserWindow {
             show: true,
             frame: false,
             resizable: true,
-            minWidth: 400,
-            minHeight: 350,
+            minWidth: 460,
+            minHeight: 300,
             webPreferences: {
                 nodeIntegration: true,
             },

@@ -2,7 +2,7 @@
 
 這是一個關於用 typescript 開發 electron & react 的範本，一個自主學習的產出範例，供打發時間時使用
 
-整合其他功能，例如：react hooks, react-hot-loader, bootstrap, electron-builder 等等
+整合其他功能，例如：webpack, react-hot-loader, electron-builder 等等
 
 ## 開發環境
 

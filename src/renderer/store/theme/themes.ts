@@ -22,3 +22,5 @@ export const themes: { [key: string]: Theme } = {
         backgroundColor: "#20232a",
     },
 }
+
+export type ThemeName = "light" | "dark"

@@ -1,12 +1,12 @@
-import { themes } from "./themes"
+import { ThemeName } from "./themes"
 export const CHANGE_THEME = "CHANGE_THEME"
 
 interface ChangeThemeAction {
     type: typeof CHANGE_THEME
-    name: keyof typeof themes
+    name: ThemeName
 }
 
-export function changeTheme(name: keyof typeof themes): ChangeThemeAction {
+export function changeTheme(name: ThemeName): ChangeThemeAction {
     return {
         type: CHANGE_THEME,
         name,
