@@ -19,7 +19,6 @@
     "webpack-production": "webpack --config .webpack/webpack.prod",
     "webpack-dll": "webpack --config .webpack/webpack.dll",
     "webpack-bundle-analyzer": "webpack --config .webpack/webpack.analyzer",
-    "reload": "node .scripts/clean/all && yarn",
     "clean": "node .scripts/clean && yarn autoclean --force",
     "doit": "yarn && yarn upgrade-interactive --latest",
     "start": "yarn && yarn run webpack-electron-dev && electron .",

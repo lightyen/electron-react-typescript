@@ -100,7 +100,7 @@ function* sysemConsoleError() {
 }
 
 function* sysemConsoleClear() {
-    const chan = yield consoleChannel("console.error")
+    const chan = yield consoleChannel("console.clear")
     while (true) {
         yield take(chan)
         console.clear()

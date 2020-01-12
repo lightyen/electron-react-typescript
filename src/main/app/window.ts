@@ -4,7 +4,7 @@ import path from "path"
 import fs from "fs"
 
 import ipc from "~/ipc"
-import { isDevMode, appPath, appName } from "~/app"
+import { isDevMode, appPath, appName, RendererConsole } from "~/app"
 import setMenu from "~/app/menu"
 import setRouter from "~/app/router"
 
