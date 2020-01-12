@@ -20,16 +20,22 @@ displayName = "electron react typescript"
 identityName = "electron.react.typescript"
 publisherDisplayName = "lightyen"
 
-# NSIS
+# Windows NSIS
 
 [nsis]
-
+shortcutName = "electron-react-typescript"
+oneClick = true
+createDesktopShortcut = true
+createStartMenuShortcut = true
+menuCategory = true
+language = 1033
+runAfterFinish = true
 
 # For Windows
 
 [win]
 target = ["nsis"]
-certificateFile = "certificate.pfx"
+# certificateFile = "certificate.pfx"
 icon = "./assets/appicons/256x256.png"
 
 # For Linux
