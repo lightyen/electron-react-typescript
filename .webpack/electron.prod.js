@@ -10,7 +10,12 @@ process.env.NODE_ENV = "production"
  */
 const config = {
     mode: "production",
-    plugins: [new CleanWebpackPlugin({ verbose: true })],
+    plugins: [
+        new CleanWebpackPlugin({
+            verbose: true,
+            cleanOnceBeforeBuildPatterns: ["**/*", "!vendor", "!vendor/vendor.js", "!vendor/manifest.json"],
+        }),
+    ],
 }
 
 module.exports = webpackMerge(createBaseConfig({}), config)

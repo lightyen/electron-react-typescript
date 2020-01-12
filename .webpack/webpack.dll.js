@@ -16,16 +16,16 @@ const vendorPath = path.resolve(process.cwd(), "dist", "vendor")
 module.exports = {
     mode: "production",
     entry: {
-        dll: ["react", "react-dom", "react-router-dom", "axios"],
+        vendor: ["react", "react-dom"],
     },
     output: {
         path: vendorPath,
         filename: "[name].js",
         library: "[name]",
-        publicPath: "/",
+        publicPath: "./",
     },
     plugins: [
-        new WebpackBar({ name: "DLL", color: "blue" }),
+        new WebpackBar({ name: "Externals", color: "blue" }),
         new CleanWebpackPlugin({ verbose: true }),
         new DllPlugin({
             path: path.join(vendorPath, "manifest.json"),

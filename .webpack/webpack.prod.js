@@ -8,7 +8,7 @@ const createBaseConfig = require("./webpack.common")
 
 process.env.NODE_ENV = "production"
 
-/** DLL 位置 */
+/** Externals */
 const vendorPath = "" // path.resolve(process.cwd(), "dist", "vendor")
 
 /**

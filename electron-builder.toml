@@ -5,7 +5,7 @@
 
 productName = "electron-react-typescript"
 appId = "com.electron.electron-react-typescript"
-asar = false
+asar = true
 compression = "normal"
 files = ["dist/**/*", "assets/**/*"]
 

@@ -2,11 +2,10 @@
 const packageJSON = require("../package.json")
 
 // @ts-check
-const { EnvironmentPlugin, ProvidePlugin, DllReferencePlugin, ExtendedAPIPlugin } = require("webpack")
+const { EnvironmentPlugin, DllReferencePlugin, ExtendedAPIPlugin } = require("webpack")
 const path = require("path")
 
 // Plugins
-const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const WebpackBarPlugin = require("webpackbar")
@@ -114,6 +113,24 @@ module.exports = function(options) {
         options: {
             name: "[name].[ext]?[hash:8]",
         },
+    }
+
+    const tsconfigPath = path.join(src, "tsconfig.json")
+
+    function convertPathsToAliases(configPath) {
+        const config = require(configPath)
+        const basePath = path.dirname(configPath)
+        let ret = {}
+        const options = config.compilerOptions
+        if (options) {
+            const paths = config.compilerOptions.paths
+            if (paths) {
+                for (const k of Object.keys(paths)) {
+                    ret[path.dirname(k)] = path.dirname(path.join(basePath, options.baseUrl, paths[k][0]))
+                }
+            }
+        }
+        return ret
     }
 
     /**
@@ -252,13 +269,14 @@ module.exports = function(options) {
         // NOTE: https://webpack.js.org/configuration/resolve/
         resolve: {
             extensions: [".ts", ".tsx", ".js"],
-            plugins: [
-                new TsConfigPathsPlugin({
-                    configFileName: path.join(src, "tsconfig.json"),
-                }),
-            ],
+            // plugins: [
+            //     new TsConfigPathsPlugin({
+            //         configFileName: path.resolve(src, "tsconfig.json"),
+            //     }),
+            // ],
             alias: {
                 assets: path.join(assets),
+                ...convertPathsToAliases(tsconfigPath),
             },
         },
         plugins,
