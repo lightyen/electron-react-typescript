@@ -186,6 +186,11 @@ module.exports = function(options) {
                     use: tsxLoader,
                 },
                 {
+                    test: /\.jsx?$/,
+                    exclude: /node_modules|\.test.tsx?$/,
+                    use: jsxLoader,
+                },
+                {
                     test: /\.(png|jpe?g|gif|svg)$/i,
                     use: imageLoader,
                 },
@@ -268,7 +273,7 @@ module.exports = function(options) {
         },
         // NOTE: https://webpack.js.org/configuration/resolve/
         resolve: {
-            extensions: [".ts", ".tsx", ".js"],
+            extensions: [".ts", ".tsx", ".js", ".jsx"],
             // plugins: [
             //     new TsConfigPathsPlugin({
             //         configFileName: path.resolve(src, "tsconfig.json"),
