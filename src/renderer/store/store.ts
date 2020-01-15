@@ -31,6 +31,19 @@ export function configureStore() {
         undefined,
         process.env.NODE_ENV === "development" ? composeEnhancers(storeEnhancers) : storeEnhancers,
     )
-    sagaMiddleware.run(rootSaga)
+    let sagaTask = sagaMiddleware.run(rootSaga)
+
+    if (module["hot"]) {
+        module["hot"].accept(["~/store"], (e: string[]) => {
+            store.replaceReducer(rootReducer)
+        })
+        module["hot"].accept(["~/store/saga"], () => {
+            sagaTask.cancel()
+            sagaTask.toPromise().then(() => {
+                sagaTask = sagaMiddleware.run(rootSaga)
+            })
+        })
+    }
+
     return store
 }

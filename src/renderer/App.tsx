@@ -5,15 +5,9 @@ import AppContainer from "~/layout/AppContainer"
 import "~/css/style.css"
 import "~/scss/style.scss"
 
-import { configureStore, rootReducer } from "~/store"
+import { configureStore } from "~/store"
 
 const store = configureStore()
-
-if (module["hot"]) {
-    module["hot"].accept(["~/store"], (e: string[]) => {
-        store.replaceReducer(rootReducer)
-    })
-}
 
 const App = () => {
     return (
