@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "target": "esnext",
     "lib": ["esnext", "dom"],
-    "types": ["react"],
+    "types": ["react", "node", "webpack-env"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]

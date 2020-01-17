@@ -33,11 +33,11 @@ export function configureStore() {
     )
     let sagaTask = sagaMiddleware.run(rootSaga)
 
-    if (module["hot"]) {
-        module["hot"].accept(["~/store"], (e: string[]) => {
+    if (module.hot) {
+        module.hot.accept(["~/store"], () => {
             store.replaceReducer(rootReducer)
         })
-        module["hot"].accept(["~/store/saga"], () => {
+        module.hot.accept(["~/store/saga"], () => {
             sagaTask.cancel()
             sagaTask.toPromise().then(() => {
                 sagaTask = sagaMiddleware.run(rootSaga)
