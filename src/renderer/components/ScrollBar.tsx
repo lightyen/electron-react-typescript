@@ -14,7 +14,7 @@ interface ScrollBarProps {
 const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "black", ...props }))<ScrollBarProps>`
     color: transparent;
     transition: color 0.6s ease;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: scroll;
     position: absolute;
     top: 0px;
