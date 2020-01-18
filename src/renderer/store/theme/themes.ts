@@ -1,3 +1,5 @@
+import cfg from "~/tailwind.config.js"
+
 export interface Theme {
     primaryColor: string
     primaryHoverColor: string
@@ -5,6 +7,8 @@ export interface Theme {
     textColor: string
     backgroundColor: string
 }
+
+const colors = cfg.theme.colors
 
 export const themes: { [key: string]: Theme } = {
     light: {
@@ -19,7 +23,7 @@ export const themes: { [key: string]: Theme } = {
         primaryHoverColor: "#333536",
         dangerColor: "#b13030",
         textColor: "#e2e2e2",
-        backgroundColor: "#20232a",
+        backgroundColor: colors.stategray[900],
     },
 }
 
