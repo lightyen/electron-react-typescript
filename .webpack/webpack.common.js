@@ -1,5 +1,6 @@
 // @ts-ignore
 const packageJSON = require("../package.json")
+const tailwindcfg = require("../tailwind.config")
 
 // @ts-check
 const { EnvironmentPlugin, DllReferencePlugin, ExtendedAPIPlugin } = require("webpack")
@@ -47,6 +48,7 @@ module.exports = function(options) {
             NODE_ENV: process.env.NODE_ENV,
             PUBLIC_URL: process.env.PUBLIC_URL,
             APP_NAME: packageJSON.name,
+            TAILWIND_CONFIG: JSON.stringify(tailwindcfg),
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash:8].css",

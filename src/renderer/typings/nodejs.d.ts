@@ -3,5 +3,6 @@ declare namespace NodeJS {
         NODE_ENV: "development" | "production"
         PUBLIC_URL: string
         APP_NAME: string
+        TAILWIND_CONFIG: string
     }
 }

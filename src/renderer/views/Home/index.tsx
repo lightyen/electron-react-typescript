@@ -1,27 +1,20 @@
 import React from "react"
 import Electron from "electron"
 import { RouteComponentProps, Link } from "react-router-dom"
-import { motion, Variants } from "framer-motion"
+import { motion } from "framer-motion"
 import { useSelector, useAction } from "~/store"
+import { tailwindcssconfig } from "~/tailwind.config"
 
 import "./index.css"
 
-import cfg from "~/tailwind.config.js"
-
-const buttonVariants: Variants = {
-    hover: {
-        backgroundColor: cfg.theme.colors.blue[400],
-        transition: { duration: 0.3 },
-    },
-}
-
 const Home: React.FC<RouteComponentProps> = () => {
-    const { textColor } = useSelector(state => state.theme)
+    const { textColor, name } = useSelector(state => state.theme)
     const { getAppLogo } = useAction().app
     React.useEffect(() => {
         getAppLogo()
     }, [getAppLogo])
     const logo = useSelector(state => state.app.logo)
+    const colors = tailwindcssconfig.theme.colors
     return (
         <div className="Home">
             <header className="Home-header">
@@ -51,7 +44,12 @@ const Home: React.FC<RouteComponentProps> = () => {
                     <motion.div
                         className="btn btn-blue my-2 select-none"
                         whileHover={"hover"}
-                        variants={buttonVariants}
+                        variants={{
+                            hover: {
+                                backgroundColor: name === "light" ? colors.blue[700] : colors.blue[400],
+                                transition: { duration: 0.2 },
+                            },
+                        }}
                     >
                         Version
                     </motion.div>

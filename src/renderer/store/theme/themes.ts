@@ -1,4 +1,4 @@
-import cfg from "~/tailwind.config.js"
+import { tailwindcssconfig } from "~/tailwind.config"
 
 export interface Theme {
     primaryColor: string
@@ -8,7 +8,7 @@ export interface Theme {
     backgroundColor: string
 }
 
-const colors = cfg.theme.colors
+const colors = tailwindcssconfig.theme.colors
 
 export const themes: { [key: string]: Theme } = {
     light: {

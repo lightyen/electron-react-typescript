@@ -1,7 +1,6 @@
 // @ts-check
-const { NamedModulesPlugin, HotModuleReplacementPlugin, NamedChunksPlugin } = require("webpack")
+const { HotModuleReplacementPlugin } = require("webpack")
 const webpackMerge = require("webpack-merge")
-const path = require("path")
 const createBaseConfig = require("./webpack.common")
 const defaultPort = 3000
 process.env.NODE_ENV = "development"
@@ -29,7 +28,7 @@ const config = {
             "react-dom": "@hot-loader/react-dom",
         },
     },
-    plugins: [new NamedModulesPlugin(), new HotModuleReplacementPlugin(), new NamedChunksPlugin()],
+    plugins: [new HotModuleReplacementPlugin()],
     output: {
         publicPath: "http://localhost:3000/",
     },

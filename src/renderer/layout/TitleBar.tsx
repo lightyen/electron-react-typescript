@@ -21,6 +21,7 @@ const HeaderTitleBar = styled.header`
     font-size: 12px;
     background: ${props => props.titleBarColor};
     color: ${(props: HeaderTitleBarProps) => props.textTolor};
+    transition: all 0.2s ease;
 `
 
 interface DragRegionProps {

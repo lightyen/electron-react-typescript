@@ -54,8 +54,10 @@ yarn build
 - [**ESLint**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [**Debug for Firefox**](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug)
 - [**Debug for Chrome**](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
-- [_Prettier_](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [_EditorConfig for VS Code_](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [**Prettier**](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [**stylelint**](https://marketplace.visualstudio.com/items?itemName=thibaudcolas.stylelint)
+- [**EditorConfig for VS Code**](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [**Tailwind CSS IntelliSence**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 ### 快速開始
 

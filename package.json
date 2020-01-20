@@ -118,8 +118,5 @@
     "electron-devtools-installer": "2.2.4",
     "electron-store": "5.1.0",
     "serialize-error": "5.0.0"
-  },
-  "resolutions": {
-    "hoist-non-react-statics": ">=3.3.0"
   }
 }

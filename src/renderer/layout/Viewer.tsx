@@ -12,7 +12,7 @@ import Version from "~/views/Version"
 const Viewer: React.FC = () => {
     const backgroundColor = useSelector(state => state.theme.backgroundColor)
     return (
-        <div style={{ flexGrow: 1, backgroundColor }}>
+        <div style={{ flexGrow: 1, backgroundColor, display: "flex", transition: "all 0.2s ease" }}>
             <HashRouter>
                 <Route render={props => <AppRouter {...props} />} />
             </HashRouter>
@@ -31,15 +31,19 @@ const pageVariants: Variants = {
         x: 0,
         opacity: 1,
     },
+    out: {
+        opacity: 0,
+        transition: { duration: 0.15 },
+    },
 }
 
-const MotionRoute: React.FC<RouteProps> = ({ render, ...props }) => {
+const MotionRoute: React.FC<RouteProps & { first?: boolean }> = ({ render, first, ...props }) => {
     return (
         <Route
             {...props}
             render={props => (
-                <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
-                    {render(props)}
+                <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} className="flex-auto">
+                    <ScrollBar>{render(props)}</ScrollBar>
                 </motion.div>
             )}
         />
@@ -47,12 +51,10 @@ const MotionRoute: React.FC<RouteProps> = ({ render, ...props }) => {
 }
 
 const AppRouter: React.FC<RouteComponentProps> = ({ location }) => (
-    <AnimatePresence initial={false}>
-        <ScrollBar>
-            <Switch location={location} key={location.pathname}>
-                <MotionRoute exact path="/" render={props => <Home {...props} />} />
-                <MotionRoute path="/version" render={props => <Version {...props} />} />
-            </Switch>
-        </ScrollBar>
+    <AnimatePresence initial={false} exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+            <MotionRoute exact path="/" first render={props => <Home {...props} />} />
+            <MotionRoute path="/version" render={props => <Version {...props} />} />
+        </Switch>
     </AnimatePresence>
 )
