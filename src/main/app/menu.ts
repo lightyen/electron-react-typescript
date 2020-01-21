@@ -7,11 +7,11 @@ import { RendererConsole } from "~/app"
  */
 // NOTE: 可以使用 globalShortcut 模組來偵測鍵盤事件，就算你的應用程式視窗沒有 focus 也能作用。
 function setGlobalShortcut() {
-    Electron.globalShortcut.register("CmdOrCtrl+Shift+C", () => {
+    Electron.globalShortcut.register("CmdOrCtrl+G", () => {
         if (process.platform === "darwin") {
-            RendererConsole.log("Press Command+Shift+C")
+            RendererConsole.log("Press Command+G")
         } else {
-            RendererConsole.log("Press Control+Shift+C")
+            RendererConsole.log("Press Control+G")
         }
     })
     Electron.app.on("will-quit", () => {

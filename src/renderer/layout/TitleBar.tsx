@@ -1,9 +1,10 @@
 import React from "react"
 import Electron from "electron"
-
-import { useSelector, useAction } from "~/store"
-
 import styled from "styled-components"
+
+import { useSelector } from "~/store"
+
+import icon from "~assets/images/favicon.ico"
 
 interface HeaderTitleBarProps {
     height: number
@@ -43,14 +44,13 @@ const AppIcon = styled.img`
 `
 
 const Title = styled.div`
+    flex: 1 1 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-left: auto;
-    margin-right: auto;
     font-size: ${(props: HeightProps) => ((props.height - 4) / 26) * 13}px;
     transition: font-size 0.2s ease;
 `
@@ -99,13 +99,7 @@ const TitleBar: React.FC = () => {
 
     const theme = useSelector(state => state.theme)
     const maximized = useSelector(state => state.app.maximized)
-    const icon = useSelector(state => state.app.icon)
     const hide = useSelector(state => state.app.hide)
-
-    const { getAppIcon } = useAction().app
-    React.useEffect(() => {
-        getAppIcon()
-    }, [getAppIcon])
 
     const barHeight = 30
     const iw = barHeight / 3
@@ -115,13 +109,12 @@ const TitleBar: React.FC = () => {
         <HeaderTitleBar height={barHeight} hide={hide} titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
             <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
                 <DragRegion height={barHeight} />
-                {icon && (
-                    <div style={{ flexShrink: 0 }}>
-                        <AppIcon src={`data:image/png;base64,${icon}`} alt="appicon" />
-                    </div>
-                )}
+                <div style={{ height: barHeight, width: barHeight }}>
+                    <AppIcon src={icon} alt="appicon" />
+                </div>
                 <Title height={barHeight}>
-                    <span style={{ paddingLeft: 55 }}>{process.env.APP_NAME}</span>
+                    <div style={{ flex: "0 0 65px", height: "100%" }}></div>
+                    <span>{process.env.APP_NAME}</span>
                 </Title>
             </div>
             <Controls height={barHeight}>

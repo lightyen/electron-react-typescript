@@ -51,8 +51,8 @@ module.exports = function(options) {
             TAILWIND_CONFIG: JSON.stringify(tailwindcfg),
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[contenthash:8].css",
-            chunkFilename: "[name].[contenthash:8].chunk.css",
+            filename: "css/[name].[contenthash:8].css",
+            chunkFilename: "css/[name].[contenthash:8].chunk.css",
         }),
     ]
 
@@ -94,6 +94,11 @@ module.exports = function(options) {
      */
     const styleLoader = {
         loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+        options: {
+            ...(!isDevelopment && {
+                publicPath: "../../../",
+            }),
+        },
     }
 
     /**
@@ -104,6 +109,10 @@ module.exports = function(options) {
         loader: "file-loader",
         options: {
             name: "[name].[ext]?[hash:8]",
+            ...(!isDevelopment && {
+                publicPath: "../../assets/images",
+            }),
+            outputPath: "assets/images",
         },
     }
 
@@ -114,6 +123,7 @@ module.exports = function(options) {
         loader: "file-loader",
         options: {
             name: "[name].[ext]?[hash:8]",
+            outputPath: "assets/fonts",
         },
     }
 
@@ -163,8 +173,8 @@ module.exports = function(options) {
         entry,
         output: {
             path: dist,
-            filename: "[name].[hash:8].js",
-            chunkFilename: "[name].[hash:8].chunk.js",
+            filename: "js/[name].[hash:8].js",
+            chunkFilename: "js/[name].[hash:8].chunk.js",
             publicPath: "./",
         },
         target: "electron-renderer",
@@ -193,7 +203,7 @@ module.exports = function(options) {
                     use: jsxLoader,
                 },
                 {
-                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    test: /\.(png|jpe?g|gif|svg|ico)$/i,
                     use: imageLoader,
                 },
                 {
@@ -283,6 +293,7 @@ module.exports = function(options) {
             //     }),
             // ],
             alias: {
+                assets: path.join(assets),
                 ...convertPathsToAliases(tsconfigPath),
             },
         },

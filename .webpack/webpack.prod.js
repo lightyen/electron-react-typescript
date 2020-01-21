@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const TerserPlugin = require("terser-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const path = require("path")
+const fs = require("fs")
+const { promisify } = require("util")
 const createBaseConfig = require("./webpack.common")
 
 process.env.NODE_ENV = "production"
@@ -19,6 +21,7 @@ const plugins = [
         cleanOnceBeforeBuildPatterns: vendorPath
             ? ["**/*", "!vendor", "!vendor/vendor.js", "!vendor/manifest.json", "!main.js"]
             : ["**/*", "!main.js"],
+        cleanAfterEveryBuildPatterns: ["assets"],
     }),
 ]
 

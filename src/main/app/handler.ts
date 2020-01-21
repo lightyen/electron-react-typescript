@@ -2,36 +2,14 @@ import Electron from "electron"
 import { execSync } from "child_process"
 import fs from "fs"
 import os from "os"
-import path from "path"
 import { promisify } from "util"
 import { serializeError } from "serialize-error"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
-import { appName, appPath } from "~/app"
+import { appName } from "~/app"
 
 export const getAppName: IpcHandler = () => {
     return { data: appName }
-}
-
-export const getAppIcon: IpcPromiseHandler = async e => {
-    const readFile = promisify(fs.readFile)
-
-    try {
-        const buffer = await readFile(path.join(appPath, "assets", "appicons", "64x64.png"))
-        return { data: buffer.toString("base64") }
-    } catch (err) {
-        return { error: serializeError(err) }
-    }
-}
-
-export const getAppLogo: IpcPromiseHandler = async e => {
-    const readFile = promisify(fs.readFile)
-    try {
-        const buffer = await readFile(path.join(appPath, "assets", "images", "logo.svg"))
-        return { data: buffer.toString("base64") }
-    } catch (err) {
-        return { error: serializeError(err) }
-    }
 }
 
 interface LSBRelease {

@@ -9,18 +9,6 @@ export enum GET_APP_VERSION {
     FAILURE = "GET_APP_VERSION_FAILURE",
 }
 
-export enum GET_APP_ICON {
-    REQUEST = "GET_APP_ICON_REQUEST",
-    SUCCESS = "GET_APP_ICON_SUCCESS",
-    FAILURE = "GET_APP_ICON_FAILURE",
-}
-
-export enum GET_APP_LOGO {
-    REQUEST = "GET_APP_LOGO_REQUEST",
-    SUCCESS = "GET_APP_LOGO_SUCCESS",
-    FAILURE = "GET_APP_LOGO_FAILURE",
-}
-
 export enum GET_APP_CPU_USAGE {
     REQUEST = "GET_APP_CPU_USAGE_REQUEST",
     SUCCESS = "GET_APP_CPU_USAGE_SUCCESS",
@@ -48,16 +36,6 @@ export interface GetAppVersionAction {
     version?: Version
 }
 
-export interface GetAppIconAction {
-    type: GET_APP_ICON
-    icon?: string
-}
-
-export interface GetAppLogoAction {
-    type: GET_APP_LOGO
-    src?: string
-}
-
 export interface GetAppCpuUsageAction {
     type: GET_APP_CPU_USAGE
     usage?: CPUInfo
@@ -66,14 +44,6 @@ export interface GetAppCpuUsageAction {
 export interface GetAppSystemMemoryAction {
     type: GET_APP_SYSTEM_MEMORY
     usage?: SystemMemoryInfo
-}
-
-export const getAppIcon = (): GetAppIconAction => {
-    return { type: GET_APP_ICON.REQUEST }
-}
-
-export const getAppLogo = (): GetAppLogoAction => {
-    return { type: GET_APP_LOGO.REQUEST }
 }
 
 export const getVersion = (): GetAppVersionAction => {
@@ -89,8 +59,6 @@ export const getSystemMemoryInfo = (): GetAppSystemMemoryAction => {
 }
 
 const actionCreators = {
-    getAppIcon,
-    getAppLogo,
     getVersion,
     getCpuUsage,
     getSystemMemoryInfo,
@@ -102,7 +70,5 @@ export type Action =
     | GetAppTitleBarHideAction
     | GetAppMaximizedAction
     | GetAppVersionAction
-    | GetAppIconAction
-    | GetAppLogoAction
     | GetAppCpuUsageAction
     | GetAppSystemMemoryAction

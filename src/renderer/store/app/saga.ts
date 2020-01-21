@@ -4,14 +4,10 @@ import { put, take, fork, all, call, takeEvery, select } from "redux-saga/effect
 import {
     GET_APP_MAXIMIZED,
     GET_APP_VERSION,
-    GET_APP_ICON,
-    GET_APP_LOGO,
     GET_TITLEBAR_HIDE,
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
     GetAppMaximizedAction,
-    GetAppIconAction,
-    GetAppLogoAction,
     GetAppVersionAction,
     GetAppTitleBarHideAction,
     GetAppCpuUsageAction,
@@ -53,20 +49,6 @@ function* subscribeWindowMaxmized() {
         const maximized: boolean = yield take(chan)
         yield put<GetAppMaximizedAction>({ type: GET_APP_MAXIMIZED, maximized })
     }
-}
-
-function* getAppIcon() {
-    try {
-        const icon = yield call(request, "app.icon")
-        yield put<GetAppIconAction>({ type: GET_APP_ICON.SUCCESS, icon })
-    } catch (e) {}
-}
-
-function* getAppLogo() {
-    try {
-        const src = yield call(request, "app.logo")
-        yield put<GetAppLogoAction>({ type: GET_APP_LOGO.SUCCESS, src })
-    } catch (e) {}
 }
 
 function* sysemConsoleLog() {
@@ -111,8 +93,6 @@ export default function* sagas() {
     yield takeEvery(GET_APP_VERSION.REQUEST, getAppVersion)
     yield takeEvery(GET_APP_CPU_USAGE.REQUEST, getCPUUsage)
     yield takeEvery(GET_APP_SYSTEM_MEMORY.REQUEST, getSystemMemory)
-    yield takeEvery(GET_APP_ICON.REQUEST, getAppIcon)
-    yield takeEvery(GET_APP_LOGO.REQUEST, getAppLogo)
     yield fork(subscribeWindowFullScreen)
     yield fork(subscribeWindowMaxmized)
     yield fork(sysemConsoleLog)

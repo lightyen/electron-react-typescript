@@ -5,9 +5,10 @@
 
 productName = "electron-react-typescript"
 appId = "com.electron.electron-react-typescript"
-asar = true
+asar = false
 compression = "normal"
-files = ["dist/**/*", "assets/**/*"]
+files = ["dist/**/*"]
+extraResources = ["assets/**/*"]
 
 [directories]
 buildResources = "assets/"

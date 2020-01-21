@@ -6,8 +6,6 @@ import {
     GET_TITLEBAR_HIDE,
     GET_APP_MAXIMIZED,
     GET_APP_VERSION,
-    GET_APP_ICON,
-    GET_APP_LOGO,
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
 } from "./action"
@@ -16,8 +14,6 @@ interface AppStoreType {
     maximized: boolean
     hide: boolean
     version: Version
-    icon: string
-    logo: string
     cpuusage: number
     memory: SystemMemoryInfo
 }
@@ -33,8 +29,6 @@ const init: AppStore = {
         node: "",
         os: { name: "", version: "" },
     },
-    icon: "",
-    logo: "",
     cpuusage: 0,
     memory: {
         free: 0,
@@ -50,10 +44,6 @@ export const appReducer: Reducer<AppStore, Action> = (state = init, action): App
             return { ...state, maximized: action.maximized }
         case GET_APP_VERSION.SUCCESS:
             return { ...state, version: action.version }
-        case GET_APP_ICON.SUCCESS:
-            return { ...state, icon: action.icon }
-        case GET_APP_LOGO.SUCCESS:
-            return { ...state, logo: action.src }
         case GET_APP_CPU_USAGE.SUCCESS:
             const { load } = action.usage
             const usage = load.user + load.sys + load.nice + load.irq
