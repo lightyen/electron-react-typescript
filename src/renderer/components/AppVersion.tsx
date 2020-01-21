@@ -24,10 +24,6 @@ const TBody = styled.tbody`
     background: #e7e7e7;
 `
 
-const Image = styled.img`
-    user-select: none;
-`
-
 interface Versions {
     electron: string
     node: string

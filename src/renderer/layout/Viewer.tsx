@@ -1,5 +1,5 @@
 import React from "react"
-import { HashRouter, Switch, Route, RouteProps, RouteComponentProps } from "react-router-dom"
+import { HashRouter, Switch, Route, RouteComponentProps, RouteProps } from "react-router-dom"
 import { useSelector } from "~/store"
 import { AnimatePresence } from "framer-motion"
 
@@ -8,19 +8,6 @@ import { motion, Variants } from "framer-motion"
 
 import Home from "~/views/Home"
 import Version from "~/views/Version"
-
-const Viewer: React.FC = () => {
-    const backgroundColor = useSelector(state => state.theme.backgroundColor)
-    return (
-        <div style={{ flexGrow: 1, backgroundColor, display: "flex", transition: "all 0.2s ease" }}>
-            <HashRouter>
-                <Route render={props => <AppRouter {...props} />} />
-            </HashRouter>
-        </div>
-    )
-}
-
-export default Viewer
 
 const pageVariants: Variants = {
     initial: {
@@ -42,7 +29,13 @@ const MotionRoute: React.FC<RouteProps & { first?: boolean }> = ({ render, first
         <Route
             {...props}
             render={props => (
-                <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} className="flex-auto">
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    style={{ flex: "1 1 auto" }}
+                >
                     <ScrollBar>{render(props)}</ScrollBar>
                 </motion.div>
             )}
@@ -58,3 +51,16 @@ const AppRouter: React.FC<RouteComponentProps> = ({ location }) => (
         </Switch>
     </AnimatePresence>
 )
+
+const Viewer: React.FC = () => {
+    const backgroundColor = useSelector(state => state.theme.backgroundColor)
+    return (
+        <div style={{ flexGrow: 1, backgroundColor, display: "flex", transition: "all 0.2s ease" }}>
+            <HashRouter>
+                <Route render={props => <AppRouter {...props} />} />
+            </HashRouter>
+        </div>
+    )
+}
+
+export default Viewer

@@ -1,0 +1,11 @@
+@import "variables";
+
+// We cannot use url with alias, because of some webpack loader restriction
+@font-face {
+    font-family: Fira Code;
+    src: local("Fira Code"), url(../../../assets/fonts/FiraCode-Regular.woff2);
+}
+
+body {
+    overflow: hidden;
+}

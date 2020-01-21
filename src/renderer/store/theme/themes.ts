@@ -12,18 +12,18 @@ const colors = tailwindcssconfig.theme.colors
 
 export const themes: { [key: string]: Theme } = {
     light: {
-        primaryColor: "#f5f6f7",
-        primaryHoverColor: "#d3dadf",
-        dangerColor: "#e96767",
-        textColor: "#3b3b3b",
-        backgroundColor: "#fafafa",
+        primaryColor: colors.gray[100],
+        primaryHoverColor: colors.gray[300],
+        dangerColor: colors.red[400],
+        backgroundColor: colors.gray[100],
+        textColor: colors.gray[800],
     },
     dark: {
-        primaryColor: "#1f1f20",
-        primaryHoverColor: "#333536",
-        dangerColor: "#b13030",
-        textColor: "#e2e2e2",
-        backgroundColor: colors.stategray[900],
+        primaryColor: colors.gray[900],
+        primaryHoverColor: colors.gray[800],
+        dangerColor: colors.red[700],
+        backgroundColor: colors.gray[900],
+        textColor: colors.gray[200],
     },
 }
 

@@ -61,7 +61,7 @@ const BarContent: React.FC = () => {
         n /= 1024
         return `${n.toFixed(1)} GB`
     }
-
+    console.log({ ...memory })
     return (
         <div style={{ display: "flex" }}>
             <div style={{ width: "50%" }}>{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>

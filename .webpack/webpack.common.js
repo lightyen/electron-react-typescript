@@ -209,7 +209,7 @@ module.exports = function(options) {
                         {
                             loader: "css-loader",
                             options: {
-                                url: false,
+                                url: true,
                                 sourceMap: true,
                             },
                         },
@@ -224,6 +224,7 @@ module.exports = function(options) {
                         {
                             loader: "css-loader",
                             options: {
+                                url: true,
                                 modules: true,
                                 camelCase: "only",
                                 localIdentName: "[local]-[hash:base64:6]",
@@ -242,7 +243,7 @@ module.exports = function(options) {
                         {
                             loader: "css-loader",
                             options: {
-                                url: false,
+                                url: true,
                                 sourceMap: true,
                             },
                         },
@@ -282,7 +283,6 @@ module.exports = function(options) {
             //     }),
             // ],
             alias: {
-                assets: path.join(assets),
                 ...convertPathsToAliases(tsconfigPath),
             },
         },
