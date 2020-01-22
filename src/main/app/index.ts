@@ -43,27 +43,26 @@ Electron.app.on("window-all-closed", () => {
     }
 })
 
-export class RendererConsole {
-    /** 輸出偵錯訊息到 renderer console (It won't show in development mode.) */
+export class Console {
+    /** 輸出偵錯訊息到 console */
     public static log(message?: unknown, ...optionalParams: unknown[]) {
-        if (isDevMode()) {
-            mainWindow.webContents.send("console.log", { message, optionalParams })
-        }
+        console.log(message, ...optionalParams)
+        mainWindow.webContents.send("console.log", { message, optionalParams })
     }
 
-    /** 輸出警告訊息到 renderer console (It won't show in development mode.) */
+    /** 輸出警告訊息到 console */
     public static warn(message?: unknown, ...optionalParams: unknown[]) {
-        if (isDevMode()) {
-            mainWindow.webContents.send("console.warn", { message, optionalParams })
-        }
+        console.warn(message, ...optionalParams)
+        mainWindow.webContents.send("console.warn", { message, optionalParams })
     }
 
-    /** 輸出錯誤訊息到 renderer console */
+    /** 輸出錯誤訊息到 console */
     public static error(message?: unknown, ...optionalParams: unknown[]) {
+        console.error(message, ...optionalParams)
         mainWindow.webContents.send("console.error", { message, optionalParams })
     }
 
-    /** 清除 renderer console (It only works in development mode.) */
+    /** 清除 console */
     public static clear() {
         mainWindow.webContents.send("console.clear")
     }

@@ -1,6 +1,6 @@
 import Electron from "electron"
 import ipc from "~/ipc"
-import { RendererConsole } from "~/app"
+import { Console } from "~/app"
 
 /**
  * https://electronjs.org/docs/api/accelerator
@@ -9,9 +9,9 @@ import { RendererConsole } from "~/app"
 function setGlobalShortcut() {
     Electron.globalShortcut.register("CmdOrCtrl+G", () => {
         if (process.platform === "darwin") {
-            RendererConsole.log("Press Command+G")
+            Console.log("Press Command+G")
         } else {
-            RendererConsole.log("Press Control+G")
+            Console.log("Press Control+G")
         }
     })
     Electron.app.on("will-quit", () => {

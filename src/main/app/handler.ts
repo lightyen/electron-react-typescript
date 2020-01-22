@@ -1,66 +1,32 @@
 import Electron from "electron"
-import { execSync } from "child_process"
 import fs from "fs"
 import os from "os"
 import { promisify } from "util"
 import { serializeError } from "serialize-error"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
-import { appName } from "~/app"
+import { appName, appPath, Console } from "~/app"
 
 export const getAppName: IpcHandler = () => {
     return { data: appName }
 }
 
-interface LSBRelease {
-    /** LSB Version */
-    version: string
-    /** Distributor ID */
-    id: string
-    description: string
-    /** Release Version */
-    release: string
-    codename: string
-}
-
 function getOS(): { name: string; version: string } {
-    switch (process.platform) {
-        case "linux":
-            const lsbRelease = execSync("lsb_release -a").toString()
-            const lines = lsbRelease.split(/\r\n|\r|\n/, 5)
-            const info: LSBRelease = {
-                version: "",
-                id: "",
-                description: "",
-                release: "",
-                codename: "",
-            }
-            for (const line of lines) {
-                const words = line.split(":").map(w => w.trim())
-                if (words.length !== 2) {
-                    continue
-                }
-                if (/version/i.test(words[0])) {
-                    info.version = words[1]
-                } else if (/id/i.test(words[0])) {
-                    info.id = words[1]
-                } else if (/description/i.test(words[0])) {
-                    info.description = words[1]
-                } else if (/release/i.test(words[0])) {
-                    info.release = words[1]
-                } else if (/codename/i.test(words[0])) {
-                    info.codename = words[1]
-                }
-            }
-            return { name: "Linux", version: info.release }
-        case "win32":
-            return { name: "Windows", version: os.release() }
-        case "darwin":
-            // https://en.wikipedia.org/wiki/Darwin_%28operating_system%29#Release_history
-            return { name: "darwin", version: os.release() }
-        default:
-            return { name: "", version: "" }
-    }
+    Console.log("home", Electron.app.getPath("home"))
+    Console.log("appData", Electron.app.getPath("appData"))
+    Console.log("temp", Electron.app.getPath("temp"))
+    Console.log("cache", Electron.app.getPath("cache"))
+    Console.log("desktop", Electron.app.getPath("desktop"))
+    Console.log("documents", Electron.app.getPath("documents"))
+    Console.log("music", Electron.app.getPath("music"))
+    Console.log("pictures", Electron.app.getPath("pictures"))
+    Console.log("downloads", Electron.app.getPath("downloads"))
+    // have difference on production
+    Console.log("appPath", appPath)
+    Console.log("userData", Electron.app.getPath("userData"))
+    Console.log("logs", Electron.app.getPath("logs"))
+    Console.log("exe", Electron.app.getPath("exe"))
+    return { name: os.platform(), version: os.release() }
 }
 
 export const getVersions: IpcHandler = () => {
