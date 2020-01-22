@@ -10,6 +10,10 @@ compression = "normal"
 files = ["dist/**/*"]
 extraResources = ["assets/**/*"]
 
+# [publish]
+# provider = "github"
+# token = "xxx"
+
 [directories]
 buildResources = "assets/"
 output = "build/"
