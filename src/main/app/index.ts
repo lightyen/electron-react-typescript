@@ -1,9 +1,11 @@
 import Electron from "electron"
 import { MainWindow } from "./window"
+import { autoUpdater } from "electron-updater"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
 
 // auto updater
 // https://medium.com/@johndyer24/creating-and-deploying-an-auto-updating-electron-app-for-mac-and-windows-using-electron-builder-6a3982c0cee6
+// https://www.electron.build/auto-update
 
 export function isDevMode() {
     return !Electron.app.isPackaged
@@ -32,6 +34,7 @@ Electron.app.on("ready", () => {
     //         .catch(err => console.error("An error occurred: ", err))
     // }
     initWindow()
+    autoUpdater.checkForUpdatesAndNotify()
 })
 
 Electron.app.on("activate", () => {
@@ -70,3 +73,10 @@ export class Console {
         mainWindow.webContents.send("console.clear")
     }
 }
+
+autoUpdater.on("update-available", info => {
+    Console.log(info)
+})
+autoUpdater.on("update-downloaded", info => {
+    autoUpdater.quitAndInstall()
+})
