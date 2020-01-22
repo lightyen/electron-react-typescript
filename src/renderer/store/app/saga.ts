@@ -1,5 +1,5 @@
 import { request, subscibeChannel, consoleChannel } from "~/ipc"
-import { put, take, fork, all, call, takeEvery, select } from "redux-saga/effects"
+import { put, take, fork, all, call, takeEvery, takeLeading } from "redux-saga/effects"
 
 import {
     GET_APP_MAXIMIZED,
@@ -12,7 +12,11 @@ import {
     GetAppTitleBarHideAction,
     GetAppCpuUsageAction,
     GetAppSystemMemoryAction,
+    AUTO_UPDATE_DOWNLOADED,
+    AUTO_UPDATE_RESTART,
+    AutoUpdateDownloadedAction,
 } from "./action"
+import { UpdateInfo } from "./model"
 
 function* getAppVersion() {
     try {
@@ -49,6 +53,18 @@ function* subscribeWindowMaxmized() {
         const maximized: boolean = yield take(chan)
         yield put<GetAppMaximizedAction>({ type: GET_APP_MAXIMIZED, maximized })
     }
+}
+
+function* subscribeUpdateDownloaded() {
+    const chan = yield subscibeChannel("update-downloaded")
+    const info: UpdateInfo = yield take(chan)
+    yield put<AutoUpdateDownloadedAction>({ type: AUTO_UPDATE_DOWNLOADED, info })
+}
+
+function* updateRestart() {
+    try {
+        yield call(request, "update-restart")
+    } catch (e) {}
 }
 
 function* sysemConsoleLog() {
@@ -93,6 +109,8 @@ export default function* sagas() {
     yield takeEvery(GET_APP_VERSION.REQUEST, getAppVersion)
     yield takeEvery(GET_APP_CPU_USAGE.REQUEST, getCPUUsage)
     yield takeEvery(GET_APP_SYSTEM_MEMORY.REQUEST, getSystemMemory)
+    yield takeLeading(AUTO_UPDATE_RESTART, updateRestart)
+    yield fork(subscribeUpdateDownloaded)
     yield fork(subscribeWindowFullScreen)
     yield fork(subscribeWindowMaxmized)
     yield fork(sysemConsoleLog)

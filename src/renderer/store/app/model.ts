@@ -1,4 +1,5 @@
 export interface Version {
+    app: string
     electron: string
     node: string
     chrome: string
@@ -24,5 +25,18 @@ export interface CPUInfo {
 
 export interface SystemMemoryInfo {
     free: number
+    total: number
+}
+
+export interface UpdateInfo {
+    version: string
+    sha512: string
+    releaseDate: string
+}
+
+export interface UpdateDownloadProgress {
+    bytesPerSecond: number
+    percent: number
+    transferred: number
     total: number
 }

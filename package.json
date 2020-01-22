@@ -6,6 +6,10 @@
   "author": {
     "name": "lightyen"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightyen/electron-react-typescript.git"
+  },
   "license": "MIT",
   "keywords": [
     "electron",
@@ -22,7 +26,8 @@
     "doit": "yarn && yarn upgrade-interactive --latest",
     "start": "yarn && yarn run webpack-electron-dev && electron .",
     "test": "yarn && yarn run webpack-electron-prod && yarn run webpack-production",
-    "build": "yarn && yarn run webpack-electron-prod && yarn run webpack-production && electron-builder",
+    "build": "yarn && yarn run webpack-electron-prod && yarn run webpack-production && electron-builder --publish never",
+    "release": "yarn && yarn run webpack-electron-prod && yarn run webpack-production && electron-builder build --win --publish always",
     "win-create-self-signed-cert": "electron-builder create-self-signed-cert"
   },
   "devDependencies": {
@@ -116,6 +121,7 @@
   },
   "dependencies": {
     "electron-devtools-installer": "2.2.4",
+    "electron-log": "4.0.3",
     "electron-store": "5.1.0",
     "electron-updater": "4.2.0",
     "serialize-error": "5.0.0"

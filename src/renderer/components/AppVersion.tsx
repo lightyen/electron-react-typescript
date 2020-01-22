@@ -48,6 +48,10 @@ const AppVersion: React.FC = () => {
                 </THead>
                 <TBody>
                     <tr>
+                        <td>Version</td>
+                        <td>{version.app}</td>
+                    </tr>
+                    <tr>
                         <td>Electron</td>
                         <td>{version.electron}</td>
                     </tr>

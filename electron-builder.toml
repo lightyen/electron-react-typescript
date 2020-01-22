@@ -10,9 +10,10 @@ compression = "normal"
 files = ["dist/**/*"]
 extraResources = ["assets/**/*"]
 
-# [publish]
-# provider = "github"
-# token = "xxx"
+[publish]
+provider = "github"
+releaseType = "release"
+# token = "${env.GH_TOKEN}"
 
 [directories]
 buildResources = "assets/"

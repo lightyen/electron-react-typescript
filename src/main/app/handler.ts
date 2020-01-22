@@ -5,32 +5,34 @@ import { promisify } from "util"
 import { serializeError } from "serialize-error"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
-import { appName, appPath, Console } from "~/app"
+import { appName, appPath, Console, isDevMode } from "~/app"
 
 export const getAppName: IpcHandler = () => {
     return { data: appName }
 }
 
 function getOS(): { name: string; version: string } {
-    Console.log("home", Electron.app.getPath("home"))
-    Console.log("appData", Electron.app.getPath("appData"))
-    Console.log("temp", Electron.app.getPath("temp"))
-    Console.log("cache", Electron.app.getPath("cache"))
-    Console.log("desktop", Electron.app.getPath("desktop"))
-    Console.log("documents", Electron.app.getPath("documents"))
-    Console.log("music", Electron.app.getPath("music"))
-    Console.log("pictures", Electron.app.getPath("pictures"))
-    Console.log("downloads", Electron.app.getPath("downloads"))
+    // Console.log("home", Electron.app.getPath("home"))
+    // Console.log("appData", Electron.app.getPath("appData"))
+    // Console.log("temp", Electron.app.getPath("temp"))
+    // Console.log("cache", Electron.app.getPath("cache"))
+    // Console.log("desktop", Electron.app.getPath("desktop"))
+    // Console.log("documents", Electron.app.getPath("documents"))
+    // Console.log("music", Electron.app.getPath("music"))
+    // Console.log("pictures", Electron.app.getPath("pictures"))
+    // Console.log("downloads", Electron.app.getPath("downloads"))
+
     // have difference on production
-    Console.log("appPath", appPath)
-    Console.log("userData", Electron.app.getPath("userData"))
-    Console.log("logs", Electron.app.getPath("logs"))
-    Console.log("exe", Electron.app.getPath("exe"))
+    // Console.log("appPath", appPath)
+    // Console.log("userData", Electron.app.getPath("userData"))
+    // Console.log("logs", Electron.app.getPath("logs"))
+    // Console.log("exe", Electron.app.getPath("exe"))
     return { name: os.platform(), version: os.release() }
 }
 
 export const getVersions: IpcHandler = () => {
-    return { data: { ...process.versions, os: getOS() } }
+    const app = isDevMode() ? "unknown" : Electron.app.getVersion()
+    return { data: { ...process.versions, app, os: getOS() } }
 }
 
 interface SysMemInfo {
