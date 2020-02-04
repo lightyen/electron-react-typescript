@@ -1,6 +1,6 @@
 import React from "react"
 import Electron from "electron"
-import { RouteComponentProps, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useSelector } from "~/store"
 import { tailwindcssconfig } from "~/tailwind.config"
@@ -9,7 +9,7 @@ import "./index.css"
 
 import logo from "~assets/images/logo.svg"
 
-const Home: React.FC<RouteComponentProps> = () => {
+const Home: React.FC = () => {
     const { textColor, name } = useSelector(state => state.theme)
     const colors = tailwindcssconfig.theme.colors
     return (

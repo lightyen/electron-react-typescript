@@ -1,5 +1,5 @@
 import React from "react"
-import { RouteComponentProps, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import AppVersion from "~/components/AppVersion"
 import SwitchThemes from "~/components/SwitchThemes"
 import { motion, Variants } from "framer-motion"
@@ -20,7 +20,7 @@ const pageVariants: Variants = {
     },
 }
 
-const Main: React.FC<RouteComponentProps> = ({}) => {
+const Main: React.FC = ({}) => {
     const [text, setText] = React.useState("")
     return (
         <div className="mx-3 my-2">

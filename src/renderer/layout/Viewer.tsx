@@ -1,5 +1,5 @@
 import React from "react"
-import { HashRouter, Switch, Route, RouteComponentProps, RouteProps } from "react-router-dom"
+import { HashRouter, Switch, Route, Redirect, useLocation, RouteProps, RedirectProps } from "react-router-dom"
 import { useSelector } from "~/store"
 import { AnimatePresence } from "framer-motion"
 
@@ -24,40 +24,46 @@ const pageVariants: Variants = {
     },
 }
 
-const MotionRoute: React.FC<RouteProps & { first?: boolean }> = ({ render, first, ...props }) => {
+const MotionRoute: React.FC<RouteProps> = ({ children, ...props }) => {
     return (
-        <Route
-            {...props}
-            render={props => (
-                <motion.div
-                    initial="initial"
-                    animate="in"
-                    exit="out"
-                    variants={pageVariants}
-                    style={{ flex: "1 1 auto" }}
-                >
-                    <ScrollBar>{render(props)}</ScrollBar>
-                </motion.div>
-            )}
-        />
+        <Route {...props}>
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} style={{ flex: "1 1 auto" }}>
+                <ScrollBar>{children}</ScrollBar>
+            </motion.div>
+        </Route>
     )
 }
 
-const AppRouter: React.FC<RouteComponentProps> = ({ location }) => (
-    <AnimatePresence initial={false} exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-            <MotionRoute exact path="/" first render={props => <Home {...props} />} />
-            <MotionRoute path="/version" render={props => <Version {...props} />} />
-        </Switch>
-    </AnimatePresence>
+const MotionRedirect: React.FC<RedirectProps> = ({ children, ...props }) => (
+    <motion.div exit="undefined">
+        <Redirect {...props} />
+    </motion.div>
 )
+
+const AppRouter: React.FC = () => {
+    const location = useLocation()
+    return (
+        <AnimatePresence exitBeforeEnter initial={false}>
+            <Switch location={location} key={location.pathname}>
+                <MotionRoute path="/" exact>
+                    <Home />
+                </MotionRoute>
+                <MotionRoute path="/version">
+                    <Version />
+                </MotionRoute>
+            </Switch>
+        </AnimatePresence>
+    )
+}
 
 const Viewer: React.FC = () => {
     const backgroundColor = useSelector(state => state.theme.backgroundColor)
     return (
         <div style={{ flexGrow: 1, backgroundColor, display: "flex", transition: "all 0.2s ease" }}>
             <HashRouter>
-                <Route render={props => <AppRouter {...props} />} />
+                <Route>
+                    <AppRouter />
+                </Route>
             </HashRouter>
         </div>
     )
