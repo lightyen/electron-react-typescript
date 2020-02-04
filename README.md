@@ -49,16 +49,6 @@ yarn build
 
 ## 使用 Visual Studio Code 開發
 
-安裝相關 Visual Studio Code 擴充元件
-
-- [**ESLint**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [**Debug for Firefox**](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug)
-- [**Debug for Chrome**](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
-- [**Prettier**](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [**stylelint**](https://marketplace.visualstudio.com/items?itemName=thibaudcolas.stylelint)
-- [**EditorConfig for VS Code**](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-- [**Tailwind CSS IntelliSence**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
 ### 快速開始
 
 1. 在 VSCode 的偵錯頁面（Ctrl+Shift+D），選擇「Debug」，最後按下「F5」啟動偵錯

@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "bungcip.better-toml",
+    "firefox-devtools.vscode-firefox-debug",
+    "msjsdiag.debugger-for-chrome",
+    "dbaeumer.vscode-eslint",
+    "jbockle.jbockle-format-files",
+    "christian-kohler.npm-intellisense",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "thibaudcolas.stylelint",
+    "bradlc.vscode-tailwindcss",
+    "jpoissonnier.vscode-styled-components"
+  ]
+}
