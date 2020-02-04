@@ -30,7 +30,7 @@ const config = {
     },
     plugins: [new HotModuleReplacementPlugin()],
     output: {
-        publicPath: "http://localhost:3000/",
+        publicPath: `http://localhost:${defaultPort}/`,
     },
     devServer: {
         hot: true,
