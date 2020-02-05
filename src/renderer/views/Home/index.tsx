@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useSelector } from "~/store"
 import { tailwindcssconfig } from "~/tailwind.config"
+import { FormattedMessage } from "react-intl"
 
 import "./index.css"
 
@@ -25,6 +26,7 @@ const Home: React.FC = () => {
                 <p style={{ color: textColor }}>
                     Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
                 </p>
+                <FormattedMessage id="test" values={{ name: "lightyen" }} />
                 <a
                     className="Home-link"
                     href="https://reactjs.org"

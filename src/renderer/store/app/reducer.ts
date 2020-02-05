@@ -42,7 +42,7 @@ const init: AppStore = {
     update_version: "",
 }
 
-export const appReducer: Reducer<AppStore, Action> = (state = init, action): AppStore => {
+export const app: Reducer<AppStore, Action> = (state = init, action): AppStore => {
     switch (action.type) {
         case GET_TITLEBAR_HIDE:
             return { ...state, hide: action.hide }

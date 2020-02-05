@@ -8,7 +8,7 @@
     "christian-kohler.npm-intellisense",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "thibaudcolas.stylelint",
+    "stylelint.vscode-stylelint",
     "bradlc.vscode-tailwindcss",
     "jpoissonnier.vscode-styled-components"
   ]

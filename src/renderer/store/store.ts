@@ -1,21 +1,23 @@
 import { createStore, applyMiddleware, combineReducers, Middleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
-import { History } from "history"
 import createSagaMiddleware from "redux-saga"
 
 import rootSaga from "./saga"
 
-import { AppStore, appReducer } from "./app/reducer"
-import { ThemeStore, themeReducer } from "./theme/reducer"
+import { AppStore, app } from "./app/reducer"
+import { ThemeStore, theme } from "./theme/reducer"
+import { LocaleStore, locale } from "./locale/reducer"
 
 export interface RootStore {
     app: AppStore
     theme: ThemeStore
+    locale: LocaleStore
 }
 
 export const rootReducer = combineReducers({
-    app: appReducer,
-    theme: themeReducer,
+    app,
+    theme,
+    locale,
 })
 
 export function configureStore() {

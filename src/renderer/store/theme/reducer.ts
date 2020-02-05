@@ -21,7 +21,7 @@ const init: ThemeStore = {
     ...getTheme(),
 }
 
-export const themeReducer: Reducer<ThemeStore, Action> = (state = init, action): ThemeStore => {
+export const theme: Reducer<ThemeStore, Action> = (state = init, action): ThemeStore => {
     switch (action.type) {
         case CHANGE_THEME:
             localStorage.setItem("theme", action.name)
