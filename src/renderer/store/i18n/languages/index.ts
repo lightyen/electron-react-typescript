@@ -16,23 +16,54 @@ export interface Module<T> {
     default?: T
 }
 
-const enUS = () => import("./en-us")
-const zhTW = () => import("./zh-tw")
+// NOTE: https://github.com/libyal/libfwnt/wiki/Language-Code-identifiers
 
-/** 取得在地化語言字典 */
-export function getLocaleByName(name: string): Promise<Module<Messages>> {
-    const [language, region] = name.toLocaleLowerCase().split(/-/)
-    switch (language) {
+// const enUS = () => import("./en-us")
+// const zhTW = () => import("./zh-tw")
+/** async get locale messages */
+// export function getLocaleMessages(name: string): Promise<Module<Messages>> {
+//     const [language, region] = name.toLocaleLowerCase().split(/-/)
+//     switch (language) {
+//         case "en":
+//             return enUS()
+//         case "zh":
+//             switch (region) {
+//                 case "tw":
+//                     return zhTW()
+//                 default:
+//                     return zhTW()
+//             }
+//         default:
+//             return enUS()
+//     }
+// }
+
+export function getLanguage(): Locales {
+    const result = localStorage.getItem("language")
+    if (result) {
+        return result as Locales
+    }
+    return "zh-TW"
+}
+
+export function setLanguage(name: Locales) {
+    localStorage.setItem("language", name)
+}
+
+import enUS from "./en-us"
+import zhTW from "./zh-tw"
+
+export function getLocaleMessages(name: Locales = "zh-TW") {
+    const [primary, region] = name.toLocaleLowerCase().split(/-/)
+    switch (primary) {
         case "en":
-            return enUS()
+            return enUS
         case "zh":
             switch (region) {
-                case "tw":
-                    return zhTW()
                 default:
-                    return zhTW()
+                    return zhTW
             }
         default:
-            return enUS()
+            return enUS
     }
 }
