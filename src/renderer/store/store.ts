@@ -6,18 +6,18 @@ import rootSaga from "./saga"
 
 import { AppStore, app } from "./app/reducer"
 import { ThemeStore, theme } from "./theme/reducer"
-import { LocaleStore, locale } from "./locale/reducer"
+import { I18nStore, i18n } from "./i18n/reducer"
 
 export interface RootStore {
     app: AppStore
     theme: ThemeStore
-    locale: LocaleStore
+    i18n: I18nStore
 }
 
 export const rootReducer = combineReducers({
     app,
     theme,
-    locale,
+    i18n,
 })
 
 export function configureStore() {

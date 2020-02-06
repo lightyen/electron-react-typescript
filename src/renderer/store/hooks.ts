@@ -4,7 +4,7 @@ import { useSelector as useReduxSelector, useDispatch, TypedUseSelectorHook } fr
 import { RootStore } from "~/store"
 import app from "~/store/app/action"
 import theme from "~/store/theme/action"
-import locale from "~/store/locale/action"
+import i18n from "~/store/i18n/action"
 
 export const useSelector: TypedUseSelectorHook<RootStore> = useReduxSelector
 
@@ -14,7 +14,7 @@ export function useAction() {
         () => ({
             app: bindActionCreators(app, dispatch),
             theme: bindActionCreators(theme, dispatch),
-            locale: bindActionCreators(locale, dispatch),
+            i18n: bindActionCreators(i18n, dispatch),
         }),
         [dispatch],
     )
