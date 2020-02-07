@@ -1,4 +1,4 @@
-import { Locales, Messages } from "./languages"
+import { Locales, Messages, defaultLocale } from "./languages"
 
 export enum SET_LOCALE {
     REQUEST = "SET_LOCALE_REQUEST",
@@ -8,7 +8,7 @@ export enum SET_LOCALE {
 
 export interface SetLocaleAction {
     type: SET_LOCALE.REQUEST
-    name: Locales
+    name: string
 }
 
 export type SagaSetLocaleAction =
@@ -22,10 +22,10 @@ export type SagaSetLocaleAction =
           error: unknown
       }
 
-export const setLocale = (name: Locales): SetLocaleAction => {
+export const setLocale = (name: string): SetLocaleAction => {
     return {
         type: SET_LOCALE.REQUEST,
-        name: name || "zh-TW",
+        name: name || defaultLocale,
     }
 }
 

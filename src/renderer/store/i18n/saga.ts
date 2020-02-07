@@ -1,12 +1,12 @@
 import { put, call, takeEvery } from "redux-saga/effects"
-import { getLocaleMessages } from "./languages"
+import { getLocaleMessages, Locales } from "./languages"
 import { setDateLocale } from "~/date"
 
 import { SET_LOCALE } from "./action"
 import { SetLocaleAction, SagaSetLocaleAction } from "./action"
 
 function* setLocale(action: SetLocaleAction) {
-    const { name } = action
+    const name = action.name as Locales
     localStorage.setItem("language", action.name)
     try {
         setDateLocale(name)

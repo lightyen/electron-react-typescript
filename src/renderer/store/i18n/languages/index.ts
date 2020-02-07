@@ -4,10 +4,12 @@ export interface Messages {
     test: string
 }
 
-const languageNames = {
+export const languageNames = {
     "en-US": "English",
     "zh-TW": "正體中文",
 }
+
+export const defaultLocale = "en-US"
 
 export type Locales = keyof typeof languageNames
 
@@ -43,7 +45,7 @@ export function getLanguage(): Locales {
     if (result) {
         return result as Locales
     }
-    return "zh-TW"
+    return defaultLocale
 }
 
 export function setLanguage(name: Locales) {
@@ -53,7 +55,7 @@ export function setLanguage(name: Locales) {
 import enUS from "./en-us"
 import zhTW from "./zh-tw"
 
-export function getLocaleMessages(name: Locales = "zh-TW") {
+export function getLocaleMessages(name: Locales = defaultLocale) {
     const [primary, region] = name.toLocaleLowerCase().split(/-/)
     switch (primary) {
         case "en":

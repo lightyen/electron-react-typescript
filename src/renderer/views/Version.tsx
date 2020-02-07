@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import AppVersion from "~/components/AppVersion"
 import SwitchThemes from "~/components/SwitchThemes"
 import { motion, Variants } from "framer-motion"
@@ -22,6 +22,7 @@ const pageVariants: Variants = {
 
 const Main: React.FC = ({}) => {
     const [text, setText] = React.useState("")
+    const history = useHistory()
     return (
         <div className="mx-3 my-2">
             <AppVersion />
@@ -42,6 +43,12 @@ const Main: React.FC = ({}) => {
                 }}
             >
                 Open Dialog
+            </button>
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
+                onClick={() => history.push("/settings")}
+            >
+                Settings
             </button>
             {text && <div className="text-gray">{text}</div>}
             <div className="bg-gray-500" style={{ width: 300, height: 1300 }}></div>
