@@ -26,7 +26,9 @@ const Home: React.FC = () => {
                 <p style={{ color: textColor }}>
                     Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
                 </p>
-                <FormattedMessage id="test" values={{ name: "lightyen" }} />
+                <span style={{ color: textColor }}>
+                    <FormattedMessage id="test" values={{ name: "React" }} />
+                </span>
                 <a
                     className="Home-link"
                     href="https://reactjs.org"
