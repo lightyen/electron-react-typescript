@@ -1,5 +1,6 @@
 import React from "react"
 import { motion, AnimatePresence, Variants } from "framer-motion"
+import { FormattedMessage } from "react-intl"
 import { useSelector, useAction } from "~/store"
 
 const variants: Variants = {
@@ -31,13 +32,15 @@ const AutoUpdater: React.FC = () => {
                     className="fixed bg-gray-700 border-gray-300 text-gray-100 shadow p-3 flex flex-col"
                     style={{ bottom: 13, left: 13 }}
                 >
-                    <p className="mb-3">Update Available {version}</p>
+                    <p className="mb-3">
+                        <FormattedMessage id="update.available" values={{ version }} />
+                    </p>
                     <div>
                         <button className="btn btn-blue select-none" onClick={() => updateApp()}>
-                            Restart Now?
+                            <FormattedMessage id="update.restart" />
                         </button>
                         <button className="btn btn-blue ml-3 select-none" onClick={() => setOpen(false)}>
-                            Later
+                            <FormattedMessage id="update.later" />
                         </button>
                     </div>
                 </motion.div>

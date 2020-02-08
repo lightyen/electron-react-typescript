@@ -24,7 +24,7 @@ interface AppStoreType {
 export type AppStore = Readonly<AppStoreType>
 
 const init: AppStore = {
-    maximized: false,
+    maximized: localStorage.getItem("maximized") === "true",
     hide: false,
     version: {
         app: "",

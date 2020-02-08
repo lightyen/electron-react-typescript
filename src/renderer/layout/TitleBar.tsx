@@ -82,21 +82,21 @@ const ControlButton = styled.div`
     transition: all 0.2s ease;
 `
 
-const TitleBar: React.FC = () => {
-    const { remote } = Electron
-    function onClose() {
-        remote.getCurrentWindow().close()
-    }
-    function onMinimize() {
-        remote.getCurrentWindow().minimize()
-    }
-    function onMaximize() {
-        remote.getCurrentWindow().maximize()
-    }
-    function onRestore() {
-        remote.getCurrentWindow().restore()
-    }
+const { remote } = Electron
+function close() {
+    remote.getCurrentWindow().close()
+}
+function minimize() {
+    remote.getCurrentWindow().minimize()
+}
+function restore() {
+    remote.getCurrentWindow().restore()
+}
+function maximize() {
+    remote.getCurrentWindow().maximize()
+}
 
+const TitleBar: React.FC = () => {
     const theme = useSelector(state => state.theme)
     const maximized = useSelector(state => state.app.maximized)
     const hide = useSelector(state => state.app.hide)
@@ -104,6 +104,12 @@ const TitleBar: React.FC = () => {
     const barHeight = 30
     const iw = barHeight / 3
     const ih = barHeight / 3
+
+    React.useEffect(() => {
+        if (localStorage.getItem("maximized") === "true") {
+            maximize()
+        }
+    }, [])
 
     return (
         <HeaderTitleBar height={barHeight} hide={hide} titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
@@ -118,13 +124,13 @@ const TitleBar: React.FC = () => {
                 </Title>
             </div>
             <Controls height={barHeight}>
-                <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={onMinimize}>
+                <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={minimize}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={iw} height={ih} x="0px" y="0px" viewBox="0 0 10 1">
                         <rect fill={theme.textColor} width="10" height="1" />
                     </svg>
                 </ControlButton>
                 {maximized ? (
-                    <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={onRestore}>
+                    <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={restore}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width={iw}
@@ -146,7 +152,7 @@ const TitleBar: React.FC = () => {
                         </svg>
                     </ControlButton>
                 ) : (
-                    <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={onMaximize}>
+                    <ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={maximize}>
                         <svg
                             fill={theme.textColor}
                             xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +164,7 @@ const TitleBar: React.FC = () => {
                         </svg>
                     </ControlButton>
                 )}
-                <ControlButton height={barHeight} hoverColor={theme.dangerColor} onClick={onClose}>
+                <ControlButton height={barHeight} hoverColor={theme.dangerColor} onClick={close}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={iw} height={ih} x="0px" y="0px" viewBox="0 0 10 10">
                         <polygon fill={theme.textColor} points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
                     </svg>

@@ -5,6 +5,7 @@ export interface Theme {
     primaryHoverColor: string
     dangerColor: string
     textColor: string
+    textHoverColor: string
     backgroundColor: string
 }
 
@@ -17,6 +18,7 @@ export const themes: { [key: string]: Theme } = {
         dangerColor: colors.red[400],
         backgroundColor: colors.gray[100],
         textColor: colors.gray[800],
+        textHoverColor: colors.gray[600],
     },
     dark: {
         primaryColor: colors.gray[900],
@@ -24,6 +26,7 @@ export const themes: { [key: string]: Theme } = {
         dangerColor: colors.red[700],
         backgroundColor: colors.gray[900],
         textColor: colors.gray[200],
+        textHoverColor: colors.gray[500],
     },
 }
 

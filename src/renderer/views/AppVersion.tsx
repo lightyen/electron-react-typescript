@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
+import { FormattedMessage } from "react-intl"
 import { useSelector, useAction } from "~/store"
-
-const Header = styled.h1``
 
 const Versions = styled.div`
     font-family: Fira Code;
@@ -37,8 +36,10 @@ const AppVersion: React.FC = () => {
         getVersion()
     }, [getVersion])
     return (
-        <Versions>
-            <Header>Versions</Header>
+        <Versions className="select-text">
+            <h1 className="font-bold" style={{ textTransform: "capitalize", fontSize: "1.5em" }}>
+                <FormattedMessage id="version" />
+            </h1>
             <Table>
                 <THead>
                     <tr>

@@ -51,6 +51,7 @@ function* subscribeWindowMaxmized() {
     const chan = yield subscibeChannel("window.maximized")
     while (true) {
         const maximized: boolean = yield take(chan)
+        localStorage.setItem("maximized", `${maximized}`)
         yield put<GetAppMaximizedAction>({ type: GET_APP_MAXIMIZED, maximized })
     }
 }

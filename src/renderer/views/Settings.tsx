@@ -1,49 +1,59 @@
 import React from "react"
-import { useHistory } from "react-router-dom"
-import { FormattedMessage } from "react-intl"
+import { FormattedMessage, useIntl } from "react-intl"
 import Select from "react-select"
 import { useSelector, useAction } from "~/store"
 
+import Back from "~/components/Back"
+
 const Page: React.FC = () => {
-    const history = useHistory()
-    const { setLocale } = useAction().i18n
     const textColor = useSelector(state => state.theme.textColor)
+
+    const { setLocale } = useAction().i18n
     const name = useSelector(state => state.i18n.name)
     const support = useSelector(state => state.i18n.support)
-    const options = Object.entries(support).map(([value, label]) => ({ value, label }))
+    const langOpts = Object.entries(support).map(([value, label]) => ({ value, label }))
+
+    const { changeTheme } = useAction().theme
+    const messages = useSelector(state => state.i18n.messages)
+    const theme = useSelector(state => state.theme.name)
+    const themeOpts = [
+        { value: "light", label: messages["themes.light"] },
+        { value: "dark", label: messages["themes.dark"] },
+    ]
     return (
         <div>
-            <button
-                onClick={() => history.push("/version")}
-                className="font-bold py-2 px-4 rounded focus:outline-none flex"
-                style={{ color: textColor }}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill={textColor}
-                    className="mr-1"
-                >
-                    <path d="M5.41 11H21a1 1 0 0 1 0 2H5.41l5.3 5.3a1 1 0 0 1-1.42 1.4l-7-7a1 1 0 0 1 0-1.4l7-7a1 1 0 0 1 1.42 1.4L5.4 11z" />
-                </svg>
-            </button>
+            <Back to="/version" />
             <div className="pt-3 pl-3">
-                <label className="block font-bold mb-2" style={{ color: textColor }}>
-                    <FormattedMessage id="language" />
-                </label>
-                <div className="w-64">
-                    <Select
-                        className="text-blue-500"
-                        options={options}
-                        value={options.find(v => v.value == name)}
-                        onChange={e => setLocale(e["value"])}
-                    />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
+                <div className="mb-10">
+                    <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
+                        <FormattedMessage id="language" />
+                    </label>
+                    <div className="w-64">
+                        <Select
+                            className="text-blue-500"
+                            options={langOpts}
+                            value={langOpts.find(v => v.value == name)}
+                            onChange={e => setLocale(e["value"])}
+                            isSearchable={false}
+                        />
+                    </div>
+                </div>
+                <div className="">
+                    <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
+                        <FormattedMessage id="themes" />
+                    </label>
+                    <div className="w-64">
+                        <Select
+                            className="text-blue-500"
+                            options={themeOpts}
+                            value={themeOpts.find(v => v.value == theme)}
+                            onChange={e => changeTheme(e["value"])}
+                            isSearchable={false}
+                            styles={{
+                                option: s => ({ ...s, textTransform: "capitalize" }),
+                                container: s => ({ ...s, textTransform: "capitalize" }),
+                            }}
+                        />
                     </div>
                 </div>
             </div>

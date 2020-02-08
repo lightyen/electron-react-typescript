@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     const { textColor, name } = useSelector(state => state.theme)
     const colors = tailwindcssconfig.theme.colors
     return (
-        <div className="Home">
+        <div className="Home select-none">
             <header className="Home-header">
                 <motion.img
                     animate={{ rotate: [0, 360] }}
@@ -23,10 +23,10 @@ const Home: React.FC = () => {
                     className="Home-logo"
                     alt="logo"
                 />
-                <p style={{ color: textColor }}>
+                <p className="select-text" style={{ color: textColor }}>
                     Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
                 </p>
-                <span style={{ color: textColor }}>
+                <span className="select-text" style={{ color: textColor }}>
                     <FormattedMessage id="test" values={{ name: "React" }} />
                 </span>
                 <a
