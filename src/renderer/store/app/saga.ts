@@ -1,4 +1,4 @@
-import { request, subscibeChannel, consoleChannel } from "~/ipc"
+import { request, subscribeChannel, consoleChannel } from "~/ipc"
 import { put, take, fork, all, call, takeEvery, takeLeading } from "redux-saga/effects"
 
 import {
@@ -40,7 +40,7 @@ function* getSystemMemory() {
 }
 
 function* subscribeWindowFullScreen() {
-    const chan = yield subscibeChannel("window.fullscreen")
+    const chan = yield subscribeChannel("window.fullscreen")
     while (true) {
         const isFullScreen: boolean = yield take(chan)
         yield put<GetAppTitleBarHideAction>({ type: GET_TITLEBAR_HIDE, hide: isFullScreen })
@@ -48,7 +48,7 @@ function* subscribeWindowFullScreen() {
 }
 
 function* subscribeWindowMaxmized() {
-    const chan = yield subscibeChannel("window.maximized")
+    const chan = yield subscribeChannel("window.maximized")
     while (true) {
         const maximized: boolean = yield take(chan)
         localStorage.setItem("maximized", `${maximized}`)
@@ -57,7 +57,7 @@ function* subscribeWindowMaxmized() {
 }
 
 function* subscribeUpdateDownloaded() {
-    const chan = yield subscibeChannel("update-downloaded")
+    const chan = yield subscribeChannel("update-downloaded")
     const info: UpdateInfo = yield take(chan)
     yield put<AutoUpdateDownloadedAction>({ type: AUTO_UPDATE_DOWNLOADED, info })
 }

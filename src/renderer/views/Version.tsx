@@ -1,6 +1,5 @@
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
-import { Variants } from "framer-motion"
 import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 

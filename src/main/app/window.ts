@@ -3,6 +3,8 @@ import url from "url"
 import path from "path"
 import fs from "fs"
 
+import log from "electron-log"
+
 import ipc from "~/ipc"
 import { isDevMode, appPath, appName, Console } from "~/app"
 import setMenu from "~/app/menu"
@@ -59,6 +61,7 @@ export class MainWindow extends Electron.BrowserWindow {
 
         loadURL.then(() => {
             this.show()
+            log.error("error error")
         })
     }
 }

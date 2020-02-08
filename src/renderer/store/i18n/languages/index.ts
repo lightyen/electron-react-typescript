@@ -10,11 +10,6 @@ export const defaultLocale = "en-US"
 
 export type Locales = keyof typeof languageNames
 
-export interface Module<T> {
-    __esModule?: boolean
-    default?: T
-}
-
 export function getLanguage(): Locales {
     const result = localStorage.getItem("language")
     if (result) {
@@ -45,6 +40,11 @@ export function getLocaleMessages(name: Locales = defaultLocale) {
             return enUS
     }
 }
+
+// export interface Module<T> {
+//     __esModule?: boolean
+//     default?: T
+// }
 
 // const enUS = () => import("./en-us")
 // const zhTW = () => import("./zh-tw")

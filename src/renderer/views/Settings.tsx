@@ -1,22 +1,27 @@
 import React from "react"
-import { FormattedMessage, useIntl } from "react-intl"
-import Select from "react-select"
+import { FormattedMessage } from "react-intl"
+import Select, { ValueType } from "react-select"
 import { useSelector, useAction } from "~/store"
+import { languageNames } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
+
+interface OptionType {
+    label: string
+    value: string
+}
 
 const Page: React.FC = () => {
     const textColor = useSelector(state => state.theme.textColor)
 
     const { setLocale } = useAction().i18n
     const name = useSelector(state => state.i18n.name)
-    const support = useSelector(state => state.i18n.support)
-    const langOpts = Object.entries(support).map(([value, label]) => ({ value, label }))
+    const langOpts = Object.entries(languageNames).map<OptionType>(([value, label]) => ({ value, label }))
 
     const { changeTheme } = useAction().theme
     const messages = useSelector(state => state.i18n.messages)
     const theme = useSelector(state => state.theme.name)
-    const themeOpts = [
+    const themeOpts: OptionType[] = [
         { value: "light", label: messages["themes.light"] },
         { value: "dark", label: messages["themes.dark"] },
     ]
@@ -29,11 +34,11 @@ const Page: React.FC = () => {
                         <FormattedMessage id="language" />
                     </label>
                     <div className="w-64">
-                        <Select
+                        <Select<OptionType>
                             className="text-blue-500"
                             options={langOpts}
                             value={langOpts.find(v => v.value == name)}
-                            onChange={e => setLocale(e["value"])}
+                            onChange={v => setLocale(v["value"])}
                             isSearchable={false}
                         />
                     </div>
@@ -47,7 +52,7 @@ const Page: React.FC = () => {
                             className="text-blue-500"
                             options={themeOpts}
                             value={themeOpts.find(v => v.value == theme)}
-                            onChange={e => changeTheme(e["value"])}
+                            onChange={v => changeTheme(v["value"])}
                             isSearchable={false}
                             styles={{
                                 option: s => ({ ...s, textTransform: "capitalize" }),
