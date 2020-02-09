@@ -1,7 +1,6 @@
 import { IpcMainEvent, ipcMain, BrowserWindow, WebContents } from "electron"
 import log from "electron-log"
 import { serializeError } from "serialize-error"
-import { EventEmitter } from "events"
 
 export interface IpcResponse<T = unknown> {
     data?: T
@@ -29,9 +28,9 @@ function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
             }
             event.sender.send(channel, result)
         } catch (err) {
-            // const error = serializeError(err)
-            // log.error(error)
-            // event.sender.send(channel, { error })
+            const error = serializeError(err)
+            log.error(error)
+            event.sender.send(channel, { error })
         }
     })
 }
@@ -45,14 +44,6 @@ function sender<ResponseData = unknown>(e: BrowserWindow | WebContents): Sender<
         } else {
             e.send(channel, resp)
         }
-    }
-}
-
-const send = (e: BrowserWindow | WebContents) => (channel: string, resp: IpcResponse) => {
-    if (e instanceof BrowserWindow) {
-        e.webContents.send(channel, resp)
-    } else {
-        e.send(channel, resp)
     }
 }
 
