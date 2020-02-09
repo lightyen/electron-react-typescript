@@ -1,12 +1,9 @@
 import Electron from "electron"
 import url from "url"
 import path from "path"
-import fs from "fs"
-
-import log from "electron-log"
 
 import ipc from "~/ipc"
-import { isDevMode, appPath, appName, Console } from "~/app"
+import { isDevMode, appPath, appName } from "~/app"
 import setMenu from "~/app/menu"
 import setRouter from "~/app/router"
 
@@ -30,15 +27,15 @@ export class MainWindow extends Electron.BrowserWindow {
         setMenu()
         setRouter()
 
+        const send = ipc.sender<boolean>(this)
+
         this.on("maximize", (e: Electron.Event) => {
-            ipc.send(this.webContents)("window.maximized", { data: true })
+            send("window.maximized", { data: true })
         })
 
         this.on("unmaximize", (e: Electron.Event) => {
-            ipc.send(this.webContents)("window.maximized", { data: false })
+            send("window.maximized", { data: false })
         })
-
-        this.webContents.send("window.maximized", this.isMaximized())
 
         const loadURL = isDevMode()
             ? this.loadURL(
@@ -61,7 +58,7 @@ export class MainWindow extends Electron.BrowserWindow {
 
         loadURL.then(() => {
             this.show()
-            log.error("error error")
+            send("window.maximized", { data: this.isMaximized() })
         })
     }
 }

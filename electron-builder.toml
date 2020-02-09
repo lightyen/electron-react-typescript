@@ -4,7 +4,7 @@
 # Auto Update: https://www.electron.build/auto-update
 
 productName = "electron-react-typescript"
-appId = "com.electron.electron-react-typescript"
+appId = "app.electron.react.typescript"
 asar = true
 compression = "normal"
 files = ["dist/**/*"]
@@ -30,11 +30,9 @@ publisherDisplayName = "lightyen"
 
 [nsis]
 shortcutName = "electron-react-typescript"
-oneClick = true
-createDesktopShortcut = true
+oneClick = false
+createDesktopShortcut = false
 createStartMenuShortcut = true
-menuCategory = true
-language = 1033
 runAfterFinish = true
 
 # For Windows

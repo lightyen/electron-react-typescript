@@ -33,6 +33,12 @@ const Page: React.FC = ({}) => {
                     </button>
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
+                        onClick={() => history.push("/log")}
+                    >
+                        Log
+                    </button>
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
                         onClick={() => history.push("/settings")}
                     >
                         Settings

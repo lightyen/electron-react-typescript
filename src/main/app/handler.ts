@@ -2,7 +2,7 @@ import Electron from "electron"
 import fs from "fs"
 import os from "os"
 import { promisify } from "util"
-import { serializeError } from "serialize-error"
+import log from "electron-log"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
 import { appName, appPath, Console, isDevMode } from "~/app"
@@ -30,8 +30,22 @@ function getOS(): { name: string; version: string } {
     return { name: os.platform(), version: os.release() }
 }
 
+export const getLog: IpcPromiseHandler<string> = async () => {
+    const data = await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
+    return { data }
+}
+
 export const getVersions: IpcHandler = () => {
     const app = isDevMode() ? "unknown" : Electron.app.getVersion()
+    // Experiment
+    // const n = new Electron.Notification({
+    //     title: "App Notification",
+    //     body: "Hello world!",
+    // })
+    // n.show()
+    // n.on("click", () => {
+    //     log.info("click notification")
+    // })
     return { data: { ...process.versions, app, os: getOS() } }
 }
 
@@ -132,30 +146,24 @@ export const openDirectoryDialog: IpcPromiseHandler = async (
     }
     options = options || {}
 
-    try {
-        const { canceled, ...rest } = await Electron.dialog.showOpenDialog(
-            Electron.BrowserWindow.fromWebContents(e.sender),
-            options,
-        )
-        if (canceled) {
-            return {
-                data: {
-                    ...rest,
-                    files: [],
-                },
-            }
-        }
-
-        const list = await promisify(fs.readdir)(rest.filePaths[0])
+    const { canceled, ...rest } = await Electron.dialog.showOpenDialog(
+        Electron.BrowserWindow.fromWebContents(e.sender),
+        options,
+    )
+    if (canceled) {
         return {
             data: {
                 ...rest,
-                files: list,
+                files: [],
             },
         }
-    } catch (e) {
-        return {
-            error: serializeError(e),
-        }
+    }
+
+    const list = await promisify(fs.readdir)(rest.filePaths[0])
+    return {
+        data: {
+            ...rest,
+            files: list,
+        },
     }
 }

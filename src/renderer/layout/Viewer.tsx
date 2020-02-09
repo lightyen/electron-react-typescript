@@ -9,6 +9,7 @@ import { motion, Variants } from "framer-motion"
 import Home from "~/views/Home"
 import Version from "~/views/Version"
 import Settings from "~/views/Settings"
+import AppLog from "~/views/AppLog"
 
 const pageVariants: Variants = {
     initial: {
@@ -54,6 +55,9 @@ const AppRouter: React.FC = () => {
                 </MotionRoute>
                 <MotionRoute path="/settings">
                     <Settings />
+                </MotionRoute>
+                <MotionRoute path="/log">
+                    <AppLog />
                 </MotionRoute>
             </Switch>
         </AnimatePresence>

@@ -37,12 +37,20 @@ export default function setMenu() {
                     label: "Toggle Fullscreen",
                     accelerator: "F11",
                     click: (item, w, e) => {
-                        console.log(e)
+                        // if (w.isFullScreen()) {
+                        //     ipc.send(w.webContents)("window.fullscreen", { data: false })
+                        //     w.setFullScreen(false)
+                        // } else {
+                        //     ipc.send(w.webContents)("window.fullscreen", { data: true })
+                        //     w.setFullScreen(true)
+                        // }
+
+                        const send = ipc.sender<boolean>(w)
                         if (w.isFullScreen()) {
-                            ipc.send(w.webContents)("window.fullscreen", { data: false })
+                            send("window.fullscreen", { data: false })
                             w.setFullScreen(false)
                         } else {
-                            ipc.send(w.webContents)("window.fullscreen", { data: true })
+                            send("window.fullscreen", { data: true })
                             w.setFullScreen(true)
                         }
                     },

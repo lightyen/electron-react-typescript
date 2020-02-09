@@ -5,13 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es6",
-    "types": [
-      "uuid",
-      "shelljs",
-      "serialize-error",
-      "electron-store",
-      "electron-devtools-installer"
-    ],
+    "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]

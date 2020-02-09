@@ -2,6 +2,7 @@ import Electron, { ipcMain } from "electron"
 import { MainWindow } from "./window"
 import { autoUpdater } from "electron-updater"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
+import log from "electron-log"
 
 export function isDevMode() {
     return !Electron.app.isPackaged

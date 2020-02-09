@@ -38,6 +38,7 @@ module.exports = function(options) {
             filename: "main.js",
         },
         target: "electron-main",
+        devtool: "source-map",
         module: {
             rules: [
                 {
