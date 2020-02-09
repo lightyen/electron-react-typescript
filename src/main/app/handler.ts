@@ -5,35 +5,36 @@ import { promisify } from "util"
 import log from "electron-log"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
-import { appName, appPath, Console, isDevMode } from "~/app"
+import { appName, appPath, isDevMode } from "~/app"
 
 export const getAppName: IpcHandler = () => {
-    return { data: appName }
+    return appName
 }
 
 function getOS(): { name: string; version: string } {
-    // Console.log("home", Electron.app.getPath("home"))
-    // Console.log("appData", Electron.app.getPath("appData"))
-    // Console.log("temp", Electron.app.getPath("temp"))
-    // Console.log("cache", Electron.app.getPath("cache"))
-    // Console.log("desktop", Electron.app.getPath("desktop"))
-    // Console.log("documents", Electron.app.getPath("documents"))
-    // Console.log("music", Electron.app.getPath("music"))
-    // Console.log("pictures", Electron.app.getPath("pictures"))
-    // Console.log("downloads", Electron.app.getPath("downloads"))
-
-    // have difference on production
-    // Console.log("appPath", appPath)
-    // Console.log("userData", Electron.app.getPath("userData"))
-    // Console.log("logs", Electron.app.getPath("logs"))
-    // Console.log("exe", Electron.app.getPath("exe"))
     return { name: os.platform(), version: os.release() }
 }
 
-export const getLog: IpcPromiseHandler<string> = async () => {
-    const data = await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
-    return { data }
+export const getPaths: IpcHandler = () => {
+    return {
+        home: Electron.app.getPath("home"),
+        appData: Electron.app.getPath("appData"),
+        temp: Electron.app.getPath("temp"),
+        cache: Electron.app.getPath("cache"),
+        desktop: Electron.app.getPath("desktop"),
+        documents: Electron.app.getPath("documents"),
+        music: Electron.app.getPath("music"),
+        pictures: Electron.app.getPath("pictures"),
+        downloads: Electron.app.getPath("downloads"),
+        appPath: appPath,
+        userData: Electron.app.getPath("userData"),
+        logs: Electron.app.getPath("logs"),
+        exe: Electron.app.getPath("exe"),
+    }
 }
+
+export const getLog: IpcPromiseHandler<string> = async () =>
+    await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
 
 export const getVersions: IpcHandler = () => {
     const app = isDevMode() ? "unknown" : Electron.app.getVersion()
@@ -46,12 +47,7 @@ export const getVersions: IpcHandler = () => {
     // n.on("click", () => {
     //     log.info("click notification")
     // })
-    return { data: { ...process.versions, app, os: getOS() } }
-}
-
-interface SysMemInfo {
-    free: number
-    total: number
+    return { ...process.versions, app, os: getOS() }
 }
 
 interface CPULoadInfo {
@@ -125,15 +121,14 @@ function updateCPULoad(load: CPULoadInfo) {
 
 export const getCPUUsage: IpcHandler = () => {
     updateCPULoad(cpuLoadInfo)
-    return { data: cpuLoadInfo }
+    return cpuLoadInfo
 }
 
 export const getSystemInfo: IpcHandler = () => {
-    const info: SysMemInfo = {
+    return {
         free: os.freemem(),
         total: os.totalmem(),
     }
-    return { data: info }
 }
 
 export const openDirectoryDialog: IpcPromiseHandler = async (
@@ -152,18 +147,14 @@ export const openDirectoryDialog: IpcPromiseHandler = async (
     )
     if (canceled) {
         return {
-            data: {
-                ...rest,
-                files: [],
-            },
+            ...rest,
+            files: [],
         }
     }
 
     const list = await promisify(fs.readdir)(rest.filePaths[0])
     return {
-        data: {
-            ...rest,
-            files: list,
-        },
+        ...rest,
+        files: list,
     }
 }

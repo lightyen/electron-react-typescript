@@ -2,7 +2,7 @@ import Electron from "electron"
 import url from "url"
 import path from "path"
 
-import ipc from "~/ipc"
+import { sendChannel } from "~/ipc"
 import { isDevMode, appPath, appName } from "~/app"
 import setMenu from "~/app/menu"
 import setRouter from "~/app/router"
@@ -14,8 +14,8 @@ export class MainWindow extends Electron.BrowserWindow {
             show: true,
             frame: false,
             resizable: true,
-            minWidth: 460,
-            minHeight: 300,
+            minWidth: 820,
+            minHeight: 480,
             webPreferences: {
                 nodeIntegration: true,
             },
@@ -27,14 +27,14 @@ export class MainWindow extends Electron.BrowserWindow {
         setMenu()
         setRouter()
 
-        const send = ipc.sender<boolean>(this)
+        const sendMaximized = sendChannel<boolean>(this, "window.maximized")
 
         this.on("maximize", (e: Electron.Event) => {
-            send("window.maximized", { data: true })
+            sendMaximized(true)
         })
 
         this.on("unmaximize", (e: Electron.Event) => {
-            send("window.maximized", { data: false })
+            sendMaximized(false)
         })
 
         const loadURL = isDevMode()
@@ -58,7 +58,7 @@ export class MainWindow extends Electron.BrowserWindow {
 
         loadURL.then(() => {
             this.show()
-            send("window.maximized", { data: this.isMaximized() })
+            sendMaximized(this.isMaximized())
         })
     }
 }

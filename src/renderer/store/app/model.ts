@@ -6,6 +6,22 @@ export interface Version {
     os: { name: string; version: string }
 }
 
+export interface AppPaths {
+    home: string
+    appData: string
+    temp: string
+    cache: string
+    desktop: string
+    documents: string
+    music: string
+    pictures: string
+    downloads: string
+    appPath: string
+    userData: string
+    logs: string
+    exe: string
+}
+
 export interface CPUInfo {
     tick: {
         user: number

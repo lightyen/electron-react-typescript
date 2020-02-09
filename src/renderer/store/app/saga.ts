@@ -4,11 +4,13 @@ import { put, take, fork, all, call, takeEvery, takeLeading } from "redux-saga/e
 import {
     GET_APP_MAXIMIZED,
     GET_APP_VERSION,
+    GET_APP_PATHS,
     GET_TITLEBAR_HIDE,
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
     GetAppMaximizedAction,
     GetAppVersionAction,
+    GetAppPathsAction,
     GetAppTitleBarHideAction,
     GetAppCpuUsageAction,
     GetAppSystemMemoryAction,
@@ -22,6 +24,13 @@ function* getAppVersion() {
     try {
         const version = yield call(request, "app.get-versions")
         yield put<GetAppVersionAction>({ type: GET_APP_VERSION.SUCCESS, version })
+    } catch (e) {}
+}
+
+function* getAppPaths() {
+    try {
+        const paths = yield call(request, "app.get-paths")
+        yield put<GetAppPathsAction>({ type: GET_APP_PATHS.SUCCESS, paths })
     } catch (e) {}
 }
 
@@ -108,6 +117,7 @@ function* sysemConsoleClear() {
 
 export default function* sagas() {
     yield takeEvery(GET_APP_VERSION.REQUEST, getAppVersion)
+    yield takeEvery(GET_APP_PATHS.REQUEST, getAppPaths)
     yield takeEvery(GET_APP_CPU_USAGE.REQUEST, getCPUUsage)
     yield takeEvery(GET_APP_SYSTEM_MEMORY.REQUEST, getSystemMemory)
     yield takeLeading(AUTO_UPDATE_RESTART, updateRestart)

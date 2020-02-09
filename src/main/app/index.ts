@@ -1,8 +1,7 @@
-import Electron, { ipcMain } from "electron"
+import Electron from "electron"
 import { MainWindow } from "./window"
 import { autoUpdater } from "electron-updater"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
-import log from "electron-log"
 
 export function isDevMode() {
     return !Electron.app.isPackaged
@@ -21,8 +20,6 @@ export function initWindow() {
     return mainWindow
 }
 
-// app.disableHardwareAcceleration()
-
 // NOTE: https://github.com/electron/electron/issues/19468
 Electron.app.on("ready", () => {
     // if (isDevMode()) {
@@ -39,7 +36,7 @@ Electron.app.on("ready", () => {
         const { version, releaseDate, sha512, ...rest } = info
         mainWindow.webContents.send("update-downloaded", { data: { version, sha512, releaseDate } })
     })
-    ipcMain.on("update-restart", () => {
+    Electron.ipcMain.on("update-restart", () => {
         if (downloaded) {
             autoUpdater.quitAndInstall()
         }

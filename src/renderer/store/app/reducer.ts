@@ -1,5 +1,5 @@
 import { Reducer } from "redux"
-import { Version, SystemMemoryInfo } from "./model"
+import { Version, SystemMemoryInfo, AppPaths } from "./model"
 
 import {
     Action,
@@ -9,12 +9,14 @@ import {
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
     AUTO_UPDATE_DOWNLOADED,
+    GET_APP_PATHS,
 } from "./action"
 
 interface AppStoreType {
     maximized: boolean
     hide: boolean
     version: Version
+    paths: AppPaths
     cpuusage: number
     memory: SystemMemoryInfo
     update_downloaded: boolean
@@ -33,6 +35,21 @@ const init: AppStore = {
         node: "",
         os: { name: "", version: "" },
     },
+    paths: {
+        home: "",
+        appData: "",
+        temp: "",
+        cache: "",
+        desktop: "",
+        documents: "",
+        music: "",
+        pictures: "",
+        downloads: "",
+        appPath: "",
+        userData: "",
+        logs: "",
+        exe: "",
+    },
     cpuusage: 0,
     memory: {
         free: 0,
@@ -50,6 +67,8 @@ export const app: Reducer<AppStore, Action> = (state = init, action): AppStore =
             return { ...state, maximized: action.maximized }
         case GET_APP_VERSION.SUCCESS:
             return { ...state, version: action.version }
+        case GET_APP_PATHS.SUCCESS:
+            return { ...state, paths: action.paths }
         case GET_APP_CPU_USAGE.SUCCESS:
             const { load } = action.usage
             const usage = load.user + load.sys + load.nice + load.irq

@@ -2,23 +2,23 @@ import { IpcMainEvent, ipcMain, BrowserWindow, WebContents } from "electron"
 import log from "electron-log"
 import { serializeError } from "serialize-error"
 
-export interface IpcResponse<T = unknown> {
+interface IpcResponse<T = unknown> {
     data?: T
     error?: unknown
 }
 
-export type IpcHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => IpcResponse<T>
+export type IpcHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => T
 
-export type IpcPromiseHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => Promise<IpcResponse<T>>
+export type IpcPromiseHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => Promise<T>
 
 /** subscribe on the ipc channel */
-function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
+export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     ipcMain.on(channel, (event, ...args) => {
         try {
             const result = handler(event, ...args)
             if (result instanceof Promise) {
                 result
-                    .then(resp => event.sender.send(channel, resp))
+                    .then(resp => event.sender.send(channel, { data: resp }))
                     .catch(err => {
                         const error = serializeError(err)
                         log.error(error)
@@ -26,7 +26,7 @@ function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
                     })
                 return
             }
-            event.sender.send(channel, result)
+            event.sender.send(channel, { data: result })
         } catch (err) {
             const error = serializeError(err)
             log.error(error)
@@ -35,16 +35,16 @@ function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     })
 }
 
-type Sender<T> = (channel: string, resp: IpcResponse<T>) => void
+type Sender<T> = (resp: T) => void
 
-function sender<ResponseData = unknown>(e: BrowserWindow | WebContents): Sender<ResponseData> {
-    return function(channel: string, resp: IpcResponse<ResponseData>) {
+export function sendChannel<T = unknown>(e: BrowserWindow | WebContents, channelName: string): Sender<T> {
+    return function(resp: T) {
         if (e instanceof BrowserWindow) {
-            e.webContents.send(channel, resp)
+            e.webContents.send(channelName, { data: resp })
         } else {
-            e.send(channel, resp)
+            e.send(channelName, { data: resp })
         }
     }
 }
 
-export default { on, sender }
+export default { on, sendChannel }

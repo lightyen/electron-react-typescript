@@ -25,6 +25,7 @@ const Page: React.FC = () => {
         { value: "light", label: messages["themes.light"] },
         { value: "dark", label: messages["themes.dark"] },
     ]
+
     return (
         <div>
             <Back to="/version" />
@@ -43,7 +44,7 @@ const Page: React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className="">
+                <div className="mb-10">
                     <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
                         <FormattedMessage id="themes" />
                     </label>
@@ -61,8 +62,52 @@ const Page: React.FC = () => {
                         />
                     </div>
                 </div>
+                <div className="mb-10">
+                    <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
+                        Paths
+                    </label>
+                    <AppPaths />
+                </div>
             </div>
         </div>
+    )
+}
+
+const AppPaths: React.FC = () => {
+    const textColor = useSelector(state => state.theme.textColor)
+    const color1 = useSelector(state => state.theme.primaryHoverColor)
+    const color2 = useSelector(state => state.theme.primaryColor)
+    const paths = useSelector(state => state.app.paths)
+    const { getAppPaths } = useAction().app
+
+    React.useEffect(() => {
+        getAppPaths()
+    }, [getAppPaths])
+
+    const transition = "background-color 0.2s ease"
+
+    return (
+        <table className="table-auto" style={{ color: textColor }}>
+            <thead>
+                <tr>
+                    <th className="px-4 py-2">Key</th>
+                    <th className="px-4 py-2">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.keys(paths).map((k, i) => (
+                    <tr
+                        key={k}
+                        style={
+                            i % 2 ? { backgroundColor: color1, transition } : { backgroundColor: color2, transition }
+                        }
+                    >
+                        <td className="border px-4 py-2 border-gray-400">{k}</td>
+                        <td className="border px-4 py-2 border-gray-400">{paths[k]}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     )
 }
 

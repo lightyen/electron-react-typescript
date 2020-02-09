@@ -1,5 +1,5 @@
 import Electron from "electron"
-import ipc from "~/ipc"
+import { sendChannel } from "~/ipc"
 import { Console } from "~/app"
 
 /**
@@ -37,20 +37,12 @@ export default function setMenu() {
                     label: "Toggle Fullscreen",
                     accelerator: "F11",
                     click: (item, w, e) => {
-                        // if (w.isFullScreen()) {
-                        //     ipc.send(w.webContents)("window.fullscreen", { data: false })
-                        //     w.setFullScreen(false)
-                        // } else {
-                        //     ipc.send(w.webContents)("window.fullscreen", { data: true })
-                        //     w.setFullScreen(true)
-                        // }
-
-                        const send = ipc.sender<boolean>(w)
+                        const send = sendChannel(w, "window.fullscreen")
                         if (w.isFullScreen()) {
-                            send("window.fullscreen", { data: false })
+                            send(false)
                             w.setFullScreen(false)
                         } else {
-                            send("window.fullscreen", { data: true })
+                            send(true)
                             w.setFullScreen(true)
                         }
                     },
