@@ -10,7 +10,7 @@
 <img src="https://user-images.githubusercontent.com/49339/32078127-102bbcfe-baa6-11e7-8ab9-b04dcad2035e.png" alt="vscode-img" width="10%"/></a>
 
 <a href="https://nodejs.org">
-<img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png" alt="nodejs-img" width="15%"/></a>
+<img src="https://nodejs.org/static/images/logo.svg" alt="nodejs-img" width="15%"/></a>
 
 <a href="https://yarnpkg.com">
 <img src="https://raw.githubusercontent.com/yarnpkg/assets/master/yarn-kitten-full.png" alt="yarn-img" width="15%"/></a>
@@ -27,12 +27,11 @@ yarn -v
 
 ```shell
 # clone this repo
-git clone https://github.com/lightyen/electron-react-typescript
+git clone https://github.com/lightyen/electron-react-typescript.git
 
-# 進入專案資料夾
 cd electron-react-typescript
 
-# 檢查或下載 dependencies
+# check dependencies
 yarn
 
 # start webpack-dev-server
@@ -46,14 +45,6 @@ yarn build
 ```
 
 > 建議使用 Visual Studio Code 以獲得更佳的開發體驗
-
-## 使用 Visual Studio Code 開發
-
-### 快速開始
-
-1. 在 VSCode 的偵錯頁面（Ctrl+Shift+D），選擇「Debug」，最後按下「F5」啟動偵錯
-
-> 其他詳細資訊描述在：**.vscode/launch.json**
 
 ## Screenshot
 
@@ -70,11 +61,10 @@ yarn build
 
 ## Pack 打包應用程式
 
-- 使用 VSCode 任務「Pack this project」進行應用程式打包（※ Windows 及 MacOS 平台打包需要做 code signing，除了使用自我簽章以外，你可以使用台幣或美金解決此問題）
+- 使用 VSCode 任務「Pack this project」進行應用程式打包（※ Windows 及 MacOS 平台打包需要做 code signing，除了使用自我簽章以外，你可以使用新台幣解決此問題）
 
 ## 其他參考連結
 
 - https://electronjs.org/docs
 - https://reactjs.org/
-- https://www.typescriptlang.org/docs/home.html
 - https://www.electron.build/
