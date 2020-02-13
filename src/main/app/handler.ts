@@ -37,7 +37,7 @@ export const getLog: IpcPromiseHandler<string> = async () =>
     await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
 
 export const getVersions: IpcHandler = () => {
-    const app = isDevMode() ? "unknown" : Electron.app.getVersion()
+    const app = isDevMode() ? "unknownx" : Electron.app.getVersion()
     // Experiment
     // const n = new Electron.Notification({
     //     title: "App Notification",

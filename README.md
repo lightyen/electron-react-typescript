@@ -35,10 +35,10 @@ cd electron-react-typescript
 yarn
 
 # start webpack-dev-server
-yarn run start:renderer
+yarn start:renderer
 
 # start nodemon
-yarn run start:main
+yarn start:main
 
 # or pack project
 yarn build

@@ -2,35 +2,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Renderer",
-      "type": "chrome",
-      "request": "attach",
-      "port": 9222,
-      "timeout": 30000,
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/src/renderer"
-    },
-    {
       "name": "Main",
       "type": "node",
       "request": "attach",
       "restart": true,
       "port": 9228,
-      "timeout": 10000
+      "timeout": 5000,
+      "protocol": "inspector"
     },
     {
       "name": "nodemon",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
-      "windows": {
-        "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\nodemon.cmd"
-      },
       "cwd": "${workspaceFolder}",
-      "runtimeArgs": ["src/main/dev"],
-      "console": "integratedTerminal",
-      "restart": true,
-      "outputCapture": "std"
+      "port": 9228,
+      "runtimeArgs": ["--inspect-brk=9228", "nodemon.js"],
+      "outputCapture": "std",
+      "postDebugTask": "postdebugKill"
     },
     {
       "name": "webpack-dev-server",
@@ -38,6 +26,7 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+      "runtimeArgs": [],
       "args": ["--config", ".webpack/webpack.dev"],
       "outputCapture": "std"
     }
@@ -45,7 +34,7 @@
   "compounds": [
     {
       "name": "Debug",
-      "configurations": ["webpack-dev-server", "nodemon"]
+      "configurations": ["webpack-dev-server", "nodemon", "Main"]
     }
   ]
 }

@@ -21,7 +21,7 @@
     "webpack-production": "webpack --config .webpack/webpack.prod",
     "webpack-dll": "webpack --config .webpack/webpack.dll",
     "start:renderer": "yarn && webpack-dev-server --config .webpack/webpack.dev",
-    "start:main": "yarn && nodemon src/main/dev",
+    "start:main": "yarn && node nodemon.js",
     "webpack-bundle-analyzer": "webpack --config .webpack/webpack.analyzer",
     "doit": "yarn && yarn upgrade-interactive --latest",
     "test": "yarn && yarn run webpack-electron-prod && yarn run webpack-production",

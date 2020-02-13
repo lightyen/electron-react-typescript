@@ -1,11 +1,11 @@
 {
   "verbose": true,
   "ignore": ["**/*.test.ts", "**/*.spec.ts"],
-  "exec": "node_modules/.bin/electron",
+  "exec": "node_modules/.bin/electron --remote-debugging-port=9222",
   "watch": ["src/main"],
   "env": {
     "TS_NODE_PROJECT": "src/main/tsconfig.json",
     "NODE_ENV": "development"
   },
-  "ext": "ts js json"
+  "ext": "ts,json"
 }
