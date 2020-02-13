@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "ignore": ["**/*.test.ts", "**/*.spec.ts"],
+  "exec": "node_modules/.bin/electron",
+  "watch": ["src/main"],
+  "env": {
+    "TS_NODE_PROJECT": "src/main/tsconfig.json",
+    "NODE_ENV": "development"
+  },
+  "ext": "ts js json"
+}

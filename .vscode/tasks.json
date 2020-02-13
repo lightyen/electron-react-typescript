@@ -13,18 +13,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Build (Electron Development)",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "type": "shell",
-      "command": "yarn",
-      "args": ["run", "webpack-electron-dev"],
-      "presentation": { "clear": true },
-      "problemMatcher": []
-    },
-    {
       "label": "Build (Renderer Production)",
       "group": "build",
       "type": "shell",
@@ -32,32 +20,6 @@
       "args": ["run", "webpack-production"],
       "presentation": { "clear": true },
       "problemMatcher": []
-    },
-    {
-      "label": "Run (Renderer Development)",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn",
-      "args": ["run", "webpack-development"],
-      "isBackground": true,
-      "presentation": { "clear": true },
-      "problemMatcher": [
-        {
-          "pattern": [
-            {
-              "regexp": ".",
-              "file": 1,
-              "location": 2,
-              "message": 3
-            }
-          ],
-          "background": {
-            "activeOnStart": true,
-            "beginsPattern": ".",
-            "endsPattern": "."
-          }
-        }
-      ]
     },
     {
       "label": "postdebugKill",

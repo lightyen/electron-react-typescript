@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Electron Renderer",
+      "name": "Renderer",
       "type": "chrome",
       "request": "attach",
       "port": 9222,
@@ -11,23 +11,26 @@
       "webRoot": "${workspaceFolder}/src/renderer"
     },
     {
-      "name": "Electron Main",
+      "name": "Main",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "port": 9228,
+      "timeout": 10000
+    },
+    {
+      "name": "nodemon",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "program": "${workspaceFolder}/src/main/index.ts",
-      "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/dist/main.js"],
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
       "windows": {
-        "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\electron.cmd"
+        "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\nodemon.cmd"
       },
-      "runtimeArgs": ["--remote-debugging-port=9222"],
-      "args": ["./dist/main.js"],
-      "console": "internalConsole",
-      "outputCapture": "std",
-      "preLaunchTask": "${defaultBuildTask}",
-      "postDebugTask": "postdebugKill"
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": ["src/main/dev"],
+      "console": "integratedTerminal",
+      "restart": true,
+      "outputCapture": "std"
     },
     {
       "name": "webpack-dev-server",
@@ -42,11 +45,7 @@
   "compounds": [
     {
       "name": "Debug",
-      "configurations": [
-        "webpack-dev-server",
-        "Electron Main",
-        "Electron Renderer"
-      ]
+      "configurations": ["webpack-dev-server", "nodemon"]
     }
   ]
 }
