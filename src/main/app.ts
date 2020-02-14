@@ -1,13 +1,6 @@
 import Electron from "electron"
-import { MainWindow } from "./window"
 import { autoUpdater } from "electron-updater"
-
-export function isDevMode() {
-    return process.env.NODE_ENV === "development" || !Electron.app.isPackaged
-}
-
-export const appPath = isDevMode() ? process.cwd() : Electron.app.getAppPath()
-export const appName = process.env.APP_NAME
+import { MainWindow } from "~/models/window"
 
 export let mainWindow: Electron.BrowserWindow
 
@@ -18,15 +11,6 @@ export function initWindow() {
     })
     return mainWindow
 }
-
-// NOTE: https://github.com/electron/electron/issues/19468
-// NOTE: https://github.com/MarshallOfSound/electron-devtools-installer/pull/92
-// import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
-// Electron.app.on("ready", () => {
-//     if (isDevMode() && process.platform !== "win32") {
-//         installExtension(REACT_DEVELOPER_TOOLS).catch((err: unknown) => console.error("An error occurred: ", err))
-//     }
-// })
 
 Electron.app.on("ready", () => {
     initWindow()

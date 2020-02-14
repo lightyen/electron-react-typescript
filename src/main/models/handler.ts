@@ -5,7 +5,7 @@ import { promisify } from "util"
 import log from "electron-log"
 
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
-import { appName, appPath, isDevMode } from "~/app"
+import { appName, appPath, appVersion } from "~/const"
 
 export const getAppName: IpcHandler = () => {
     return appName
@@ -16,7 +16,6 @@ function getOS(): { name: string; version: string } {
 }
 
 export const getPaths: IpcHandler = () => {
-    console.log("getPath")
     return {
         home: Electron.app.getPath("home"),
         appData: Electron.app.getPath("appData"),
@@ -38,7 +37,6 @@ export const getLog: IpcPromiseHandler<string> = async () =>
     await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
 
 export const getVersions: IpcHandler = () => {
-    const app = isDevMode() ? "unknown" : Electron.app.getVersion()
     // Experiment
     // const n = new Electron.Notification({
     //     title: "App Notification",
@@ -48,7 +46,7 @@ export const getVersions: IpcHandler = () => {
     // n.on("click", () => {
     //     log.info("click notification")
     // })
-    return { ...process.versions, app, os: getOS() }
+    return { ...process.versions, app: appVersion, os: getOS() }
 }
 
 interface CPULoadInfo {

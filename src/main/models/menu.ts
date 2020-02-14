@@ -20,7 +20,7 @@ function setGlobalShortcut() {
     })
 }
 
-export default function setMenu() {
+export function newMenu() {
     setGlobalShortcut()
     const menuTemplate: Electron.MenuItemConstructorOptions[] = [
         {

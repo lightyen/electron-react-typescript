@@ -3,9 +3,11 @@ import url from "url"
 import path from "path"
 
 import { sendChannel } from "~/ipc"
-import { isDevMode, appPath, appName } from "~/app"
-import setMenu from "~/app/menu"
-import setRouter from "~/app/router"
+import { appPath, appName } from "~/const"
+import { isDevMode } from "~/is"
+
+import { newMenu } from "./menu"
+import { newRouter } from "./router"
 
 export class MainWindow extends Electron.BrowserWindow {
     constructor() {
@@ -24,8 +26,8 @@ export class MainWindow extends Electron.BrowserWindow {
         this.hide()
         this.setMenuBarVisibility(false)
 
-        setMenu()
-        setRouter()
+        newMenu()
+        newRouter()
 
         const sendMaximized = sendChannel<boolean>(this, "window.maximized")
 
