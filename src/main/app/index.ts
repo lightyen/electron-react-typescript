@@ -1,8 +1,6 @@
 import Electron from "electron"
 import { MainWindow } from "./window"
 import { autoUpdater } from "electron-updater"
-import log from "electron-log"
-import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
 
 export function isDevMode() {
     return process.env.NODE_ENV === "development" || !Electron.app.isPackaged
@@ -22,13 +20,17 @@ export function initWindow() {
 }
 
 // NOTE: https://github.com/electron/electron/issues/19468
+// NOTE: https://github.com/MarshallOfSound/electron-devtools-installer/pull/92
+// import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
+// Electron.app.on("ready", () => {
+//     if (isDevMode() && process.platform !== "win32") {
+//         installExtension(REACT_DEVELOPER_TOOLS).catch((err: unknown) => console.error("An error occurred: ", err))
+//     }
+// })
+
 Electron.app.on("ready", () => {
-    // if (isDevMode()) {
-    //     installExtension(REACT_DEVELOPER_TOOLS)
-    //         .then(name => console.log(`Added Extension: ${name}`))
-    //         .catch(err => console.error("An error occurred: ", err))
-    // }
     initWindow()
+
     autoUpdater.autoDownload = true
     autoUpdater.autoInstallOnAppQuit = false
     let downloaded = false
