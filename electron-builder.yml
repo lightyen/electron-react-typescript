@@ -1,0 +1,56 @@
+# configuration:  https://www.electron.build/configuration/configuration
+# Auto Update:    https://www.electron.build/auto-update
+
+productName: electron-react-typescript
+appId: com.electron.react.typescript
+artifactName: electron-react-typescript-${os}-${arch}-v${version}.${ext}
+asar: true
+compression: normal
+files:
+  - dist/**/*
+extraResources:
+  - assets/**/*
+
+publish:
+  provider: github
+  releaseType: release
+  # token: ${env.GH_TOKEN}
+
+directories:
+  buildResources: assets/
+  output: build/
+
+win:
+  target:
+    - nsis
+  icon: ./assets/appicons/256x256.png
+  # certificateFile: certificate.pfx
+
+linux:
+  target:
+    - AppImage
+  executableName: electron-react-typescript
+  desktop: electron-react-typescript
+  icon: assets/appicons/
+
+# For MacOS (I haven't try it yet!!!)
+mac:
+  target: default
+  category: public.app-category.developer-tools
+
+appx:
+  displayName: electron react typescript
+  identityName: electron.react.typescript
+  publisherDisplayName: lightyen
+
+nsis:
+  shortcutName: electron-react-typescript
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
+  runAfterFinish: true
+  oneClick: false
+
+appImage:
+  synopsis: An electron sample
+  description: An electron sample which is developed with react and typescript
+  category: Development

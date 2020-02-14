@@ -31,7 +31,7 @@ module.exports = function(options) {
 
     return {
         entry: {
-            index: path.join(src, "main.ts"),
+            index: path.join(src, "index.ts"),
         },
         output: {
             path: dist,

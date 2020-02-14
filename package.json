@@ -2,7 +2,7 @@
   "name": "electron-react-typescript",
   "main": "dist/main.js",
   "description": "use electron and react with typescript",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": {
     "name": "lightyen"
   },
@@ -21,7 +21,7 @@
     "webpack-production": "webpack --config .webpack/webpack.prod",
     "webpack-dll": "webpack --config .webpack/webpack.dll",
     "start:renderer": "yarn && webpack-dev-server --config .webpack/webpack.dev",
-    "start:main": "yarn && node nodemon.js",
+    "start:main": "yarn && node debug/nodemon.js",
     "webpack-bundle-analyzer": "webpack --config .webpack/webpack.analyzer",
     "doit": "yarn && yarn upgrade-interactive --latest",
     "test": "yarn && yarn run webpack-electron-prod && yarn run webpack-production",
@@ -111,7 +111,6 @@
     "tailwindcss-transforms": "2.2.0",
     "tailwindcss-transitions": "2.2.0",
     "terser-webpack-plugin": "2.3.4",
-    "toml": "3.0.0",
     "ts-node": "8.6.2",
     "tsconfig-paths": "3.9.0",
     "typescript": "3.7.5",

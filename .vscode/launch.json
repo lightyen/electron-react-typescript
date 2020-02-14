@@ -32,7 +32,7 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeArgs": ["nodemon.js"],
+      "runtimeArgs": ["debug/nodemon.js"],
       "restart": true,
       "outputCapture": "std",
       "port": 5858

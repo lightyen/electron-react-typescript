@@ -4,7 +4,7 @@ import path from "path"
 
 import { sendChannel } from "~/ipc"
 import { appPath, appName } from "~/const"
-import { isDevMode } from "~/is"
+import { isDev } from "~/is"
 
 import { newMenu } from "./menu"
 import { newRouter } from "./router"
@@ -39,7 +39,7 @@ export class MainWindow extends Electron.BrowserWindow {
             sendMaximized(false)
         })
 
-        const loadURL = isDevMode()
+        const loadURL = isDev
             ? this.loadURL(
                   url.format({
                       protocol: "http",

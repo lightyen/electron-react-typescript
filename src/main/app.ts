@@ -1,5 +1,6 @@
 import Electron from "electron"
 import { autoUpdater } from "electron-updater"
+import log from "electron-log"
 import { MainWindow } from "~/models/window"
 
 export let mainWindow: Electron.BrowserWindow
@@ -14,7 +15,6 @@ export function initWindow() {
 
 Electron.app.on("ready", () => {
     initWindow()
-
     autoUpdater.autoDownload = true
     autoUpdater.autoInstallOnAppQuit = false
     let downloaded = false
@@ -29,7 +29,7 @@ Electron.app.on("ready", () => {
         }
     })
     // check updates and download
-    autoUpdater.checkForUpdates().catch(err => err)
+    autoUpdater.checkForUpdates().catch(err => err.code !== "ENOENT" && log.error(err))
 })
 
 Electron.app.on("activate", () => {
