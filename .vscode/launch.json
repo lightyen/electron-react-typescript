@@ -6,7 +6,8 @@
       "type": "chrome",
       "request": "attach",
       "port": 9222,
-      "timeout": 30000,
+      "timeout": 10000,
+      "urlFilter": "http://localhost:3000/*",
       "webRoot": "${workspaceFolder}/src/renderer"
     },
     {
@@ -31,16 +32,16 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "port": 5858,
-      "restart": true,
       "runtimeArgs": ["nodemon.js"],
-      "outputCapture": "std"
+      "restart": true,
+      "outputCapture": "std",
+      "port": 5858
     }
   ],
   "compounds": [
     {
-      "name": "Debug",
-      "configurations": ["webpack-dev-server", "nodemon", "Main", "Renderer"]
+      "name": "Launch",
+      "configurations": ["webpack-dev-server", "nodemon"]
     }
   ]
 }

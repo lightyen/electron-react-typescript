@@ -1,5 +1,6 @@
 {
   "verbose": true,
+  "colours": true,
   "ignore": ["**/*.test.ts", "**/*.spec.ts", "src/main/dev.js"],
   "exec": "node_modules/.bin/electron --inspect=5858 --remote-debugging-port=9222",
   "watch": ["src/main"],
