@@ -16,6 +16,7 @@ function getOS(): { name: string; version: string } {
 }
 
 export const getPaths: IpcHandler = () => {
+    console.log("getPath")
     return {
         home: Electron.app.getPath("home"),
         appData: Electron.app.getPath("appData"),
@@ -37,7 +38,7 @@ export const getLog: IpcPromiseHandler<string> = async () =>
     await promisify(fs.readFile)(log.transports.file.getFile().path, { encoding: "utf-8" })
 
 export const getVersions: IpcHandler = () => {
-    const app = isDevMode() ? "unknownx" : Electron.app.getVersion()
+    const app = isDevMode() ? "unknown" : Electron.app.getVersion()
     // Experiment
     // const n = new Electron.Notification({
     //     title: "App Notification",

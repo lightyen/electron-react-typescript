@@ -57,7 +57,6 @@ export class MainWindow extends Electron.BrowserWindow {
               )
 
         loadURL.then(() => {
-            console.log("show")
             this.show()
             sendMaximized(this.isMaximized())
         })

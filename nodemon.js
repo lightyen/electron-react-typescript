@@ -1,11 +1,9 @@
-let restart = false
+let exit = true
 require("nodemon")({ script: "src/main/dev" })
     .on("exit", () => {
-        if (!restart) {
-            process.exit()
-        }
-        restart = false
+        exit && process.exit()
+        exit = true
     })
     .on("restart", () => {
-        restart = true
+        exit = false
     })

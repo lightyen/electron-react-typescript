@@ -3,10 +3,9 @@ import { MainWindow } from "./window"
 import { autoUpdater } from "electron-updater"
 import log from "electron-log"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
-import { serializeError } from "serialize-error"
 
 export function isDevMode() {
-    return !Electron.app.isPackaged
+    return process.env.NODE_ENV === "development" || !Electron.app.isPackaged
 }
 
 export const appPath = isDevMode() ? process.cwd() : Electron.app.getAppPath()
@@ -44,9 +43,7 @@ Electron.app.on("ready", () => {
         }
     })
     // check updates and download
-    autoUpdater.checkForUpdates().catch(err => {
-        console.error(err)
-    })
+    autoUpdater.checkForUpdates().catch(err => err)
 })
 
 Electron.app.on("activate", () => {

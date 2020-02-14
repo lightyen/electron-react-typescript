@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "bungcip.better-toml",
-    "firefox-devtools.vscode-firefox-debug",
     "msjsdiag.debugger-for-chrome",
     "dbaeumer.vscode-eslint",
     "jbockle.jbockle-format-files",

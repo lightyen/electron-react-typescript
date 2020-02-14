@@ -65,6 +65,6 @@ yarn build
 
 ## 其他參考連結
 
-- https://electronjs.org/docs
-- https://reactjs.org/
-- https://www.electron.build/
+- <https://electronjs.org/docs>
+- <https://reactjs.org/>
+- <https://www.electron.build/>
