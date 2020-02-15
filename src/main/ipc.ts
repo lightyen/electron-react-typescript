@@ -7,12 +7,13 @@ interface IpcResponse<T = unknown> {
     error?: unknown
 }
 
-export type IpcHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => T
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type IpcHandler<T = unknown | void> = (event: IpcMainEvent, ...args: any[]) => T
 
-export type IpcPromiseHandler<T = unknown> = (event: IpcMainEvent, ...args: unknown[]) => Promise<T>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type IpcPromiseHandler<T = unknown | void> = (event: IpcMainEvent, ...args: any[]) => Promise<T>
 
-/** subscribe on the ipc channel */
-export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
+export function response(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     ipcMain.on(channel, (event, ...args) => {
         try {
             const result = handler(event, ...args)
@@ -35,6 +36,24 @@ export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     })
 }
 
+export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
+    ipcMain.on(channel, (event, ...args) => {
+        try {
+            const result = handler(event, ...args)
+            if (result instanceof Promise) {
+                result.catch(err => {
+                    const error = serializeError(err)
+                    log.error(error)
+                })
+                return
+            }
+        } catch (err) {
+            const error = serializeError(err)
+            log.error(error)
+        }
+    })
+}
+
 type Sender<T> = (resp: T) => void
 
 export function sendChannel<T = unknown>(e: BrowserWindow | WebContents, channelName: string): Sender<T> {
@@ -47,4 +66,4 @@ export function sendChannel<T = unknown>(e: BrowserWindow | WebContents, channel
     }
 }
 
-export default { on, sendChannel }
+export default { on, response, sendChannel }

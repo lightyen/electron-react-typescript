@@ -39,8 +39,8 @@ const config = {
     },
     performance: {
         hints: "warning",
-        maxEntrypointSize: 614400,
-        maxAssetSize: 614400,
+        maxEntrypointSize: 52428800,
+        maxAssetSize: 52428800,
         assetFilter: filename => {
             const ext = path.extname(filename)
             return ext === "css" || ext === ".js"

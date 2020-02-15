@@ -1,10 +1,11 @@
 import React from "react"
 import { FormattedMessage } from "react-intl"
-import Select, { ValueType } from "react-select"
+import Select from "react-select"
 import { useSelector, useAction } from "~/store"
 import { languageNames } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
+import { send } from "~/ipc"
 
 interface OptionType {
     label: string
@@ -103,7 +104,14 @@ const AppPaths: React.FC = () => {
                         }
                     >
                         <td className="border px-4 py-2 border-gray-400">{k}</td>
-                        <td className="border px-4 py-2 border-gray-400">{paths[k]}</td>
+                        <td
+                            className="border px-4 py-2 border-gray-400"
+                            onClick={() => {
+                                send("open-folder", paths[k])
+                            }}
+                        >
+                            {paths[k]}
+                        </td>
                     </tr>
                 ))}
             </tbody>

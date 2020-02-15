@@ -1,17 +1,29 @@
 import Electron from "electron"
 import { autoUpdater } from "electron-updater"
+import path from "path"
 import log from "electron-log"
+
 import { MainWindow } from "~/models/window"
+import { isDev } from "~/is"
+import { install, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "~/electron-devtools-installer"
 
 export let mainWindow: Electron.BrowserWindow
 
 export function initWindow() {
+    if (isDev) {
+        install(REACT_DEVELOPER_TOOLS).catch(err => console.error(err))
+        install(REDUX_DEVTOOLS).catch(err => console.error(err))
+    }
     mainWindow = new MainWindow()
     mainWindow.on("closed", () => {
         mainWindow = null
     })
     return mainWindow
 }
+
+Electron.app.on("will-finish-launching", () =>
+    Electron.app.setAppLogsPath(path.join(Electron.app.getPath("userData"), "logs")),
+)
 
 Electron.app.on("ready", () => {
     initWindow()
@@ -29,7 +41,17 @@ Electron.app.on("ready", () => {
         }
     })
     // check updates and download
-    autoUpdater.checkForUpdates().catch(err => err.code !== "ENOENT" && log.error(err))
+    autoUpdater.checkForUpdates().catch(err => {
+        switch (err.code) {
+            case "ENOENT":
+                break
+            case "ERR_XML_MISSED_ELEMENT":
+                break
+            default:
+                log.error(err)
+                break
+        }
+    })
 })
 
 Electron.app.on("activate", () => {

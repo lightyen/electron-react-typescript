@@ -9,13 +9,19 @@ export interface IpcResponse<T = unknown> {
 }
 
 /** Request to ask for something we need from main process */
-export function request<T = unknown>(channel: string, ...args: unknown[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function request<T = unknown>(channel: string, ...args: any[]) {
     return new Promise<T>((resolve, reject) => {
         ipcRenderer.send(channel, ...args)
         ipcRenderer.once(channel, (event, res) => {
             res.hasOwnProperty("error") ? reject(res.error) : resolve(res.data)
         })
     })
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function send(channel: string, ...args: any[]) {
+    ipcRenderer.send(channel, ...args)
 }
 
 /** Create redux-saga channel from electron main process */

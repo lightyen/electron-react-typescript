@@ -1,12 +1,19 @@
-import { on } from "~/ipc"
+import Electron from "electron"
+import fs from "fs"
+import { promisify } from "util"
+import { response, on } from "~/ipc"
 import { getAppName, getVersions, getCPUUsage, getSystemInfo, openDirectoryDialog, getPaths, getLog } from "./handler"
 
 export function newRouter() {
-    on("app.get-name", getAppName)
-    on("app.get-versions", getVersions)
-    on("app.get-cpuusage", getCPUUsage)
-    on("app.get-sysmem-info", getSystemInfo)
-    on("app.dialog.open", openDirectoryDialog)
-    on("app.get-paths", getPaths)
-    on("get-log", getLog)
+    response("app.get-name", getAppName)
+    response("app.get-versions", getVersions)
+    response("app.get-cpuusage", getCPUUsage)
+    response("app.get-sysmem-info", getSystemInfo)
+    response("app.dialog.open", openDirectoryDialog)
+    response("app.get-paths", getPaths)
+    response("get-log", getLog)
+    on("open-folder", async (e, fullpath: string) => {
+        const stat = await promisify(fs.stat)(fullpath)
+        stat.isDirectory() && Electron.shell.openItem(fullpath)
+    })
 }
