@@ -107,7 +107,7 @@ const AppPaths: React.FC = () => {
                         <td
                             className="border px-4 py-2 border-gray-400"
                             onClick={() => {
-                                send("open-folder", paths[k])
+                                send("show.folder", paths[k])
                             }}
                         >
                             {paths[k]}

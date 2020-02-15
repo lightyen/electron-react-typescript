@@ -22,28 +22,28 @@ import { UpdateInfo } from "./model"
 
 function* getAppVersion() {
     try {
-        const version = yield call(request, "app.get-versions")
+        const version = yield call(request, "get.versions")
         yield put<GetAppVersionAction>({ type: GET_APP_VERSION.SUCCESS, version })
     } catch (e) {}
 }
 
 function* getAppPaths() {
     try {
-        const paths = yield call(request, "app.get-paths")
+        const paths = yield call(request, "get.paths")
         yield put<GetAppPathsAction>({ type: GET_APP_PATHS.SUCCESS, paths })
     } catch (e) {}
 }
 
 function* getCPUUsage() {
     try {
-        const usage = yield call(request, "app.get-cpuusage")
+        const usage = yield call(request, "get.cpuusage")
         yield put<GetAppCpuUsageAction>({ type: GET_APP_CPU_USAGE.SUCCESS, usage })
     } catch (e) {}
 }
 
 function* getSystemMemory() {
     try {
-        const usage = yield call(request, "app.get-sysmem-info")
+        const usage = yield call(request, "get.sysmeminfo")
         yield put<GetAppSystemMemoryAction>({ type: GET_APP_SYSTEM_MEMORY.SUCCESS, usage })
     } catch (e) {}
 }

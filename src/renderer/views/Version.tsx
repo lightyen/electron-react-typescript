@@ -4,8 +4,10 @@ import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 
 import { request } from "~/ipc"
+import { useSelector } from "~/store"
 
 const Page: React.FC = ({}) => {
+    const textColor = useSelector(state => state.theme.textColor)
     const [text, setText] = React.useState("")
     const history = useHistory()
     return (
@@ -18,14 +20,11 @@ const Page: React.FC = ({}) => {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
                         onClick={() => {
                             request<{
-                                canceled: boolean
                                 filePaths: string[]
                                 files: string[]
-                            }>("app.dialog.open").then(data => {
-                                const { canceled, filePaths } = data
-                                if (!canceled) {
-                                    setText(filePaths[0])
-                                }
+                            }>("dialog.open").then(data => {
+                                const { filePaths } = data
+                                setText(filePaths[0])
                             })
                         }}
                     >
@@ -44,7 +43,11 @@ const Page: React.FC = ({}) => {
                         Settings
                     </button>
                 </div>
-                {text && <div className="mt-2 text-gray">{text}</div>}
+                {text && (
+                    <div className="mt-2" style={{ color: textColor }}>
+                        {text}
+                    </div>
+                )}
                 <div className="mt-2 bg-gray-500" style={{ width: 300, height: 1300 }}></div>
                 <Link
                     to="/"

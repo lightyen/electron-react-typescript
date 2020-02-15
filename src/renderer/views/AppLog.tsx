@@ -7,7 +7,7 @@ const Page: React.FC = () => {
     const color = useSelector(state => state.theme.textColor)
     const [log, setLog] = React.useState("")
     React.useEffect(() => {
-        request<string>("get-log")
+        request<string>("get.log")
             .then(data => setLog(data))
             .catch(err => setLog(JSON.stringify(err, null, 2)))
     }, [])

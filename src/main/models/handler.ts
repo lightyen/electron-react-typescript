@@ -144,10 +144,7 @@ export const openDirectoryDialog: IpcPromiseHandler = async (
         options,
     )
     if (canceled) {
-        return {
-            ...rest,
-            files: [],
-        }
+        return null // no response
     }
 
     const list = await promisify(fs.readdir)(rest.filePaths[0])

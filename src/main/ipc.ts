@@ -8,10 +8,10 @@ interface IpcResponse<T = unknown> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IpcHandler<T = unknown | void> = (event: IpcMainEvent, ...args: any[]) => T
+export type IpcHandler<T = any> = (event: IpcMainEvent, ...args: any[]) => T
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IpcPromiseHandler<T = unknown | void> = (event: IpcMainEvent, ...args: any[]) => Promise<T>
+export type IpcPromiseHandler<T = any> = (event: IpcMainEvent, ...args: any[]) => Promise<T>
 
 export function response(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     ipcMain.on(channel, (event, ...args) => {
@@ -19,7 +19,7 @@ export function response(channel: string, handler: IpcHandler | IpcPromiseHandle
             const result = handler(event, ...args)
             if (result instanceof Promise) {
                 result
-                    .then(resp => event.sender.send(channel, { data: resp }))
+                    .then(resp => resp != undefined && event.sender.send(channel, { data: resp }))
                     .catch(err => {
                         const error = serializeError(err)
                         log.error(error)
@@ -27,7 +27,7 @@ export function response(channel: string, handler: IpcHandler | IpcPromiseHandle
                     })
                 return
             }
-            event.sender.send(channel, { data: result })
+            result != undefined && event.sender.send(channel, { data: result })
         } catch (err) {
             const error = serializeError(err)
             log.error(error)
