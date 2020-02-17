@@ -4,6 +4,7 @@ import path from "path"
 import log from "electron-log"
 
 import { MainWindow } from "~/window"
+import { store } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
@@ -41,8 +42,8 @@ Electron.app.on("ready", () => {
             autoUpdater.quitAndInstall()
         }
     })
-    if (!isDev) {
-        // check updates and download
+    // check updates and download
+    if (store.get("autoUpdate")) {
         autoUpdater.checkForUpdates().catch(err => {
             switch (err.code) {
                 default:

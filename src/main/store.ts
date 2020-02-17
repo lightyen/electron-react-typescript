@@ -1,13 +1,13 @@
 import ElectronStore from "electron-store"
 
 interface StoreType {
+    autoUpdate: boolean
     backgroundColor: string
 }
 
-const store = new ElectronStore<StoreType>({
+export const store = new ElectronStore<StoreType>({
     defaults: {
+        autoUpdate: false,
         backgroundColor: "#1a202c",
     },
 })
-
-export default store

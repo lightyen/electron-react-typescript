@@ -9,14 +9,14 @@ import { isDev } from "~/is"
 import { newMenu } from "~/menu"
 import { newRouter } from "~/router"
 
-import store from "~/store"
+import { store } from "~/store"
 
 export class MainWindow extends Electron.BrowserWindow {
     constructor() {
         const backgroundColor = store.get("backgroundColor") || "#1a202c"
         super({
             title: appName,
-            show: true,
+            show: false,
             frame: false,
             resizable: true,
             minWidth: 820,
@@ -27,7 +27,6 @@ export class MainWindow extends Electron.BrowserWindow {
             },
             icon: path.join(appPath, "assets", "appicons", "256x256.png"),
         })
-        this.hide()
         this.setMenuBarVisibility(false)
 
         newMenu()
@@ -62,8 +61,6 @@ export class MainWindow extends Electron.BrowserWindow {
                   }),
               )
 
-        loadURL.then(() => {
-            this.show()
-        })
+        this.show()
     }
 }
