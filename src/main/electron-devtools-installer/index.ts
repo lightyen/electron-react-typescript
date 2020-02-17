@@ -119,7 +119,6 @@ function downloadChromeExtension(chromeStoreID: string, extensionFolder: string,
                 unzip(filePath, extensionFolder)
                     .then(() => {
                         changePermissions(extensionFolder, 0o755)
-                        console.log("delete:", filePath)
                         promisify(fs.unlink)(filePath).then(resolve)
                     })
                     .catch(err => {
@@ -129,7 +128,6 @@ function downloadChromeExtension(chromeStoreID: string, extensionFolder: string,
                     })
             })
             .catch(err => {
-                console.log(`Failed to fetch extension, trying ${attempts - 1} more times`)
                 if (attempts <= 1) {
                     return reject(err)
                 }

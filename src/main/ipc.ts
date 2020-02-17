@@ -54,10 +54,24 @@ export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
     })
 }
 
-type Sender<T> = (resp: T) => void
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function send<T = any>(e: BrowserWindow | WebContents, channelName: string, resp: T) {
+    if (resp == undefined) {
+        return
+    }
+    if (e instanceof BrowserWindow) {
+        e.webContents.send(channelName, { data: resp })
+    } else {
+        e.send(channelName, { data: resp })
+    }
+}
 
-export function sendChannel<T = unknown>(e: BrowserWindow | WebContents, channelName: string): Sender<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function sendChannel<T = any>(e: BrowserWindow | WebContents, channelName: string): (resp: T) => void {
     return function(resp: T) {
+        if (resp == undefined) {
+            return
+        }
         if (e instanceof BrowserWindow) {
             e.webContents.send(channelName, { data: resp })
         } else {
@@ -66,4 +80,4 @@ export function sendChannel<T = unknown>(e: BrowserWindow | WebContents, channel
     }
 }
 
-export default { on, response, sendChannel }
+export default { on, response, send, sendChannel }

@@ -3,7 +3,7 @@
 
 productName: electron-react-typescript
 appId: com.electron.react.typescript
-artifactName: electron-react-typescript-${os}-${arch}-v${version}.${ext}
+artifactName: electron-react-typescript-${os}-${arch}-${version}.${ext}
 asar: true
 compression: normal
 files:

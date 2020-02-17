@@ -41,6 +41,7 @@ const AppIcon = styled.img`
     display: flex;
     height: 100%;
     padding: 5px;
+    user-select: none;
 `
 
 const Title = styled.div`
@@ -53,6 +54,7 @@ const Title = styled.div`
     text-overflow: ellipsis;
     font-size: ${(props: HeightProps) => ((props.height - 4) / 26) * 13}px;
     transition: font-size 0.2s ease;
+    user-select: none;
 `
 
 const Controls = styled.div`
