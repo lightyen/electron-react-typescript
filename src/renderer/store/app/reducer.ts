@@ -4,7 +4,6 @@ import { Version, SystemMemoryInfo, AppPaths } from "./model"
 import {
     Action,
     GET_TITLEBAR_HIDE,
-    GET_APP_MAXIMIZED,
     GET_APP_VERSION,
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
@@ -13,7 +12,6 @@ import {
 } from "./action"
 
 interface AppStoreType {
-    maximized: boolean
     hide: boolean
     version: Version
     paths: AppPaths
@@ -26,7 +24,6 @@ interface AppStoreType {
 export type AppStore = Readonly<AppStoreType>
 
 const init: AppStore = {
-    maximized: localStorage.getItem("maximized") === "true",
     hide: false,
     version: {
         app: "",
@@ -63,8 +60,6 @@ export const app: Reducer<AppStore, Action> = (state = init, action): AppStore =
     switch (action.type) {
         case GET_TITLEBAR_HIDE:
             return { ...state, hide: action.hide }
-        case GET_APP_MAXIMIZED:
-            return { ...state, maximized: action.maximized }
         case GET_APP_VERSION.SUCCESS:
             return { ...state, version: action.version }
         case GET_APP_PATHS.SUCCESS:

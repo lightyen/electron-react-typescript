@@ -1,10 +1,10 @@
-import React from "react"
-import TitleBar from "~/layout/TitleBar"
-import StatusBar from "~/layout/StatusBar"
-import Viewer from "~/layout/Viewer"
-import AutoUpdater from "~/components/AutoUpdater"
-
+import React, { Suspense } from "react"
 import { hot } from "react-hot-loader/root"
+
+import TitleBar from "./TitleBar"
+import StatusBar from "./StatusBar"
+import Viewer from "./Viewer"
+import AutoUpdater from "./AutoUpdater"
 
 const AppContainer: React.FC = () => {
     return (

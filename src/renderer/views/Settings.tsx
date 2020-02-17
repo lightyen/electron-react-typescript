@@ -33,20 +33,6 @@ const Page: React.FC = () => {
             <div className="pt-3 pl-3">
                 <div className="mb-10">
                     <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
-                        <FormattedMessage id="language" />
-                    </label>
-                    <div className="w-64">
-                        <Select<OptionType>
-                            className="text-blue-500"
-                            options={langOpts}
-                            value={langOpts.find(v => v.value == name)}
-                            onChange={v => setLocale(v["value"])}
-                            isSearchable={false}
-                        />
-                    </div>
-                </div>
-                <div className="mb-10">
-                    <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
                         <FormattedMessage id="themes" />
                     </label>
                     <div className="w-64">
@@ -60,6 +46,20 @@ const Page: React.FC = () => {
                                 option: s => ({ ...s, textTransform: "capitalize" }),
                                 container: s => ({ ...s, textTransform: "capitalize" }),
                             }}
+                        />
+                    </div>
+                </div>
+                <div className="mb-10">
+                    <label className="block font-bold mb-2" style={{ color: textColor, textTransform: "capitalize" }}>
+                        <FormattedMessage id="language" />
+                    </label>
+                    <div className="w-64">
+                        <Select<OptionType>
+                            className="text-blue-500"
+                            options={langOpts}
+                            value={langOpts.find(v => v.value == name)}
+                            onChange={v => setLocale(v["value"])}
+                            isSearchable={false}
                         />
                     </div>
                 </div>

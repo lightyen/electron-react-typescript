@@ -30,7 +30,7 @@ const plugins = [
  */
 const config = {
     mode: "production",
-    devtool: "inline-source-map",
+    devtool: false,
     externals: ["lodash"],
     stats: {
         children: false,

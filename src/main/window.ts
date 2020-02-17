@@ -9,15 +9,19 @@ import { isDev } from "~/is"
 import { newMenu } from "~/menu"
 import { newRouter } from "~/router"
 
+import store from "~/store"
+
 export class MainWindow extends Electron.BrowserWindow {
     constructor() {
+        const backgroundColor = store.get("backgroundColor") || "#1a202c"
         super({
             title: appName,
             show: true,
             frame: false,
             resizable: true,
             minWidth: 820,
-            minHeight: 480,
+            minHeight: 600,
+            backgroundColor,
             webPreferences: {
                 nodeIntegration: true,
             },
@@ -60,7 +64,6 @@ export class MainWindow extends Electron.BrowserWindow {
 
         loadURL.then(() => {
             this.show()
-            sendMaximized(this.isMaximized())
         })
     }
 }

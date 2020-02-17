@@ -6,6 +6,8 @@ import { useSelector } from "~/store"
 
 import icon from "~assets/images/favicon.ico"
 
+import { subscribe, SubscribeCallBack, unsubscribe } from "~/ipc"
+
 interface HeaderTitleBarProps {
     height: number
     hide: boolean
@@ -100,17 +102,20 @@ function maximize() {
 
 const TitleBar: React.FC = () => {
     const theme = useSelector(state => state.theme)
-    const maximized = useSelector(state => state.app.maximized)
     const hide = useSelector(state => state.app.hide)
+
+    const [maximized, setMaximized] = React.useState(false)
 
     const barHeight = 30
     const iw = barHeight / 3
     const ih = barHeight / 3
 
     React.useEffect(() => {
-        if (localStorage.getItem("maximized") === "true") {
-            maximize()
+        const cb: SubscribeCallBack<boolean> = (_, res) => {
+            setMaximized(res.data)
         }
+        subscribe("window.maximized", cb)
+        return () => unsubscribe("window.maximized", cb)
     }, [])
 
     return (

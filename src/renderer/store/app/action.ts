@@ -1,6 +1,5 @@
 import { Version, AppPaths, CPUInfo, SystemMemoryInfo, UpdateInfo } from "./model"
 
-export const GET_APP_MAXIMIZED = "GET_APP_MAXIMIZED"
 export const GET_TITLEBAR_HIDE = "GET_TITLEBAR_HIDE"
 
 export enum GET_APP_VERSION {
@@ -29,11 +28,6 @@ export enum GET_APP_SYSTEM_MEMORY {
 
 export const AUTO_UPDATE_DOWNLOADED = "AUTO_UPDATE_DOWNLOADED"
 export const AUTO_UPDATE_RESTART = "AUTO_UPDATE_RESTART"
-
-export interface GetAppMaximizedAction {
-    type: typeof GET_APP_MAXIMIZED
-    maximized: boolean
-}
 
 export interface GetAppTitleBarHideAction {
     type: typeof GET_TITLEBAR_HIDE
@@ -97,7 +91,6 @@ export default actionCreators
 
 export type Action =
     | GetAppTitleBarHideAction
-    | GetAppMaximizedAction
     | GetAppVersionAction
     | GetAppPathsAction
     | GetAppCpuUsageAction

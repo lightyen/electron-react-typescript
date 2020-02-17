@@ -10,6 +10,7 @@ import { getLog } from "~/routes/get.syslog"
 import { getVersions } from "~/routes/get.version"
 import { getCPUUsage } from "~/routes/get.cpu"
 import { getMemory } from "~/routes/get.memory"
+import { setDefaultBackgroundColor } from "./routes/set.default"
 
 export function newRouter() {
     response("get.name", getAppName)
@@ -19,6 +20,7 @@ export function newRouter() {
     response("dialog.open", openDirectoryDialog)
     response("get.paths", getPaths)
     response("get.log", getLog)
+    on("set.default.backgroundColor", setDefaultBackgroundColor)
     on("show.folder", async (e, fullpath: string) => {
         const stat = await promisify(fs.stat)(fullpath)
         stat.isDirectory() && Electron.shell.openItem(fullpath)

@@ -1,14 +1,12 @@
 import { request, subscribeChannel, consoleChannel } from "~/ipc"
-import { put, take, fork, all, call, takeEvery, takeLeading } from "redux-saga/effects"
+import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
 import {
-    GET_APP_MAXIMIZED,
     GET_APP_VERSION,
     GET_APP_PATHS,
     GET_TITLEBAR_HIDE,
     GET_APP_CPU_USAGE,
     GET_APP_SYSTEM_MEMORY,
-    GetAppMaximizedAction,
     GetAppVersionAction,
     GetAppPathsAction,
     GetAppTitleBarHideAction,
@@ -53,15 +51,6 @@ function* subscribeWindowFullScreen() {
     while (true) {
         const isFullScreen: boolean = yield take(chan)
         yield put<GetAppTitleBarHideAction>({ type: GET_TITLEBAR_HIDE, hide: isFullScreen })
-    }
-}
-
-function* subscribeWindowMaxmized() {
-    const chan = yield subscribeChannel("window.maximized")
-    while (true) {
-        const maximized: boolean = yield take(chan)
-        localStorage.setItem("maximized", `${maximized}`)
-        yield put<GetAppMaximizedAction>({ type: GET_APP_MAXIMIZED, maximized })
     }
 }
 
@@ -123,7 +112,7 @@ export default function* sagas() {
     yield takeLeading(AUTO_UPDATE_RESTART, updateRestart)
     yield fork(subscribeUpdateDownloaded)
     yield fork(subscribeWindowFullScreen)
-    yield fork(subscribeWindowMaxmized)
+    // yield fork(subscribeWindowMaxmized)
     yield fork(sysemConsoleLog)
     yield fork(sysemConsoleWarning)
     yield fork(sysemConsoleError)

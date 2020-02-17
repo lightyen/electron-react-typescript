@@ -3,7 +3,7 @@ import { eventChannel, END } from "redux-saga"
 import { call } from "redux-saga/effects"
 
 /** IPC response data design pattern */
-export interface IpcResponse<T = unknown> {
+export interface IpcResponsePattern<T = unknown> {
     data?: T
     error?: unknown
 }
@@ -24,11 +24,23 @@ export function send(channel: string, ...args: any[]) {
     ipcRenderer.send(channel, ...args)
 }
 
+export type SubscribeCallBack<T = unknown> = (e: IpcRendererEvent, res: IpcResponsePattern<T>) => void
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function subscribe<T = any>(channel: string, cb: SubscribeCallBack<T>) {
+    ipcRenderer.on(channel, cb)
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function unsubscribe<T = any>(channel: string, cb: SubscribeCallBack<T>) {
+    ipcRenderer.removeListener(channel, cb)
+}
+
 /** Create redux-saga channel from electron main process */
 export function* subscribeChannel(channel: string) {
     return yield call(() =>
         eventChannel(emitter => {
-            function cb(e: IpcRendererEvent, res: IpcResponse) {
+            function cb(e: IpcRendererEvent, res: IpcResponsePattern) {
                 if (res.hasOwnProperty("error")) {
                     emitter(res.error)
                     emitter(END)
