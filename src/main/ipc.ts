@@ -2,7 +2,7 @@ import { IpcMainEvent, ipcMain, BrowserWindow, WebContents } from "electron"
 import log from "electron-log"
 import { serializeError } from "serialize-error"
 
-interface IpcResponse<T = unknown> {
+interface IpcResponsePattern<T = unknown> {
     data?: T
     error?: unknown
 }

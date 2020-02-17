@@ -43,7 +43,7 @@ function* getCPUUsage() {
 
 function* getSystemMemory() {
     try {
-        const usage = yield call(request, "get.sysmeminfo")
+        const usage = yield call(request, "get.memory")
         yield put<GetAppSystemMemoryAction>({ type: GET_APP_SYSTEM_MEMORY.SUCCESS, usage })
     } catch (e) {}
 }

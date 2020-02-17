@@ -6,8 +6,8 @@ import { sendChannel } from "~/ipc"
 import { appPath, appName } from "~/const"
 import { isDev } from "~/is"
 
-import { newMenu } from "./menu"
-import { newRouter } from "./router"
+import { newMenu } from "~/menu"
+import { newRouter } from "~/router"
 
 export class MainWindow extends Electron.BrowserWindow {
     constructor() {

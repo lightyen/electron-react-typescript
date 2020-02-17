@@ -12,11 +12,13 @@ const Page: React.FC = () => {
             .catch(err => setLog(JSON.stringify(err, null, 2)))
     }, [])
 
+    console.log(log)
+
     return (
         <div>
             <Back to="/version" />
             <p className="p-3" style={{ color, whiteSpace: "pre-wrap" }}>
-                {log}
+                {!!log ? "Empty" : log}
             </p>
         </div>
     )

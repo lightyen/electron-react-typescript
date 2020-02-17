@@ -17,7 +17,7 @@ const Page: React.FC = ({}) => {
                 <AppVersion />
                 <div className="mt-2">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
+                        className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
                         onClick={() => {
                             request<{
                                 filePaths: string[]
@@ -31,16 +31,16 @@ const Page: React.FC = ({}) => {
                         Open Dialog
                     </button>
                     <button
+                        className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
+                        onClick={() => history.push("/settings")}
+                    >
+                        Settings
+                    </button>
+                    <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
                         onClick={() => history.push("/log")}
                     >
                         Log
-                    </button>
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-bg"
-                        onClick={() => history.push("/settings")}
-                    >
-                        Settings
                     </button>
                 </div>
                 {text && (

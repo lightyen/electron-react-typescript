@@ -118,7 +118,8 @@ function downloadChromeExtension(chromeStoreID: string, extensionFolder: string,
             .then(() => {
                 unzip(filePath, extensionFolder)
                     .then(() => {
-                        changePermissions(extensionFolder, 755)
+                        changePermissions(extensionFolder, 0o755)
+                        console.log("delete:", filePath)
                         promisify(fs.unlink)(filePath).then(resolve)
                     })
                     .catch(err => {

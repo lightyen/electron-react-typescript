@@ -3,7 +3,7 @@ import { autoUpdater } from "electron-updater"
 import path from "path"
 import log from "electron-log"
 
-import { MainWindow } from "~/models/window"
+import { MainWindow } from "~/window"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "~/electron-devtools-installer"
 
