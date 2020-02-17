@@ -105,7 +105,7 @@ const AppPaths: React.FC = () => {
                     >
                         <td className="border px-4 py-2 border-gray-400">{k}</td>
                         <td
-                            className="border px-4 py-2 border-gray-400"
+                            className="border px-4 py-2 border-gray-400 cursor-pointer"
                             onClick={() => {
                                 send("show.folder", paths[k])
                             }}
