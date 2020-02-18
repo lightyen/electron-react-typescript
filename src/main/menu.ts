@@ -40,10 +40,10 @@ export function newMenu() {
                     accelerator: "F11",
                     click: (item, w, e) => {
                         if (w.isFullScreen()) {
-                            send("window.fullscreen", false)
+                            send("window.fullscreen", false, w.webContents)
                             w.setFullScreen(false)
                         } else {
-                            send("window.fullscreen", true)
+                            send("window.fullscreen", true, w.webContents)
                             w.setFullScreen(true)
                         }
                     },

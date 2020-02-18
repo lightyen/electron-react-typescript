@@ -71,11 +71,11 @@ export function send<T = any>(channel: string, data: T, e?: WebContents) {
 export function request<T = any>(e: WebContents, channel: string, ...args: any[]) {
     return new Promise((resolve: (value: T) => void, reject) => {
         ipcMain.once(channel, (_, res: IpcResponsePattern<T>) => {
-            if (res.error) {
+            if (res.hasOwnProperty("error")) {
                 reject(res.error)
                 return
             }
-            if (res.data) {
+            if (res.hasOwnProperty("data")) {
                 resolve(res.data)
                 return
             }

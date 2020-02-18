@@ -19,11 +19,11 @@ export function request<T = unknown>(channel: string, ...args: any[]) {
     return new Promise<T>((resolve, reject) => {
         ipcRenderer.send(channel, ...args)
         ipcRenderer.once(channel, (_, res: IpcResponsePattern<T>) => {
-            if (res.error) {
+            if (res.hasOwnProperty("error")) {
                 reject(res.error)
                 return
             }
-            if (res.data) {
+            if (res.hasOwnProperty("data")) {
                 resolve(res.data)
                 return
             }

@@ -22,7 +22,24 @@ const AppSwitch: React.FC = () => {
     const location = useLocation()
     return (
         <Switch location={location} key={location.pathname}>
-            <Route path="/" exact>
+            <Route
+                path="/"
+                exact
+                custom={{
+                    initial: {
+                        x: 0,
+                        opacity: 0,
+                    },
+                    in: {
+                        x: 0,
+                        opacity: 1,
+                    },
+                    out: {
+                        opacity: 0,
+                        transition: { duration: 0.15 },
+                    },
+                }}
+            >
                 <Home />
             </Route>
             <Route path="/version">

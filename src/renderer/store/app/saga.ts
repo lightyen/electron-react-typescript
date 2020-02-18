@@ -1,4 +1,4 @@
-import { subscribeChannel } from "~/store/saga"
+import { ipcChannel } from "~/store/saga"
 import { request } from "~/ipc"
 import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
@@ -48,7 +48,7 @@ function* getSystemMemory() {
 }
 
 function* subscribeWindowFullScreen() {
-    const chan = yield subscribeChannel("window.fullscreen")
+    const chan = yield ipcChannel("window.fullscreen")
     while (true) {
         const isFullScreen: boolean = yield take(chan)
         yield put<GetAppTitleBarHideAction>({ type: GET_TITLEBAR_HIDE, hide: isFullScreen })
@@ -56,7 +56,7 @@ function* subscribeWindowFullScreen() {
 }
 
 function* subscribeUpdateDownloaded() {
-    const chan = yield subscribeChannel("update-downloaded")
+    const chan = yield ipcChannel("update-downloaded")
     const info: UpdateInfo = yield take(chan)
     yield put<AutoUpdateDownloadedAction>({ type: AUTO_UPDATE_DOWNLOADED, info })
 }
