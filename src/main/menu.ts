@@ -1,19 +1,21 @@
 import Electron from "electron"
-import { sendChannel } from "~/ipc"
-import { Console } from "~/app"
+import { send } from "~/ipc"
+import { isDev } from "./is"
 
 /**
  * https://electronjs.org/docs/api/accelerator
  */
 // NOTE: 可以使用 globalShortcut 模組來偵測鍵盤事件，就算你的應用程式視窗沒有 focus 也能作用。
 function setGlobalShortcut() {
-    Electron.globalShortcut.register("CmdOrCtrl+G", () => {
-        if (process.platform === "darwin") {
-            Console.log("Press Command+G")
-        } else {
-            Console.log("Press Control+G")
-        }
-    })
+    if (isDev) {
+        Electron.globalShortcut.register("CmdOrCtrl+G", () => {
+            if (process.platform === "darwin") {
+                console.log("Press Command+G")
+            } else {
+                console.log("Press Control+G")
+            }
+        })
+    }
     Electron.app.on("will-quit", () => {
         // 取消訂閱所有快速鍵
         Electron.globalShortcut.unregisterAll()
@@ -37,12 +39,11 @@ export function newMenu() {
                     label: "Toggle Fullscreen",
                     accelerator: "F11",
                     click: (item, w, e) => {
-                        const send = sendChannel(w, "window.fullscreen")
                         if (w.isFullScreen()) {
-                            send(false)
+                            send("window.fullscreen", false)
                             w.setFullScreen(false)
                         } else {
-                            send(true)
+                            send("window.fullscreen", true)
                             w.setFullScreen(true)
                         }
                     },

@@ -7,19 +7,17 @@ export interface Version {
 }
 
 export interface AppPaths {
+    userData: string
+    temp: string
     home: string
     appData: string
-    temp: string
     cache: string
+    logs: string
     desktop: string
     documents: string
     music: string
     pictures: string
     downloads: string
-    appPath: string
-    userData: string
-    logs: string
-    exe: string
 }
 
 export interface CPUInfo {

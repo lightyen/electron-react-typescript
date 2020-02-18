@@ -2,6 +2,7 @@ import { IpcMainEvent, ipcMain, BrowserWindow, WebContents } from "electron"
 import log from "electron-log"
 import { serializeError } from "serialize-error"
 
+/** IPC response data design pattern */
 interface IpcResponsePattern<T = unknown> {
     data?: T
     error?: unknown
@@ -55,28 +56,46 @@ export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function send<T = any>(e: BrowserWindow | WebContents, channelName: string, resp: T) {
-    if (resp == undefined) {
+export function send<T = any>(channel: string, data: T, e?: WebContents) {
+    if (data == undefined) {
         return
     }
-    if (e instanceof BrowserWindow) {
-        e.webContents.send(channelName, { data: resp })
-    } else {
-        e.send(channelName, { data: resp })
+    if (e) {
+        e.send(channel, { data })
+        return
     }
+    BrowserWindow.getFocusedWindow()?.webContents.send(channel, { data })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function sendChannel<T = any>(e: BrowserWindow | WebContents, channelName: string): (resp: T) => void {
-    return function(resp: T) {
-        if (resp == undefined) {
+export function request<T = any>(e: WebContents, channel: string, ...args: any[]) {
+    return new Promise((resolve: (value: T) => void, reject) => {
+        ipcMain.once(channel, (_, res: IpcResponsePattern<T>) => {
+            if (res.error) {
+                reject(res.error)
+                return
+            }
+            if (res.data) {
+                resolve(res.data)
+                return
+            }
+            log.error("Unexpected renderer response format:", JSON.stringify(res))
+        })
+        e.send(channel, ...args)
+    })
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function sendChannel<T = any>(channel: string, e?: WebContents): (data: T) => void {
+    return function(data: T) {
+        if (data == undefined) {
             return
         }
-        if (e instanceof BrowserWindow) {
-            e.webContents.send(channelName, { data: resp })
-        } else {
-            e.send(channelName, { data: resp })
+        if (e) {
+            e.send(channel, { data })
+            return
         }
+        BrowserWindow.getFocusedWindow()?.webContents.send(channel, { data })
     }
 }
 

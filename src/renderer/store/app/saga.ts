@@ -1,4 +1,5 @@
-import { request, subscribeChannel, consoleChannel } from "~/ipc"
+import { subscribeChannel } from "~/store/saga"
+import { request } from "~/ipc"
 import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
 import {
@@ -66,44 +67,6 @@ function* updateRestart() {
     } catch (e) {}
 }
 
-function* sysemConsoleLog() {
-    const chan = yield consoleChannel("console.log")
-    while (true) {
-        const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
-        if (obj.message || obj.optionalParams.length) {
-            console.log(obj.message, ...obj.optionalParams)
-        }
-    }
-}
-
-function* sysemConsoleWarning() {
-    const chan = yield consoleChannel("console.warn")
-    while (true) {
-        const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
-        if (obj.message || obj.optionalParams.length) {
-            console.warn(obj.message, ...obj.optionalParams)
-        }
-    }
-}
-
-function* sysemConsoleError() {
-    const chan = yield consoleChannel("console.error")
-    while (true) {
-        const obj: { message: unknown; optionalParams: unknown[] } = yield take(chan)
-        if (obj.message || obj.optionalParams.length) {
-            console.error(obj.message, ...obj.optionalParams)
-        }
-    }
-}
-
-function* sysemConsoleClear() {
-    const chan = yield consoleChannel("console.clear")
-    while (true) {
-        yield take(chan)
-        console.clear()
-    }
-}
-
 export default function* sagas() {
     yield takeEvery(GET_APP_VERSION.REQUEST, getAppVersion)
     yield takeEvery(GET_APP_PATHS.REQUEST, getAppPaths)
@@ -112,9 +75,4 @@ export default function* sagas() {
     yield takeLeading(AUTO_UPDATE_RESTART, updateRestart)
     yield fork(subscribeUpdateDownloaded)
     yield fork(subscribeWindowFullScreen)
-    // yield fork(subscribeWindowMaxmized)
-    yield fork(sysemConsoleLog)
-    yield fork(sysemConsoleWarning)
-    yield fork(sysemConsoleError)
-    yield fork(sysemConsoleClear)
 }

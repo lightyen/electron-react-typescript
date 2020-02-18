@@ -27,14 +27,24 @@ export const pageVariants: Variants = {
     },
 }
 
+interface ExtraProps {
+    custom?: Variants
+}
+
 export const Switch: React.FC<SwitchProps> = ({ children, ...props }) => {
     return <_Switch {...props}>{children}</_Switch>
 }
 
-export const Route: React.FC<RouteProps> = ({ children, ...props }) => {
+export const Route: React.FC<RouteProps & ExtraProps> = ({ children, custom, ...props }) => {
     return (
         <_Route {...props}>
-            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} style={{ flex: "1 1 auto" }}>
+            <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={custom || pageVariants}
+                style={{ flex: "1 1 auto" }}
+            >
                 <ScrollBar>{children}</ScrollBar>
             </motion.div>
         </_Route>

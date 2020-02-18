@@ -42,10 +42,8 @@ const init: AppStore = {
         music: "",
         pictures: "",
         downloads: "",
-        appPath: "",
         userData: "",
         logs: "",
-        exe: "",
     },
     cpuusage: 0,
     memory: {
