@@ -5,8 +5,8 @@
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2020",
-    "lib": ["esnext", "dom"],
+    "target": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable"],
     "types": ["react", "webpack-env"],
     "baseUrl": ".",
     "paths": {

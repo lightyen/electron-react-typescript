@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "isolatedModules": false,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": false,
-    "isolatedModules": true,
+    "experimentalDecorators": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

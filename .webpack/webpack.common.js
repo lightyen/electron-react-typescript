@@ -195,12 +195,12 @@ module.exports = function(options) {
                 {
                     test: /\.tsx?$/,
                     exclude: /node_modules|\.test.tsx?$/,
-                    use: tsxLoader,
+                    use: [tsxLoader, "thread-loader"],
                 },
                 {
                     test: /\.jsx?$/,
                     exclude: /node_modules|\.test.tsx?$/,
-                    use: jsxLoader,
+                    use: [jsxLoader, "thread-loader"],
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg|ico)$/i,
