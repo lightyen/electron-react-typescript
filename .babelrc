@@ -6,7 +6,8 @@
   "plugins": [
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    "@babel/plugin-proposal-optional-chaining"
   ],
   "env": {
     "development": {

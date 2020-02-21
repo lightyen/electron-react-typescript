@@ -1,24 +1,23 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": false,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noStrictGenericChecks": false,
     "strictNullChecks": false,
     "removeComments": true,
     "noUnusedParameters": false,
-    "noEmit": true,
     "noUnusedLocals": false,
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
+    "noEmit": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
-    "sourceMap": true,
     "incremental": true
   }
 }
