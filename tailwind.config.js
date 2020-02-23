@@ -506,7 +506,7 @@ module.exports = {
         position: ["responsive"],
         resize: ["responsive"],
         stroke: ["responsive"],
-        tableLayout: ["responsive"],
+        tableLayout: ["responsive", "hover", "focus"],
         textAlign: ["responsive"],
         textColor: ["responsive", "hover", "focus"],
         textDecoration: ["responsive", "hover", "focus"],
@@ -520,9 +520,5 @@ module.exports = {
         zIndex: ["responsive"],
     },
     corePlugins: {},
-    plugins: [
-        require("tailwindcss-transforms")(),
-        require("tailwindcss-transitions")(),
-        require("tailwindcss-border-gradients")(),
-    ],
+    plugins: [require("tailwindcss-border-gradients")()],
 }

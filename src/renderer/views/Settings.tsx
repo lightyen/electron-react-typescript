@@ -6,6 +6,7 @@ import { languageNames } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
 import { send } from "~/ipc"
+import styled from "styled-components"
 
 interface OptionType {
     label: string
@@ -74,18 +75,30 @@ const Page: React.FC = () => {
     )
 }
 
+interface TableRowProps {
+    color: string
+    hoverColor: string
+}
+
+const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
+    transition: background-color 0.2s ease;
+    background-color: ${props => props.color};
+    :hover {
+        background-color: ${props => props.hoverColor};
+    }
+`
+
 const AppPaths: React.FC = () => {
     const textColor = useSelector(state => state.theme.textColor)
     const color1 = useSelector(state => state.theme.primaryHoverColor)
     const color2 = useSelector(state => state.theme.primaryColor)
+    const color3 = useSelector(state => state.theme.textHoverColor)
     const paths = useSelector(state => state.app.paths)
     const { getAppPaths } = useAction().app
 
     React.useEffect(() => {
         getAppPaths()
     }, [getAppPaths])
-
-    const transition = "background-color 0.2s ease"
 
     return (
         <table className="table-auto" style={{ color: textColor }}>
@@ -97,12 +110,7 @@ const AppPaths: React.FC = () => {
             </thead>
             <tbody>
                 {Object.keys(paths).map((k, i) => (
-                    <tr
-                        key={k}
-                        style={
-                            i % 2 ? { backgroundColor: color1, transition } : { backgroundColor: color2, transition }
-                        }
-                    >
+                    <TableRow key={k} className="hover:bg-gray-100" color={i % 2 ? color1 : color2} hoverColor={color3}>
                         <td className="border px-4 py-2 border-gray-400">{k}</td>
                         <td
                             className="border px-4 py-2 border-gray-400 cursor-pointer"
@@ -112,7 +120,7 @@ const AppPaths: React.FC = () => {
                         >
                             {paths[k]}
                         </td>
-                    </tr>
+                    </TableRow>
                 ))}
             </tbody>
         </table>
