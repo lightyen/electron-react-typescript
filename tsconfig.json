@@ -11,13 +11,12 @@
     "strictNullChecks": false,
     "removeComments": true,
     "noUnusedParameters": false,
-    "noEmit": true,
     "noUnusedLocals": false,
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "incremental": true
+    "noEmit": true
   }
 }

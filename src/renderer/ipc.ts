@@ -1,6 +1,6 @@
-import { ipcRenderer } from "electron"
-import { IpcRendererEvent as E } from "electron"
-export type IpcRendererEvent = E
+import type { IpcRendererEvent } from "electron"
+export type { IpcRendererEvent }
+const ipcRenderer = window.electron.ipcRenderer
 
 /** IPC response data design pattern */
 export interface IpcResponsePattern<T = unknown> {
@@ -32,7 +32,7 @@ export function request<T = unknown>(channel: string, ...args: any[]) {
     })
 }
 
-export type SubscribeCallBack<T = unknown> = (e: E, res: IpcResponsePattern<T>) => void
+export type SubscribeCallBack<T = unknown> = (e: IpcRendererEvent, res: IpcResponsePattern<T>) => void
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function subscribe<T = any>(channel: string, cb: SubscribeCallBack<T>) {

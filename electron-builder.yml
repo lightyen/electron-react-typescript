@@ -8,6 +8,7 @@ asar: true
 compression: normal
 files:
   - dist/**/*
+  - src/main/preload.js
 extraResources:
   - assets/**/*
 

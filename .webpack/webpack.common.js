@@ -70,6 +70,7 @@ module.exports = function(options) {
                     template: path.join(src, "template", `${name}.pug`),
                     favicon: path.join(assets, "images", "favicon.ico"),
                     vendor: vendor ? "./vendor/vendor.js" : undefined,
+                    isDevelopment,
                 }),
             )
         }
@@ -177,7 +178,7 @@ module.exports = function(options) {
             chunkFilename: "js/[name].[hash:8].chunk.js",
             publicPath: "./",
         },
-        target: "electron-renderer",
+        target: "web",
         module: {
             rules: [
                 {

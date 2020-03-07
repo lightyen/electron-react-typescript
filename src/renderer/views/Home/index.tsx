@@ -1,5 +1,4 @@
 import React from "react"
-import Electron from "electron"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useSelector } from "~/store"
@@ -34,7 +33,7 @@ const Home: React.FC = () => {
                     href="https://reactjs.org"
                     onClick={e => {
                         e.preventDefault()
-                        Electron.shell.openExternal("https://reactjs.org")
+                        window.electron.shell.openExternal("https://reactjs.org")
                     }}
                 >
                     Learn React

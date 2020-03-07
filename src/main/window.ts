@@ -19,11 +19,15 @@ export class MainWindow extends Electron.BrowserWindow {
             show: false,
             frame: false,
             resizable: true,
+            width: 1280,
+            height: 720,
             minWidth: 820,
             minHeight: 600,
             backgroundColor,
             webPreferences: {
-                nodeIntegration: true,
+                webSecurity: true,
+                nodeIntegration: false,
+                preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "src/main/preload.js"),
             },
             icon: path.join(appPath, "assets", "appicons", "256x256.png"),
         })

@@ -1,12 +1,10 @@
 import React from "react"
-import Electron from "electron"
 import styled from "styled-components"
-
 import { useSelector } from "~/store"
-
+import { subscribe, SubscribeCallBack, unsubscribe } from "~/ipc"
 import icon from "~assets/images/favicon.ico"
 
-import { subscribe, SubscribeCallBack, unsubscribe } from "~/ipc"
+const currentWindow = window.electron.currentWindow
 
 interface HeaderTitleBarProps {
     height: number
@@ -86,18 +84,17 @@ const ControlButton = styled.div`
     transition: all 0.2s ease;
 `
 
-const { remote } = Electron
 function close() {
-    remote.getCurrentWindow().close()
+    currentWindow.close()
 }
 function minimize() {
-    remote.getCurrentWindow().minimize()
+    currentWindow.minimize()
 }
 function restore() {
-    remote.getCurrentWindow().restore()
+    currentWindow.restore()
 }
 function maximize() {
-    remote.getCurrentWindow().maximize()
+    currentWindow.maximize()
 }
 
 const TitleBar: React.FC = () => {
