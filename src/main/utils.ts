@@ -1,6 +1,6 @@
-import { Stream } from "stream"
+import { Readable } from "stream"
 
-export function recvStream(stream: Stream, cb?: (len: number) => void): Promise<Buffer> {
+export function recvFromStream(stream: Readable, cb?: (len: number) => void): Promise<Buffer> {
     const bufs: Buffer[] = []
     return new Promise<Buffer>((resolve, reject) => {
         stream.on("error", err => reject(err))
