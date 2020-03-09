@@ -110,9 +110,6 @@ module.exports = function(options) {
         loader: "file-loader",
         options: {
             name: "[name].[ext]?[hash:8]",
-            ...(!isDevelopment && {
-                publicPath: "../../assets/images",
-            }),
             outputPath: "assets/images",
         },
     }

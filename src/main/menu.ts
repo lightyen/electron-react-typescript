@@ -30,8 +30,8 @@ export function newMenu() {
             submenu: [
                 {
                     label: "Toggle Developer Tools",
-                    accelerator: "F12",
-                    click: (item: Electron.MenuItem, win: Electron.BrowserWindow, e: Event) => {
+                    accelerator: "alt+F12",
+                    click: (item: Electron.MenuItem, win: Electron.BrowserWindow, e: Electron.KeyboardEvent) => {
                         win.webContents.toggleDevTools()
                     },
                 },

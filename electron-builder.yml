@@ -4,13 +4,21 @@
 productName: electron-react-typescript
 appId: com.electron.react.typescript
 artifactName: electron-react-typescript-${os}-${arch}-${version}.${ext}
-asar: true
+asar: false
 compression: normal
 files:
-  - dist/**/*
-  - src/main/preload.js
-extraResources:
-  - assets/**/*
+  - from: .
+    filter:
+      - package.json
+  - from: dist
+    filter:
+      - "**/*"
+  - from: src/main
+    filter:
+      - preload.js
+  - from: .
+    filter:
+      - assets/**/*
 
 publish:
   provider: github

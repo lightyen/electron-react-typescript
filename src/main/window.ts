@@ -27,7 +27,7 @@ export class MainWindow extends Electron.BrowserWindow {
             webPreferences: {
                 webSecurity: true,
                 nodeIntegration: false,
-                preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "src/main/preload.js"),
+                preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "preload.js"),
             },
             icon: path.join(appPath, "assets", "appicons", "256x256.png"),
         })
@@ -53,7 +53,7 @@ export class MainWindow extends Electron.BrowserWindow {
                   url.format({
                       protocol: "file",
                       hostname: "/",
-                      pathname: path.resolve(appPath, "dist", "index.html"),
+                      pathname: path.resolve(appPath, "index.html"),
                       slashes: true,
                   }),
               )
