@@ -1,10 +1,12 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
+import classnames from "classnames"
 import styled from "styled-components"
 import { useSelector } from "~/store"
 
 interface BackProps {
     to?: string
+    className?: string
 }
 
 interface HoverProps {
@@ -28,7 +30,7 @@ const HoverSvg = styled.svg.attrs(props => ({ ...props }))<HoverProps>`
     }
 `
 
-const Button: React.FC<BackProps> = ({ to }) => {
+const Button: React.FC<BackProps> = ({ to, className }) => {
     const textColor = useSelector(state => state.theme.textColor)
     const textHoverColor = useSelector(state => state.theme.textHoverColor)
     const colors = { color: textColor, hoverColor: textHoverColor }
@@ -42,7 +44,7 @@ const Button: React.FC<BackProps> = ({ to }) => {
                     history.goBack()
                 }
             }}
-            className="font-bold py-2 px-4 rounded focus:outline-none flex"
+            className={classnames("font-bold py-2 px-4 rounded focus:outline-none flex", className)}
             {...colors}
         >
             <HoverSvg

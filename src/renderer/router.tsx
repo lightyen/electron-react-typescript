@@ -7,6 +7,7 @@ import Home from "~/views/Home"
 import Version from "~/views/Version"
 import Settings from "~/views/Settings"
 import AppLog from "~/views/AppLog"
+import ReactDnD from "~/views/ReactDnD"
 
 const AppRouter: React.FC = () => {
     return (
@@ -47,6 +48,9 @@ const AppSwitch: React.FC = () => {
             </Route>
             <Route path="/settings">
                 <Settings />
+            </Route>
+            <Route path="/dnd">
+                <ReactDnD />
             </Route>
             <Route path="/log">
                 <AppLog />
