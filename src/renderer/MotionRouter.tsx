@@ -9,7 +9,7 @@ import {
     SwitchProps,
 } from "react-router-dom"
 
-import ScrollBar from "~/components/ScrollBar"
+// import ScrollBar from "~/components/ScrollBar"
 import { motion, Variants } from "framer-motion"
 
 export const pageVariants: Variants = {
@@ -45,7 +45,7 @@ export const Route: React.FC<RouteProps & ExtraProps> = ({ children, custom, ...
                 variants={custom || pageVariants}
                 style={{ flex: "1 1 auto" }}
             >
-                <ScrollBar>{children}</ScrollBar>
+                {children}
             </motion.div>
         </_Route>
     )

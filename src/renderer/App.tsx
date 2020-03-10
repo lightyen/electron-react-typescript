@@ -12,12 +12,17 @@ const store = configureStore()
 // Link to anchor with default browser
 document.querySelector("body").addEventListener("click", event => {
     const element = event.target as HTMLElement
-    if (element) {
-        if (element.tagName === "A") {
-            event.preventDefault()
-            const e = element as HTMLAnchorElement
-            window.electron.shell.openExternal(e.href)
+    if (element?.tagName === "A") {
+        const e = element as HTMLAnchorElement
+        const url = new URL(e.href)
+        if (process.env.NODE_ENV === "development" && url.hostname === "localhost") {
+            return
         }
+        if (url.protocol === "file:") {
+            return
+        }
+        event.preventDefault()
+        window.electron.shell.openExternal(url.href)
     }
 })
 
