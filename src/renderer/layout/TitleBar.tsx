@@ -19,7 +19,6 @@ const HeaderTitleBar = styled.header`
     display: ${(props: HeaderTitleBarProps) => (props.hide ? "none" : "flex")};
     justify-content: space-between;
     position: relative;
-    font-size: 12px;
     background: ${props => props.titleBarColor};
     color: ${(props: HeaderTitleBarProps) => props.textTolor};
     transition: all 0.2s ease;
@@ -52,9 +51,10 @@ const Title = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: ${(props: HeightProps) => ((props.height - 4) / 26) * 13}px;
+    font-size: ${(props: HeightProps) => (props.height - 4) * 0.5}px;
     transition: font-size 0.2s ease;
     user-select: none;
+    zoom: 1;
 `
 
 const Controls = styled.div`
@@ -62,7 +62,7 @@ const Controls = styled.div`
     display: flex;
     justify-content: space-between;
     text-align: center;
-    width: ${(props: HeightProps) => (props.height / 30) * 132}px;
+    width: ${(props: HeightProps) => (props.height / 30) * 138}px;
     transition: width 0.2s ease;
 `
 
@@ -73,7 +73,7 @@ interface ControlButtonProps {
 
 const ControlButton = styled.div`
     display: flex;
-    width: ${(props: ControlButtonProps) => (props.height / 30) * 44}px;
+    width: ${(props: ControlButtonProps) => (props.height / 30) * 46}px;
     height: 100%;
     justify-content: center;
     align-items: center;

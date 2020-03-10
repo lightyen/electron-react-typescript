@@ -31,8 +31,19 @@ export class MainWindow extends Electron.BrowserWindow {
         newMenu()
         router()
 
-        this.on("maximize", (e: Electron.Event) => send("window.maximized", true, this.webContents))
-        this.on("unmaximize", (e: Electron.Event) => send("window.maximized", false, this.webContents))
+        this.on("maximize", e => send("window.maximized", true, this.webContents))
+        this.on("unmaximize", e => send("window.maximized", false, this.webContents))
+        this.on("show", e => {
+            if (!this.isMaximized()) {
+                const width = 1080
+                const height = 680
+                const display = Electron.screen.getPrimaryDisplay()
+                this.setBounds(
+                    { width, height, x: (display.bounds.width - width) / 2, y: (display.bounds.height - height) / 2 },
+                    false,
+                )
+            }
+        })
 
         const loadURL = isDev
             ? this.loadURL(
@@ -54,7 +65,6 @@ export class MainWindow extends Electron.BrowserWindow {
               )
         loadURL.then(() => {
             this.show()
-            this.setBounds({ width: 980, height: 700 }, true)
         })
     }
 }
