@@ -100,7 +100,7 @@ function maximize() {
 const TitleBar: React.FC = () => {
     const theme = useSelector(state => state.theme)
     const hide = useSelector(state => state.app.hide)
-    const [maximized, setMaximized] = React.useState(false)
+    const [maximized, setMaximized] = React.useState(true)
 
     const barHeight = 30
     const iw = barHeight / 3

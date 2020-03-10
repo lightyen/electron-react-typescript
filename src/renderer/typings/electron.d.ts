@@ -4,8 +4,8 @@ export declare global {
         electron: PreloadElectron
     }
     interface PreloadElectron {
-        ipcRenderer: IpcRenderer
         currentWindow: BrowserWindow
+        ipcRenderer: IpcRenderer
         shell: Shell
     }
 }

@@ -97,7 +97,7 @@ module.exports = function(options) {
         loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
         options: {
             ...(!isDevelopment && {
-                publicPath: "../../../",
+                publicPath: "../",
             }),
         },
     }

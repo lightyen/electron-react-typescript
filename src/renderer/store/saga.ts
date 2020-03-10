@@ -1,4 +1,4 @@
-import { subscribe, unsubscribe, IpcRendererEvent, IpcResponsePattern } from "~/ipc"
+import { subscribe, unsubscribe, SubscribeCallBack } from "~/ipc"
 import { eventChannel, END } from "redux-saga"
 import { fork, call } from "redux-saga/effects"
 import app from "./app/saga"
@@ -7,7 +7,7 @@ import i18n from "./i18n/saga"
 export function* ipcChannel(channel: string) {
     return yield call(() =>
         eventChannel(emitter => {
-            function callback(_: IpcRendererEvent, res: IpcResponsePattern) {
+            const callback: SubscribeCallBack = (_, res) => {
                 if (res.hasOwnProperty("error")) {
                     emitter(res.error)
                     emitter(END)

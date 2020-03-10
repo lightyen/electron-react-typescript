@@ -7,13 +7,12 @@ import { appPath, appName } from "~/const"
 import { isDev } from "~/is"
 
 import { newMenu } from "~/menu"
-import { newRouter } from "~/router"
-
-import { store } from "~/store"
+import { storage } from "~/store"
+import { router } from "~/routes"
 
 export class MainWindow extends Electron.BrowserWindow {
     constructor() {
-        const backgroundColor = store.get("backgroundColor") || "#1a202c"
+        const backgroundColor = storage.get("backgroundColor") || "#1a202c"
         super({
             title: appName,
             show: false,
@@ -23,6 +22,7 @@ export class MainWindow extends Electron.BrowserWindow {
             height: 720,
             minWidth: 820,
             minHeight: 600,
+            maximizable: true,
             backgroundColor,
             webPreferences: {
                 webSecurity: true,
@@ -34,10 +34,11 @@ export class MainWindow extends Electron.BrowserWindow {
         this.setMenuBarVisibility(false)
 
         newMenu()
-        newRouter()
+        router()
 
         this.on("maximize", (e: Electron.Event) => send("window.maximized", true, this.webContents))
         this.on("unmaximize", (e: Electron.Event) => send("window.maximized", false, this.webContents))
+        this.maximize()
 
         const loadURL = isDev
             ? this.loadURL(

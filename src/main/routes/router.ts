@@ -3,15 +3,16 @@ import fs from "fs"
 import { promisify } from "util"
 import { response, on } from "~/ipc"
 
-import { getAppName } from "~/routes/get.appname"
-import { openDirectoryDialog } from "~/routes/open.dialog"
-import { getPaths } from "~/routes/get.paths"
-import { getLog } from "~/routes/get.syslog"
-import { getVersions } from "~/routes/get.version"
-import { getCPUUsage } from "~/routes/get.cpu"
-import { getMemory } from "~/routes/get.memory"
-import { setBackgroundColor, setAutoUpdate } from "./routes/set.default"
-export function newRouter() {
+import { getAppName } from "./get.appname"
+import { openDirectoryDialog } from "./open.dialog"
+import { getPaths } from "./get.paths"
+import { getLog } from "./get.syslog"
+import { getVersions } from "./get.version"
+import { getCPUUsage } from "./get.cpu"
+import { getMemory } from "./get.memory"
+import { setBackgroundColor, setAutoUpdate } from "./set.default"
+
+export function router() {
     response("get.name", getAppName)
     response("get.versions", getVersions)
     response("get.cpuusage", getCPUUsage)

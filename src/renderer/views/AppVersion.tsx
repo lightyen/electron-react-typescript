@@ -38,7 +38,7 @@ const AppVersion: React.FC = () => {
     return (
         <Versions className="select-text">
             <h1 className="font-bold" style={{ textTransform: "capitalize", fontSize: "1.5em" }}>
-                <FormattedMessage id="version" />
+                <FormattedMessage id="version" /> =>
             </h1>
             <Table>
                 <THead>

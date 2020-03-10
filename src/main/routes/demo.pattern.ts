@@ -1,11 +1,11 @@
 import Electron from "electron"
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
 
-const getOne: IpcHandler = (e, arg) => {
+const getSync: IpcHandler = (e, arg) => {
     return null
 }
 
-const getTwo: IpcPromiseHandler = async () => {
+const doSomething: IpcPromiseHandler = async () => {
     // await ...
     return null
 }

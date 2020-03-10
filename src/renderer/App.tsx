@@ -9,6 +9,18 @@ import "~/css/styles.css"
 
 const store = configureStore()
 
+// Link to anchor with default browser
+document.querySelector("body").addEventListener("click", event => {
+    const element = event.target as HTMLElement
+    if (element) {
+        if (element.tagName === "A") {
+            event.preventDefault()
+            const e = element as HTMLAnchorElement
+            window.electron.shell.openExternal(e.href)
+        }
+    }
+})
+
 export default function App() {
     return (
         <Provider store={store} key={Math.random()}>

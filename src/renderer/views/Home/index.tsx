@@ -28,20 +28,13 @@ const Home: React.FC = () => {
                 <span className="select-text" style={{ color: textColor }}>
                     <FormattedMessage id="test" values={{ name: "React" }} />
                 </span>
-                <a
-                    className="Home-link"
-                    href="https://reactjs.org"
-                    onClick={e => {
-                        e.preventDefault()
-                        window.electron.shell.openExternal("https://reactjs.org")
-                    }}
-                >
+                <a className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
                     Learn React
                 </a>
                 <Link to="/version">
                     <motion.div
                         className="btn btn-blue my-2 select-none"
-                        whileHover={"hover"}
+                        whileHover="hover"
                         variants={{
                             hover: {
                                 backgroundColor: name === "light" ? colors.blue[700] : colors.blue[400],

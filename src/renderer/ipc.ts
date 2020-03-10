@@ -1,5 +1,4 @@
-import type { IpcRendererEvent } from "electron"
-export type { IpcRendererEvent }
+import { IpcRendererEvent } from "electron"
 const ipcRenderer = window.electron.ipcRenderer
 
 /** IPC response data design pattern */
