@@ -7,7 +7,6 @@ import { MainWindow } from "~/window"
 import { storage } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
-import { store } from "~/store"
 
 export let mainWindow: Electron.BrowserWindow
 
@@ -62,7 +61,5 @@ Electron.app.on("activate", () => {
 })
 
 Electron.app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        Electron.app.quit()
-    }
+    Electron.app.quit()
 })

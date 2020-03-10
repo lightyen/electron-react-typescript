@@ -16,13 +16,9 @@ export class MainWindow extends Electron.BrowserWindow {
         super({
             title: appName,
             show: false,
-            frame: false,
-            resizable: true,
-            width: 1280,
-            height: 720,
             minWidth: 820,
             minHeight: 600,
-            maximizable: true,
+            frame: false,
             backgroundColor,
             webPreferences: {
                 webSecurity: true,
@@ -32,13 +28,11 @@ export class MainWindow extends Electron.BrowserWindow {
             icon: path.join(appPath, "assets", "appicons", "256x256.png"),
         })
         this.setMenuBarVisibility(false)
-
         newMenu()
         router()
 
         this.on("maximize", (e: Electron.Event) => send("window.maximized", true, this.webContents))
         this.on("unmaximize", (e: Electron.Event) => send("window.maximized", false, this.webContents))
-        this.maximize()
 
         const loadURL = isDev
             ? this.loadURL(
@@ -58,7 +52,9 @@ export class MainWindow extends Electron.BrowserWindow {
                       slashes: true,
                   }),
               )
-
-        loadURL.then(() => this.show())
+        loadURL.then(() => {
+            this.show()
+            this.setBounds({ width: 980, height: 700 }, true)
+        })
     }
 }
