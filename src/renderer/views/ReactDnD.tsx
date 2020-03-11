@@ -1,41 +1,102 @@
 import React from "react"
 
-import { motion, Variant, useMotionValue, useTransform } from "framer-motion"
+import { motion, TargetAndTransition, useMotionValue } from "framer-motion"
 import Back from "~/components/Back"
+import ScrollBar from "~/components/ScrollBar"
 
 interface Position {
     top: number
     height: number
 }
 
-// Spring configs
-const onTop: Variant = { opacity: 1, zIndex: 1, transition: { duration: 0.13 } }
-const flat: Variant = {
+// function clamp(min: number, max: number, value: number) {
+//     if (value < min) {
+//         return min
+//     }
+//     if (value > max) {
+//         return max
+//     }
+//     return value
+// }
+
+function distance(a: number, b: number): number {
+    return Math.abs(a - b)
+}
+
+export const findIndex = (i: number, yOffset: number, positions: Position[]) => {
+    let target = i
+    const { top, height } = positions[i]
+    const bottom = top + height
+    const threshold = positions[i].height / 4
+
+    // If moving down
+    if (yOffset > 0) {
+        const next = i + 1
+        // if item is the last
+        if (positions.length === next) {
+            return i
+        }
+        const nextItem = positions[next]
+        const swapOffset = distance(bottom, nextItem.top + nextItem.height / 2) + threshold
+        if (yOffset > swapOffset) target = next
+    } else if (yOffset < 0) {
+        const prev = i - 1
+        // if item is the first
+        if (i === 0) {
+            return i
+        }
+        const prevItem = positions[prev]
+        const swapOffset = -(distance(top, prevItem.top + prevItem.height / 2) + threshold)
+        if (yOffset < swapOffset) target = prev
+    }
+    return target
+    // return clamp(0, positions.length, target);
+}
+
+const drag: TargetAndTransition = { zIndex: 3 }
+const flat: TargetAndTransition = {
     zIndex: 0,
-    opacity: 0.5,
+}
+const hover: TargetAndTransition = { zIndex: 1 }
+const tap: TargetAndTransition = { zIndex: 2 }
+
+interface Item {
+    key: string
+    background: string
+    width?: number
+    height?: number
+    content?: React.ReactNode
 }
 
-const initialColors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF"]
-const heights = {
-    "#FF008C": 60,
-    "#D309E1": 80,
-    "#9C1AFF": 40,
-    "#7700FF": 100,
-}
+const source: Item[] = [
+    { key: "#F44336", background: "#F44336", width: 100, height: 60 },
+    { key: "#E91E63", background: "#E91E63", width: 200, height: 80 },
+    { key: "#9C27B0", background: "#9C27B0", width: 80, height: 40 },
+    { key: "#673AB7", background: "#673AB7", width: 330, height: 90 },
+    { key: "#3F51B5", background: "#3F51B5", width: 100, height: 40 },
+    { key: "#2196F3", background: "#2196F3", width: 220, height: 20 },
+    { key: "#03A9F4", background: "#03A9F4", width: 180, height: 60 },
+    {
+        key: "#00BCD4",
+        background: "#00BCD4",
+        content: <div className="p-3">Dynamic Width/Height</div>,
+    },
+    { key: "#009688", background: "#009688", width: 300, height: 50 },
+]
 
-interface ItemProps {
+interface DraggableItemProps {
     i: number
-    color: string
+    data: Item
     setPosition(i: number, offset: Position): void
     moveItem(i: number, dragOffset: number): void
 }
 
-const Item: React.FC<ItemProps> = ({ color, setPosition, moveItem, i }) => {
+function DraggableItem({ data, setPosition, moveItem, i }: DraggableItemProps) {
     const [isDragging, setDragging] = React.useState(false)
     // We'll use a `ref` to access the DOM element that the `motion.li` produces.
     // This will allow us to measure its height and position, which will be useful to
     // decide when a dragging element should switch places with its siblings.
-    const ref = React.useRef(null)
+    const ref = React.useRef<HTMLLIElement>()
 
     // By manually creating a reference to `dragOriginY` we can manipulate this value
     // if the user is dragging this DOM element while the drag gesture is active to
@@ -49,28 +110,36 @@ const Item: React.FC<ItemProps> = ({ color, setPosition, moveItem, i }) => {
             top: ref.current.offsetTop,
         })
     })
+
+    const { key, content, background, ...rest } = data
+
     return (
         <motion.li
             ref={ref}
-            title={color}
-            className="relative mb-3 rounded"
-            // If we're dragging, we want to set the zIndex of that item to be on top of the other items.
-            animate={isDragging ? onTop : flat}
-            style={{ background: color, height: heights[color] }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 1.12 }}
+            className="relative flex z-0"
+            style={{
+                listStyle: "none",
+                color: "#fff",
+            }}
+            animate={isDragging ? drag : flat}
+            whileHover={hover}
+            whileTap={tap}
+            drag
+            dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
             onDragStart={() => setDragging(true)}
             onDragEnd={() => setDragging(false)}
-            drag="y"
-            dragElastic={0.9}
+            dragElastic={1}
             dragOriginY={dragOriginY}
-            dragConstraints={{ top: 0, bottom: 0 }}
-            onDrag={(e, { point }) => moveItem(i, point.y)}
+            dragTransition={{ bounceStiffness: 1000, bounceDamping: 50 }}
+            onDrag={(e, { point }) => {
+                moveItem(i, point.y)
+            }}
             positionTransition={({ delta }) => {
                 if (isDragging) {
                     // If we're dragging, we want to "undo" the items movement within the list
                     // by manipulating its dragOriginY. This will keep the item under the cursor,
                     // even though it's jumping around the DOM.
+                    // console.log(dragOriginY.get(), color, delta.y)
                     dragOriginY.set(dragOriginY.get() + delta.y)
                 }
 
@@ -79,7 +148,26 @@ const Item: React.FC<ItemProps> = ({ color, setPosition, moveItem, i }) => {
                 // dragging, we don't want any animation to occur.
                 return !isDragging
             }}
-        />
+        >
+            <motion.div
+                // If we're dragging, we want to set the zIndex of that item to be on top of the other items.
+                title={data.background}
+                className="relative mb-3 rounded-lg"
+                animate={
+                    isDragging ? { boxShadow: "3px 3px 8px 0px #eeeecc" } : { boxShadow: "0px 0px 0px 0px #eeeecc" }
+                }
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 1.12 }}
+                style={{
+                    cursor: "pointer",
+                    color: "#fff",
+                    background,
+                    ...rest,
+                }}
+            >
+                {content}
+            </motion.div>
+        </motion.li>
     )
 }
 
@@ -90,136 +178,102 @@ function move<T>(arr: Array<T>, from: number, to: number) {
     return a
 }
 
-const buffer = 0
-
-function clamp(min: number, max: number, value: number) {
-    if (value < min) {
-        return min
-    }
-    if (value > max) {
-        return max
-    }
-    return value
-}
-
-export const findIndex = (i: number, yOffset: number, positions: Position[]) => {
-    let target = i
-    const { top, height } = positions[i]
-    const bottom = top + height
-
-    // If moving down
-    if (yOffset > 0) {
-        const nextItem = positions[i + 1]
-        if (nextItem === undefined) return i
-
-        const swapOffset = Math.abs(bottom - (nextItem.top + nextItem.height / 2)) + buffer
-        if (yOffset > swapOffset) target = i + 1
-
-        // If moving up
-    } else if (yOffset < 0) {
-        const prevItem = positions[i - 1]
-        if (prevItem === undefined) return i
-
-        const prevBottom = prevItem.top + prevItem.height
-        const swapOffset = Math.abs(top - (prevBottom - prevItem.height / 2)) + buffer
-        if (yOffset < -swapOffset) target = i - 1
-    }
-
-    return clamp(0, positions.length, target)
-}
-
 const Example = () => {
-    const [colors, setColors] = React.useState(initialColors)
+    const [data, setData] = React.useState(() => [...source])
 
     // We need to collect an array of height and position data for all of this component's
     // `Item` children, so we can later us that in calculations to decide when a dragging
     // `Item` should swap places with its siblings.
     const positions = React.useRef<Position[]>([]).current
-    const setPosition = (i: number, offset: Position) => (positions[i] = offset)
+    const setPosition = (i: number, offset: Position) => {
+        positions[i] = offset
+    }
 
     // Find the ideal index for a dragging item based on its position in the array, and its
     // current drag offset. If it's different to its current index, we swap this item with that
     // sibling.
     const moveItem = (i: number, dragOffset: number) => {
         const targetIndex = findIndex(i, dragOffset, positions)
-        if (targetIndex !== i) setColors(move(colors, i, targetIndex))
+        if (targetIndex !== i) {
+            setData(move(data, i, targetIndex))
+        }
     }
 
     return (
-        <ul
-            className="relative"
-            style={{
-                width: 300,
-            }}
-        >
-            {colors.map((color, i) => (
-                <Item key={color} i={i} color={color} setPosition={setPosition} moveItem={moveItem} />
+        <ul>
+            {data.map((d, i) => (
+                <DraggableItem key={d.key} i={i} data={d} setPosition={setPosition} moveItem={moveItem} />
             ))}
         </ul>
     )
 }
 
-const Demo: React.FC = () => {
-    const constraintsRef = React.useRef()
-    const y = useMotionValue(0)
-    const background = useTransform(y, [0, 800], ["#000", "#2233ee"])
+const MyItem: React.FC = () => {
     const [isDragging, setDragging] = React.useState(false)
 
-    return (
-        <div className="container-fluid">
-            <motion.div
-                ref={constraintsRef}
-                className="mx-3 d-flex justify-content-center position-relative d-flex rounded"
-                style={{ minWidth: 300, maxWidth: 800, minHeight: 300, border: "1px solid #2233ee" }}
-            >
-                <motion.div
-                    style={{
-                        background,
-                        height: 100,
-                        width: 100,
-                        borderRadius: "1rem",
-                        position: "absolute",
-                    }}
-                    // onClick={e => y.set(100)}
-                    drag="y"
-                    dragOriginY={y}
-                    onDrag={(e, { point }) => {
-                        console.log(point)
-                    }}
-                    dragMomentum={false}
-                    onDragStart={() => setDragging(true)}
-                    onDragEnd={() => setDragging(false)}
-                    initial={{
-                        borderRadius: "18%",
-                    }}
-                    whileTap={{
-                        scale: 1.1,
-                        boxShadow: "3px 3px 6px 0px #555555",
-                    }}
-                    // dragTransition={{ bounceStiffness: 30, bounceDamping: 200 }}
-                    positionTransition={({ delta }) => {
-                        console.log(delta)
+    const y = useMotionValue(0)
 
-                        // If `positionTransition` is a function and returns `false`, it's telling
-                        // Motion not to animate from its old position into its new one. If we're
-                        // dragging, we don't want any animation to occur.
-                        return !isDragging
-                    }}
-                    dragConstraints={constraintsRef}
-                />
-                <h1 className="align-self-center">Drag</h1>
-            </motion.div>
-        </div>
+    const ref = React.useRef<HTMLDivElement>()
+    React.useEffect(() => {
+        // console.log(ref.current.offsetTop, ref.current.offsetHeight)
+    })
+
+    return (
+        <motion.div
+            ref={ref}
+            className="w-10 h-10 mb-3 rounded-lg bg-green-600 relative"
+            animate={isDragging ? drag : flat}
+            whileHover={hover}
+            whileTap={tap}
+            drag
+            dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+            onDragStart={() => setDragging(true)}
+            onDragEnd={() => setDragging(false)}
+            onDrag={(e, { point }) => {
+                //
+            }}
+            dragElastic={1}
+            dragTransition={{ bounceStiffness: 1000, bounceDamping: 60 }}
+            dragOriginY={y}
+            // dragMomentum={false} // 慣性
+            positionTransition={({ delta }) => {
+                if (isDragging) {
+                    // console.log(delta)
+                    // y.set(y.get())
+                    console.log(delta)
+                }
+                // If `positionTransition` is a function and returns `false`, it's telling
+                // Motion not to animate from its old position into its new one. If we're
+                // dragging, we don't want any animation to occur.
+                return !isDragging
+            }}
+        />
     )
 }
 
 const Page: React.FC = () => {
+    const arr = [0, 1, 2, 3, 4]
+
     return (
-        <div className="flex h-screen justify-center items-center">
-            <Back to="/" className="fixed left-0" />
+        <ScrollBar className="p-3 pl-12 flex justify-around">
             <Example />
-            <Demo />
-        </div>
+            <div
+                className="relative m-3 mt-0 rounded"
+                style={{
+                    minWidth: 300,
+                    maxWidth: 800,
+                    minHeight: 315,
+                    background: "#2a2d33",
+                    border: "1px solid #2233ee",
+                }}
+            >
+                {arr.map(v => (
+                    <MyItem key={v} />
+                ))}
+            </div>
+
+            <Back to="/" className="fixed left-0" />
+        </ScrollBar>
     )
 }
 Page.displayName = "ReactDnD"

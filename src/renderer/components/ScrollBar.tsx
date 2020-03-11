@@ -42,12 +42,12 @@ const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "bla
     }
 `
 
-const CustomScrollBar = React.forwardRef<HTMLDivElement, React.InputHTMLAttributes<HTMLDivElement>>(
+const CustomScrollBar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ children, ...rest }, ref) => {
         const color = useSelector(state => state.theme.textColor)
         return (
             <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                <ScrollBar ref={ref} color={color}>
+                <ScrollBar {...rest} ref={ref} color={color}>
                     {children}
                 </ScrollBar>
             </div>
