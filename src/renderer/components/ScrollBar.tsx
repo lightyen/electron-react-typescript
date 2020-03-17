@@ -16,11 +16,9 @@ const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "bla
     transition: color 0.6s ease;
     overflow-x: hidden;
     overflow-y: scroll;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+
+    box-sizing: border-box;
+    height: calc(100vh - 30px);
 
     &::-webkit-scrollbar {
         width: ${({ width, padding }) => width + padding * 2}px;
@@ -42,17 +40,38 @@ const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "bla
     }
 `
 
-const CustomScrollBar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-    ({ children, ...rest }, ref) => {
-        const color = useSelector(state => state.theme.textColor)
-        return (
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                <ScrollBar {...rest} ref={ref} color={color}>
-                    {children}
-                </ScrollBar>
-            </div>
-        )
-    },
-)
+export const ScrollBarContext = React.createContext<HTMLDivElement>(null)
+
+export function useScrollBarTarget() {
+    return React.useContext(ScrollBarContext)
+}
+
+// const CustomScrollBar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+//     ({ children, ...rest }, ref) => {
+//         const color = useSelector(state => state.theme.textColor)
+//         const iRef = React.useRef<HTMLDivElement>()
+//         return (
+//             <ScrollBar ref={ref || iRef} color={color} {...rest}>
+//                 <ScrollBarContext.Provider value={ref || iRef.current}>{children}</ScrollBarContext.Provider>
+//             </ScrollBar>
+//         )
+//     },
+// )
+
+const CustomScrollBar: React.FC = ({ children, ...rest }) => {
+    const color = useSelector(state => state.theme.textColor)
+    const ref = React.useRef<HTMLDivElement>()
+    const [target, setTarget] = React.useState<HTMLDivElement>(ref.current)
+    React.useEffect(() => {
+        setTarget(ref.current)
+    }, [])
+
+    return (
+        <ScrollBar ref={ref} color={color} {...rest}>
+            {target && <ScrollBarContext.Provider value={target}>{children}</ScrollBarContext.Provider>}
+        </ScrollBar>
+    )
+}
+
 CustomScrollBar.displayName = "CustomScrollBar"
 export default CustomScrollBar

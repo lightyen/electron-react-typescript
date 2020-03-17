@@ -14,11 +14,12 @@ interface HeaderTitleBarProps {
 }
 
 const HeaderTitleBar = styled.header`
+    position: sticky;
+    top: 0;
     height: ${(props: HeaderTitleBarProps) => props.height}px;
     line-height: ${(props: HeaderTitleBarProps) => props.height}px;
     display: ${(props: HeaderTitleBarProps) => (props.hide ? "none" : "flex")};
     justify-content: space-between;
-    position: relative;
     background: ${props => props.titleBarColor};
     color: ${(props: HeaderTitleBarProps) => props.textTolor};
     transition: all 0.2s ease;

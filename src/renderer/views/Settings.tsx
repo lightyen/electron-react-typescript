@@ -7,8 +7,8 @@ import { languageNames } from "~/store/i18n/languages"
 import Back from "~/components/Back"
 import { send } from "~/ipc"
 import styled from "styled-components"
-import ScrollBar from "~/components/ScrollBar"
 
+import { useScrollBarTarget } from "~/components/ScrollBar"
 interface OptionType {
     label: string
     value: string
@@ -30,7 +30,7 @@ const Page: React.FC = () => {
     ]
 
     return (
-        <ScrollBar>
+        <>
             <Back to="/version" />
             <div className="pt-3 pl-3">
                 <div className="mb-10">
@@ -72,7 +72,7 @@ const Page: React.FC = () => {
                     <AppPaths />
                 </div>
             </div>
-        </ScrollBar>
+        </>
     )
 }
 

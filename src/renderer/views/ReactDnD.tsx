@@ -2,7 +2,6 @@ import React from "react"
 
 import { motion, TargetAndTransition, useMotionValue } from "framer-motion"
 import Back from "~/components/Back"
-import ScrollBar from "~/components/ScrollBar"
 
 interface Position {
     top: number
@@ -255,7 +254,7 @@ const Page: React.FC = () => {
     const arr = [0, 1, 2, 3, 4]
 
     return (
-        <ScrollBar className="p-3 pl-12 flex justify-around">
+        <div className="p-3 pl-12 flex justify-around">
             <Example />
             <div
                 className="relative m-3 mt-0 rounded"
@@ -273,7 +272,7 @@ const Page: React.FC = () => {
             </div>
 
             <Back to="/" className="fixed left-0" />
-        </ScrollBar>
+        </div>
     )
 }
 Page.displayName = "ReactDnD"

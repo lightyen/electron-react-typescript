@@ -6,7 +6,7 @@ const AppRouter = React.lazy(() => import("~/router"))
 const Viewer: React.FC = () => {
     const backgroundColor = useSelector(state => state.theme.backgroundColor)
     return (
-        <div style={{ flexGrow: 1, backgroundColor, display: "flex", transition: "all 0.2s ease" }}>
+        <div style={{ flexGrow: 1, transition: "all 0.2s ease" }}>
             <Suspense fallback={<></>}>
                 <AppRouter />
             </Suspense>

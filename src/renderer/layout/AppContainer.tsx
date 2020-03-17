@@ -8,7 +8,7 @@ import AutoUpdater from "./AutoUpdater"
 
 const AppContainer: React.FC = () => {
     return (
-        <div style={{ height: "100vh", display: "flex", flexDirection: "column", flex: "0 0 100%" }}>
+        <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
             <TitleBar />
             <Viewer />
             <StatusBar hide />
