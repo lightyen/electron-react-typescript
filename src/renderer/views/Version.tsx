@@ -73,10 +73,15 @@ const Page: React.FC = ({}) => {
 import { useInView } from "react-intersection-observer"
 
 const IntersectTarget: React.FC = () => {
-    const viewport = useScrollBarTarget()
-    const [ref, inView] = useInView({ root: viewport, rootMargin: "500px 0px", triggerOnce: true })
+    const root = useScrollBarTarget()
+    const [ref, inView, entry] = useInView({ root, threshold: 1 })
+    React.useEffect(() => {
+        if (entry) {
+            console.log(entry.intersectionRatio)
+        }
+    }, [entry])
     return (
-        <div ref={ref} className="text-black">
+        <div ref={ref} className={"p-6 mb-24 " + (inView ? "text-gray-100 bg-gray-700" : "text-gray-900 bg-gray-200")}>
             Target {inView ? "inView" : "outside"}
         </div>
     )

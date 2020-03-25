@@ -28,10 +28,12 @@ document.querySelector("body").addEventListener("click", event => {
 
 export default function App() {
     return (
-        <Provider store={store} key={Math.random()}>
-            <LanguageProvider>
-                <AppContainer />
-            </LanguageProvider>
-        </Provider>
+        <React.StrictMode>
+            <Provider store={store}>
+                <LanguageProvider>
+                    <AppContainer />
+                </LanguageProvider>
+            </Provider>
+        </React.StrictMode>
     )
 }

@@ -271,7 +271,7 @@ const Page: React.FC = () => {
                 ))}
             </div>
 
-            <Back to="/" className="fixed left-0" />
+            <Back to="/version" className="fixed left-0" />
         </div>
     )
 }
