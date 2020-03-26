@@ -17,27 +17,20 @@ process.env.DISABLE_OPENCOLLECTIVE = "true"
 /** @typedef {{
  *    dist?: string
  *    src?: string
- *    vendor?: string
  * }} Options */
 
 /**
- * @param {Options} options
+ * @param {Options} [options]
  *
  * @returns { import("webpack").Configuration }
  */
-module.exports = function(options) {
+module.exports = function (options) {
     const workingDirectory = process.cwd()
     const src = (options && options.src) || path.resolve(workingDirectory, "src", "renderer")
     const dist = (options && options.dist) || path.resolve(workingDirectory, "dist")
     const assets = path.resolve(workingDirectory, "assets")
-    const vendor = options.vendor
     const isDevelopment = process.env.NODE_ENV === "development"
-
     process.env.PUBLIC_URL = process.env.PUBLIC_URL || ""
-
-    const entry = {
-        index: path.join(src, "index.tsx"),
-    }
 
     /**
      * @type {import("webpack").Plugin[]}
@@ -54,36 +47,16 @@ module.exports = function(options) {
             filename: "css/[name].[contenthash:8].css",
             chunkFilename: "css/[name].[contenthash:8].chunk.css",
         }),
+        new HtmlWebpackPlugin({
+            inject: false,
+            filename: "index.html",
+            title: packageJSON.name,
+            minify: false,
+            template: path.join(src, "template", "index.pug"),
+            favicon: path.join(assets, "images", "favicon.ico"),
+            isDevelopment,
+        }),
     ]
-
-    for (const name in entry) {
-        if (entry.hasOwnProperty(name)) {
-            const exclude = Object.keys(entry).slice()
-            exclude.splice(Object.keys(entry).indexOf(name), 1)
-            plugins.push(
-                new HtmlWebpackPlugin({
-                    filename: `${name}.html`,
-                    excludeChunks: exclude,
-                    title: packageJSON.name,
-                    minify: false,
-                    inject: false,
-                    template: path.join(src, "template", `${name}.pug`),
-                    favicon: path.join(assets, "images", "favicon.ico"),
-                    vendor: vendor ? "./vendor/vendor.js" : undefined,
-                    isDevelopment,
-                }),
-            )
-        }
-    }
-
-    if (vendor) {
-        plugins.push(
-            new DllReferencePlugin({
-                context: vendor,
-                manifest: require(path.join(vendor, "manifest.json")),
-            }),
-        )
-    }
 
     if (!isDevelopment) {
         plugins.push(new ExtendedAPIPlugin())
@@ -168,7 +141,9 @@ module.exports = function(options) {
     }
 
     return {
-        entry,
+        entry: {
+            index: path.join(src, "index.tsx"),
+        },
         output: {
             path: dist,
             filename: "js/[name].[hash:8].js",

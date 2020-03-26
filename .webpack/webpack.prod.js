@@ -10,17 +10,12 @@ const createBaseConfig = require("./webpack.common")
 
 process.env.NODE_ENV = "production"
 
-/** Externals */
-const vendorPath = "" // path.resolve(process.cwd(), "dist", "vendor")
-
 /**
  * @type {import("webpack").Plugin[]}
  */
 const plugins = [
     new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: vendorPath
-            ? ["**/*", "!vendor", "!vendor/vendor.js", "!vendor/manifest.json", "!main.js"]
-            : ["**/*", "!main.js"],
+        cleanOnceBeforeBuildPatterns: ["**/*", "!main.js"],
         cleanAfterEveryBuildPatterns: ["assets"],
     }),
 ]
@@ -41,7 +36,7 @@ const config = {
         hints: "warning",
         maxEntrypointSize: 52428800,
         maxAssetSize: 52428800,
-        assetFilter: filename => {
+        assetFilter: (filename) => {
             const ext = path.extname(filename)
             return ext === "css" || ext === ".js"
         },
@@ -61,9 +56,4 @@ const config = {
     plugins,
 }
 
-module.exports = webpackMerge(
-    createBaseConfig({
-        vendor: vendorPath,
-    }),
-    config,
-)
+module.exports = webpackMerge(createBaseConfig(), config)
