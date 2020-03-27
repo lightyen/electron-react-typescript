@@ -13,7 +13,7 @@ const config = {
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
-            cleanOnceBeforeBuildPatterns: ["**/*", "!vendor", "!vendor/vendor.js", "!vendor/manifest.json"],
+            cleanOnceBeforeBuildPatterns: ["**/*"],
         }),
     ],
 }

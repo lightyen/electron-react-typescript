@@ -9,13 +9,9 @@ html
     meta(name="description", content="")
     meta(name="author", content="")
     meta(name="keyword", content="")
-    if (htmlWebpackPlugin.files.favicon)
-      link(rel="shortcut icon", href=htmlWebpackPlugin.files.favicon)
     each css in htmlWebpackPlugin.files.css
       link(rel="stylesheet", type="text/css", href=css)
   body
     #root
-    if htmlWebpackPlugin.options.vendor
-      script(type="text/javascript", src=htmlWebpackPlugin.options.vendor)
     each js in htmlWebpackPlugin.files.js
       script(type="text/javascript", src=js)

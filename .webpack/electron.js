@@ -11,15 +11,14 @@ const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
 /** @typedef {{
  *    dist?: string
  *    src?: string
- *    vendor?: string
  * }} Options */
 
 /**
- * @param {Options} options
+ * @param {Options} [options]
  *
  * @returns { import("webpack").Configuration }
  */
-module.exports = function(options) {
+module.exports = function (options) {
     const workingDirectory = process.cwd()
     const src = (options && options.src) || path.resolve(workingDirectory, "src", "main")
     const dist = (options && options.dist) || path.resolve(workingDirectory, "dist")
