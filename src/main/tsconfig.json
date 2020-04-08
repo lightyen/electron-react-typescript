@@ -1,12 +1,11 @@
 {
   "extends": "../tsconfig.base",
   "compilerOptions": {
-    "esModuleInterop": true,
+    "noImplicitAny": false,
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["esnext"],
     "target": "es6",
-    "sourceMap": true,
     "typeRoots": ["src/main"],
     "baseUrl": ".",
     "paths": {

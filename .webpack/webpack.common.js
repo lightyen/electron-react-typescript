@@ -131,6 +131,7 @@ module.exports = function (options) {
             publicPath: "./",
         },
         target: "web",
+        devtool: "source-map",
         module: {
             rules: [
                 {
@@ -160,11 +161,6 @@ module.exports = function (options) {
                         { loader: "ts-loader", options: { happyPackMode: true } },
                     ],
                 },
-                // {
-                //     test: /\.jsx?$/,
-                //     exclude: /node_modules|\.test.tsx?$/,
-                //     use: ["babel-loader", "thread-loader"],
-                // },
                 {
                     test: /\.(png|jpe?g|gif|svg|ico)$/i,
                     use: imageLoader,

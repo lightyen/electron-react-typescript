@@ -25,7 +25,6 @@ const plugins = [
  */
 const config = {
     mode: "production",
-    devtool: false,
     externals: ["lodash"],
     stats: {
         children: false,
@@ -36,7 +35,7 @@ const config = {
         hints: "warning",
         maxEntrypointSize: 52428800,
         maxAssetSize: 52428800,
-        assetFilter: (filename) => {
+        assetFilter: filename => {
             const ext = path.extname(filename)
             return ext === "css" || ext === ".js"
         },

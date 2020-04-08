@@ -21,6 +21,7 @@ module.exports = function (options) {
     const workingDirectory = process.cwd()
     const src = (options && options.src) || path.resolve(workingDirectory, "src", "main")
     const dist = (options && options.dist) || path.resolve(workingDirectory, "dist")
+    const tsconfigPath = path.resolve(src, "tsconfig.json")
 
     /**
      * @type {import("webpack").Plugin[]}
@@ -58,14 +59,18 @@ module.exports = function (options) {
                 {
                     test: /\.ts$/,
                     exclude: /node_modules/,
-                    use: [{ loader: "ts-loader", options: { context: path.resolve(src) } }],
+                    use: [{ loader: "ts-loader", options: { context: path.resolve(src), configFile: tsconfigPath } }],
+                },
+                {
+                    test: /\.node$/,
+                    use: "node-loader",
                 },
             ],
         },
         resolve: {
-            extensions: [".ts", ".js", ".json"],
+            extensions: [".ts", ".js"],
             alias: {
-                ...convertPathsToAliases(path.resolve(src, "tsconfig.json")),
+                ...convertPathsToAliases(tsconfigPath),
             },
         },
         plugins,

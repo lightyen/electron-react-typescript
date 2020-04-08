@@ -31,9 +31,9 @@ export class MainWindow extends Electron.BrowserWindow {
         newMenu()
         router()
 
-        this.on("maximize", e => send("window.maximized", true, this.webContents))
-        this.on("unmaximize", e => send("window.maximized", false, this.webContents))
-        this.on("show", e => {
+        this.on("maximize", () => send("window.maximized", true, this.webContents))
+        this.on("unmaximize", () => send("window.maximized", false, this.webContents))
+        this.on("show", () => {
             if (!this.isMaximized()) {
                 const width = 1080
                 const height = 680

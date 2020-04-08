@@ -11,7 +11,6 @@ process.env.PUBLIC_URL = ""
  */
 const config = {
     mode: "development",
-    devtool: "source-map",
     stats: {
         children: false,
         modules: false,
@@ -54,4 +53,4 @@ const config = {
     },
 }
 
-module.exports = webpackMerge(createBaseConfig({}), config)
+module.exports = webpackMerge(createBaseConfig(), config)

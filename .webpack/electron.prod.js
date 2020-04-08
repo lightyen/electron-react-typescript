@@ -18,4 +18,4 @@ const config = {
     ],
 }
 
-module.exports = webpackMerge(createBaseConfig({}), config)
+module.exports = webpackMerge(createBaseConfig(), config)
