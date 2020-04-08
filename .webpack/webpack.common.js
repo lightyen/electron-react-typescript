@@ -250,11 +250,6 @@ module.exports = function (options) {
         // NOTE: https://webpack.js.org/configuration/resolve/
         resolve: {
             extensions: [".ts", ".tsx", ".js"],
-            // plugins: [
-            //     new TsConfigPathsPlugin({
-            //         configFileName: path.resolve(src, "tsconfig.json"),
-            //     }),
-            // ],
             alias: {
                 assets: path.join(assets),
                 ...convertPathsToAliases(tsconfigPath),

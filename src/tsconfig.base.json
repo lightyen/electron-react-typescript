@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowJs": true,
-    "skipLibCheck": true,
-    "noEmit": true
+    "skipLibCheck": true
   }
 }

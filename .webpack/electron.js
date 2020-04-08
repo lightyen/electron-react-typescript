@@ -6,7 +6,6 @@ process.env.APP_NAME = packageJSON.name
 const path = require("path")
 
 const WebpackBarPlugin = require("webpackbar")
-const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
 
 /** @typedef {{
  *    dist?: string
@@ -28,6 +27,22 @@ module.exports = function (options) {
      */
     const plugins = [new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true })]
 
+    function convertPathsToAliases(configPath) {
+        const config = require(configPath)
+        const basePath = path.dirname(configPath)
+        let ret = {}
+        const options = config.compilerOptions
+        if (options) {
+            const paths = config.compilerOptions.paths
+            if (paths) {
+                for (const k of Object.keys(paths)) {
+                    ret[path.dirname(k)] = path.dirname(path.join(basePath, options.baseUrl, paths[k][0]))
+                }
+            }
+        }
+        return ret
+    }
+
     return {
         entry: {
             index: path.join(src, "index.ts"),
@@ -43,22 +58,15 @@ module.exports = function (options) {
                 {
                     test: /\.ts$/,
                     exclude: /node_modules/,
-                    loader: "awesome-typescript-loader",
-                    options: {
-                        configFileName: path.join(src, "tsconfig.json"),
-                        silent: true,
-                    },
+                    use: [{ loader: "ts-loader", options: { context: path.resolve(src) } }],
                 },
             ],
         },
         resolve: {
             extensions: [".ts", ".js", ".json"],
-            alias: {},
-            plugins: [
-                new TsConfigPathsPlugin({
-                    configFileName: path.join(src, "tsconfig.json"),
-                }),
-            ],
+            alias: {
+                ...convertPathsToAliases(path.resolve(src, "tsconfig.json")),
+            },
         },
         plugins,
     }
