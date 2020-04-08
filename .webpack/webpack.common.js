@@ -31,6 +31,7 @@ module.exports = function (options) {
     const dist = (options && options.dist) || path.resolve(workingDirectory, "dist")
     const assets = path.resolve(workingDirectory, "assets")
     const isDevelopment = process.env.NODE_ENV === "development"
+    const tsconfigPath = path.resolve(src, "tsconfig.json")
     process.env.PUBLIC_URL = process.env.PUBLIC_URL || ""
 
     /**
@@ -59,6 +60,7 @@ module.exports = function (options) {
         }),
         new ForkTsCheckerWebpackPlugin({
             checkSyntacticErrors: true,
+            tsconfig: tsconfigPath,
         }),
     ]
 
@@ -101,8 +103,6 @@ module.exports = function (options) {
             outputPath: "assets/fonts",
         },
     }
-
-    const tsconfigPath = path.join(src, "tsconfig.json")
 
     function convertPathsToAliases(configPath) {
         const config = require(configPath)
