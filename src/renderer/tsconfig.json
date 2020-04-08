@@ -9,10 +9,11 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "types": ["react", "webpack-env"],
     "baseUrl": ".",
+    "outDir": "",
     "paths": {
       "~/*": ["./*"],
       "~assets/*": ["../../assets/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
 }

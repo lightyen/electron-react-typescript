@@ -3,13 +3,14 @@ const packageJSON = require("../package.json")
 const tailwindcfg = require("../tailwind.config")
 
 // @ts-check
-const { EnvironmentPlugin, DllReferencePlugin, ExtendedAPIPlugin } = require("webpack")
+const { EnvironmentPlugin, ExtendedAPIPlugin } = require("webpack")
 const path = require("path")
 
 // Plugins
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const WebpackBarPlugin = require("webpackbar")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 
 // NOTE: 關閉 webpack 要求 donate 訊息
 process.env.DISABLE_OPENCOLLECTIVE = "true"
@@ -55,6 +56,9 @@ module.exports = function (options) {
             template: path.join(src, "template", "index.pug"),
             favicon: path.join(assets, "images", "favicon.ico"),
             isDevelopment,
+        }),
+        new ForkTsCheckerWebpackPlugin({
+            checkSyntacticErrors: true,
         }),
     ]
 
@@ -116,30 +120,6 @@ module.exports = function (options) {
         return ret
     }
 
-    /**
-     * @type {import("webpack").Loader}
-     */
-    const tsxLoader = {
-        loader: "awesome-typescript-loader",
-        options: {
-            configFileName: path.join(src, "tsconfig.json"),
-            silent: true,
-            useBabel: true,
-            useCache: true,
-            babelCore: "@babel/core",
-            babelOptions: {
-                babelrc: true,
-            },
-        },
-    }
-
-    /*
-     * @type {import("webpack").Loader}
-     */
-    const jsxLoader = {
-        loader: "babel-loader",
-    }
-
     return {
         entry: {
             index: path.join(src, "index.tsx"),
@@ -168,13 +148,23 @@ module.exports = function (options) {
                 {
                     test: /\.tsx?$/,
                     exclude: /node_modules|\.test.tsx?$/,
-                    use: [tsxLoader, "thread-loader"],
+                    use: [
+                        {
+                            loader: "cache-loader",
+                            options: {
+                                cacheDirectory: path.resolve(".cache"),
+                            },
+                        },
+                        { loader: "thread-loader" },
+                        { loader: "babel-loader" },
+                        { loader: "ts-loader", options: { happyPackMode: true } },
+                    ],
                 },
-                {
-                    test: /\.jsx?$/,
-                    exclude: /node_modules|\.test.tsx?$/,
-                    use: [jsxLoader, "thread-loader"],
-                },
+                // {
+                //     test: /\.jsx?$/,
+                //     exclude: /node_modules|\.test.tsx?$/,
+                //     use: ["babel-loader", "thread-loader"],
+                // },
                 {
                     test: /\.(png|jpe?g|gif|svg|ico)$/i,
                     use: imageLoader,
@@ -259,7 +249,7 @@ module.exports = function (options) {
         },
         // NOTE: https://webpack.js.org/configuration/resolve/
         resolve: {
-            extensions: [".ts", ".tsx", ".js", ".jsx"],
+            extensions: [".ts", ".tsx", ".js"],
             // plugins: [
             //     new TsConfigPathsPlugin({
             //         configFileName: path.resolve(src, "tsconfig.json"),

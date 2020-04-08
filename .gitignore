@@ -2,7 +2,7 @@ node_modules
 dist
 test
 build
-.awcache
+.cache
 .DS_Store
 .directory
 *.log
