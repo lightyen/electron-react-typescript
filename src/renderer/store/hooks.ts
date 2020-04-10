@@ -1,7 +1,8 @@
 import React from "react"
 import { bindActionCreators } from "redux"
 import { useSelector as useReduxSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
-import { RootStore } from "~/store"
+import { RootStore } from "./reducer"
+
 import app from "~/store/app/action"
 import theme from "~/store/theme/action"
 import i18n from "~/store/i18n/action"
