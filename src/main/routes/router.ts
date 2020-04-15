@@ -1,6 +1,5 @@
 import Electron from "electron"
-import fs from "fs"
-import { promisify } from "util"
+import { promises as fs } from "fs"
 import { response, on } from "~/ipc"
 
 import { getAppName } from "./get.appname"
@@ -23,7 +22,7 @@ export function router() {
     on("set.default.backgroundColor", setBackgroundColor)
     on("set.default.autoUpdate", setAutoUpdate)
     on("show.folder", async (e, fullpath: string) => {
-        const stat = await promisify(fs.stat)(fullpath)
+        const stat = await fs.stat(fullpath)
         stat.isDirectory() && Electron.shell.openItem(fullpath)
     })
 }

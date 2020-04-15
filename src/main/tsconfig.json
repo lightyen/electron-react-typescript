@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base",
   "compilerOptions": {
-    "noImplicitAny": false,
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["esnext"],

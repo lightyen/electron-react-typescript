@@ -1,10 +1,7 @@
 import Electron from "electron"
 import { IpcPromiseHandler } from "~/ipc"
 
-import fs from "fs"
-import { promisify } from "util"
-
-const readdir = promisify(fs.readdir)
+import { promises as fs } from "fs"
 
 export const openDirectoryDialog: IpcPromiseHandler = async (
     e: Electron.IpcMainEvent,
@@ -23,7 +20,7 @@ export const openDirectoryDialog: IpcPromiseHandler = async (
         return null // no response
     }
 
-    const list = await readdir(rest.filePaths[0])
+    const list = await fs.readdir(rest.filePaths[0])
     return {
         ...rest,
         files: list,

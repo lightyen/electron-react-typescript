@@ -13,9 +13,6 @@ export let mainWindow: Electron.BrowserWindow
 Electron.app.allowRendererProcessReuse = true
 
 export function initWindow() {
-    if (isDev) {
-        install(REACT_DEVELOPER_TOOLS).catch(err => console.error(err))
-    }
     mainWindow = new MainWindow()
     mainWindow.on("closed", () => {
         mainWindow = null
@@ -28,6 +25,9 @@ Electron.app.on("will-finish-launching", () =>
 )
 
 Electron.app.on("ready", () => {
+    if (isDev) {
+        install(REACT_DEVELOPER_TOOLS).catch(err => console.error(err))
+    }
     initWindow()
     autoUpdater.autoDownload = true
     autoUpdater.autoInstallOnAppQuit = false

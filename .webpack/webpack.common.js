@@ -162,6 +162,19 @@ module.exports = function (options) {
                     ],
                 },
                 {
+                    test: /\.jsx$/,
+                    use: [
+                        {
+                            loader: "cache-loader",
+                            options: {
+                                cacheDirectory: path.resolve(".cache"),
+                            },
+                        },
+                        { loader: "thread-loader" },
+                        { loader: "babel-loader" },
+                    ],
+                },
+                {
                     test: /\.(png|jpe?g|gif|svg|ico)$/i,
                     use: imageLoader,
                 },
@@ -245,7 +258,7 @@ module.exports = function (options) {
         },
         // NOTE: https://webpack.js.org/configuration/resolve/
         resolve: {
-            extensions: [".ts", ".tsx", ".js"],
+            extensions: [".ts", ".tsx", ".js", ".jsx"],
             alias: {
                 assets: path.join(assets),
                 ...convertPathsToAliases(tsconfigPath),

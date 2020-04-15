@@ -1,11 +1,6 @@
-import fs from "fs"
+import { promises as fs } from "fs"
 import path from "path"
-import { promisify } from "util"
 import jszip from "jszip"
-
-const writeFile = promisify(fs.writeFile)
-const readFile = promisify(fs.readFile)
-const mkdir = promisify(fs.mkdir)
 
 // Credits for the original function go to Rob--W
 // https://github.com/Rob--W/crxviewer/blob/master/src/lib/crx-to-zip.js
@@ -64,7 +59,7 @@ export default async function unzip(crxFilePath: string, destination: string): P
 
     destination = destination || path.resolve(dirname, basename)
 
-    const buf = await readFile(filePath)
+    const buf = await fs.readFile(filePath)
     const zip = await jszip.loadAsync(crxToZip(buf))
     const zipFileKeys = Object.keys(zip.files)
 
@@ -73,9 +68,9 @@ export default async function unzip(crxFilePath: string, destination: string): P
         const fullPath = path.join(destination, filename)
         const directory = (isFile && path.dirname(fullPath)) || fullPath
         const content = await zip.files[filename].async("nodebuffer")
-        await mkdir(directory, { recursive: true })
+        await fs.mkdir(directory, { recursive: true })
         if (isFile) {
-            await writeFile(fullPath, content)
+            await fs.writeFile(fullPath, content)
         }
     }
 }
