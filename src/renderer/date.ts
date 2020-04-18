@@ -20,9 +20,13 @@ export function setDateLocale(locale: string) {
     window["__localeId__"] = locale
 }
 
+export function getDateLocale() {
+    return locales[window["__localeId__"]]
+}
+
 setDateLocale(getCurrentLanguage())
 
 export const format = (date: Date, formatStr: string) =>
     dfFormat({
-        locale: locales[window["__localeId__"]],
+        locale: getDateLocale(),
     })(formatStr)(date)

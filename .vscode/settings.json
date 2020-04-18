@@ -21,12 +21,12 @@
     "typescriptreact"
   ],
   "files.exclude": {
-    "**/.awcache": true,
+    "**/.cache": true,
     "**/node_modules": true,
     "yarn.lock": true
   },
   "files.watcherExclude": {
-    "**/.awcache/**": true
+    "**/.cache/**": true
   },
   "css.validate": false,
   "stylelint.config": {

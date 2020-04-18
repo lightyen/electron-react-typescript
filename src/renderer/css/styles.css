@@ -1,11 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* https://tailwindcss.com/docs/functions-and-directives/ */
+/* https://tailwindcss.com/docs/using-with-preprocessors/ */
 
-.btn {
-    @apply py-2 px-4 rounded;
-}
+@import "tailwindcss/base";
+/* @import "./custom-base-styles.css"; */
 
-.btn-blue {
-    @apply bg-blue-500 text-white;
-}
+@import "tailwindcss/components";
+@import "./custom-components.css";
+
+@import "tailwindcss/utilities";
+/* @import "./custom-utilities.css"; */

@@ -4,8 +4,6 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const TerserPlugin = require("terser-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const path = require("path")
-const fs = require("fs")
-const { promisify } = require("util")
 const createBaseConfig = require("./webpack.common")
 
 process.env.NODE_ENV = "production"
@@ -33,8 +31,8 @@ const config = {
     },
     performance: {
         hints: "warning",
-        maxEntrypointSize: 52428800,
-        maxAssetSize: 52428800,
+        maxEntrypointSize: 1 << 20, // Maybe bigger in electron application?
+        maxAssetSize: 1 << 20,
         assetFilter: filename => {
             const ext = path.extname(filename)
             return ext === "css" || ext === ".js"

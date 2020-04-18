@@ -1,2 +1,2 @@
 @types/**/node_modules
-clean-webpack-plugin/node_modules
+**/node_modules/@types
