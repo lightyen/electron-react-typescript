@@ -3,8 +3,8 @@ const { HotModuleReplacementPlugin } = require("webpack")
 const webpackMerge = require("webpack-merge")
 const createBaseConfig = require("./webpack.common")
 const defaultPort = 3000
+
 process.env.NODE_ENV = "development"
-process.env.PUBLIC_URL = ""
 
 /**
  * @type { import("webpack").Configuration }
