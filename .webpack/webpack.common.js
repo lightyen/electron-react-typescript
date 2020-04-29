@@ -32,6 +32,7 @@ module.exports = function (options) {
     const assets = path.resolve(workingDirectory, "assets")
     const isDevelopment = process.env.NODE_ENV === "development"
     const tsconfigPath = path.resolve(src, "tsconfig.json")
+    process.env.PUBLIC_URL = process.env.PUBLIC_URL || ""
 
     /**
      * @type {import("webpack").Plugin[]}
@@ -39,8 +40,8 @@ module.exports = function (options) {
     const plugins = [
         new WebpackBarPlugin({ color: "#41f4d0", name: "Electron Renderer" }),
         new EnvironmentPlugin({
-            NODE_ENV: "development",
-            PUBLIC_URL: "",
+            NODE_ENV: process.env.NODE_ENV,
+            PUBLIC_URL: process.env.PUBLIC_URL,
             APP_NAME: packageJSON.name,
             TAILWIND_CONFIG: JSON.stringify(tailwindcfg),
         }),
