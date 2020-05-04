@@ -1,20 +1,30 @@
 {
 	"compilerOptions": {
-		"esModuleInterop": true,
+		"strict": true,
+		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"experimentalDecorators": false,
-		"isolatedModules": true,
+		"esModuleInterop": true,
+		"isolatedModules": false,
 		"noImplicitThis": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
-		"noStrictGenericChecks": false,
 		"strictNullChecks": false,
 		"removeComments": true,
 		"noUnusedParameters": false,
 		"noUnusedLocals": false,
 		"resolveJsonModule": true,
 		"suppressImplicitAnyIndexErrors": true,
+		"allowJs": false,
+		"sourceMap": true,
 		"skipLibCheck": true,
-		"strict": true
+		"noImplicitAny": false,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"lib": ["esnext"],
+		"target": "es6",
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./*"]
+		}
 	}
 }

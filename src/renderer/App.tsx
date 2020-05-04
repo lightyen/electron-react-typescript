@@ -10,13 +10,13 @@ import "~/css/styles.css"
 const store = configureStore()
 
 export default function App() {
-    return (
-        <React.StrictMode>
-            <Provider store={store}>
-                <LanguageProvider>
-                    <AppContainer />
-                </LanguageProvider>
-            </Provider>
-        </React.StrictMode>
-    )
+	return (
+		<React.StrictMode>
+			<Provider store={store}>
+				<LanguageProvider>
+					<AppContainer />
+				</LanguageProvider>
+			</Provider>
+		</React.StrictMode>
+	)
 }

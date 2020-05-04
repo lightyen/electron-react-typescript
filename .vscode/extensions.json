@@ -1,14 +1,14 @@
 {
-  "recommendations": [
-    "bungcip.better-toml",
-    "msjsdiag.debugger-for-chrome",
-    "dbaeumer.vscode-eslint",
-    "jbockle.jbockle-format-files",
-    "christian-kohler.npm-intellisense",
-    "esbenp.prettier-vscode",
-    "editorconfig.editorconfig",
-    "stylelint.vscode-stylelint",
-    "bradlc.vscode-tailwindcss",
-    "jpoissonnier.vscode-styled-components"
-  ]
+	"recommendations": [
+		"bungcip.better-toml",
+		"msjsdiag.debugger-for-chrome",
+		"dbaeumer.vscode-eslint",
+		"jbockle.jbockle-format-files",
+		"christian-kohler.npm-intellisense",
+		"esbenp.prettier-vscode",
+		"editorconfig.editorconfig",
+		"stylelint.vscode-stylelint",
+		"bradlc.vscode-tailwindcss",
+		"jpoissonnier.vscode-styled-components"
+	]
 }

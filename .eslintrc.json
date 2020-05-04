@@ -1,33 +1,33 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "prettier",
-    "prettier/@typescript-eslint",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
-  ],
-  "ignorePatterns": ["tailwind.config.js", "node_modules/"],
-  "rules": {
-    "spaced-comment": "error",
-    "no-var": "error",
-    "no-extra-bind": "error",
-    "prefer-arrow-callback": "error",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-empty-interface": "off",
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/member-delimiter-style": "off",
-    "react/prop-types": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"prettier",
+		"prettier/@typescript-eslint",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended"
+	],
+	"ignorePatterns": ["tailwind.config.js", "node_modules/"],
+	"rules": {
+		"spaced-comment": "error",
+		"no-var": "error",
+		"no-extra-bind": "error",
+		"prefer-arrow-callback": "error",
+		"@typescript-eslint/no-unused-vars": "off",
+		"@typescript-eslint/interface-name-prefix": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-empty-interface": "off",
+		"@typescript-eslint/camelcase": "off",
+		"@typescript-eslint/array-type": "off",
+		"@typescript-eslint/no-var-requires": "off",
+		"@typescript-eslint/member-delimiter-style": "off",
+		"react/prop-types": "off",
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "error"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
 }

@@ -9,28 +9,24 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
 
-[*.{tsx,ts,jsx,js,html,ejs}]
-indent_style = space
+[*.{tsx,ts,jsx,js,html,pug}]
+indent_style = tab
 indent_size = 4
 max_line_length = 120
 
 [*.{scss,less,css}]
-indent_style = space
+indent_style = tab
 indent_size = 4
 max_line_length = 80
 
 [*.{json,pug}]
-indent_style = space
+indent_style = tab
 indent_size = 2
 
 [{.travis.yml,.prettierrc,.babelrc}]
-indent_style = space
+indent_style = tab
 indent_size = 2
 
-[{postcss.config.*,jest.config.*}]
-indent_style = space
+[{postcss.config.*,jest.config.*,tailwind.config.*}]
+indent_style = tab
 indent_size = 2
-
-[*.go]
-indent_style = space
-indent_size = 4

@@ -54,10 +54,7 @@ yarn build
 
 - string 字串 以 雙引號 `"` 表示
 - statement 除非特例 否則結尾不用分號 `;`
-
-## editorconfig, prettier 風格
-
-偏好縮排為 **4** 個空格
+- 縮排使用 `tab`
 
 ## Pack 打包應用程式
 

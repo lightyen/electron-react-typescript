@@ -12,17 +12,17 @@ import { getMemory } from "./get.memory"
 import { setBackgroundColor, setAutoUpdate } from "./set.default"
 
 export function router() {
-    response("get.name", getAppName)
-    response("get.versions", getVersions)
-    response("get.cpuusage", getCPUUsage)
-    response("get.memory", getMemory)
-    response("dialog.open", openDirectoryDialog)
-    response("get.paths", getPaths)
-    response("get.log", getLog)
-    on("set.default.backgroundColor", setBackgroundColor)
-    on("set.default.autoUpdate", setAutoUpdate)
-    on("show.folder", async (e, fullpath: string) => {
-        const stat = await fs.stat(fullpath)
-        stat.isDirectory() && Electron.shell.openItem(fullpath)
-    })
+	response("get.name", getAppName)
+	response("get.versions", getVersions)
+	response("get.cpuusage", getCPUUsage)
+	response("get.memory", getMemory)
+	response("dialog.open", openDirectoryDialog)
+	response("get.paths", getPaths)
+	response("get.log", getLog)
+	on("set.default.backgroundColor", setBackgroundColor)
+	on("set.default.autoUpdate", setAutoUpdate)
+	on("show.folder", async (e, fullpath: string) => {
+		const stat = await fs.stat(fullpath)
+		stat.isDirectory() && Electron.shell.openItem(fullpath)
+	})
 }

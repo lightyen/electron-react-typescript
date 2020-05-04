@@ -10,44 +10,44 @@ import "./index.css"
 import logo from "~assets/images/logo.svg"
 
 const Home: React.FC = () => {
-    const { textColor, name } = useSelector(state => state.theme)
-    const colors = tailwindcssconfig.theme.colors
-    return (
-        <div className="Home select-none">
-            <header className="Home-header">
-                <motion.img
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 20, loop: Infinity }}
-                    src={logo}
-                    className="Home-logo"
-                    alt="logo"
-                />
-                <p className="select-text" style={{ color: textColor }}>
-                    Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
-                </p>
-                <span className="select-text" style={{ color: textColor }}>
-                    <FormattedMessage id="test" values={{ name: "React" }} />
-                </span>
-                <a className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
-                    Learn React
-                </a>
-                <Link to="/version">
-                    <motion.div
-                        className="btn btn-blue my-2 select-none"
-                        whileHover="hover"
-                        variants={{
-                            hover: {
-                                backgroundColor: name === "light" ? colors.blue[700] : colors.blue[400],
-                                transition: { duration: 0.2 },
-                            },
-                        }}
-                    >
-                        Version
-                    </motion.div>
-                </Link>
-            </header>
-        </div>
-    )
+	const { textColor, name } = useSelector(state => state.theme)
+	const colors = tailwindcssconfig.theme.colors
+	return (
+		<div className="Home select-none">
+			<header className="Home-header">
+				<motion.img
+					animate={{ rotate: [0, 360] }}
+					transition={{ duration: 20, loop: Infinity }}
+					src={logo}
+					className="Home-logo"
+					alt="logo"
+				/>
+				<p className="select-text" style={{ color: textColor }}>
+					Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
+				</p>
+				<span className="select-text" style={{ color: textColor }}>
+					<FormattedMessage id="test" values={{ name: "React" }} />
+				</span>
+				<a className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
+					Learn React
+				</a>
+				<Link to="/version">
+					<motion.div
+						className="btn btn-blue my-2 select-none"
+						whileHover="hover"
+						variants={{
+							hover: {
+								backgroundColor: name === "light" ? colors.blue[700] : colors.blue[400],
+								transition: { duration: 0.2 },
+							},
+						}}
+					>
+						Version
+					</motion.div>
+				</Link>
+			</header>
+		</div>
+	)
 }
 
 export default Home

@@ -1,15 +1,15 @@
 {
-  "extends": "../tsconfig.base",
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": ["esnext"],
-    "target": "es6",
-    "typeRoots": ["src/main"],
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"]
-    }
-  },
-  "include": ["**/*.ts"]
+	"extends": "../tsconfig.base",
+	"compilerOptions": {
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"lib": ["esnext"],
+		"target": "es6",
+		"typeRoots": ["src/main"],
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./*"]
+		}
+	},
+	"include": ["**/*.ts"]
 }

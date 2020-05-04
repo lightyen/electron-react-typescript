@@ -1,24 +1,24 @@
 .Home {
-    text-align: center;
-    display: flex;
-    flex-grow: 1;
+	text-align: center;
+	display: flex;
+	flex-grow: 1;
 }
 
 .Home-logo {
-    height: 40vmin;
-    pointer-events: none;
+	height: 40vmin;
+	pointer-events: none;
 }
 
 .Home-header {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
 .Home-link {
-    color: #61dafb;
+	color: #61dafb;
 }

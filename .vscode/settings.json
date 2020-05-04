@@ -1,50 +1,51 @@
 {
-  "editor.formatOnSave": true,
-  "formatFiles.excludePattern": "node_modules,dist,src/assets,.webpack/*.js,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
-  "files.associations": {
-    ".prettierrc": "json",
-    ".eslintrc": "json"
-  },
-  "search.exclude": {
-    "**/dist": true,
-    "**/build": true,
-    "**/node_modules": true,
-    "**/bower_components": true
-  },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "npm.autoDetect": "off",
-  "typescript.tsc.autoDetect": "off",
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "files.exclude": {
-    "**/.cache": true,
-    "**/node_modules": true,
-    "yarn.lock": true
-  },
-  "files.watcherExclude": {
-    "**/.cache/**": true
-  },
-  "css.validate": false,
-  "stylelint.config": {
-    "rules": {
-      "at-rule-no-unknown": [
-        true,
-        {
-          "ignoreAtRules": [
-            "tailwind",
-            "apply",
-            "variants",
-            "responsive",
-            "screen"
-          ]
-        }
-      ],
-      "declaration-block-trailing-semicolon": null,
-      "no-descending-specificity": null
-    }
-  }
+	"editor.formatOnSave": true,
+	"formatFiles.excludePattern": "node_modules,dist,src/assets,.webpack/*.js,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
+	"files.associations": {
+		".prettierrc": "json",
+		".eslintrc": "json"
+	},
+	"search.exclude": {
+		"**/dist": true,
+		"**/build": true,
+		"**/node_modules": true,
+		"**/bower_components": true
+	},
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"npm.autoDetect": "off",
+	"typescript.tsc.autoDetect": "off",
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"files.exclude": {
+		"**/.cache": true,
+		"**/node_modules": true,
+		"yarn.lock": true
+	},
+	"files.watcherExclude": {
+		"**/.cache/**": true
+	},
+	"css.validate": false,
+	"stylelint.config": {
+		"rules": {
+			"at-rule-no-unknown": [
+				true,
+				{
+					"ignoreAtRules": [
+						"tailwind",
+						"apply",
+						"variants",
+						"responsive",
+						"screen"
+					]
+				}
+			],
+			"declaration-block-trailing-semicolon": null,
+			"no-descending-specificity": null
+		}
+	},
+	"javascript.suggestionActions.enabled": false
 }
