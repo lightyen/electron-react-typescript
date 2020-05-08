@@ -8,7 +8,6 @@ import Back from "~/components/Back"
 import { send } from "~/ipc"
 import styled from "styled-components"
 
-import { useScrollBarTarget } from "~/components/ScrollBar"
 interface OptionType {
 	label: string
 	value: string

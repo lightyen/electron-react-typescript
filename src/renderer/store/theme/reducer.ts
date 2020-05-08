@@ -1,6 +1,6 @@
 import { Reducer } from "redux"
 import { Theme, ThemeName, themes } from "./themes"
-import { Action, CHANGE_THEME } from "./action"
+import { Action } from "./action"
 import { send } from "~/ipc"
 
 interface ThemeStoreType extends Theme {
@@ -26,7 +26,7 @@ send("set.default.backgroundColor", themes[init.name].backgroundColor)
 
 export const theme: Reducer<ThemeStore, Action> = (state = init, action): ThemeStore => {
 	switch (action.type) {
-		case CHANGE_THEME:
+		case "CHANGE_THEME":
 			localStorage.setItem("theme", action.name)
 			send("set.default.backgroundColor", themes[action.name].backgroundColor)
 			return { ...state, name: action.name, ...themes[action.name] }

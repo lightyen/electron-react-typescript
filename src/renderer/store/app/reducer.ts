@@ -1,15 +1,7 @@
 import { Reducer } from "redux"
 import { Version, SystemMemoryInfo, AppPaths } from "./model"
 
-import {
-	Action,
-	GET_TITLEBAR_HIDE,
-	GET_APP_VERSION,
-	GET_APP_CPU_USAGE,
-	GET_APP_SYSTEM_MEMORY,
-	AUTO_UPDATE_DOWNLOADED,
-	GET_APP_PATHS,
-} from "./action"
+import { Action } from "./action"
 
 interface AppStoreType {
 	hide: boolean
@@ -56,19 +48,19 @@ const init: AppStore = {
 
 export const app: Reducer<AppStore, Action> = (state = init, action): AppStore => {
 	switch (action.type) {
-		case GET_TITLEBAR_HIDE:
+		case "GET_TITLEBAR_HIDE":
 			return { ...state, hide: action.hide }
-		case GET_APP_VERSION.SUCCESS:
+		case "GET_APP_VERSION_SUCCESS":
 			return { ...state, version: action.version }
-		case GET_APP_PATHS.SUCCESS:
+		case "GET_APP_PATHS_SUCCESS":
 			return { ...state, paths: action.paths }
-		case GET_APP_CPU_USAGE.SUCCESS:
+		case "GET_APP_CPU_USAGE_SUCCESS":
 			const { load } = action.usage
 			const usage = load.user + load.sys + load.nice + load.irq
 			return { ...state, cpuusage: usage }
-		case GET_APP_SYSTEM_MEMORY.SUCCESS:
+		case "GET_APP_SYSTEM_MEMORY_SUCCESS":
 			return { ...state, memory: action.usage }
-		case AUTO_UPDATE_DOWNLOADED:
+		case "AUTO_UPDATE_DOWNLOADED":
 			return { ...state, update_downloaded: true, update_version: action.info.version }
 		default:
 			return state

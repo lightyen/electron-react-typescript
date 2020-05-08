@@ -2,7 +2,6 @@ import { subscribe, unsubscribe, SubscribeCallBack } from "~/ipc"
 import { eventChannel, END } from "redux-saga"
 import { fork, call } from "redux-saga/effects"
 import app from "./app/saga"
-import i18n from "./i18n/saga"
 
 export function* ipcChannel(channel: string) {
 	return yield call(() =>
@@ -27,7 +26,6 @@ export function* ipcChannel(channel: string) {
 
 function* rootSaga() {
 	yield fork(app)
-	yield fork(i18n)
 }
 
 export default rootSaga

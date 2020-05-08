@@ -1,82 +1,53 @@
 import { Version, AppPaths, CPUInfo, SystemMemoryInfo, UpdateInfo } from "./model"
 
-export const GET_TITLEBAR_HIDE = "GET_TITLEBAR_HIDE"
-
-export enum GET_APP_VERSION {
-	REQUEST = "GET_APP_VERSION_REQUEST",
-	SUCCESS = "GET_APP_VERSION_SUCCESS",
-	FAILURE = "GET_APP_VERSION_FAILURE",
-}
-
-export enum GET_APP_PATHS {
-	REQUEST = "GET_APP_PATHS_REQUEST",
-	SUCCESS = "GET_APP_PATHS_SUCCESS",
-	FAILURE = "GET_APP_PATHS_FAILURE",
-}
-
-export enum GET_APP_CPU_USAGE {
-	REQUEST = "GET_APP_CPU_USAGE_REQUEST",
-	SUCCESS = "GET_APP_CPU_USAGE_SUCCESS",
-	FAILURE = "GET_APP_CPU_USAGE_FAILURE",
-}
-
-export enum GET_APP_SYSTEM_MEMORY {
-	REQUEST = "GET_APP_SYSTEM_MEMORY_REQUEST",
-	SUCCESS = "GET_APP_SYSTEM_MEMORY_SUCCESS",
-	FAILURE = "GET_APP_SYSTEM_MEMORY_FAILURE",
-}
-
-export const AUTO_UPDATE_DOWNLOADED = "AUTO_UPDATE_DOWNLOADED"
-export const AUTO_UPDATE_RESTART = "AUTO_UPDATE_RESTART"
-
 export interface GetAppTitleBarHideAction {
-	type: typeof GET_TITLEBAR_HIDE
+	type: "GET_TITLEBAR_HIDE"
 	hide: boolean
 }
 
 export interface GetAppVersionAction {
-	type: GET_APP_VERSION
+	type: "GET_APP_VERSION_REQUEST" | "GET_APP_VERSION_SUCCESS" | "GET_APP_VERSION_FAILURE"
 	version?: Version
 }
 
 export interface GetAppPathsAction {
-	type: GET_APP_PATHS
+	type: "GET_APP_PATHS_REQUEST" | "GET_APP_PATHS_SUCCESS" | "GET_APP_PATHS_FAILURE"
 	paths?: AppPaths
 }
 
 export interface GetAppCpuUsageAction {
-	type: GET_APP_CPU_USAGE
+	type: "GET_APP_CPU_USAGE_REQUEST" | "GET_APP_CPU_USAGE_SUCCESS" | "GET_APP_CPU_USAGE_FAILURE"
 	usage?: CPUInfo
 }
 
 export interface GetAppSystemMemoryAction {
-	type: GET_APP_SYSTEM_MEMORY
+	type: "GET_APP_SYSTEM_MEMORY_REQUEST" | "GET_APP_SYSTEM_MEMORY_SUCCESS" | "GET_APP_SYSTEM_MEMORY_FAILURE"
 	usage?: SystemMemoryInfo
 }
 
 export interface AutoUpdateDownloadedAction {
-	type: typeof AUTO_UPDATE_DOWNLOADED
+	type: "AUTO_UPDATE_DOWNLOADED"
 	info: UpdateInfo
 }
 
 export const getVersion = (): GetAppVersionAction => {
-	return { type: GET_APP_VERSION.REQUEST }
+	return { type: "GET_APP_VERSION_REQUEST" }
 }
 
 export const getAppPaths = (): GetAppPathsAction => {
-	return { type: GET_APP_PATHS.REQUEST }
+	return { type: "GET_APP_PATHS_REQUEST" }
 }
 
 export const getCpuUsage = (): GetAppCpuUsageAction => {
-	return { type: GET_APP_CPU_USAGE.REQUEST }
+	return { type: "GET_APP_CPU_USAGE_REQUEST" }
 }
 
 export const getSystemMemoryInfo = (): GetAppSystemMemoryAction => {
-	return { type: GET_APP_SYSTEM_MEMORY.REQUEST }
+	return { type: "GET_APP_SYSTEM_MEMORY_REQUEST" }
 }
 
 export const updateApp = () => {
-	return { type: AUTO_UPDATE_RESTART }
+	return { type: "AUTO_UPDATE_RESTART" }
 }
 
 const actionCreators = {

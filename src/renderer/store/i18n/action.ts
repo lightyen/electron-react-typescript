@@ -1,31 +1,20 @@
-import { Locales, Messages, defaultLocale } from "./languages"
-
-export enum SET_LOCALE {
-	REQUEST = "SET_LOCALE_REQUEST",
-	SUCCESS = "SET_LOCALE_SUCCESS",
-	FAILURE = "SET_LOCALE_FAILURE",
-}
+import { Locales, Messages, getLocaleMessages } from "./languages"
+import { setDateLocale } from "~/date"
 
 export interface SetLocaleAction {
-	type: SET_LOCALE.REQUEST
-	name: string
+	type: "SET_LOCALE"
+	name: Locales
+	messages: Messages
 }
 
-export type SagaSetLocaleAction =
-	| {
-			type: SET_LOCALE.SUCCESS
-			name: Locales
-			messages: Messages
-	  }
-	| {
-			type: SET_LOCALE.FAILURE
-			error: unknown
-	  }
-
-export const setLocale = (name: string): SetLocaleAction => {
+export const setLocale = (name: Locales): SetLocaleAction => {
+	localStorage.setItem("language", name)
+	setDateLocale(name)
+	const messages = getLocaleMessages(name)
 	return {
-		type: SET_LOCALE.REQUEST,
-		name: name || defaultLocale,
+		type: "SET_LOCALE",
+		name,
+		messages,
 	}
 }
 
@@ -35,4 +24,4 @@ const actionCreators = {
 
 export default actionCreators
 
-export type Action = SetLocaleAction | SagaSetLocaleAction
+export type Action = SetLocaleAction
