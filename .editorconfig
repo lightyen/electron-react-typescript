@@ -16,3 +16,7 @@ max_line_length = 120
 
 [*.{scss,less,css}]
 max_line_length = 80
+
+[*.yml]
+indent_style = space
+indent_size = 2
