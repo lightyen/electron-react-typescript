@@ -11,6 +11,7 @@ export function makeStore() {
 		preloadedState: undefined,
 		devTools: process.env.NODE_ENV === "development" ? { name: "react is awesome" } : false,
 	})
+
 	sagaMiddleware.run(rootSaga)
 	return store
 }

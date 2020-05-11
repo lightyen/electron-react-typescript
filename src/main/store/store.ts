@@ -12,7 +12,7 @@ export const storage = new ElectronStore<StoreType>({
 	},
 })
 
-import { createStore, applyMiddleware, combineReducers, Middleware } from "redux"
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import { AppStore, app } from "./app/reducer"
 import createSagaMiddleware from "redux-saga"
 import rootSagas from "./sagas"
@@ -21,17 +21,20 @@ export interface RootStore {
 	app: AppStore
 }
 
-const rootReducer = combineReducers({
+const reducer = combineReducers({
 	app,
 })
 
-function configureStore() {
+function makeStore() {
 	const sagaMiddleware = createSagaMiddleware()
-	const middlewares: Middleware[] = [sagaMiddleware]
-	const storeEnhancers = applyMiddleware(...middlewares)
-	const store = createStore(rootReducer, undefined, storeEnhancers)
+	const store = configureStore({
+		reducer,
+		middleware: [sagaMiddleware],
+		preloadedState: undefined,
+		devTools: false,
+	})
 	sagaMiddleware.run(rootSagas)
 	return store
 }
 
-export const store = configureStore()
+export const store = makeStore()

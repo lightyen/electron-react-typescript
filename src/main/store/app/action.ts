@@ -1,8 +1,2 @@
-export const GET_VERSIONS = "GET_VERSIONS"
-
-export interface GetVersionsAction {
-	type: typeof GET_VERSIONS
-	versions?: { [key: string]: unknown }
-}
-
-export type Action = GetVersionsAction
+import { createAction } from "@reduxjs/toolkit"
+export const getVersionsS = createAction<{ versions: { [key: string]: unknown } }>("GET_VERSIONS")
