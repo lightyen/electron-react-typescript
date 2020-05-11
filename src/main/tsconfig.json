@@ -1,6 +1,7 @@
 {
 	"extends": "../../tsconfig",
 	"compilerOptions": {
+		"noImplicitAny": false,
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"lib": ["esnext"],
