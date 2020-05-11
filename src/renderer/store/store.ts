@@ -1,36 +1,16 @@
-import { createStore, applyMiddleware, Middleware } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension"
+import { configureStore } from "@reduxjs/toolkit"
 import createSagaMiddleware from "redux-saga"
-import { rootReducer } from "./reducer"
+import { reducer } from "./reducer"
 import rootSaga from "./saga"
 
-export function configureStore() {
+export function makeStore() {
 	const sagaMiddleware = createSagaMiddleware()
-	const middlewares: Middleware[] = [sagaMiddleware]
-	const storeEnhancers = applyMiddleware(...middlewares)
-	const composeEnhancers = composeWithDevTools({
-		// Specify name here, actionsBlacklist, actionsCreators and other options if needed
-		name: "react is awesome",
+	const store = configureStore({
+		reducer,
+		middleware: [sagaMiddleware],
+		preloadedState: undefined,
+		devTools: process.env.NODE_ENV === "development" ? { name: "react is awesome" } : false,
 	})
-	const store = createStore(
-		rootReducer,
-		undefined,
-		process.env.NODE_ENV === "development" ? composeEnhancers(storeEnhancers) : storeEnhancers,
-	)
-
-	module.hot?.accept([require.resolve("~/store/reducer")], () => {
-		console.log("hot replacement root reducer")
-		store.replaceReducer(rootReducer)
-	})
-
-	let sagaTask = sagaMiddleware.run(rootSaga)
-	module.hot?.accept(require.resolve("~/store/saga"), () => {
-		console.log("hot replacement redux-saga")
-		sagaTask.cancel()
-		sagaTask.toPromise().then(() => {
-			sagaTask = sagaMiddleware.run(rootSaga)
-		})
-	})
-
+	sagaMiddleware.run(rootSaga)
 	return store
 }

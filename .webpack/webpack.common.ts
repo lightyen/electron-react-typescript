@@ -9,6 +9,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import WebpackBarPlugin from "webpackbar"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import TsPathsResolvePlugin from "./plugins/TsPathsResolvePlugin"
 
 import type { Configuration, Plugin, Loader } from "webpack"
 
@@ -23,9 +24,6 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 	const isDevelopment = process.env.NODE_ENV === "development"
 	const tsconfigPath = path.resolve(src, "tsconfig.json")
 
-	/**
-	 * @type {import("webpack").Plugin[]}
-	 */
 	const plugins: Plugin[] = [
 		new WebpackBarPlugin({ color: "#41f4d0", name: "Electron Renderer" }),
 		new EnvironmentPlugin({
@@ -61,45 +59,13 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 	 * @type {import("webpack").Loader}
 	 * See [style-loader]{@link https://github.com/webpack-contrib/style-loader} and [mini-css-extract-plugin]{@link https://github.com/webpack-contrib/mini-css-extract-plugin}.
 	 */
-	const styleLoader = {
+	const styleLoader: Loader = {
 		loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
 		options: {
 			...(!isDevelopment && {
 				publicPath: "../",
 			}),
 		},
-	}
-
-	const imageLoader: Loader = {
-		loader: "file-loader",
-		options: {
-			name: "[name].[ext]?[hash:8]",
-			outputPath: "assets/images",
-		},
-	}
-
-	const fontLoader: Loader = {
-		loader: "file-loader",
-		options: {
-			name: "[name].[ext]?[hash:8]",
-			outputPath: "assets/fonts",
-		},
-	}
-
-	function convertPathsToAliases(configPath: string) {
-		const config = require(configPath)
-		const basePath = path.dirname(configPath)
-		let ret: { [key: string]: string } = {}
-		const options = config.compilerOptions
-		if (options) {
-			const paths = config.compilerOptions.paths
-			if (paths) {
-				for (const k of Object.keys(paths)) {
-					ret[path.dirname(k)] = path.dirname(path.join(basePath, options.baseUrl, paths[k][0]))
-				}
-			}
-		}
-		return ret
 	}
 
 	return {
@@ -158,11 +124,27 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 				},
 				{
 					test: /\.(png|jpe?g|gif|svg|ico)$/i,
-					use: imageLoader,
+					use: [
+						{
+							loader: "file-loader",
+							options: {
+								name: "[name].[ext]?[hash:8]",
+								outputPath: "assets/images",
+							},
+						},
+					],
 				},
 				{
 					test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
-					use: fontLoader,
+					use: [
+						{
+							loader: "file-loader",
+							options: {
+								name: "[name].[ext]?[hash:8]",
+								outputPath: "assets/fonts",
+							},
+						},
+					],
 				},
 				// For user space:
 				{
@@ -240,11 +222,11 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 		},
 		// NOTE: https://webpack.js.org/configuration/resolve/
 		resolve: {
-			extensions: [".ts", ".tsx", ".js", ".jsx"],
+			extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
 			alias: {
-				assets: path.join(assets),
-				...convertPathsToAliases(tsconfigPath),
+				assets,
 			},
+			plugins: [new TsPathsResolvePlugin({ configFile: tsconfigPath })],
 		},
 		plugins,
 	}

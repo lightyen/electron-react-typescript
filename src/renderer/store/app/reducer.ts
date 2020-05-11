@@ -1,15 +1,7 @@
-import { Reducer } from "redux"
+import { createReducer } from "@reduxjs/toolkit"
 import { Version, SystemMemoryInfo, AppPaths } from "./model"
 
-import {
-	Action,
-	GET_TITLEBAR_HIDE,
-	GET_APP_VERSION,
-	GET_APP_CPU_USAGE,
-	GET_APP_SYSTEM_MEMORY,
-	AUTO_UPDATE_DOWNLOADED,
-	GET_APP_PATHS,
-} from "./action"
+import { titlebarHideS, getAppVersionS, getAppPathsS, getCpuUsageS, getSystemMemoryInfoS, updateAppS } from "./action"
 
 interface AppStoreType {
 	hide: boolean
@@ -54,23 +46,19 @@ const init: AppStore = {
 	update_version: "",
 }
 
-export const app: Reducer<AppStore, Action> = (state = init, action): AppStore => {
-	switch (action.type) {
-		case GET_TITLEBAR_HIDE:
-			return { ...state, hide: action.hide }
-		case GET_APP_VERSION.SUCCESS:
-			return { ...state, version: action.version }
-		case GET_APP_PATHS.SUCCESS:
-			return { ...state, paths: action.paths }
-		case GET_APP_CPU_USAGE.SUCCESS:
-			const { load } = action.usage
-			const usage = load.user + load.sys + load.nice + load.irq
-			return { ...state, cpuusage: usage }
-		case GET_APP_SYSTEM_MEMORY.SUCCESS:
-			return { ...state, memory: action.usage }
-		case AUTO_UPDATE_DOWNLOADED:
-			return { ...state, update_downloaded: true, update_version: action.info.version }
-		default:
-			return state
-	}
-}
+export const app = createReducer(init, builder =>
+	builder
+		.addCase(titlebarHideS, (s, { payload }) => ({ ...s, ...payload }))
+		.addCase(getAppVersionS, (s, { payload }) => ({ ...s, ...payload }))
+		.addCase(getAppPathsS, (s, { payload }) => ({ ...s, ...payload }))
+		.addCase(getCpuUsageS, (state, { payload }) => {
+			const { load } = payload.usage
+			state.cpuusage = load.user + load.sys + load.nice + load.irq
+		})
+		.addCase(getSystemMemoryInfoS, (s, { payload }) => ({ ...s, memory: payload.usage }))
+		.addCase(updateAppS, (s, { payload: { info } }) => ({
+			...s,
+			update_downloaded: true,
+			update_version: info.version,
+		})),
+)

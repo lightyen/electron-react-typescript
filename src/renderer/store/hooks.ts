@@ -1,5 +1,5 @@
 import React from "react"
-import { bindActionCreators } from "redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
 import { useSelector as useReduxSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
 import { RootStore } from "./reducer"
 

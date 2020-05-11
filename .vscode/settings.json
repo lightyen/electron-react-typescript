@@ -1,6 +1,6 @@
 {
 	"editor.formatOnSave": true,
-	"formatFiles.excludePattern": "node_modules,dist,src/assets,.webpack/*.js,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
+	"formatFiles.excludePattern": "node_modules,dist,build,src/assets,.webpack/*.js,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
 	"files.associations": {
 		".prettierrc": "json",
 		".eslintrc": "json"
@@ -26,7 +26,9 @@
 		"yarn.lock": true
 	},
 	"files.watcherExclude": {
-		"**/.cache/**": true
+		"**/.cache": true,
+		"**/dist": true,
+		"**/build": true
 	},
 	"css.validate": false,
 	"stylelint.config": {

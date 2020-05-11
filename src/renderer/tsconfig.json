@@ -1,8 +1,9 @@
 {
-	"extends": "../tsconfig.base",
+	"extends": "../../tsconfig",
 	"compilerOptions": {
-		"noImplicitAny": true,
-		"noEmit": true,
+		"noImplicitAny": false,
+		"suppressImplicitAnyIndexErrors": true,
+		"skipLibCheck": true,
 		"jsx": "preserve",
 		"module": "esnext",
 		"moduleResolution": "node",
@@ -10,11 +11,9 @@
 		"lib": ["esnext", "dom", "dom.iterable"],
 		"types": ["react", "webpack-env"],
 		"baseUrl": ".",
-		"outDir": "",
 		"paths": {
 			"~/*": ["./*"],
 			"~assets/*": ["../../assets/*"]
 		}
-	},
-	"include": ["**/*.ts", "**/*.tsx", "**/*.js"]
+	}
 }

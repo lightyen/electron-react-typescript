@@ -40,28 +40,3 @@ export function getLocaleMessages(name: Locales = defaultLocale) {
 			return enUS
 	}
 }
-
-// export interface Module<T> {
-//     __esModule?: boolean
-//     default?: T
-// }
-
-// const enUS = () => import("./en-us")
-// const zhTW = () => import("./zh-tw")
-/** async get locale messages */
-// export function getLocaleMessages(name: string): Promise<Module<Messages>> {
-//     const [language, region] = name.toLocaleLowerCase().split(/-/)
-//     switch (language) {
-//         case "en":
-//             return enUS()
-//         case "zh":
-//             switch (region) {
-//                 case "tw":
-//                     return zhTW()
-//                 default:
-//                     return zhTW()
-//             }
-//         default:
-//             return enUS()
-//     }
-// }

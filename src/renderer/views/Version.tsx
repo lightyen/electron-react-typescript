@@ -5,7 +5,7 @@ import Back from "~/components/Back"
 
 import { request } from "~/ipc"
 import { useSelector } from "~/store"
-import { useScrollBarTarget } from "~/components/ScrollBar"
+import { useScrollBarSource } from "~/components/ScrollBar"
 
 const Page: React.FC = ({}) => {
 	const textColor = useSelector(state => state.theme.textColor)
@@ -73,7 +73,7 @@ const Page: React.FC = ({}) => {
 import { useInView } from "react-intersection-observer"
 
 const IntersectTarget: React.FC = () => {
-	const root = useScrollBarTarget()
+	const root = useScrollBarSource()
 	const [ref, inView, entry] = useInView({ root, threshold: 1 })
 	React.useEffect(() => {
 		if (entry) {

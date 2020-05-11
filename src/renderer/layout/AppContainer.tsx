@@ -11,7 +11,8 @@ const AppContainer: React.FC = () => {
 		<div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
 			<TitleBar />
 			<Viewer />
-			<StatusBar hide />
+			{/* FIXME: Layout bug */}
+			{/* <StatusBar hide /> */}
 			<AutoUpdater />
 		</div>
 	)

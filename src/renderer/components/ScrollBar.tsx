@@ -42,21 +42,9 @@ const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "bla
 
 export const ScrollBarContext = React.createContext<HTMLDivElement>(null)
 
-export function useScrollBarTarget() {
+export function useScrollBarSource() {
 	return React.useContext(ScrollBarContext)
 }
-
-// const CustomScrollBar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-//     ({ children, ...rest }, ref) => {
-//         const color = useSelector(state => state.theme.textColor)
-//         const iRef = React.useRef<HTMLDivElement>()
-//         return (
-//             <ScrollBar ref={ref || iRef} color={color} {...rest}>
-//                 <ScrollBarContext.Provider value={ref || iRef.current}>{children}</ScrollBarContext.Provider>
-//             </ScrollBar>
-//         )
-//     },
-// )
 
 const CustomScrollBar: React.FC = ({ children, ...rest }) => {
 	const color = useSelector(state => state.theme.textColor)

@@ -1,20 +1,17 @@
-import { Reducer } from "redux"
 import { Theme, ThemeName, themes } from "./themes"
-import { Action, CHANGE_THEME } from "./action"
-import { send } from "~/ipc"
+import { createReducer } from "@reduxjs/toolkit"
+import { changeTheme } from "./action"
 
-interface ThemeStoreType extends Theme {
+export interface ThemeStore extends Theme {
 	name: ThemeName
 }
 
-export type ThemeStore = Readonly<ThemeStoreType>
-
 function getTheme(): Theme & { name: ThemeName } {
 	switch (localStorage.getItem("theme")) {
-		case "light":
-			return { name: "light", ...themes.light }
-		default:
+		case "dark":
 			return { name: "dark", ...themes.dark }
+		default:
+			return { name: "light", ...themes.light }
 	}
 }
 
@@ -22,15 +19,8 @@ const init: ThemeStore = {
 	...getTheme(),
 }
 
-send("set.default.backgroundColor", themes[init.name].backgroundColor)
-
-export const theme: Reducer<ThemeStore, Action> = (state = init, action): ThemeStore => {
-	switch (action.type) {
-		case CHANGE_THEME:
-			localStorage.setItem("theme", action.name)
-			send("set.default.backgroundColor", themes[action.name].backgroundColor)
-			return { ...state, name: action.name, ...themes[action.name] }
-		default:
-			return state
-	}
-}
+export const theme = createReducer(init, builder =>
+	builder.addCase(changeTheme, (state, { payload: { name } }) => {
+		return { ...state, name, ...themes[name] }
+	}),
+)

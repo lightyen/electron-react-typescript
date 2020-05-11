@@ -8,7 +8,7 @@ import Back from "~/components/Back"
 import { send } from "~/ipc"
 import styled from "styled-components"
 
-import { useScrollBarTarget } from "~/components/ScrollBar"
+import { useScrollBarSource } from "~/components/ScrollBar"
 interface OptionType {
 	label: string
 	value: string
@@ -42,7 +42,7 @@ const Page: React.FC = () => {
 							className="text-blue-500"
 							options={themeOpts}
 							value={themeOpts.find(v => v.value == theme)}
-							onChange={v => changeTheme(v["value"])}
+							onChange={v => changeTheme({ name: v["value"] })}
 							isSearchable={false}
 							styles={{
 								option: s => ({ ...s, textTransform: "capitalize" }),
@@ -60,7 +60,7 @@ const Page: React.FC = () => {
 							className="text-blue-500"
 							options={langOpts}
 							value={langOpts.find(v => v.value == name)}
-							onChange={v => setLocale(v["value"])}
+							onChange={v => setLocale({ name: v["value"] })}
 							isSearchable={false}
 						/>
 					</div>

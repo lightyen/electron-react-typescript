@@ -1,5 +1,6 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import WebpackBarPlugin from "webpackbar"
+import TsPathsResolvePlugin from "./plugins/TsPathsResolvePlugin"
 import type { Configuration, Plugin } from "webpack"
 import packageJSON from "../package.json"
 import path from "path"
@@ -20,22 +21,6 @@ function createBaseConfig(): Configuration {
 			cleanOnceBeforeBuildPatterns: ["**/*"],
 		}),
 	]
-
-	function convertPathsToAliases(configPath: string) {
-		const config = require(configPath)
-		const basePath = path.dirname(configPath)
-		let ret: { [key: string]: string } = {}
-		const options = config.compilerOptions
-		if (options) {
-			const paths = config.compilerOptions.paths
-			if (paths) {
-				for (const k of Object.keys(paths)) {
-					ret[path.dirname(k)] = path.dirname(path.join(basePath, options.baseUrl, paths[k][0]))
-				}
-			}
-		}
-		return ret
-	}
 
 	return {
 		mode: "production",
@@ -63,9 +48,7 @@ function createBaseConfig(): Configuration {
 		},
 		resolve: {
 			extensions: [".ts", ".js", ".json"],
-			alias: {
-				...convertPathsToAliases(tsconfigPath),
-			},
+			plugins: [new TsPathsResolvePlugin({ configFile: tsconfigPath })],
 		},
 		plugins,
 	}

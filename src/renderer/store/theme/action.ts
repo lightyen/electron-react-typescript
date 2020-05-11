@@ -1,22 +1,9 @@
 import { ThemeName } from "./themes"
-export const CHANGE_THEME = "CHANGE_THEME"
+import { createAction } from "@reduxjs/toolkit"
 
-interface ChangeThemeAction {
-	type: typeof CHANGE_THEME
-	name: ThemeName
-}
+export const changeTheme = createAction("CHANGE_THEME", (payload: { name: ThemeName }) => {
+	localStorage.setItem("theme", name)
+	return { payload }
+})
 
-export function changeTheme(name: ThemeName): ChangeThemeAction {
-	return {
-		type: CHANGE_THEME,
-		name,
-	}
-}
-
-const actionCreators = {
-	changeTheme,
-}
-
-export default actionCreators
-
-export type Action = ChangeThemeAction
+export default { changeTheme }

@@ -1,4 +1,4 @@
-import { combineReducers } from "redux"
+import { combineReducers } from "@reduxjs/toolkit"
 
 import { AppStore, app } from "./app/reducer"
 import { ThemeStore, theme } from "./theme/reducer"
@@ -10,7 +10,7 @@ export interface RootStore {
 	i18n: I18nStore
 }
 
-export const rootReducer = combineReducers({
+export const reducer = combineReducers({
 	app,
 	theme,
 	i18n,
