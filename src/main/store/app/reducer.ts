@@ -12,5 +12,5 @@ const init: AppStore = {
 }
 
 export const app = createReducer(init, builder =>
-	builder.addCase(getVersionsS, (state, { payload: { versions } }) => ({ ...state, ...versions })),
+	builder.addCase(getVersionsS, (state, { payload: { versions } }) => ({ ...state, versions })),
 )
