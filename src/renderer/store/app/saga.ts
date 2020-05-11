@@ -2,43 +2,27 @@ import { ipcChannel } from "~/store/saga"
 import { request } from "~/ipc"
 import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
-<<<<<<< HEAD
 import { titlebarHideS, getAppVersionS, getAppPathsS, getCpuUsageS, getSystemMemoryInfoS, updateAppS } from "./action"
-=======
-import { Action } from "./action"
->>>>>>> da5d1921b01e68b1a95fea2fdd3010f3e0c4c32e
 import { UpdateInfo } from "./model"
 
 function* getAppVersion() {
 	try {
 		const version = yield call(request, "get.versions")
-<<<<<<< HEAD
 		yield put(getAppVersionS({ version }))
-=======
-		yield put<Action>({ type: "GET_APP_VERSION_SUCCESS", version })
->>>>>>> da5d1921b01e68b1a95fea2fdd3010f3e0c4c32e
 	} catch (e) {}
 }
 
 function* getAppPaths() {
 	try {
 		const paths = yield call(request, "get.paths")
-<<<<<<< HEAD
 		yield put(getAppPathsS({ paths }))
-=======
-		yield put<Action>({ type: "GET_APP_PATHS_SUCCESS", paths })
->>>>>>> da5d1921b01e68b1a95fea2fdd3010f3e0c4c32e
 	} catch (e) {}
 }
 
 function* getCPUUsage() {
 	try {
 		const usage = yield call(request, "get.cpuusage")
-<<<<<<< HEAD
 		yield put(getCpuUsageS({ usage }))
-=======
-		yield put<Action>({ type: "GET_APP_CPU_USAGE_SUCCESS", usage })
->>>>>>> da5d1921b01e68b1a95fea2fdd3010f3e0c4c32e
 	} catch (e) {}
 }
 
