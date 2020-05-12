@@ -21,6 +21,7 @@
 		"@typescript-eslint/array-type": "off",
 		"@typescript-eslint/no-var-requires": "off",
 		"@typescript-eslint/member-delimiter-style": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"react/prop-types": "off",
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "error"

@@ -13,7 +13,7 @@ export const openDirectoryDialog: IpcPromiseHandler = async (
 	}
 	options = options || {}
 	const { canceled, ...rest } = await Electron.dialog.showOpenDialog(
-		Electron.BrowserWindow.fromWebContents(e.sender),
+		Electron.BrowserWindow.fromWebContents(e.sender)!,
 		options,
 	)
 	if (canceled) {

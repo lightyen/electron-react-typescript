@@ -91,7 +91,7 @@ export const MOBX_DEVTOOLS: ExtensionReference = {
 
 type ID = string
 type Name = string
-let extensionNames: Record<ID, Name> = undefined
+let extensionNames: Record<ID, Name> | undefined
 const extensionsPath = path.resolve(Electron.app.getPath("userData"), "extensions")
 const NamesPath = path.join(extensionsPath, "IDMap.json")
 
@@ -107,7 +107,7 @@ async function init(): Promise<Record<ID, Name>> {
 			throw new Error("electron-devtools-installer: Invalid JSON present in the IDMap file")
 		}
 	}
-	return extensionNames
+	return extensionNames!
 }
 
 function downloadChromeExtension(chromeStoreID: string, extensionFolder: string, attempts = 5): Promise<void> {

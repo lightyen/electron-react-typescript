@@ -8,14 +8,14 @@ import { storage } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
-export let mainWindow: Electron.BrowserWindow
+export let mainWindow: Electron.BrowserWindow | undefined
 
 Electron.app.allowRendererProcessReuse = true
 
 export function initWindow() {
 	mainWindow = new MainWindow()
 	mainWindow.on("closed", () => {
-		mainWindow = null
+		mainWindow = undefined
 	})
 	return mainWindow
 }
@@ -35,7 +35,7 @@ Electron.app.on("ready", () => {
 	autoUpdater.on("update-downloaded", info => {
 		downloaded = true
 		const { version, releaseDate, sha512, ...rest } = info
-		mainWindow.webContents.send("update-downloaded", { data: { version, sha512, releaseDate } })
+		mainWindow?.webContents.send("update-downloaded", { data: { version, sha512, releaseDate } })
 	})
 	Electron.ipcMain.on("update-restart", () => {
 		if (downloaded) {
