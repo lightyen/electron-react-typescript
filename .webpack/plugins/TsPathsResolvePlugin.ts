@@ -6,6 +6,7 @@ import getInnerRequest from "enhanced-resolve/lib/getInnerRequest"
 import { CompilerOptions } from "typescript"
 import path from "path"
 import fs from "fs"
+import { json_minify, json_parse } from "./json"
 
 interface Hooks {
 	describedResolve: Hook
@@ -74,7 +75,9 @@ class TsPathsResolvePlugin implements ResolvePlugin {
 	}
 
 	private createMappings(): Mapping[] {
-		const config: { compilerOptions: CompilerOptions } = require(this.configFilePath)
+		let json_str = fs.readFileSync(this.configFilePath, { encoding: "utf-8" })
+		json_str = json_minify(json_str)
+		const config: { compilerOptions: CompilerOptions } = json_parse(json_str)
 		if (!config) {
 			return []
 		}
