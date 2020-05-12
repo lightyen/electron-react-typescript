@@ -1,6 +1,7 @@
 {
 	"extends": "../../tsconfig",
 	"compilerOptions": {
+		"strictNullChecks": false,
 		"noImplicitAny": false,
 		"module": "commonjs",
 		"moduleResolution": "node",

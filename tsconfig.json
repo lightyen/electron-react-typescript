@@ -8,7 +8,6 @@
 		"noFallthroughCasesInSwitch": true,
 		"removeComments": true,
 		"resolveJsonModule": true,
-		"strictNullChecks": false,
 		"isolatedModules": true,
 		"sourceMap": true
 	}
