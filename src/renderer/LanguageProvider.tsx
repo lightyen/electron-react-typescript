@@ -18,21 +18,19 @@ const variants: Variants = {
 }
 
 const LanguageProvider: React.FC = ({ children }) => {
-	const name = useSelector(state => state.i18n.name)
+	const locale = useSelector(state => state.i18n.locale)
 	const messages = useSelector(state => state.i18n.messages)
 	const backgroundColor = useSelector(state => state.theme.backgroundColor)
 	return (
-		/* eslint-disable @typescript-eslint/no-explicit-any */
 		<div style={{ backgroundColor }}>
 			<AnimatePresence initial={false}>
-				<IntlProvider locale={name} key={name} messages={messages as any}>
-					<motion.div key={name} variants={variants} initial="initial" animate="in" exit="out">
+				<IntlProvider key={locale} locale={locale} messages={messages}>
+					<motion.div key={locale} variants={variants} initial="initial" animate="in" exit="out">
 						{children}
 					</motion.div>
 				</IntlProvider>
 			</AnimatePresence>
 		</div>
-		/* eslint-enable @typescript-eslint/no-explicit-any */
 	)
 }
 

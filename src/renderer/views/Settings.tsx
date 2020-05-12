@@ -8,7 +8,6 @@ import Back from "~/components/Back"
 import { send } from "~/ipc"
 import styled from "styled-components"
 
-import { useScrollBarSource } from "~/components/ScrollBar"
 interface OptionType {
 	label: string
 	value: string
@@ -18,7 +17,7 @@ const Page: React.FC = () => {
 	const textColor = useSelector(state => state.theme.textColor)
 
 	const { setLocale } = useAction().i18n
-	const name = useSelector(state => state.i18n.name)
+	const locale = useSelector(state => state.i18n.locale)
 	const langOpts = Object.entries(languageNames).map<OptionType>(([value, label]) => ({ value, label }))
 
 	const { changeTheme } = useAction().theme
@@ -59,8 +58,8 @@ const Page: React.FC = () => {
 						<Select<OptionType>
 							className="text-blue-500"
 							options={langOpts}
-							value={langOpts.find(v => v.value == name)}
-							onChange={v => setLocale({ name: v["value"] })}
+							value={langOpts.find(v => v.value == locale)}
+							onChange={v => setLocale({ locale: v["value"] })}
 							isSearchable={false}
 						/>
 					</div>

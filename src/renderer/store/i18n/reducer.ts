@@ -1,10 +1,10 @@
-import { Locales, Messages, getLanguage, getLocaleMessages, languageNames } from "./languages"
+import { Locale, Messages, getLocale, getLocaleMessages, languageNames } from "./languages"
 import { createReducer } from "@reduxjs/toolkit"
 import { setLocale } from "./action"
 
 interface I18nStoreType {
 	enable: boolean
-	name: Locales
+	locale: Locale
 	messages: Messages
 	support: { [key: string]: string }
 }
@@ -13,8 +13,8 @@ export type I18nStore = Readonly<I18nStoreType>
 
 const init: I18nStore = {
 	enable: true,
-	name: getLanguage(),
-	messages: getLocaleMessages(getLanguage()),
+	locale: getLocale(),
+	messages: getLocaleMessages(),
 	support: languageNames,
 }
 
