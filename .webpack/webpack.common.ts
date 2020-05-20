@@ -135,6 +135,10 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 					],
 				},
 				{
+					test: /\.ya?ml$/,
+					use: "js-yaml-loader",
+				},
+				{
 					test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
 					use: [
 						{

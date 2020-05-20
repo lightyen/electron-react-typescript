@@ -1,4 +1,3 @@
-export * from "./messages"
 import { setDateLocale } from "~/date"
 
 // NOTE: https://github.com/libyal/libfwnt/wiki/Language-Code-identifiers
@@ -25,18 +24,18 @@ export function getLocale(): Locale {
 	return defaultLocale
 }
 
-import enUS from "./en-US"
-import zhTW from "./zh-TW"
+import en from "./locales/en.yml"
+import zh from "./locales/zh.yml"
 
 export function getLocaleMessages() {
 	const locale = getLocale()
 	const [primary] = locale.toLocaleLowerCase().split(/-/)
 	switch (primary) {
 		case "en":
-			return enUS
+			return en
 		case "zh":
-			return zhTW
+			return zh
 		default:
-			return enUS
+			return en
 	}
 }
