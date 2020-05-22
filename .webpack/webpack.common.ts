@@ -8,18 +8,17 @@ import { EnvironmentPlugin, ExtendedAPIPlugin } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import WebpackBarPlugin from "webpackbar"
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
-import TsPathsResolvePlugin from "./plugins/TsPathsResolvePlugin"
+import TsPathsResolvePlugin from "ts-paths-resolve-plugin"
 
 import type { Configuration, Plugin, Loader } from "webpack"
 
 // NOTE: 關閉 webpack 要求 donate 訊息
 process.env.DISABLE_OPENCOLLECTIVE = "true"
 
-export default function (options?: { src?: string; dist?: string }): Configuration {
+export default function (): Configuration {
 	const workingDirectory = process.cwd()
-	const src = (options && options.src) || path.resolve(workingDirectory, "src", "renderer")
-	const dist = (options && options.dist) || path.resolve(workingDirectory, "dist")
+	const src = path.resolve(workingDirectory, "src", "renderer")
+	const dist = path.resolve(workingDirectory, "dist")
 	const assets = path.resolve(workingDirectory, "assets")
 	const isDevelopment = process.env.NODE_ENV === "development"
 	const tsconfigPath = path.resolve(src, "tsconfig.json")
@@ -44,10 +43,6 @@ export default function (options?: { src?: string; dist?: string }): Configurati
 			template: path.join(src, "template", "index.pug"),
 			favicon: path.join(assets, "images", "favicon.ico"),
 			isDevelopment,
-		}),
-		new ForkTsCheckerWebpackPlugin({
-			checkSyntacticErrors: true,
-			tsconfig: tsconfigPath,
 		}),
 	]
 

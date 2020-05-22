@@ -2,6 +2,8 @@ import { HotModuleReplacementPlugin } from "webpack"
 import webpackMerge from "webpack-merge"
 import createBaseConfig from "./webpack.common"
 import type { Configuration } from "webpack"
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import path from "path"
 
 const defaultPort = 3000
 process.env.NODE_ENV = "development"
@@ -24,7 +26,13 @@ const config: Configuration = {
 			"react-dom": "@hot-loader/react-dom",
 		},
 	},
-	plugins: [new HotModuleReplacementPlugin()],
+	plugins: [
+		new HotModuleReplacementPlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			checkSyntacticErrors: true,
+			tsconfig: path.resolve(process.cwd(), "src", "renderer", "tsconfig.json"),
+		}),
+	],
 	devServer: {
 		hot: true,
 		compress: true,
