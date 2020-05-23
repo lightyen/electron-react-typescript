@@ -1,14 +1,14 @@
 {
-	"verbose": true,
-	"colours": true,
-	"stdin": false,
-	"ignore": ["**/*.test.ts", "**/*.spec.ts"],
-	"exec": "node_modules/.bin/electron --inspect=5858 --remote-debugging-port=9222",
-	"watch": ["src/main"],
-	"env": {
-		"TS_NODE_PROJECT": "src/main/tsconfig.json",
-		"TS_NODE_FILES": true,
-		"NODE_ENV": "development"
-	},
-	"ext": "ts,json,js"
+  "verbose": true,
+  "colours": true,
+  "stdin": false,
+  "ignore": ["**/*.test.ts", "**/*.spec.ts"],
+  "exec": "node_modules/.bin/electron --inspect=5858 --remote-debugging-port=9222",
+  "watch": ["src/main"],
+  "env": {
+    "TS_NODE_PROJECT": "src/main/tsconfig.json",
+    "TS_NODE_FILES": true,
+    "NODE_ENV": "development"
+  },
+  "ext": "ts,json,js"
 }

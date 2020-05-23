@@ -1,42 +1,42 @@
 {
-	// See https://go.microsoft.com/fwlink/?LinkId=733558
-	// for the documentation about the tasks.json format
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Build (Electron Production)",
-			"group": "build",
-			"type": "shell",
-			"command": "yarn",
-			"args": ["run", "build:main"],
-			"presentation": { "panel": "shared" },
-			"problemMatcher": []
-		},
-		{
-			"label": "Build (Renderer Production)",
-			"group": "build",
-			"type": "shell",
-			"command": "yarn",
-			"args": ["run", "build:renderer"],
-			"presentation": { "clear": true },
-			"problemMatcher": []
-		},
-		{
-			"label": "postdebugKill",
-			"type": "process",
-			"command": [
-				"${command:workbench.action.debug.stop}",
-				"${command:workbench.action.acceptSelectedQuickOpenItem}"
-			]
-		},
-		{
-			"label": "Pack this project",
-			"type": "shell",
-			"group": "build",
-			"command": "yarn",
-			"args": ["build"],
-			"presentation": { "clear": true },
-			"problemMatcher": []
-		}
-	]
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build (Electron Production)",
+      "group": "build",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["run", "build:main"],
+      "presentation": { "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build (Renderer Production)",
+      "group": "build",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["run", "build:renderer"],
+      "presentation": { "clear": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "postdebugKill",
+      "type": "process",
+      "command": [
+        "${command:workbench.action.debug.stop}",
+        "${command:workbench.action.acceptSelectedQuickOpenItem}"
+      ]
+    },
+    {
+      "label": "Pack this project",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn",
+      "args": ["build"],
+      "presentation": { "clear": true },
+      "problemMatcher": []
+    }
+  ]
 }

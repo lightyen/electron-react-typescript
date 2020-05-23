@@ -1,15 +1,15 @@
 {
-	"extends": "../../tsconfig",
-	"compilerOptions": {
-		"noImplicitAny": false, // 為了相容於類型定義還不是那麼完善的 js library
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"lib": ["esnext"],
-		"target": "es6",
-		"typeRoots": ["src/main"],
-		"baseUrl": ".",
-		"paths": {
-			"~/*": ["./*"]
-		}
-	}
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "noImplicitAny": false, // 為了相容於類型定義還不是那麼完善的 js library
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "target": "es6",
+    "typeRoots": ["src/main"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"]
+    }
+  }
 }

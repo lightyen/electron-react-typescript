@@ -1,15 +1,15 @@
 {
-	"compilerOptions": {
-		"strict": true,
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"noImplicitThis": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"removeComments": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"inlineSourceMap": true,
-		"inlineSources": true
-	}
+  "compilerOptions": {
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "inlineSourceMap": true,
+    "inlineSources": true
+  }
 }

@@ -9,12 +9,12 @@ import "~/css/styles.css"
 
 export default function App() {
 	return (
-		// <React.StrictMode>
-		<Provider store={makeStore()}>
-			<LanguageProvider>
-				<AppContainer />
-			</LanguageProvider>
-		</Provider>
-		// </React.StrictMode>
+		<React.StrictMode>
+			<Provider store={makeStore()}>
+				<LanguageProvider>
+					<AppContainer />
+				</LanguageProvider>
+			</Provider>
+		</React.StrictMode>
 	)
 }
