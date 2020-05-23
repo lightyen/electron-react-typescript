@@ -7,7 +7,7 @@ import { FormattedMessage } from "react-intl"
 
 import "./index.css"
 
-import logo from "~assets/images/logo.svg"
+import logo from "assets/images/logo.svg"
 
 const Home: React.FC = () => {
 	const { textColor, name } = useSelector(state => state.theme)

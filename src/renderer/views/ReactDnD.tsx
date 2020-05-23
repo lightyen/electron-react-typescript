@@ -239,7 +239,6 @@ const MyItem: React.FC = () => {
 				if (isDragging) {
 					// console.log(delta)
 					// y.set(y.get())
-					console.log(delta)
 				}
 				// If `positionTransition` is a function and returns `false`, it's telling
 				// Motion not to animate from its old position into its new one. If we're

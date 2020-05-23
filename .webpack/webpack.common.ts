@@ -1,5 +1,4 @@
 import packageJSON from "../package.json"
-import tailwindcfg from "../tailwind.config"
 
 import path from "path"
 import { EnvironmentPlugin, ExtendedAPIPlugin } from "webpack"
@@ -16,12 +15,16 @@ import type { Configuration, Plugin, Loader } from "webpack"
 process.env.DISABLE_OPENCOLLECTIVE = "true"
 
 export default function (): Configuration {
+	const outputCSS = "css"
+	const outputJS = "js"
+	const publicPath = "./"
+
 	const workingDirectory = process.cwd()
 	const src = path.resolve(workingDirectory, "src", "renderer")
 	const dist = path.resolve(workingDirectory, "dist")
-	const assets = path.resolve(workingDirectory, "assets")
 	const isDevelopment = process.env.NODE_ENV === "development"
-	const tsconfigPath = path.resolve(src, "tsconfig.json")
+
+	const join_network = (...args: string[]) => path.join(...args).replace(path.sep, "/")
 
 	const plugins: Plugin[] = [
 		new WebpackBarPlugin({ color: "#41f4d0", name: "Electron Renderer" }),
@@ -29,11 +32,11 @@ export default function (): Configuration {
 			NODE_ENV: "development",
 			PUBLIC_URL: "",
 			APP_NAME: packageJSON.name,
-			TAILWIND_CONFIG: JSON.stringify(tailwindcfg),
+			TAILWIND_CONFIG: JSON.stringify(require(path.resolve(workingDirectory, "tailwind.config"))),
 		}),
 		new MiniCssExtractPlugin({
-			filename: "css/[name].[contenthash:8].css",
-			chunkFilename: "css/[name].[contenthash:8].chunk.css",
+			filename: join_network(outputCSS, "[name].[contenthash:8].css"),
+			chunkFilename: join_network(outputCSS, "[name].[contenthash:8].chunk.css"),
 		}),
 		new HtmlWebpackPlugin({
 			inject: false,
@@ -41,7 +44,7 @@ export default function (): Configuration {
 			title: packageJSON.name,
 			minify: false,
 			template: path.join(src, "template", "index.pug"),
-			favicon: path.join(assets, "images", "favicon.ico"),
+			favicon: path.join(workingDirectory, "assets", "images", "favicon.ico"),
 			isDevelopment,
 		}),
 	]
@@ -49,7 +52,7 @@ export default function (): Configuration {
 	if (!isDevelopment) {
 		plugins.push(new ExtendedAPIPlugin())
 	}
-
+	console.log(path.relative(path.join(publicPath, outputCSS), publicPath))
 	/**
 	 * @type {import("webpack").Loader}
 	 * See [style-loader]{@link https://github.com/webpack-contrib/style-loader} and [mini-css-extract-plugin]{@link https://github.com/webpack-contrib/mini-css-extract-plugin}.
@@ -57,24 +60,29 @@ export default function (): Configuration {
 	const styleLoader: Loader = {
 		loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
 		options: {
-			...(!isDevelopment && {
-				publicPath: "../",
-			}),
+			...(!isDevelopment && { publicPath: path.relative(path.join(publicPath, outputCSS), publicPath) }),
 		},
 	}
 
 	return {
+		target: "web",
+		devtool: "inline-source-map",
+		plugins,
+		// NOTE: https://webpack.js.org/configuration/resolve/
+		resolve: {
+			extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+			plugins: [new TsPathsResolvePlugin({ configFile: path.resolve(src, "tsconfig.json") })],
+		},
 		entry: {
 			index: path.join(src, "index.tsx"),
 		},
 		output: {
 			path: dist,
-			filename: "js/[name].[hash:8].js",
-			chunkFilename: "js/[name].[hash:8].chunk.js",
-			publicPath: "./",
+			filename: join_network(outputJS, "[name].[hash:8].js"),
+			chunkFilename: join_network(outputJS, "[name].[hash:8].chunk.js"),
+			publicPath,
 		},
-		target: "web",
-		devtool: "source-map",
+
 		module: {
 			rules: [
 				{
@@ -83,9 +91,7 @@ export default function (): Configuration {
 					use: [
 						{
 							loader: "pug-loader",
-							options: {
-								pretty: true,
-							},
+							options: { pretty: true },
 						},
 					],
 				},
@@ -95,9 +101,7 @@ export default function (): Configuration {
 					use: [
 						{
 							loader: "cache-loader",
-							options: {
-								cacheDirectory: path.resolve(".cache"),
-							},
+							options: { cacheDirectory: path.resolve(".cache") },
 						},
 						{ loader: "thread-loader" },
 						{ loader: "babel-loader" },
@@ -106,25 +110,16 @@ export default function (): Configuration {
 				},
 				{
 					test: /\.jsx$/,
-					use: [
-						{
-							loader: "cache-loader",
-							options: {
-								cacheDirectory: path.resolve(".cache"),
-							},
-						},
-						{ loader: "thread-loader" },
-						{ loader: "babel-loader" },
-					],
+					use: [{ loader: "babel-loader" }],
 				},
 				{
 					test: /\.(png|jpe?g|gif|svg|ico)$/i,
 					use: [
 						{
-							loader: "file-loader",
+							loader: "url-loader",
 							options: {
-								name: "[name].[ext]?[hash:8]",
-								outputPath: "assets/images",
+								name: join_network("assets", "images", "[name].[ext]?[hash:8]"),
+								limit: 8192,
 							},
 						},
 					],
@@ -140,7 +135,7 @@ export default function (): Configuration {
 							loader: "file-loader",
 							options: {
 								name: "[name].[ext]?[hash:8]",
-								outputPath: "assets/fonts",
+								outputPath: join_network("assets", "fonts"),
 							},
 						},
 					],
@@ -219,14 +214,5 @@ export default function (): Configuration {
 				},
 			],
 		},
-		// NOTE: https://webpack.js.org/configuration/resolve/
-		resolve: {
-			extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-			alias: {
-				assets,
-			},
-			plugins: [new TsPathsResolvePlugin({ configFile: tsconfigPath })],
-		},
-		plugins,
 	}
 }

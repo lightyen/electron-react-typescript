@@ -77,7 +77,7 @@ const IntersectTarget: React.FC = () => {
 	const [ref, inView, entry] = useInView({ root, threshold: 1 })
 	React.useEffect(() => {
 		if (entry) {
-			console.log(entry.intersectionRatio)
+			// console.log(entry.intersectionRatio)
 		}
 	}, [entry])
 	return (

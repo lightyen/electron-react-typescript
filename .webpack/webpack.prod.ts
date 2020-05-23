@@ -27,8 +27,8 @@ const config: Configuration = {
 	},
 	performance: {
 		hints: "warning",
-		maxEntrypointSize: 1 << 20, // Maybe bigger in electron application?
-		maxAssetSize: 1 << 20,
+		maxEntrypointSize: 10 << 20, // Make it bigger in electron?
+		maxAssetSize: 10 << 20,
 		assetFilter: filename => {
 			const ext = path.extname(filename)
 			return ext === "css" || ext === ".js"

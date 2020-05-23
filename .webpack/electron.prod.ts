@@ -1,11 +1,9 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import WebpackBarPlugin from "webpackbar"
-import TsPathsResolvePlugin from "./plugins/TsPathsResolvePlugin"
+import TsPathsResolvePlugin from "ts-paths-resolve-plugin"
 import type { Configuration, Plugin } from "webpack"
-import packageJSON from "../package.json"
 import path from "path"
 
-process.env.APP_NAME = packageJSON.name
 process.env.NODE_ENV = "production"
 
 function createBaseConfig(): Configuration {
@@ -32,7 +30,7 @@ function createBaseConfig(): Configuration {
 			filename: "main.js",
 		},
 		target: "electron-main",
-		devtool: "source-map",
+		devtool: "inline-source-map",
 		module: {
 			rules: [
 				{

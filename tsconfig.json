@@ -9,6 +9,7 @@
 		"removeComments": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"sourceMap": true
+		"inlineSourceMap": true,
+		"inlineSources": true
 	}
 }

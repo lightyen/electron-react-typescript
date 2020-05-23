@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { useSelector } from "~/store"
 import { subscribe, SubscribeCallBack, unsubscribe } from "~/ipc"
-import icon from "~assets/images/favicon.ico"
+import icon from "assets/images/favicon.ico"
 
 const currentWindow = window.electron.currentWindow
 

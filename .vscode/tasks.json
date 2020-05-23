@@ -8,7 +8,7 @@
 			"group": "build",
 			"type": "shell",
 			"command": "yarn",
-			"args": ["run", "webpack-electron-prod"],
+			"args": ["run", "build:main"],
 			"presentation": { "panel": "shared" },
 			"problemMatcher": []
 		},
@@ -17,7 +17,7 @@
 			"group": "build",
 			"type": "shell",
 			"command": "yarn",
-			"args": ["run", "webpack-production"],
+			"args": ["run", "build:renderer"],
 			"presentation": { "clear": true },
 			"problemMatcher": []
 		},
