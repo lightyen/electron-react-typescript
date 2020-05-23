@@ -76,7 +76,7 @@ export function request<T = any>(e: WebContents, channel: string, ...args: any[]
 				return
 			}
 			if (res.hasOwnProperty("data")) {
-				resolve(res.data!)
+				resolve(res.data)
 				return
 			}
 			log.error("Unexpected renderer response format:", JSON.stringify(res))

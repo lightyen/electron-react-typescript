@@ -31,14 +31,14 @@ export function newMenu() {
 				{
 					label: "Toggle Developer Tools",
 					accelerator: "F12",
-					click: (item: Electron.MenuItem, win: Electron.BrowserWindow, e: Electron.KeyboardEvent) => {
+					click: (item: Electron.MenuItem, win: Electron.BrowserWindow) => {
 						win.webContents.toggleDevTools()
 					},
 				},
 				{
 					label: "Toggle Fullscreen",
 					accelerator: "F11",
-					click: (item, w, e) => {
+					click: (item, w) => {
 						if (w.isFullScreen()) {
 							send("window.fullscreen", false, w.webContents)
 							w.setFullScreen(false)

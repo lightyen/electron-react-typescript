@@ -34,7 +34,7 @@ Electron.app.on("ready", () => {
 	let downloaded = false
 	autoUpdater.on("update-downloaded", info => {
 		downloaded = true
-		const { version, releaseDate, sha512, ...rest } = info
+		const { version, releaseDate, sha512 } = info
 		mainWindow?.webContents.send("update-downloaded", { data: { version, sha512, releaseDate } })
 	})
 	Electron.ipcMain.on("update-restart", () => {

@@ -10,7 +10,7 @@ export const defaultLocale = "en-US"
 
 export type Locale = keyof typeof languageNames
 
-export function setLocale(locale: Locale) {
+export function setLocale(locale: Locale): void {
 	localStorage.setItem("locale", locale)
 	setDateLocale(locale)
 }

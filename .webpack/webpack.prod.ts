@@ -43,8 +43,15 @@ const config: Configuration = {
 			new OptimizeCSSAssetsPlugin(),
 		],
 	},
-	resolve: {
-		alias: {},
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.(jsx?|tsx?)$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+			},
+		],
 	},
 	plugins,
 }

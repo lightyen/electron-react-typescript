@@ -110,7 +110,7 @@ function DraggableItem({ data, setPosition, moveItem, i }: DraggableItemProps) {
 		})
 	})
 
-	const { key, content, background, ...rest } = data
+	const { content, background, ...rest } = data
 
 	return (
 		<motion.li
@@ -170,7 +170,7 @@ function DraggableItem({ data, setPosition, moveItem, i }: DraggableItemProps) {
 	)
 }
 
-function move<T>(arr: Array<T>, from: number, to: number) {
+function move<T>(arr: T[], from: number, to: number) {
 	const a = arr.slice()
 	const item = a.splice(from, 1)[0]
 	a.splice(to, 0, item)
@@ -228,14 +228,16 @@ const MyItem: React.FC = () => {
 			dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
 			onDragStart={() => setDragging(true)}
 			onDragEnd={() => setDragging(false)}
-			onDrag={(e, { point }) => {
-				//
-			}}
+			// onDrag={(e, { point }) => {}}
 			dragElastic={1}
 			dragTransition={{ bounceStiffness: 1000, bounceDamping: 60 }}
 			dragOriginY={y}
 			// dragMomentum={false} // 慣性
-			positionTransition={({ delta }) => {
+			positionTransition={(
+				{
+					/* delta */
+				},
+			) => {
 				if (isDragging) {
 					// console.log(delta)
 					// y.set(y.get())

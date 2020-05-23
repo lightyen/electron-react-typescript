@@ -42,6 +42,12 @@ function createBaseConfig(): Configuration {
 					test: /\.node$/,
 					use: "node-loader",
 				},
+				{
+					enforce: "pre",
+					test: /\.(js|ts)$/,
+					exclude: /node_modules/,
+					loader: "eslint-loader",
+				},
 			],
 		},
 		resolve: {

@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
+    "strictNullChecks": false,
     "noImplicitAny": false, // 為了相容於類型定義還不是那麼完善的 js library
     "module": "commonjs",
     "moduleResolution": "node",

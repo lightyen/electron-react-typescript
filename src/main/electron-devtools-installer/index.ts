@@ -1,4 +1,4 @@
-import Electron, { net, BrowserWindow, ExtensionInfo } from "electron"
+import Electron, { net, BrowserWindow } from "electron"
 import { promises as fs, createWriteStream, existsSync } from "fs"
 import path from "path"
 import semver from "semver"
@@ -107,7 +107,7 @@ async function init(): Promise<Record<ID, Name>> {
 			throw new Error("electron-devtools-installer: Invalid JSON present in the IDMap file")
 		}
 	}
-	return extensionNames!
+	return extensionNames
 }
 
 function downloadChromeExtension(chromeStoreID: string, extensionFolder: string, attempts = 5): Promise<void> {
