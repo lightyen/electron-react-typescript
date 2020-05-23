@@ -1,15 +1,10 @@
 {
   "editor.formatOnSave": true,
   "formatFiles.excludePattern": "node_modules,dist,build,src/assets,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
-  "files.associations": {
-    ".prettierrc": "json",
-    ".eslintrc": "json"
-  },
   "search.exclude": {
     "**/dist": true,
     "**/build": true,
-    "**/node_modules": true,
-    "**/bower_components": true
+    "**/node_modules": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "npm.autoDetect": "off",

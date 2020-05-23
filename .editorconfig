@@ -21,6 +21,6 @@ max_line_length = 80
 indent_style = space
 indent_size = 2
 
-[*.{json,prettierrc}]
+[*.{json,yaml,yml,babelrc}]
 indent_style = space
 indent_size = 2
