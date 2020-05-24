@@ -35,5 +35,4 @@ rules:
         requireLast: false
   "@typescript-eslint/explicit-module-boundary-types": "off"
 env:
-  browser: true
   node: true
