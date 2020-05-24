@@ -1,4 +1,6 @@
-export declare global {
+export {}
+
+declare global {
 	namespace NodeJS {
 		interface Global {
 			/** custom global variable */

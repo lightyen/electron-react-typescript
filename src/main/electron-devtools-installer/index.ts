@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 import Electron, { net, BrowserWindow } from "electron"
 import { promises as fs, createWriteStream, existsSync } from "fs"
 import path from "path"

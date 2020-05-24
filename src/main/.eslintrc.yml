@@ -9,6 +9,7 @@ extends:
   - prettier/@typescript-eslint
 parserOptions:
   project: ./tsconfig.json
+  tsconfigRootDir: "."
 ignorePatterns:
   - tailwind.config.js
 rules:
