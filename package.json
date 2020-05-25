@@ -126,7 +126,8 @@
     "webpack-dev-server": "3.11.0",
     "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
-    "webpackbar": "4.0.0"
+    "webpackbar": "4.0.0",
+    "worker-loader": "^2.0.0"
   },
   "dependencies": {
     "electron-log": "4.2.0",

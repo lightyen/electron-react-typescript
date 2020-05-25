@@ -18,11 +18,11 @@ export function request<T = unknown>(channel: string, ...args: any[]) {
 	return new Promise<T>((resolve, reject) => {
 		ipcRenderer.send(channel, ...args)
 		ipcRenderer.once(channel, (_, res: IpcResponsePattern<T>) => {
-			if (res.hasOwnProperty("error")) {
+			if (Object.prototype.hasOwnProperty.call(res, "error")) {
 				reject(res.error)
 				return
 			}
-			if (res.hasOwnProperty("data")) {
+			if (Object.prototype.hasOwnProperty.call(res, "data")) {
 				resolve(res.data)
 				return
 			}

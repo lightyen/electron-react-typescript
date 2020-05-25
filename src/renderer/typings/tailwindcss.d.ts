@@ -234,7 +234,7 @@ export interface TailwindcssConfig {
 			outline: string
 			none: string
 		}
-		container: {}
+		container: unknown
 		cursor: {
 			auto: string
 			default: string

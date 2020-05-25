@@ -8,7 +8,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["esnext", "dom", "dom.iterable", "WebWorker"],
     "types": ["react", "webpack-env"],
     "baseUrl": ".",
     "paths": {

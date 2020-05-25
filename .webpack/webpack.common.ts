@@ -96,8 +96,16 @@ export default function (): Configuration {
 					],
 				},
 				{
+					test: /\.worker\.ts$/,
+					use: [
+						{ loader: "worker-loader" },
+						{ loader: "babel-loader" },
+						{ loader: "ts-loader", options: { happyPackMode: true } },
+					],
+				},
+				{
 					test: /\.tsx?$/,
-					exclude: /node_modules|\.test.tsx?$/,
+					exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
 					use: [
 						{
 							loader: "cache-loader",
