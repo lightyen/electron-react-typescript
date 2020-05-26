@@ -23,8 +23,7 @@ export class MainWindow extends Electron.BrowserWindow {
 			webPreferences: {
 				webSecurity: true,
 				nodeIntegration: false,
-				nodeIntegrationInWorker: true,
-				sandbox: false,
+				nodeIntegrationInWorker: false,
 				enableRemoteModule: false,
 				contextIsolation: true,
 				preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "preload.js"),

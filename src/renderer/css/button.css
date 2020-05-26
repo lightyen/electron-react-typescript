@@ -4,52 +4,65 @@
 	transition-timing-function: ease;
 	@apply py-3 px-6 rounded bg-gray-500 text-white leading-none;
 }
-.btn:focus,
-.btn:hover {
+.btn:focus {
 	box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.5);
 	@apply outline-none;
+}
+.btn:hover {
+	@apply bg-gray-400;
 }
 
 .btn-black {
 	@apply bg-gray-900 text-white;
 }
-.btn-black:focus,
-.btn-black:hover {
+.btn-black:focus {
 	box-shadow: 0 0 0 3px rgba(26, 32, 44, 0.5);
 	@apply outline-none;
+}
+.btn-black:hover {
+	@apply bg-gray-800;
 }
 
 .btn-blue {
 	@apply bg-blue-500 text-white;
 }
-.btn-blue:focus,
-.btn-blue:hover {
+.btn-blue:focus {
 	box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 	@apply outline-none;
+}
+.btn-blue:hover {
+	@apply bg-blue-400;
 }
 
 .btn-green {
 	@apply bg-green-500 text-white;
 }
-.btn-green:focus,
-.btn-green:hover {
+.btn-green:focus {
 	box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5);
 	@apply outline-none;
+}
+.btn-green:hover {
+	@apply bg-green-400;
 }
 
 .btn-orange {
 	@apply bg-orange-500 text-white;
 }
-.btn-orange:focus,
-.btn-orange:hover {
+.btn-orange:focus {
 	box-shadow: 0 0 0 3px rgba(237, 137, 54, 0.5);
 	@apply outline-none;
 }
+.btn-orange:hover {
+	@apply bg-orange-400;
+}
+
 .btn-red {
 	@apply bg-red-500 text-white;
 }
-.btn-red:focus,
-.btn-red:hover {
+.btn-red:focus {
 	box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.5);
 	@apply outline-none;
+}
+.btn-red:hover {
+	@apply bg-red-400;
 }

@@ -7,12 +7,12 @@ export function* ipcChannel(channel: string) {
 	return yield call(() =>
 		eventChannel(emitter => {
 			const callback: SubscribeCallBack = (_, res) => {
-				if (res.hasOwnProperty("error")) {
+				if (Object.prototype.hasOwnProperty.call(res, "error")) {
 					emitter(res.error)
 					emitter(END)
 					return
 				}
-				if (res.hasOwnProperty("data")) {
+				if (Object.prototype.hasOwnProperty.call(res, "data")) {
 					emitter(res.data)
 					return
 				}

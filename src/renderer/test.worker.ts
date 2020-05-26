@@ -1,6 +1,4 @@
-import { readFile } from "fs"
-console.log(typeof readFile)
-
+export {}
 const webWorker = (self as unknown) as DedicatedWorkerGlobalScope
 
 webWorker.onmessage = function (e) {

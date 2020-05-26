@@ -233,11 +233,7 @@ const MyItem: React.FC = () => {
 			dragTransition={{ bounceStiffness: 1000, bounceDamping: 60 }}
 			dragOriginY={y}
 			// dragMomentum={false} // 慣性
-			positionTransition={(
-				{
-					/* delta */
-				},
-			) => {
+			positionTransition={() => {
 				if (isDragging) {
 					// console.log(delta)
 					// y.set(y.get())

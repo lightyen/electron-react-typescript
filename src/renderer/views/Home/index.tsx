@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useSelector } from "~/store"
-import { tailwindcssconfig } from "~/tailwind.config"
 import { FormattedMessage } from "react-intl"
 
 import "./index.css"
@@ -10,8 +9,7 @@ import "./index.css"
 import logo from "assets/images/logo.svg"
 
 const Home: React.FC = () => {
-	const { textColor, name } = useSelector(state => state.theme)
-	const colors = tailwindcssconfig.theme.colors
+	const { textColor } = useSelector(state => state.theme)
 	return (
 		<div className="Home select-none">
 			<header className="Home-header">
@@ -32,18 +30,7 @@ const Home: React.FC = () => {
 					Learn React
 				</a>
 				<Link to="/version">
-					<motion.div
-						className="btn btn-blue my-2 select-none"
-						whileHover="hover"
-						variants={{
-							hover: {
-								backgroundColor: name === "light" ? colors.blue[700] : colors.blue[400],
-								transition: { duration: 0.2 },
-							},
-						}}
-					>
-						Version
-					</motion.div>
+					<button className="btn btn-blue my-2">Version</button>
 				</Link>
 			</header>
 		</div>

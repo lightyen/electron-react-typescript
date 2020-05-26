@@ -22,3 +22,6 @@
 .Home-link {
 	color: #61dafb;
 }
+.Home-link:hover {
+	text-decoration: underline;
+}
