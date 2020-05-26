@@ -1,6 +1,5 @@
-const { contextBridge, ipcRenderer, shell, remote } = require("electron")
+const { contextBridge, ipcRenderer, shell } = require("electron")
 
-const win = remote.getCurrentWindow()
 // https://stackoverflow.com/questions/57807459/how-to-use-preload-js-properly-in-electron
 
 process.dlopen = () => {
@@ -15,12 +14,5 @@ contextBridge.exposeInMainWorld("electron", {
 	},
 	shell: {
 		openExternal: shell.openExternal,
-	},
-	currentWindow: {
-		close: () => win.close(),
-		isMaximized: () => win.isMaximized(),
-		maximize: () => win.maximize(),
-		minimize: () => win.minimize(),
-		restore: () => win.restore(),
 	},
 })

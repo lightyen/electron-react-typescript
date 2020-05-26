@@ -25,7 +25,7 @@ export class MainWindow extends Electron.BrowserWindow {
 				nodeIntegration: false,
 				nodeIntegrationInWorker: true,
 				sandbox: false,
-				enableRemoteModule: true,
+				enableRemoteModule: false,
 				contextIsolation: true,
 				preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "preload.js"),
 			},

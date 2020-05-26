@@ -1,10 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { useSelector } from "~/store"
-import { subscribe, SubscribeCallBack, unsubscribe } from "~/ipc"
+import { useSelector, useAction } from "~/store"
 import icon from "assets/images/favicon.ico"
-
-const currentWindow = window.electron.currentWindow
 
 interface HeaderTitleBarProps {
 	height: number
@@ -85,35 +82,22 @@ const ControlButton = styled.div`
 	transition: all 0.2s ease;
 `
 
-function close() {
-	currentWindow.close()
-}
-function minimize() {
-	currentWindow.minimize()
-}
-function restore() {
-	currentWindow.restore()
-}
-function maximize() {
-	currentWindow.maximize()
-}
-
 const TitleBar: React.FC = () => {
 	const theme = useSelector(state => state.theme)
 	const hide = useSelector(state => state.app.hide)
-	const [maximized, setMaximized] = React.useState(currentWindow.isMaximized())
-
+	const maximized = useSelector(state => state.app.maximized)
+	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
 	const barHeight = 30
 	const iw = barHeight / 3
 	const ih = barHeight / 3
 
-	React.useEffect(() => {
-		const cb: SubscribeCallBack<boolean> = (_, res) => {
-			setMaximized(res.data)
-		}
-		subscribe("window.maximized", cb)
-		return () => unsubscribe("window.maximized", cb)
-	}, [])
+	// React.useEffect(() => {
+	// 	const cb: SubscribeCallBack<boolean> = (_, res) => {
+	// 		setMaximized(res.data)
+	// 	}
+	// 	subscribe("window.maximized", cb)
+	// 	return () => unsubscribe("window.maximized", cb)
+	// }, [])
 
 	return (
 		<HeaderTitleBar height={barHeight} hide={hide} titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
@@ -128,13 +112,13 @@ const TitleBar: React.FC = () => {
 				</Title>
 			</div>
 			<Controls height={barHeight}>
-				<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={minimize}>
+				<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={window_minimize}>
 					<svg xmlns="http://www.w3.org/2000/svg" width={iw} height={ih} x="0px" y="0px" viewBox="0 0 10 1">
 						<rect fill={theme.textColor} width="10" height="1" />
 					</svg>
 				</ControlButton>
 				{maximized ? (
-					<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={restore}>
+					<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={window_restore}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width={iw}
@@ -156,7 +140,7 @@ const TitleBar: React.FC = () => {
 						</svg>
 					</ControlButton>
 				) : (
-					<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={maximize}>
+					<ControlButton height={barHeight} hoverColor={theme.primaryHoverColor} onClick={window_maximize}>
 						<svg
 							fill={theme.textColor}
 							xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +152,7 @@ const TitleBar: React.FC = () => {
 						</svg>
 					</ControlButton>
 				)}
-				<ControlButton height={barHeight} hoverColor={theme.dangerColor} onClick={close}>
+				<ControlButton height={barHeight} hoverColor={theme.dangerColor} onClick={window_close}>
 					<svg xmlns="http://www.w3.org/2000/svg" width={iw} height={ih} x="0px" y="0px" viewBox="0 0 10 10">
 						<polygon fill={theme.textColor} points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
 					</svg>

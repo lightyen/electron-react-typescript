@@ -10,6 +10,7 @@ import { getVersions } from "./get.version"
 import { getCPUUsage } from "./get.cpu"
 import { getMemory } from "./get.memory"
 import { setBackgroundColor, setAutoUpdate } from "./set.default"
+import { window_close, window_maximize, window_minimize, window_restore, window_isMaximized } from "./window"
 
 export function router() {
 	response("get.name", getAppName)
@@ -25,4 +26,9 @@ export function router() {
 		const stat = await fs.stat(fullpath)
 		stat.isDirectory() && Electron.shell.openItem(fullpath)
 	})
+	on("window.close", window_close)
+	on("window.maximize", window_maximize)
+	on("window.minimize", window_minimize)
+	on("window.restore", window_restore)
+	response("window.maximized", window_isMaximized)
 }

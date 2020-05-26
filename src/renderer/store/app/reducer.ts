@@ -1,7 +1,15 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { Version, SystemMemoryInfo, AppPaths } from "./model"
 
-import { titlebarHideS, getAppVersionS, getAppPathsS, getCpuUsageS, getSystemMemoryInfoS, updateAppS } from "./action"
+import {
+	titlebarHideS,
+	getAppVersionS,
+	getAppPathsS,
+	getCpuUsageS,
+	getSystemMemoryInfoS,
+	updateAppS,
+	windowMaximized,
+} from "./action"
 
 interface AppStoreType {
 	hide: boolean
@@ -11,12 +19,14 @@ interface AppStoreType {
 	memory: SystemMemoryInfo
 	update_downloaded: boolean
 	update_version: string
+	maximized: boolean
 }
 
 export type AppStore = Readonly<AppStoreType>
 
 const init: AppStore = {
 	hide: false,
+	maximized: false,
 	version: {
 		app: "",
 		electron: "",
@@ -60,5 +70,8 @@ export const app = createReducer(init, builder =>
 			...s,
 			update_downloaded: true,
 			update_version: info.version,
-		})),
+		}))
+		.addCase(windowMaximized, (state, { payload: { maximized } }) => {
+			state.maximized = maximized
+		}),
 )

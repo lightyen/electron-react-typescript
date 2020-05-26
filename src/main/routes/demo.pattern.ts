@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Electron from "electron"
 import { IpcHandler, IpcPromiseHandler } from "~/ipc"
 

@@ -2,7 +2,15 @@ import { ipcChannel } from "~/store/saga"
 import { request } from "~/ipc"
 import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
-import { titlebarHideS, getAppVersionS, getAppPathsS, getCpuUsageS, getSystemMemoryInfoS, updateAppS } from "./action"
+import {
+	titlebarHideS,
+	getAppVersionS,
+	getAppPathsS,
+	getCpuUsageS,
+	getSystemMemoryInfoS,
+	updateAppS,
+	windowMaximized,
+} from "./action"
 import { UpdateInfo } from "./model"
 
 function* getAppVersion() {
@@ -53,6 +61,17 @@ function* updateRestart() {
 	} catch (e) {}
 }
 
+function* subscribeWindowMaximized() {
+	const maximized = yield call(request, "window.maximized")
+	yield put(windowMaximized({ maximized }))
+
+	const chan = yield ipcChannel("window.maximized")
+	while (true) {
+		const maximized = yield take(chan)
+		yield put(windowMaximized({ maximized }))
+	}
+}
+
 export default function* sagas() {
 	yield takeEvery("GET_APP_VERSION_REQUEST", getAppVersion)
 	yield takeEvery("GET_APP_PATHS_REQUEST", getAppPaths)
@@ -61,4 +80,5 @@ export default function* sagas() {
 	yield takeLeading("AUTO_UPDATE_RESTART", updateRestart)
 	yield fork(subscribeUpdateDownloaded)
 	yield fork(subscribeWindowFullScreen)
+	yield fork(subscribeWindowMaximized)
 }

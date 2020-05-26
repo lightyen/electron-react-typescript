@@ -52,7 +52,7 @@ export default function (): Configuration {
 	if (!isDevelopment) {
 		plugins.push(new ExtendedAPIPlugin())
 	}
-	console.log(path.relative(path.join(publicPath, outputCSS), publicPath))
+
 	/**
 	 * @type {import("webpack").Loader}
 	 * See [style-loader]{@link https://github.com/webpack-contrib/style-loader} and [mini-css-extract-plugin]{@link https://github.com/webpack-contrib/mini-css-extract-plugin}.

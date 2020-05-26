@@ -7,7 +7,7 @@ import { request } from "~/ipc"
 import { useSelector } from "~/store"
 import { useScrollBarSource } from "~/components/ScrollBar"
 
-const Page: React.FC = ({}) => {
+const Page: React.FC = () => {
 	const textColor = useSelector(state => state.theme.textColor)
 	const [text, setText] = React.useState("")
 	const history = useHistory()

@@ -1,5 +1,5 @@
-import { net } from "electron"
-console.log(typeof net)
+import { readFile } from "fs"
+console.log(typeof readFile)
 
 const webWorker = (self as unknown) as DedicatedWorkerGlobalScope
 
