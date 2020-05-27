@@ -17,28 +17,36 @@ function* getAppVersion() {
 	try {
 		const version = yield call(request, "get.versions")
 		yield put(getAppVersionS({ version }))
-	} catch (e) {}
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function* getAppPaths() {
 	try {
 		const paths = yield call(request, "get.paths")
 		yield put(getAppPathsS({ paths }))
-	} catch (e) {}
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function* getCPUUsage() {
 	try {
 		const usage = yield call(request, "get.cpuusage")
 		yield put(getCpuUsageS({ usage }))
-	} catch (e) {}
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function* getSystemMemory() {
 	try {
 		const usage = yield call(request, "get.memory")
 		yield put(getSystemMemoryInfoS({ usage }))
-	} catch (e) {}
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function* subscribeWindowFullScreen() {
@@ -58,7 +66,9 @@ function* subscribeUpdateDownloaded() {
 function* updateRestart() {
 	try {
 		yield call(request, "update-restart")
-	} catch (e) {}
+	} catch (e) {
+		// do nothing
+	}
 }
 
 function* subscribeWindowMaximized() {

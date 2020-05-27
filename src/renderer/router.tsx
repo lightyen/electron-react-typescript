@@ -1,7 +1,7 @@
 import React from "react"
 import { AnimatePresence } from "framer-motion"
 import { HashRouter, useLocation } from "react-router-dom"
-import { Switch, Route, Redirect } from "~/MotionRouter"
+import { Switch, Route } from "~/MotionRouter"
 
 import Home from "~/views/Home"
 import Version from "~/views/Version"

@@ -1,5 +1,4 @@
 import React from "react"
-import { useSelector } from "~/store"
 import { AppRouter } from "~/router"
 
 const Viewer: React.FC = () => {

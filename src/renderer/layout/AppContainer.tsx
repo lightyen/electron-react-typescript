@@ -1,8 +1,8 @@
-import React, { Suspense } from "react"
+import React from "react"
 import { hot } from "react-hot-loader/root"
 
 import TitleBar from "./TitleBar"
-import StatusBar from "./StatusBar"
+// import StatusBar from "./StatusBar"
 import Viewer from "./Viewer"
 import AutoUpdater from "./AutoUpdater"
 
