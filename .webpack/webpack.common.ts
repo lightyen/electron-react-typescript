@@ -97,6 +97,7 @@ export default function (): Configuration {
 				},
 				{
 					test: /\.worker\.ts$/,
+					exclude: /node_modules/,
 					use: [
 						{ loader: "worker-loader" },
 						{ loader: "babel-loader" },
