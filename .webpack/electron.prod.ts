@@ -36,7 +36,7 @@ function createBaseConfig(): Configuration {
 				{
 					test: /\.ts$/,
 					exclude: /node_modules/,
-					use: [{ loader: "ts-loader", options: { context: path.resolve(src), configFile: tsconfigPath } }],
+					use: [{ loader: "ts-loader", options: { context: src } }],
 				},
 				{
 					test: /\.node$/,

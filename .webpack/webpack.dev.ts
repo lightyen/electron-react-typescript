@@ -21,6 +21,27 @@ const config: Configuration = {
 			return filename.endsWith(".css") || filename.endsWith(".js")
 		},
 	},
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
+				use: [
+					{
+						loader: "cache-loader",
+						options: { cacheDirectory: path.resolve(".cache") },
+					},
+					"thread-loader",
+					"babel-loader",
+					{ loader: "ts-loader", options: { happyPackMode: true } },
+				],
+			},
+			{
+				test: /\.jsx$/,
+				use: ["thread-loader", "babel-loader"],
+			},
+		],
+	},
 	resolve: {
 		alias: {
 			"react-dom": "@hot-loader/react-dom",
@@ -30,7 +51,7 @@ const config: Configuration = {
 		new HotModuleReplacementPlugin(),
 		new ForkTsCheckerWebpackPlugin({
 			checkSyntacticErrors: true,
-			tsconfig: path.resolve(process.cwd(), "src", "renderer", "tsconfig.json"),
+			tsconfig: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
 		}),
 	],
 	devServer: {

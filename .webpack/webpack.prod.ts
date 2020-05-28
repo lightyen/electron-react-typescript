@@ -51,6 +51,15 @@ const config: Configuration = {
 				exclude: /node_modules/,
 				loader: "eslint-loader",
 			},
+			{
+				test: /\.tsx?$/,
+				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
+				use: ["babel-loader", { loader: "ts-loader", options: { happyPackMode: true } }],
+			},
+			{
+				test: /\.jsx$/,
+				use: ["babel-loader"],
+			},
 		],
 	},
 	plugins,

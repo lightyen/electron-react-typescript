@@ -51,6 +51,7 @@ export const Route: React.FC<RouteProps & ExtraProps> = ({ children, custom, ...
 	)
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const Redirect: React.FC<RedirectProps> = ({ children, ...props }) => (
 	<motion.div exit="undefined">
 		<_Redirect {...props} />

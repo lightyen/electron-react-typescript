@@ -105,23 +105,6 @@ export default function (): Configuration {
 					],
 				},
 				{
-					test: /\.tsx?$/,
-					exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
-					use: [
-						{
-							loader: "cache-loader",
-							options: { cacheDirectory: path.resolve(".cache") },
-						},
-						{ loader: "thread-loader" },
-						{ loader: "babel-loader" },
-						{ loader: "ts-loader", options: { happyPackMode: true } },
-					],
-				},
-				{
-					test: /\.jsx$/,
-					use: [{ loader: "babel-loader" }],
-				},
-				{
 					test: /\.(png|jpe?g|gif|svg|ico)$/i,
 					use: [
 						{
