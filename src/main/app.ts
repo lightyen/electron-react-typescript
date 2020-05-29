@@ -8,7 +8,7 @@ import { storage } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
-export let mainWindow: Electron.BrowserWindow | undefined
+export let mainWindow: Electron.BrowserWindow
 
 Electron.app.allowRendererProcessReuse = true
 
