@@ -1,4 +1,6 @@
-export {}
+import type { WebWorker } from "./typings/type"
+export default {} as WebWorker
+
 const webWorker = (self as unknown) as DedicatedWorkerGlobalScope
 
 webWorker.onmessage = function (e) {

@@ -3,8 +3,8 @@ import { render } from "react-dom"
 import App from "./App"
 render(<App />, document.getElementById("root"))
 
-import MyWorker from "./test.worker.ts"
-const worker = new MyWorker("")
+import MyWorker from "./test.worker"
+const worker = new MyWorker()
 console.log(MyWorker.toString())
 worker.onmessage = function (e) {
 	console.log(e.data)

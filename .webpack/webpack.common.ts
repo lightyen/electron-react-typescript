@@ -96,15 +96,6 @@ export default function (): Configuration {
 					],
 				},
 				{
-					test: /\.worker\.ts$/,
-					exclude: /node_modules/,
-					use: [
-						{ loader: "worker-loader" },
-						{ loader: "babel-loader" },
-						{ loader: "ts-loader", options: { happyPackMode: true } },
-					],
-				},
-				{
 					test: /\.(png|jpe?g|gif|svg|ico)$/i,
 					use: [
 						{

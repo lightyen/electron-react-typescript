@@ -1,3 +1,6 @@
+import { WebWorker } from "./type"
+
 declare module "*.worker.ts" {
-	export default Worker
+	declare const worker: WebWorker
+	export default worker
 }
