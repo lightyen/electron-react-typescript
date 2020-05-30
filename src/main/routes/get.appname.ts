@@ -1,6 +1,6 @@
-import { IpcHandler } from "~/ipc"
+import type { IpcMainEvent } from "electron"
 import { appName } from "~/const"
 
-export const getAppName: IpcHandler = () => {
+export const getAppName = (e: IpcMainEvent) => {
 	return appName
 }

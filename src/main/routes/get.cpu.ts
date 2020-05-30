@@ -1,4 +1,3 @@
-import { IpcHandler } from "~/ipc"
 import os from "os"
 
 interface CPULoadInfo {
@@ -70,7 +69,7 @@ function updateCPULoad(load: CPULoadInfo) {
 	load.tick = current
 }
 
-export const getCPUUsage: IpcHandler = () => {
+export const getCPUUsage = () => {
 	updateCPULoad(cpuLoadInfo)
 	return cpuLoadInfo
 }

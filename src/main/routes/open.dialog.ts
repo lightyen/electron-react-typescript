@@ -1,12 +1,8 @@
 import Electron from "electron"
-import { IpcPromiseHandler } from "~/ipc"
 
 import { promises as fs } from "fs"
 
-export const openDirectoryDialog: IpcPromiseHandler = async (
-	e: Electron.IpcMainEvent,
-	options: Electron.OpenDialogOptions,
-) => {
+export const openDirectoryDialog = async (e: Electron.IpcMainEvent, options: Electron.OpenDialogOptions) => {
 	options = {
 		title: "Select a folder",
 		properties: ["openDirectory"],

@@ -17,8 +17,15 @@ rules:
   no-var: error
   no-extra-bind: error
   prefer-arrow-callback: error
-  no-empty: warn
-  "@typescript-eslint/no-unused-vars": warn
+  no-empty:
+    - error
+    - allowEmptyCatch: true
+  "@typescript-eslint/no-unused-vars":
+    - error
+    - vars: all
+      args: none
+      ignoreRestSiblings: true
+      caughtErrors: none
   "@typescript-eslint/no-empty-interface": "off"
   "@typescript-eslint/camelcase": "off"
   "@typescript-eslint/explicit-function-return-type": "off"
@@ -26,6 +33,9 @@ rules:
     - error
     - default: array-simple
   "@typescript-eslint/no-var-requires": "off"
+  "@typescript-eslint/no-explicit-any":
+    - warn
+    - ignoreRestArgs: true
   "@typescript-eslint/member-delimiter-style":
     - error
     - multiline:

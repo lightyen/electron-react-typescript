@@ -1,7 +1,6 @@
-import { IpcHandler } from "~/ipc"
 import { store } from "~/store"
 
-export const getVersions: IpcHandler = () => {
+export const getVersions = () => {
 	const versions = store.getState().app.versions
 	return versions
 }

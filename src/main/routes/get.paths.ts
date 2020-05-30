@@ -1,7 +1,6 @@
 import Electron from "electron"
-import { IpcHandler } from "~/ipc"
 
-export const getPaths: IpcHandler = () => {
+export const getPaths = () => {
 	return {
 		userData: Electron.app.getPath("userData"),
 		temp: Electron.app.getPath("temp"),

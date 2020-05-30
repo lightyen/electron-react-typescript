@@ -8,13 +8,23 @@ interface IpcResponsePattern<T = unknown> {
 	error?: unknown
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IpcHandler<T = any> = (event: IpcMainEvent, ...args: any[]) => T
+type IpcHandler<T> = (event: IpcMainEvent, ...args: any[]) => T
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IpcPromiseHandler<T = any> = (event: IpcMainEvent, ...args: any[]) => Promise<T>
+type IpcPromiseHandler<T> = (event: IpcMainEvent, ...args: any[]) => Promise<T>
 
-export function response(channel: string, handler: IpcHandler | IpcPromiseHandler) {
+type Handler<T = (event: IpcMainEvent, ...args: any[]) => unknown> = T extends IpcHandler<infer P>
+	? IpcHandler<P>
+	: T extends IpcPromiseHandler<infer Q>
+	? IpcPromiseHandler<Q>
+	: never
+
+const getAppName = (e: IpcMainEvent) => {
+	return "hello"
+}
+
+type Test = Handler<typeof getAppName>
+
+export function response<H extends Handler>(channel: string, handler: H) {
 	ipcMain.on(channel, (event, ...args) => {
 		try {
 			const result = handler(event, ...args)
@@ -37,7 +47,7 @@ export function response(channel: string, handler: IpcHandler | IpcPromiseHandle
 	})
 }
 
-export function on(channel: string, handler: IpcHandler | IpcPromiseHandler) {
+export function on<T>(channel: string, handler: IpcHandler<T> | IpcPromiseHandler<T>) {
 	ipcMain.on(channel, (event, ...args) => {
 		try {
 			const result = handler(event, ...args)
