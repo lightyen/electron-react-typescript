@@ -8,6 +8,7 @@
     "lib": ["esnext"],
     "target": "es6",
     "typeRoots": ["./typings"],
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],

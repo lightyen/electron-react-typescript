@@ -1,10 +1,12 @@
-export declare global {
-	import { IpcMain } from "electron"
+import { IpcMain } from "electron"
+
+declare global {
 	namespace NodeJS {
-		interface Global {
-			/** custom global variable */
-			abcde: number
+		interface Electron {
 			ipcMain: IpcMain
+		}
+		interface Global {
+			electron: Electron
 		}
 		interface ProcessEnv {
 			NODE_ENV: "development" | "production"

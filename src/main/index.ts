@@ -1,3 +1,2 @@
-import { ipcMain } from "electron"
-global.ipcMain = ipcMain
+require("@/register")
 import "~/app"

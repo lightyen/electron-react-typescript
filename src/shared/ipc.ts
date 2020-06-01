@@ -5,6 +5,7 @@ import { IpcRenderer, IpcMain } from "electron"
 export class Channel {
 	static ipcRender: IpcRenderer = getIpcRenderer()
 	static ipcMain: IpcMain = getIpcMain()
+
 	constructor(name: string) {
 		if (name == undefined || name == "") throw new Error("invalid channel name!")
 	}
@@ -16,7 +17,7 @@ export class Channel {
 		}
 
 		if (isMain()) {
-			console.log(Channel.ipcMain)
+			console.log(typeof Channel.ipcMain.handle)
 		}
 	}
 }

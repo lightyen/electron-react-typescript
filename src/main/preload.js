@@ -4,10 +4,15 @@ const { contextBridge, ipcRenderer, shell } = require("electron")
 
 contextBridge.exposeInMainWorld("electron", {
 	ipcRenderer: {
-		send: (channel, ...args) => ipcRenderer.send(channel, ...args),
-		on: (channel, listener) => ipcRenderer.on(channel, listener),
-		once: (channel, listener) => ipcRenderer.once(channel, listener),
-		removeListener: (channel, listener) => ipcRenderer.removeListener(channel, listener),
+		invoke: (...args) => ipcRenderer.invoke(...args),
+		on: (...args) => ipcRenderer.on(...args),
+		once: (...args) => ipcRenderer.once(...args),
+		send: (...args) => ipcRenderer.send(...args),
+		sendTo: (...args) => ipcRenderer.sendTo(...args),
+		sendSync: (...args) => ipcRenderer.sendSync(...args),
+		sendToHost: (...args) => ipcRenderer.sendToHost(...args),
+		removeListener: (...args) => ipcRenderer.removeListener(...args),
+		removeAllListeners: (...args) => ipcRenderer.removeAllListeners(...args),
 	},
 	shell: {
 		openExternal: (...args) => shell.openExternal(...args),
