@@ -7,6 +7,7 @@
   "watch": ["src/main"],
   "env": {
     "TS_NODE_PROJECT": "src/main/tsconfig.json",
+    "TS_NODE_COMPILER_OPTIONS": "{\"allowJs\":true}",
     "TS_NODE_FILES": true,
     "NODE_ENV": "development"
   },

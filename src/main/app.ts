@@ -8,6 +8,10 @@ import { storage } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
+import { Channel } from "@/ipc"
+const c = new Channel("test")
+c.on()
+
 export let mainWindow: Electron.BrowserWindow
 
 Electron.app.allowRendererProcessReuse = true

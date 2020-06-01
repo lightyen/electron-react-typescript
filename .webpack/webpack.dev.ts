@@ -58,9 +58,6 @@ const config: Configuration = {
 		new ForkTsCheckerWebpackPlugin({
 			checkSyntacticErrors: true,
 			tsconfig: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
-			compilerOptions: {
-				noEmit: true,
-			},
 		}),
 	],
 	devServer: {

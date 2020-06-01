@@ -68,7 +68,15 @@ const config: Configuration = {
 				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
 				use: [
 					"babel-loader",
-					{ loader: "ts-loader", options: { context: path.join(process.cwd(), "src", "renderer") } },
+					{
+						loader: "ts-loader",
+						options: {
+							context: path.join(process.cwd(), "src", "renderer"),
+							compilerOptions: {
+								allowJs: true,
+							},
+						},
+					},
 				],
 			},
 			{

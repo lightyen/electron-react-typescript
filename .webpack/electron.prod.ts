@@ -36,7 +36,17 @@ function createBaseConfig(): Configuration {
 				{
 					test: /\.(js|ts)$/,
 					exclude: /node_modules/,
-					use: [{ loader: "ts-loader", options: { context: src } }],
+					use: [
+						{
+							loader: "ts-loader",
+							options: {
+								context: src,
+								compilerOptions: {
+									allowJs: true,
+								},
+							},
+						},
+					],
 				},
 				{
 					test: /\.node$/,
