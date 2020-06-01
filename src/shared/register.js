@@ -1,1 +1,6 @@
-global.electron = { ipcMain: require("electron").ipcMain }
+global.electron = {
+	ipcMain: require("electron").ipcMain,
+	log: {
+		...require("electron-log"),
+	},
+}

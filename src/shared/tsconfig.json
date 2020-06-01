@@ -15,8 +15,7 @@
     "noEmit": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "types": ["electron"],
-    "lib": ["esnext", "dom", "webworker"],
-    "baseUrl": "."
+    "typeRoots": ["./typings"],
+    "lib": ["esnext", "dom", "webworker"]
   }
 }

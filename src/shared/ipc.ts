@@ -1,23 +1,18 @@
-import { isRenderer, isMain } from "./is"
-import { getIpcRenderer, getIpcMain } from "./interface"
 import { IpcRenderer, IpcMain } from "electron"
 
 export class Channel {
-	static ipcRender: IpcRenderer = getIpcRenderer()
-	static ipcMain: IpcMain = getIpcMain()
-
+	static ipcRenderer: IpcRenderer = global?.window?.electron?.ipcRenderer
+	static ipcMain: IpcMain = global?.electron?.ipcMain
 	constructor(name: string) {
 		if (name == undefined || name == "") throw new Error("invalid channel name!")
 	}
 
 	on() {
-		// console.log(typeof ipcMain)
-		if (isRenderer()) {
-			console.log(Channel.ipcRender)
-		}
-
-		if (isMain()) {
+		if (Channel.ipcRenderer) {
+			console.log(Channel.ipcRenderer)
+		} else if (Channel.ipcMain) {
 			console.log(typeof Channel.ipcMain.handle)
+			global.electron.log.info("hey!")
 		}
 	}
 }
