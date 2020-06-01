@@ -1,2 +1,3 @@
 import { createAction } from "@reduxjs/toolkit"
-export const getVersionsS = createAction<{ versions: { [key: string]: unknown } }>("GET_VERSIONS")
+import { Versions } from "@/model"
+export const getVersionsS = createAction<{ versions: Versions }>("GET_VERSIONS")

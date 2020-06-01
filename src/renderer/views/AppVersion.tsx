@@ -30,7 +30,7 @@ interface Versions {
 }
 
 const AppVersion: React.FC = () => {
-	const version = useSelector(state => state.app.version)
+	const versions = useSelector(state => state.app.versions)
 	const { getAppVersion } = useAction().app
 	React.useEffect(() => {
 		getAppVersion()
@@ -50,23 +50,23 @@ const AppVersion: React.FC = () => {
 				<TBody>
 					<tr>
 						<td>Version</td>
-						<td>{version.app}</td>
+						<td>{versions.app}</td>
 					</tr>
 					<tr>
 						<td>Electron</td>
-						<td>{version.electron}</td>
+						<td>{versions.electron}</td>
 					</tr>
 					<tr>
 						<td>NodeJS</td>
-						<td>{version.node}</td>
+						<td>{versions.node}</td>
 					</tr>
 					<tr>
 						<td>Chrome</td>
-						<td>{version.chrome}</td>
+						<td>{versions.chrome}</td>
 					</tr>
 					<tr>
-						<td>{version.os.name}</td>
-						<td>{version.os.version}</td>
+						<td>{versions.os.name}</td>
+						<td>{versions.os.version}</td>
 					</tr>
 				</TBody>
 			</Table>

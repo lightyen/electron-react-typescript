@@ -1,10 +1,11 @@
 import { createAction } from "@reduxjs/toolkit"
-import { Version, AppPaths, CPUInfo, SystemMemoryInfo, UpdateInfo } from "./model"
+import { AppPaths, CPUInfo, SystemMemoryInfo, UpdateInfo } from "./model"
+import { Versions } from "@/model"
 import { request } from "~/ipc"
 
 export const titlebarHideS = createAction<{ hide: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
 export const getAppVersion = createAction("GET_APP_VERSION_REQUEST")
-export const getAppVersionS = createAction<{ version: Version }>("GET_APP_VERSION_SUCCESS")
+export const getAppVersionS = createAction<{ versions: Versions }>("GET_APP_VERSION_SUCCESS")
 export const getAppPaths = createAction("GET_APP_PATHS_REQUEST")
 export const getAppPathsS = createAction<{ paths: AppPaths }>("GET_APP_PATHS_SUCCESS")
 export const getCpuUsage = createAction("GET_APP_CPU_USAGE_REQUEST")

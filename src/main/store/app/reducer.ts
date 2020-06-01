@@ -1,14 +1,21 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { getVersionsS } from "./action"
+import { Versions } from "@/model"
 
 export interface AppStoreType {
-	versions: { [key: string]: unknown }
+	versions: Versions
 }
 
 export type AppStore = Readonly<AppStoreType>
 
 const init: AppStore = {
-	versions: {},
+	versions: {
+		app: "",
+		electron: "",
+		node: "",
+		chrome: "",
+		os: { name: "", version: "" },
+	},
 }
 
 export const app = createReducer(init, builder =>

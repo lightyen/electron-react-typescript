@@ -42,7 +42,3 @@ export function subscribe<T = any>(channel: string, cb: SubscribeCallBack<T>) {
 export function unsubscribe<T = any>(channel: string, cb: SubscribeCallBack<T>) {
 	ipcRenderer.removeListener(channel, cb)
 }
-
-import { Channel } from "@/ipc"
-const c = new Channel("test")
-c.on()

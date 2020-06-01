@@ -2,27 +2,36 @@ import { ipcChannel } from "~/store/saga"
 import { request } from "~/ipc"
 import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
 
+import { chVersions } from "@/channels"
+
 import {
 	titlebarHideS,
+	getAppVersion,
 	getAppVersionS,
 	getAppPathsS,
 	getCpuUsageS,
 	getSystemMemoryInfoS,
 	updateAppS,
 	windowMaximized,
+	getAppPaths,
+	getCpuUsage,
+	getSystemMemoryInfo,
+	updateApp,
 } from "./action"
 import { UpdateInfo } from "./model"
 
-function* getAppVersion() {
+function* _getAppVersion() {
 	try {
-		const version = yield call(request, "get.versions")
-		yield put(getAppVersionS({ version }))
+		console.log("saga get version")
+		const { data: versions } = yield call([chVersions, chVersions._invoke])
+		console.log("saga get version:", versions)
+		yield put(getAppVersionS({ versions }))
 	} catch (e) {
 		// do nothing
 	}
 }
 
-function* getAppPaths() {
+function* _getAppPaths() {
 	try {
 		const paths = yield call(request, "get.paths")
 		yield put(getAppPathsS({ paths }))
@@ -31,7 +40,7 @@ function* getAppPaths() {
 	}
 }
 
-function* getCPUUsage() {
+function* _getCPUUsage() {
 	try {
 		const usage = yield call(request, "get.cpuusage")
 		yield put(getCpuUsageS({ usage }))
@@ -40,7 +49,7 @@ function* getCPUUsage() {
 	}
 }
 
-function* getSystemMemory() {
+function* _getSystemMemory() {
 	try {
 		const usage = yield call(request, "get.memory")
 		yield put(getSystemMemoryInfoS({ usage }))
@@ -83,11 +92,11 @@ function* subscribeWindowMaximized() {
 }
 
 export default function* sagas() {
-	yield takeEvery("GET_APP_VERSION_REQUEST", getAppVersion)
-	yield takeEvery("GET_APP_PATHS_REQUEST", getAppPaths)
-	yield takeEvery("GET_APP_CPU_USAGE_REQUEST", getCPUUsage)
-	yield takeEvery("GET_APP_SYSTEM_MEMORY_REQUEST", getSystemMemory)
-	yield takeLeading("AUTO_UPDATE_RESTART", updateRestart)
+	yield takeEvery(getAppVersion.type, _getAppVersion)
+	yield takeEvery(getAppPaths.type, _getAppPaths)
+	yield takeEvery(getCpuUsage.type, _getCPUUsage)
+	yield takeEvery(getSystemMemoryInfo.type, _getSystemMemory)
+	yield takeLeading(updateApp.type, updateRestart)
 	yield fork(subscribeUpdateDownloaded)
 	yield fork(subscribeWindowFullScreen)
 	yield fork(subscribeWindowMaximized)

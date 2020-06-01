@@ -6,15 +6,15 @@ import { getAppName } from "./get.appname"
 import { openDirectoryDialog } from "./open.dialog"
 import { getPaths } from "./get.paths"
 import { getLog } from "./get.syslog"
-import { getVersions } from "./get.version"
 import { getCPUUsage } from "./get.cpu"
 import { getMemory } from "./get.memory"
 import { setBackgroundColor, setAutoUpdate } from "./set.default"
 import { window_close, window_maximize, window_minimize, window_restore, window_isMaximized } from "./window"
 
+import "./get.versions"
+
 export function router() {
 	response("get.name", getAppName)
-	response("get.versions", getVersions)
 	response("get.cpuusage", getCPUUsage)
 	response("get.memory", getMemory)
 	response("dialog.open", openDirectoryDialog)

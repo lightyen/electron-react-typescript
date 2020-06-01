@@ -26,7 +26,7 @@ export class MainWindow extends Electron.BrowserWindow {
 				nodeIntegrationInWorker: false,
 				enableRemoteModule: false,
 				contextIsolation: true,
-				preload: isDev ? path.resolve(__dirname, "preload.js") : path.resolve(appPath, "preload.js"),
+				preload: isDev ? path.resolve(__dirname, "../shared/preload.js") : path.resolve(appPath, "preload.js"),
 			},
 			icon: path.join(appPath, "assets", "appicons", "256x256.png"),
 		})

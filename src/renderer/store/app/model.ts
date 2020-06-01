@@ -1,11 +1,3 @@
-export interface Version {
-	app: string
-	electron: string
-	node: string
-	chrome: string
-	os: { name: string; version: string }
-}
-
 export interface AppPaths {
 	userData: string
 	temp: string

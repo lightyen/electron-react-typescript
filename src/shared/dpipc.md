@@ -1,21 +1,17 @@
 # Hello
 
 ```js
-import { createIPC } from "helper"
+import { IPC } from "@/ipc"
 
-const ipc = createIPC("channel")
+const ipc = new IPC("channel")
 
 // main
 ipc.on(function() { return void })
 ipc.handle(function(query) { return data })
-ipc.send(function() { return data })
-ipc.request(query, function(data) { return void })
 
 // renderer
-ipc.send(function() { return data })
-ipc.invoke(query, function(data) { return void })
-ipc.on(function() { return void })
-ipc.response(function(query) { return data })
+ipc.send(payload)
+ipc.invoke(payload, function(data) { return void })
 ```
 
 ```js

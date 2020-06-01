@@ -13,7 +13,7 @@ files:
   - from: dist
     filter:
       - "**/*"
-  - from: src/main
+  - from: src/shared
     filter:
       - preload.js
   - from: .

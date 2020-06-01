@@ -9,7 +9,6 @@
     "moduleResolution": "node",
     "target": "esnext",
     "lib": ["esnext", "dom", "dom.iterable", "webworker"],
-    "typeRoots": ["./typings"],
     "types": ["react", "webpack-env"],
     "baseUrl": ".",
     "paths": {

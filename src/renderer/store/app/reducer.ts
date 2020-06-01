@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { Version, SystemMemoryInfo, AppPaths } from "./model"
-
+import { SystemMemoryInfo, AppPaths } from "./model"
+import { Versions } from "@/model"
 import {
 	titlebarHideS,
 	getAppVersionS,
@@ -13,7 +13,7 @@ import {
 
 interface AppStoreType {
 	hide: boolean
-	version: Version
+	versions: Versions
 	paths: AppPaths
 	cpuusage: number
 	memory: SystemMemoryInfo
@@ -27,7 +27,7 @@ export type AppStore = Readonly<AppStoreType>
 const init: AppStore = {
 	hide: false,
 	maximized: false,
-	version: {
+	versions: {
 		app: "",
 		electron: "",
 		chrome: "",
