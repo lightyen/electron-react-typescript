@@ -1,3 +1,3 @@
-require("ts-node/register")({ op })
+require("ts-node/register")
 require("tsconfig-paths/register")
 require("../src/main")
