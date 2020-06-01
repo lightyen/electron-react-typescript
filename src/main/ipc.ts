@@ -18,12 +18,6 @@ type Handler<T = (event: IpcMainEvent, ...args: any[]) => unknown> = T extends I
 	? IpcPromiseHandler<Q>
 	: never
 
-const getAppName = (e: IpcMainEvent) => {
-	return "hello"
-}
-
-type Test = Handler<typeof getAppName>
-
 export function response<H extends Handler>(channel: string, handler: H) {
 	ipcMain.on(channel, (event, ...args) => {
 		try {

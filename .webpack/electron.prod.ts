@@ -34,7 +34,7 @@ function createBaseConfig(): Configuration {
 		module: {
 			rules: [
 				{
-					test: /\.ts$/,
+					test: /\.(js|ts)$/,
 					exclude: /node_modules/,
 					use: [{ loader: "ts-loader", options: { context: src } }],
 				},

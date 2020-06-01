@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
+    "allowJs": true,
     "strictNullChecks": false, // 對開發不友善，我決定關閉它
     "noImplicitAny": false, // 為了相容於類型定義還不是那麼完善的 js library
     "module": "commonjs",
@@ -10,7 +11,8 @@
     "typeRoots": ["src/main"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["../shared/*"]
     }
   }
 }

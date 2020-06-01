@@ -42,7 +42,8 @@ const config: Configuration = {
 				],
 			},
 			{
-				test: /\.jsx$/,
+				test: /\.jsx?$/,
+				exclude: /node_modules/,
 				use: ["thread-loader", "babel-loader"],
 			},
 		],
@@ -57,6 +58,9 @@ const config: Configuration = {
 		new ForkTsCheckerWebpackPlugin({
 			checkSyntacticErrors: true,
 			tsconfig: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
+			compilerOptions: {
+				noEmit: true,
+			},
 		}),
 	],
 	devServer: {

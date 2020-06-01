@@ -72,7 +72,7 @@ const config: Configuration = {
 				],
 			},
 			{
-				test: /\.jsx$/,
+				test: /\.jsx?$/,
 				use: ["babel-loader"],
 			},
 		],
