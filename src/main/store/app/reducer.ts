@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { getVersionsS } from "./action"
-import { Versions } from "@/model"
+import { Versions } from "shared/model"
 
 export interface AppStoreType {
 	versions: Versions

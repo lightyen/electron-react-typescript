@@ -1,4 +1,5 @@
 import log from "electron-log"
 import { promises as fs } from "fs"
+import { appLogs } from "shared/ipc"
 
-export const getLog = async () => await fs.readFile(log.transports.file.getFile().path, { encoding: "utf-8" })
+appLogs.handle(async () => await fs.readFile(log.transports.file.getFile().path, { encoding: "utf-8" }))

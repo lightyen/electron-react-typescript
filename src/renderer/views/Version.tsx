@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom"
 import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 
-import { request } from "~/ipc"
 import { useSelector } from "~/store"
 import { useScrollBarSource } from "~/components/ScrollBar"
 
@@ -20,14 +19,12 @@ const Page: React.FC = () => {
 				<div className="mt-2">
 					<button
 						className="mr-2 btn btn-blue"
-						onClick={() => {
-							request<{
-								filePaths: string[]
-								files: string[]
-							}>("dialog.open").then(data => {
-								const { filePaths } = data
-								setText(filePaths[0])
+						onClick={async () => {
+							const { filePaths } = await openFolderDialog.invoke({
+								title: "Select a folder",
+								properties: ["openDirectory"],
 							})
+							setText(filePaths[0])
 						}}
 					>
 						Open Dialog
@@ -62,6 +59,7 @@ const Page: React.FC = () => {
 }
 
 import { useInView } from "react-intersection-observer"
+import { openFolderDialog } from "~/../shared/ipc"
 
 const IntersectTarget: React.FC = () => {
 	const root = useScrollBarSource()

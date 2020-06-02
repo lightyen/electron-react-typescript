@@ -1,9 +1,9 @@
 # Hello
 
 ```js
-import { IPC } from "@/ipc"
+import { createIPC } from "shared"
 
-const ipc = new IPC("channel")
+const ipc = createIPC("channel")
 
 // main
 ipc.on(function() { return void })

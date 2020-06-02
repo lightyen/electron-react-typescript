@@ -1,4 +1,5 @@
 import os from "os"
+import { cpuInfo } from "shared/ipc"
 
 interface CPULoadInfo {
 	tick: {
@@ -69,7 +70,7 @@ function updateCPULoad(load: CPULoadInfo) {
 	load.tick = current
 }
 
-export const getCPUUsage = () => {
+cpuInfo.handle(() => {
 	updateCPULoad(cpuLoadInfo)
 	return cpuLoadInfo
-}
+})

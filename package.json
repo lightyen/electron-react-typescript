@@ -2,7 +2,7 @@
   "name": "electron-react-typescript",
   "main": "main.js",
   "description": "use electron and react with typescript",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "author": {
     "name": "lightyen <lightyen0123@gmail.com>"
   },

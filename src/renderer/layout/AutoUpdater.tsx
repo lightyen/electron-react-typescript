@@ -15,7 +15,7 @@ const variants: Variants = {
 const AutoUpdater: React.FC = () => {
 	const downloaded = useSelector(state => state.app.update_downloaded)
 	const version = useSelector(state => state.app.update_version)
-	const { updateApp } = useAction().app
+	const { updateAppAndRestart } = useAction().app
 	const [isOpen, setOpen] = React.useState(downloaded)
 	React.useEffect(() => {
 		downloaded && setOpen(downloaded)
@@ -36,7 +36,7 @@ const AutoUpdater: React.FC = () => {
 						<FormattedMessage id="update.available" values={{ version }} />
 					</p>
 					<div>
-						<button className="btn btn-blue select-none" onClick={() => updateApp()}>
+						<button className="btn btn-blue select-none" onClick={() => updateAppAndRestart()}>
 							<FormattedMessage id="update.restart" />
 						</button>
 						<button className="btn btn-blue ml-3 select-none" onClick={() => setOpen(false)}>

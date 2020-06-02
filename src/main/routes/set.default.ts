@@ -1,9 +1,5 @@
 import { storage } from "~/store"
+import { setDefaultBackgroundColor, setDefaultAutoUpdate } from "shared/ipc"
 
-export const setBackgroundColor = (_, color: string) => {
-	storage.set("backgroundColor", color)
-}
-
-export const setAutoUpdate = (_, enable: boolean) => {
-	storage.set("autoUpdate", enable)
-}
+setDefaultBackgroundColor.on((_, color) => storage.set("backgroundColor", color))
+setDefaultAutoUpdate.on((_, enable) => storage.set("autoUpdate", enable))

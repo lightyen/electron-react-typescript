@@ -1,13 +1,14 @@
 import React from "react"
 import Back from "~/components/Back"
-import { request } from "~/ipc"
 import { useSelector } from "~/store"
+import { appLogs } from "shared/ipc"
 
 const Page: React.FC = () => {
 	const color = useSelector(state => state.theme.textColor)
 	const [log, setLog] = React.useState("")
 	React.useEffect(() => {
-		request<string>("get.log")
+		appLogs
+			.invoke()
 			.then(data => setLog(data))
 			.catch(err => setLog(JSON.stringify(err, null, 2)))
 	}, [])

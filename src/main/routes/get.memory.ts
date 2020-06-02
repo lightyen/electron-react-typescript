@@ -1,8 +1,7 @@
 import os from "os"
+import { memoryUsage } from "shared/ipc"
 
-export const getMemory = () => {
-	return {
-		free: os.freemem(),
-		total: os.totalmem(),
-	}
-}
+memoryUsage.handle(() => ({
+	free: os.freemem(),
+	total: os.totalmem(),
+}))

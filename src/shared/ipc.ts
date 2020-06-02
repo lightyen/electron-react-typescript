@@ -1,59 +1,29 @@
-import { serializeError } from "serialize-error"
+import { createIPC } from "./index"
+import type { Versions, AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "./model"
+import type { OpenDialogOptions, OpenDialogReturnValue } from "electron"
 
-interface ReturnPayload<T = unknown> {
-	data?: T
-	error?: Error
-}
+export const appVersions = createIPC<null, Versions>("get.versions")
+export const appPaths = createIPC<null, AppPaths>("get.appPaths")
+export const cpuInfo = createIPC<null, CPUInfo>("get.cpu")
+export const memoryUsage = createIPC<null, SystemMemoryInfo>("get.memory.usage")
+export const appLogs = createIPC<null, string>("get.app.logs")
 
-const MainNotFoundError = new Error("not support in main process!")
-const RendererNotFoundError = new Error("not support in renderer process!")
+// window
+export const windowClose = createIPC("window.close")
+export const windowMaximize = createIPC("window.maximize")
+export const windowMinimize = createIPC("window.minimize")
+export const windowRestore = createIPC("window.restore")
+export const windowIsMaximized = createIPC<boolean, boolean>("window.ismaximized")
+export const windowFullscreen = createIPC<boolean, boolean>("window.fullscreen")
 
-const pubsub = ".pub/sub"
-const reqres = ".req/res"
+// app auto-update
+export const updateAndRestart = createIPC("auto-update.restart")
+export const autoUpdateDownloaded = createIPC<AutoUpdateInfo, AutoUpdateInfo>("auto-update.downloaded")
 
-export function createIPC<Payload = unknown, Return = unknown>(channel: string) {
-	if (channel == undefined || channel == "") throw new Error("invalid channel name!")
+export const openFolder = createIPC<string>("open.item.folder")
+export const openFolderDialog = createIPC<OpenDialogOptions, OpenDialogReturnValue & { files: string[] }>(
+	"open.dialog.folder",
+)
 
-	return {
-		on(callback: (payload?: Payload) => Promise<void> | void) {
-			if (globalThis.electron?.ipcRenderer) {
-				throw RendererNotFoundError
-			}
-			return globalThis.ipcMain?.on(channel + pubsub, async (_, payload) => {
-				try {
-					await callback(payload)
-				} catch (err) {
-					const error = serializeError(err)
-					globalThis.log.error(error)
-				}
-			})
-		},
-		send(payload?: Payload) {
-			if (globalThis.ipcMain) {
-				throw MainNotFoundError
-			}
-			return globalThis.electron?.ipcRenderer?.send(channel + pubsub, payload)
-		},
-		handle(callback: (payload?: Payload) => Promise<Return> | Return) {
-			if (globalThis.electron?.ipcRenderer) {
-				throw RendererNotFoundError
-			}
-			return globalThis.ipcMain?.handle(channel + reqres, async (_, payload) => {
-				try {
-					const data = await callback(payload)
-					return { data }
-				} catch (err) {
-					const error = serializeError(err)
-					globalThis.log.error(error)
-					return { error }
-				}
-			})
-		},
-		invoke(payload?: Payload): Promise<ReturnPayload<Return>> {
-			if (globalThis.ipcMain) {
-				throw MainNotFoundError
-			}
-			return globalThis.electron?.ipcRenderer?.invoke(channel + reqres, payload)
-		},
-	}
-}
+export const setDefaultBackgroundColor = createIPC<string>("set.default.backgroundColor")
+export const setDefaultAutoUpdate = createIPC<boolean>("set.default.autoUpdate")

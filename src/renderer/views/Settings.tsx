@@ -5,8 +5,8 @@ import { useSelector, useAction } from "~/store"
 import { languageNames } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
-import { send } from "~/ipc"
 import styled from "styled-components"
+import { openFolder } from "shared/ipc"
 
 interface OptionType {
 	label: string
@@ -115,7 +115,7 @@ const AppPaths: React.FC = () => {
 						<td
 							className="border px-4 py-2 border-gray-400 cursor-pointer"
 							onClick={() => {
-								send("show.folder", paths[k])
+								openFolder.send(paths[k])
 							}}
 						>
 							{paths[k]}

@@ -1,5 +1,5 @@
 /* eslint-disable no-var */
-import type { IpcRenderer, IpcMain, Shell } from "electron"
+import type { IpcRenderer, IpcMain, Shell, BrowserWindow } from "electron"
 import type { LogFunctions } from "electron-log"
 declare global {
 	interface _Renderer {
@@ -9,6 +9,7 @@ declare global {
 
 	interface _Main {
 		ipcMain: IpcMain
+		BrowserWindow: BrowserWindow
 		log: LogFunctions
 	}
 
@@ -23,8 +24,7 @@ declare global {
 	}
 
 	namespace globalThis {
-		declare var electron: _Renderer
-		declare var ipcMain: IpcMain
+		declare var electron: _Renderer & _Main
 		declare var log: LogFunctions
 	}
 }

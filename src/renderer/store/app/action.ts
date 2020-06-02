@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit"
-import { AppPaths, CPUInfo, SystemMemoryInfo, UpdateInfo } from "./model"
-import { Versions } from "@/model"
-import { request } from "~/ipc"
+import { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "shared/model"
+import { Versions } from "shared/model"
+import { windowClose, windowMaximize, windowMinimize, windowRestore, updateAndRestart } from "shared/ipc"
 
 export const titlebarHideS = createAction<{ hide: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
 export const getAppVersion = createAction("GET_APP_VERSION_REQUEST")
@@ -12,23 +12,28 @@ export const getCpuUsage = createAction("GET_APP_CPU_USAGE_REQUEST")
 export const getCpuUsageS = createAction<{ usage: CPUInfo }>("GET_APP_CPU_USAGE_SUCCESS")
 export const getSystemMemoryInfo = createAction("GET_APP_SYSTEM_MEMORY_REQUEST")
 export const getSystemMemoryInfoS = createAction<{ usage: SystemMemoryInfo }>("GET_APP_SYSTEM_MEMORY_SUCCESS")
-export const updateApp = createAction("AUTO_UPDATE_RESTART")
-export const updateAppS = createAction<{ info: UpdateInfo }>("AUTO_UPDATE_DOWNLOADED")
+
+export const updateAppAndRestart = createAction("AUTO_UPDATE_RESTART", () => {
+	updateAndRestart.send()
+	return { payload: {} }
+})
+
+export const appNewVersion = createAction<{ info: AutoUpdateInfo }>("AUTO_UPDATE_DOWNLOADED")
 
 export const window_close = createAction("window.close", () => {
-	request("window.close")
+	windowClose.send()
 	return { payload: {} }
 })
 export const window_maximize = createAction("window.maximize", () => {
-	request("window.maximize")
+	windowMaximize.send()
 	return { payload: {} }
 })
 export const window_minimize = createAction("window.minimize", () => {
-	request("window.minimize")
+	windowMinimize.send()
 	return { payload: {} }
 })
 export const window_restore = createAction("window.restore", () => {
-	request("window.restore")
+	windowRestore.send()
 	return { payload: {} }
 })
 
@@ -39,7 +44,7 @@ export default {
 	getAppPaths,
 	getCpuUsage,
 	getSystemMemoryInfo,
-	updateApp,
+	updateAppAndRestart,
 	window_close,
 	window_maximize,
 	window_minimize,

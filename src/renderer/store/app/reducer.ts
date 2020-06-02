@@ -1,13 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { SystemMemoryInfo, AppPaths } from "./model"
-import { Versions } from "@/model"
+import { SystemMemoryInfo, AppPaths } from "shared/model"
+import { Versions } from "shared/model"
 import {
 	titlebarHideS,
 	getAppVersionS,
 	getAppPathsS,
 	getCpuUsageS,
 	getSystemMemoryInfoS,
-	updateAppS,
+	appNewVersion,
 	windowMaximized,
 } from "./action"
 
@@ -66,7 +66,7 @@ export const app = createReducer(init, builder =>
 			state.cpuusage = load.user + load.sys + load.nice + load.irq
 		})
 		.addCase(getSystemMemoryInfoS, (s, { payload }) => ({ ...s, memory: payload.usage }))
-		.addCase(updateAppS, (s, { payload: { info } }) => ({
+		.addCase(appNewVersion, (s, { payload: { info } }) => ({
 			...s,
 			update_downloaded: true,
 			update_version: info.version,

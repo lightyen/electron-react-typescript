@@ -1,9 +1,4 @@
-import { ipcChannel } from "~/store/saga"
-import { request } from "~/ipc"
-import { put, take, fork, call, takeEvery, takeLeading } from "redux-saga/effects"
-
-import { chVersions } from "@/channels"
-
+import { put, take, fork, call, takeEvery } from "redux-saga/effects"
 import {
 	titlebarHideS,
 	getAppVersion,
@@ -11,18 +6,26 @@ import {
 	getAppPathsS,
 	getCpuUsageS,
 	getSystemMemoryInfoS,
-	updateAppS,
+	appNewVersion,
 	windowMaximized,
 	getAppPaths,
 	getCpuUsage,
 	getSystemMemoryInfo,
-	updateApp,
 } from "./action"
-import { UpdateInfo } from "./model"
+
+import {
+	appVersions,
+	autoUpdateDownloaded,
+	windowIsMaximized,
+	windowFullscreen,
+	appPaths,
+	cpuInfo,
+	memoryUsage,
+} from "shared/ipc"
 
 function* _getAppVersion() {
 	try {
-		const { data: versions } = yield call(chVersions.invoke)
+		const versions = yield call(appVersions.invoke)
 		yield put(getAppVersionS({ versions }))
 	} catch (e) {
 		// do nothing
@@ -31,7 +34,7 @@ function* _getAppVersion() {
 
 function* _getAppPaths() {
 	try {
-		const paths = yield call(request, "get.paths")
+		const paths = yield call(appPaths.invoke)
 		yield put(getAppPathsS({ paths }))
 	} catch (e) {
 		// do nothing
@@ -40,7 +43,7 @@ function* _getAppPaths() {
 
 function* _getCPUUsage() {
 	try {
-		const usage = yield call(request, "get.cpuusage")
+		const usage = yield call(cpuInfo.invoke)
 		yield put(getCpuUsageS({ usage }))
 	} catch (e) {
 		// do nothing
@@ -49,7 +52,7 @@ function* _getCPUUsage() {
 
 function* _getSystemMemory() {
 	try {
-		const usage = yield call(request, "get.memory")
+		const usage = yield call(memoryUsage.invoke)
 		yield put(getSystemMemoryInfoS({ usage }))
 	} catch (e) {
 		// do nothing
@@ -57,7 +60,7 @@ function* _getSystemMemory() {
 }
 
 function* subscribeWindowFullScreen() {
-	const chan = yield ipcChannel("window.fullscreen")
+	const chan = yield windowFullscreen.sagaEventChannel()
 	while (true) {
 		const isFullScreen: boolean = yield take(chan)
 		yield put(titlebarHideS({ hide: isFullScreen }))
@@ -65,24 +68,16 @@ function* subscribeWindowFullScreen() {
 }
 
 function* subscribeUpdateDownloaded() {
-	const chan = yield ipcChannel("update-downloaded")
-	const info: UpdateInfo = yield take(chan)
-	yield put(updateAppS({ info }))
-}
-
-function* updateRestart() {
-	try {
-		yield call(request, "update-restart")
-	} catch (e) {
-		// do nothing
-	}
+	const chan = yield autoUpdateDownloaded.sagaEventChannel()
+	const info = yield take(chan)
+	yield put(appNewVersion({ info }))
 }
 
 function* subscribeWindowMaximized() {
-	const maximized = yield call(request, "window.maximized")
-	yield put(windowMaximized({ maximized }))
+	const { data } = yield call(windowIsMaximized.invoke)
+	yield put(windowMaximized({ maximized: data }))
 
-	const chan = yield ipcChannel("window.maximized")
+	const chan = yield windowIsMaximized.sagaEventChannel()
 	while (true) {
 		const maximized = yield take(chan)
 		yield put(windowMaximized({ maximized }))
@@ -94,7 +89,6 @@ export default function* sagas() {
 	yield takeEvery(getAppPaths.type, _getAppPaths)
 	yield takeEvery(getCpuUsage.type, _getCPUUsage)
 	yield takeEvery(getSystemMemoryInfo.type, _getSystemMemory)
-	yield takeLeading(updateApp.type, updateRestart)
 	yield fork(subscribeUpdateDownloaded)
 	yield fork(subscribeWindowFullScreen)
 	yield fork(subscribeWindowMaximized)

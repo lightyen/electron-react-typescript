@@ -7,6 +7,7 @@ import { MainWindow } from "~/window"
 import { storage } from "~/store"
 import { isDev } from "~/is"
 import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
+import { updateAndRestart, autoUpdateDownloaded } from "shared/ipc"
 
 export let mainWindow: Electron.BrowserWindow
 
@@ -35,9 +36,9 @@ Electron.app.on("ready", () => {
 	autoUpdater.on("update-downloaded", info => {
 		downloaded = true
 		const { version, releaseDate, sha512 } = info
-		mainWindow?.webContents.send("update-downloaded", { data: { version, sha512, releaseDate } })
+		autoUpdateDownloaded.sendWithWebContents(mainWindow.webContents, { version, sha512, releaseDate })
 	})
-	Electron.ipcMain.on("update-restart", () => {
+	updateAndRestart.on(() => {
 		if (downloaded) {
 			autoUpdater.quitAndInstall()
 		}

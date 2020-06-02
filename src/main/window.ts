@@ -2,13 +2,13 @@ import Electron from "electron"
 import url from "url"
 import path from "path"
 
-import { send } from "~/ipc"
 import { appPath, appName } from "~/const"
 import { isDev } from "~/is"
 
 import { newMenu } from "~/menu"
 import { storage } from "~/store"
-import { router } from "~/routes"
+import { windowIsMaximized } from "shared/ipc"
+import "~/routes"
 
 export class MainWindow extends Electron.BrowserWindow {
 	constructor() {
@@ -32,10 +32,8 @@ export class MainWindow extends Electron.BrowserWindow {
 		})
 		this.setMenuBarVisibility(false)
 		newMenu()
-		router()
-
-		this.on("maximize", () => send("window.maximized", true, this.webContents))
-		this.on("unmaximize", () => send("window.maximized", false, this.webContents))
+		this.on("maximize", () => windowIsMaximized.sendWithWebContents(this.webContents, true))
+		this.on("unmaximize", () => windowIsMaximized.sendWithWebContents(this.webContents, false))
 		this.on("show", () => {
 			if (!this.isMaximized()) {
 				const width = 1080

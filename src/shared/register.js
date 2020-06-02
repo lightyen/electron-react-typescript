@@ -1,2 +1,2 @@
-global.ipcMain = require("electron").ipcMain
+global.electron = require("electron")
 global.log = require("electron-log")

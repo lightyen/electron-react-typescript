@@ -1,6 +1,6 @@
 import Electron from "electron"
-import { send } from "~/ipc"
 import { isDev } from "./is"
+import { windowFullscreen } from "shared/ipc"
 
 /**
  * https://electronjs.org/docs/api/accelerator
@@ -40,10 +40,10 @@ export function newMenu() {
 					accelerator: "F11",
 					click: (item, w) => {
 						if (w.isFullScreen()) {
-							send("window.fullscreen", false, w.webContents)
+							windowFullscreen.sendWithWebContents(w.webContents, false)
 							w.setFullScreen(false)
 						} else {
-							send("window.fullscreen", true, w.webContents)
+							windowFullscreen.sendWithWebContents(w.webContents, true)
 							w.setFullScreen(true)
 						}
 					},

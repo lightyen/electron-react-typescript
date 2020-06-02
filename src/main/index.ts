@@ -1,2 +1,2 @@
-require("@/register")
+import "shared/register"
 import "~/app"
