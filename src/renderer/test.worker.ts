@@ -1,4 +1,4 @@
-import type { WebWorker } from "./typings/type"
+import type { WebWorker } from "./typings/worker"
 export default {} as WebWorker
 
 const webWorker = (self as unknown) as DedicatedWorkerGlobalScope

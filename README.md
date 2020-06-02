@@ -1,8 +1,8 @@
 # electron-react-typescript
 
-這是一個關於使用 typescript 開發 electron & react 的範本，一個自主學習的產出範例，供打發時間時使用
+這是一個關於使用 typescript 開發 electron & react 的範例，一個自主學習的產出範例，供我打發時間時使用。
 
-整合其他功能，例如：webpack, react-hot-loader, electron-builder 等等
+包含其他常見工具，例如：webpack, react-hot-loader, electron-builder 等等
 
 ## 開發環境
 
@@ -15,15 +15,16 @@
 <a href="https://yarnpkg.com">
 <img src="https://raw.githubusercontent.com/yarnpkg/assets/master/yarn-kitten-full.png" alt="yarn-img" width="15%"/></a>
 
-## 安裝完後檢查環境是否正確運作
+## Prepare
 
 ```sh
+# Make sure you update the latest version
 code -v
 node -v
 yarn -v
 ```
 
-## 如何開始
+## Getting Started
 
 ```sh
 # clone this repo
@@ -63,7 +64,7 @@ yarn build
 ## 問題
 
 - React Devtools 在 electron 環境安裝/卸載仍存在許多問題
-- 關聯 vscode 內置 debug 工具仍存在許多問題
+- 連動 vscode 內置除錯工具仍存在許多問題
 
 ## 其他參考
 

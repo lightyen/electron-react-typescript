@@ -21,7 +21,7 @@ zhTW.formatLong.date = buildFormatLongFn({
 })
 
 function getCurrentLanguage() {
-	const result = localStorage.getItem("language")
+	const result = localStorage.getItem("locale")
 	if (result) {
 		return result
 	}

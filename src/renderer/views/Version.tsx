@@ -6,6 +6,9 @@ import Back from "~/components/Back"
 import { useSelector } from "~/store"
 import { useScrollBarSource } from "~/components/ScrollBar"
 
+import { useInView } from "react-intersection-observer"
+import { openFolderDialog } from "shared/ipc"
+
 const Page: React.FC = () => {
 	const textColor = useSelector(state => state.theme.textColor)
 	const [text, setText] = React.useState("")
@@ -57,9 +60,6 @@ const Page: React.FC = () => {
 		</div>
 	)
 }
-
-import { useInView } from "react-intersection-observer"
-import { openFolderDialog } from "~/../shared/ipc"
 
 const IntersectTarget: React.FC = () => {
 	const root = useScrollBarSource()
