@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import type { IpcRenderer, IpcMain, Shell } from "electron"
 import type { LogFunctions } from "electron-log"
 declare global {
@@ -17,8 +18,13 @@ declare global {
 
 	namespace NodeJS {
 		interface Global {
-			window: Window
 			electron: _Main
 		}
+	}
+
+	namespace globalThis {
+		declare var electron: _Renderer
+		declare var ipcMain: IpcMain
+		declare var log: LogFunctions
 	}
 }

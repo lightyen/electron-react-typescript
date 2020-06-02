@@ -22,9 +22,7 @@ import { UpdateInfo } from "./model"
 
 function* _getAppVersion() {
 	try {
-		console.log("saga get version")
-		const { data: versions } = yield call([chVersions, chVersions._invoke])
-		console.log("saga get version:", versions)
+		const { data: versions } = yield call(chVersions.invoke)
 		yield put(getAppVersionS({ versions }))
 	} catch (e) {
 		// do nothing

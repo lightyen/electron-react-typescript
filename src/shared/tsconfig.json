@@ -14,8 +14,6 @@
     "allowJs": true,
     "noEmit": true,
     "noImplicitAny": false,
-    "skipLibCheck": true,
-    "typeRoots": ["./typings"],
-    "lib": ["esnext", "dom", "webworker"]
+    "skipLibCheck": true
   }
 }

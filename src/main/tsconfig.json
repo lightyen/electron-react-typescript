@@ -13,5 +13,6 @@
       "~/*": ["./*"],
       "@/*": ["../shared/*"]
     }
-  }
+  },
+  "include": ["./**/*", "../shared/typings/electron.d.ts"]
 }

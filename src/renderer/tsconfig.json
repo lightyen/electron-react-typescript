@@ -16,5 +16,6 @@
       "@/*": ["../shared/*"],
       "assets/*": ["../../assets/*"]
     }
-  }
+  },
+  "include": ["./**/*", "../shared/typings/electron.d.ts"]
 }
