@@ -111,6 +111,9 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			webContents.send(channel + pubsub, { data: payload })
 		},
 		sagaEventChannel() {
+			if (globalThis.electron.ipcMain) {
+				throw MainNotSupportError
+			}
 			return eventChannel(emitter => {
 				const callback: SubscribeCallBack = (_, res) => {
 					if (Object.prototype.hasOwnProperty.call(res, "error")) {
@@ -121,7 +124,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 						emitter(res.data)
 						return
 					}
-					console.error("Unexpected response format:", JSON.stringify(res))
+					globalThis.electron.log.error("Unexpected response format:", JSON.stringify(res))
 				}
 				globalThis.electron.ipcRenderer?.on(channel + pubsub, callback)
 				return () => globalThis.electron.ipcRenderer?.removeListener(channel + pubsub, callback)
