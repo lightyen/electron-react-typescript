@@ -1,4 +1,4 @@
-import { createIPC } from "./index"
+import createIPC from "./createIPC"
 import type { Versions, AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "./model"
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron"
 

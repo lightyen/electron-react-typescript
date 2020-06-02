@@ -24,7 +24,7 @@ const Page: React.FC = () => {
 								title: "Select a folder",
 								properties: ["openDirectory"],
 							})
-							setText(filePaths[0])
+							setText(filePaths.length > 0 ? filePaths[0] : "")
 						}}
 					>
 						Open Dialog

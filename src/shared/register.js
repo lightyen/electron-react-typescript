@@ -1,2 +1,2 @@
 global.electron = require("electron")
-global.log = require("electron-log")
+global.electron.log = require("electron-log")

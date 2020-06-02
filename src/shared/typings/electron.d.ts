@@ -1,30 +1,30 @@
 /* eslint-disable no-var */
 import type { IpcRenderer, IpcMain, Shell, BrowserWindow } from "electron"
-import type { LogFunctions } from "electron-log"
+import type { ElectronLog } from "electron-log"
 declare global {
-	interface _Renderer {
+	interface Renderer {
 		ipcRenderer: IpcRenderer
 		shell: Shell
 	}
 
-	interface _Main {
+	interface Main {
 		ipcMain: IpcMain
 		BrowserWindow: BrowserWindow
-		log: LogFunctions
+		log: ElectronLog
 	}
 
 	interface Window {
-		electron: _Renderer
+		electron: Renderer
 	}
 
 	namespace NodeJS {
 		interface Global {
-			electron: _Main
+			electron: Main
 		}
 	}
 
 	namespace globalThis {
-		declare var electron: _Renderer & _Main
+		declare var electron: Renderer & Main
 		declare var log: LogFunctions
 	}
 }
