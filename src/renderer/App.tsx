@@ -4,7 +4,6 @@ import LanguageProvider from "~/LanguageProvider"
 import AppContainer from "~/layout/AppContainer"
 import { makeStore } from "~/store"
 
-import "~/scss/styles.scss"
 import "~/css/styles.css"
 
 export default function App() {

@@ -1,3 +1,13 @@
 .trans {
 	transition: all ease 0.16s;
 }
+
+@font-face {
+	font-family: Fira Code;
+	/* https://github.com/webpack-contrib/sass-loader#resolving-import-at-rules */
+	src: local("Fira Code"), url(~assets/fonts/FiraCode-Regular.woff2);
+}
+
+body {
+	overflow: hidden;
+}

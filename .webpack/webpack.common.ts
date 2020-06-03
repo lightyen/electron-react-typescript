@@ -139,61 +139,11 @@ export default function (): Configuration {
 						"postcss-loader",
 					],
 				},
-				{
-					exclude: /node_modules/,
-					test: /\.less$/,
-					use: [
-						styleLoader,
-						{
-							loader: "css-loader",
-							options: {
-								url: true,
-								modules: true,
-								camelCase: "only",
-								localIdentName: "[local]-[hash:base64:6]",
-								importLoaders: 2,
-							},
-						},
-						"postcss-loader",
-						"less-loader",
-					],
-				},
-				{
-					exclude: /node_modules/,
-					test: /\.s(a|c)ss$/,
-					use: [
-						styleLoader,
-						{
-							loader: "css-loader",
-							options: {
-								url: true,
-								sourceMap: true,
-							},
-						},
-						"postcss-loader",
-						{
-							loader: "sass-loader",
-							options: {
-								sourceMap: true,
-							},
-						},
-					],
-				},
 				// For node_modules:
 				{
 					include: /node_modules/,
 					test: /.css$/,
 					use: [styleLoader, "css-loader", "postcss-loader"],
-				},
-				{
-					include: /node_modules/,
-					test: /\.less$/,
-					use: [styleLoader, "css-loader", "postcss-loader", "less-loader"],
-				},
-				{
-					include: /node_modules/,
-					test: /\.s(a|c)ss$/,
-					use: [styleLoader, "css-loader", "postcss-loader", "sass-loader"],
 				},
 			],
 		},
