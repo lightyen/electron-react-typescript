@@ -21,7 +21,7 @@ export const updateAndRestart = createIPC("auto-update.restart")
 export const autoUpdateDownloaded = createIPC<AutoUpdateInfo, AutoUpdateInfo>("auto-update.downloaded")
 
 export const openFolder = createIPC<string>("open.item.folder")
-export const openFolderDialog = createIPC<OpenDialogOptions, OpenDialogReturnValue & { files: string[] }>(
+export const openFolderDialog = createIPC<OpenDialogOptions, Partial<OpenDialogReturnValue & { files: string[] }>>(
 	"open.dialog.folder",
 )
 
