@@ -1,8 +1,7 @@
-import { mainWindow } from "~/app"
 import { windowClose, windowMaximize, windowMinimize, windowRestore, windowIsMaximized } from "shared/ipc"
 
-windowClose.on(() => mainWindow.close())
-windowMaximize.on(() => mainWindow.maximize())
-windowMinimize.on(() => mainWindow.minimize())
-windowRestore.on(() => mainWindow.restore())
-windowIsMaximized.handle(() => mainWindow.isMaximized())
+windowClose.on(() => global.mainWindow.close())
+windowMaximize.on(() => global.mainWindow.maximize())
+windowMinimize.on(() => global.mainWindow.minimize())
+windowRestore.on(() => global.mainWindow.restore())
+windowIsMaximized.handle(() => global.mainWindow.isMaximized())

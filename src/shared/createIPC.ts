@@ -8,8 +8,10 @@ interface ReturnPayload<T = unknown> {
 	error?: Error
 }
 
-const MainNotSupportError = new Error("not support in main process!")
-const RendererNotSupportError = new Error("not support in renderer process!")
+const MainNotSupportError = (channel: string, method: string) =>
+	new Error(`[${channel}].${method}() not support in main process!`)
+const RendererNotSupportError = (channel: string, method: string) =>
+	new Error(`[${channel}].${method}() not support in renderer process!`)
 
 const pubsub = ".pub/sub"
 const reqres = ".req/res"
@@ -32,7 +34,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 */
 		on(listener: (event: IpcMainEvent, payload?: Payload) => Promise<void> | void) {
 			if (globalThis.electron.ipcRenderer) {
-				throw RendererNotSupportError
+				throw RendererNotSupportError(channel, "on")
 			}
 			globalThis.electron.ipcMain?.on(channel + pubsub, async (event, payload) => {
 				try {
@@ -55,7 +57,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 */
 		send(payload?: Payload) {
 			if (globalThis.electron.ipcMain) {
-				throw MainNotSupportError
+				throw MainNotSupportError(channel, "send")
 			}
 			globalThis.electron.ipcRenderer?.send(channel + pubsub, payload)
 		},
@@ -73,7 +75,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 */
 		handle(listener: (event: IpcMainInvokeEvent, payload?: Payload) => Promise<Return> | Return) {
 			if (globalThis.electron.ipcRenderer) {
-				throw RendererNotSupportError
+				throw RendererNotSupportError(channel, "handle")
 			}
 			globalThis.electron.ipcMain?.handle(
 				channel + reqres,
@@ -104,7 +106,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 */
 		async invoke(payload?: Payload): Promise<Return> {
 			if (globalThis.electron.ipcMain) {
-				throw MainNotSupportError
+				throw MainNotSupportError(channel, "invoke")
 			}
 			const { data, error } = await globalThis.electron.ipcRenderer?.invoke(channel + reqres, payload)
 			if (error) {
@@ -115,13 +117,13 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 
 		sendWithWebContents(webContents: WebContents, payload?: Payload) {
 			if (globalThis.electron.ipcRenderer) {
-				throw RendererNotSupportError
+				throw RendererNotSupportError(channel, "sendWithWebContents")
 			}
 			webContents.send(channel + pubsub, { data: payload })
 		},
 		sagaEventChannel() {
 			if (globalThis.electron.ipcMain) {
-				throw MainNotSupportError
+				throw MainNotSupportError(channel, "sagaEventChannel")
 			}
 			return eventChannel(emitter => {
 				const callback = (e: IpcRendererEvent, res: ReturnPayload) => {

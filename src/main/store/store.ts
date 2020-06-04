@@ -1,17 +1,3 @@
-import ElectronStore from "electron-store"
-
-interface StoreType {
-	autoUpdate: boolean
-	backgroundColor: string
-}
-
-export const storage = new ElectronStore<StoreType>({
-	defaults: {
-		autoUpdate: false,
-		backgroundColor: "#1a202c",
-	},
-})
-
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import { AppStore, app } from "./app/reducer"
 import createSagaMiddleware from "redux-saga"
