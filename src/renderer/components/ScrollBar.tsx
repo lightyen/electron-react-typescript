@@ -12,14 +12,6 @@ interface ScrollBarProps {
 
 // https://css-tricks.com/custom-scrollbars-in-webkit/
 const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "black", ...props }))<ScrollBarProps>`
-	color: transparent;
-	transition: color 0.6s ease;
-	overflow-x: hidden;
-	overflow-y: scroll;
-
-	box-sizing: border-box;
-	height: calc(100vh - 30px);
-
 	&::-webkit-scrollbar {
 		width: ${({ width, padding }) => width + padding * 2}px;
 		height: ${({ width, padding }) => width + padding * 2}px;
@@ -55,7 +47,7 @@ const CustomScrollBar: React.FC = ({ children, ...rest }) => {
 	}, [])
 
 	return (
-		<ScrollBar ref={ref} color={color} {...rest}>
+		<ScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
 			{target && <ScrollBarContext.Provider value={target}>{children}</ScrollBarContext.Provider>}
 		</ScrollBar>
 	)

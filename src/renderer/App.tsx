@@ -1,7 +1,7 @@
 import React from "react"
 import { Provider } from "react-redux"
 import LanguageProvider from "~/LanguageProvider"
-import AppContainer from "~/layout/AppContainer"
+import AppLayout from "~/layout/AppLayout"
 import { makeStore } from "~/store"
 
 import "~/css/styles.css"
@@ -11,7 +11,7 @@ export default function App() {
 		<React.StrictMode>
 			<Provider store={makeStore()}>
 				<LanguageProvider>
-					<AppContainer />
+					<AppLayout />
 				</LanguageProvider>
 			</Provider>
 		</React.StrictMode>

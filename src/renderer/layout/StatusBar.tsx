@@ -14,12 +14,20 @@ const Bar = styled.div`
 
 const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 	const theme = useSelector(state => state.theme)
+
+	if (hide) {
+		document.documentElement.style.setProperty("--footer-height", "0px")
+	} else {
+		document.documentElement.style.setProperty("--footer-height", "32px")
+	}
+
 	return (
 		!hide && (
 			<Bar
+				className="app-footer"
 				textColor={theme.textColor}
 				background={theme.primaryColor}
-				style={{ userSelect: "none", padding: "0.5rem" }}
+				style={{ userSelect: "none" }}
 			>
 				<BarContent />
 			</Bar>
@@ -62,7 +70,7 @@ const BarContent: React.FC = () => {
 		return `${n.toFixed(1)} GB`
 	}
 	return (
-		<div style={{ display: "flex" }}>
+		<div className="px-3 py-1 flex">
 			<div style={{ width: "50%" }}>{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>
 			<div style={{ width: "50%" }}>
 				{memory.free

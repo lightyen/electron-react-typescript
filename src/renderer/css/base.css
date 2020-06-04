@@ -1,4 +1,8 @@
-.trans {
+@import "./var.css";
+@import "./titlebar.css";
+@import "./layout.css";
+
+.transition-all {
 	transition: all ease 0.16s;
 }
 
@@ -9,5 +13,8 @@
 }
 
 body {
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
 	overflow: hidden;
 }
