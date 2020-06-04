@@ -16,8 +16,16 @@ const RendererNotSupportError = new Error("not support in renderer process!")
 const pubsub = ".pub/sub"
 const reqres = ".req/res"
 
+const channelSet = new Set<string>()
+
 export default function createIPC<Payload = unknown, Return = unknown>(channel: string) {
-	if (channel == undefined || channel == "") throw new Error("invalid channel name!")
+	if (channel == undefined || channel == "") {
+		throw new Error("invalid channel name!")
+	}
+	if (channelSet.has(channel)) {
+		throw new Error("channel name is duplicate!")
+	}
+	channelSet.add(channel)
 
 	return {
 		/**
