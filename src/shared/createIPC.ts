@@ -8,8 +8,6 @@ interface ReturnPayload<T = unknown> {
 	error?: Error
 }
 
-type SubscribeCallBack<T = unknown> = (e: IpcRendererEvent, res: ReturnPayload<T>) => void
-
 const MainNotSupportError = new Error("not support in main process!")
 const RendererNotSupportError = new Error("not support in renderer process!")
 
@@ -36,7 +34,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			if (globalThis.electron.ipcRenderer) {
 				throw RendererNotSupportError
 			}
-			return globalThis.electron.ipcMain?.on(channel + pubsub, async (event, payload) => {
+			globalThis.electron.ipcMain?.on(channel + pubsub, async (event, payload) => {
 				try {
 					await listener(event, payload)
 				} catch (err) {
@@ -59,7 +57,7 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			if (globalThis.electron.ipcMain) {
 				throw MainNotSupportError
 			}
-			return globalThis.electron.ipcRenderer?.send(channel + pubsub, payload)
+			globalThis.electron.ipcRenderer?.send(channel + pubsub, payload)
 		},
 		/**
 		 * Adds a handler for an `invoke`able IPC. This handler will be called whenever a
@@ -77,16 +75,19 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			if (globalThis.electron.ipcRenderer) {
 				throw RendererNotSupportError
 			}
-			return globalThis.electron.ipcMain?.handle(channel + reqres, async (event, payload) => {
-				try {
-					const data = await listener(event, payload)
-					return { data }
-				} catch (err) {
-					const error = serializeError(err)
-					globalThis.electron.log.error(error)
-					return { error }
-				}
-			})
+			globalThis.electron.ipcMain?.handle(
+				channel + reqres,
+				async (event, payload): Promise<ReturnPayload> => {
+					try {
+						const data = await listener(event, payload)
+						return { data }
+					} catch (err) {
+						const error = serializeError(err)
+						globalThis.electron.log.error(error)
+						return { error }
+					}
+				},
+			)
 		},
 		/**
 		 * Resolves with the response from the main process.
@@ -123,16 +124,16 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 				throw MainNotSupportError
 			}
 			return eventChannel(emitter => {
-				const callback: SubscribeCallBack = (_, res) => {
-					if (Object.prototype.hasOwnProperty.call(res, "error")) {
+				const callback = (e: IpcRendererEvent, res: ReturnPayload) => {
+					if (res.error) {
 						emitter(res.error)
 						return
 					}
-					if (Object.prototype.hasOwnProperty.call(res, "data")) {
+					if (res.data) {
 						emitter(res.data)
 						return
 					}
-					globalThis.electron.log.error("Unexpected response format:", JSON.stringify(res))
+					globalThis.electron.log.error("[%s] Unexpected response format:", channel, JSON.stringify(res))
 				}
 				globalThis.electron.ipcRenderer?.on(channel + pubsub, callback)
 				return () => globalThis.electron.ipcRenderer?.removeListener(channel + pubsub, callback)

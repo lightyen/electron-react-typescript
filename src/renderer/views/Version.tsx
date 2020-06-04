@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
+import { motion } from "framer-motion"
 import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 
@@ -72,9 +73,20 @@ const IntersectTarget: React.FC = () => {
 		}
 	}, [entry])
 	return (
-		<div ref={ref} className={"p-6 mb-24 " + (inView ? "text-gray-100 bg-gray-700" : "text-gray-900 bg-gray-200")}>
-			Target {inView ? "inView" : "outside"}
-		</div>
+		<motion.div
+			ref={ref}
+			className="p-6 mb-24 ml-3 w-40 text-center"
+			initial={{
+				color: "rgb(26, 32, 44)",
+				backgroundColor: "rgb(237, 242, 247)",
+			}}
+			animate={{
+				color: inView ? "rgb(247, 250, 252)" : "rgb(26, 32, 44)",
+				backgroundColor: inView ? "rgb(74, 85, 104)" : "rgb(237, 242, 247)",
+			}}
+		>
+			{inView ? "inView" : "outside"}
+		</motion.div>
 	)
 }
 

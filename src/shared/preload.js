@@ -1,13 +1,15 @@
 const { contextBridge, ipcRenderer, shell } = require("electron")
 
+function ipcRendererExpose(...expose) {
+	const ret = {}
+	for (const name of expose) {
+		ret[name] = (...args) => ipcRenderer[name].apply(ipcRenderer, args)
+	}
+	return ret
+}
+
 contextBridge.exposeInMainWorld("electron", {
-	ipcRenderer: {
-		invoke: (...args) => ipcRenderer.invoke.apply(ipcRenderer, args),
-		on: (...args) => ipcRenderer.on.apply(ipcRenderer, args),
-		addListener: (...args) => ipcRenderer.addListener.apply(ipcRenderer, args),
-		send: (...args) => ipcRenderer.send.apply(ipcRenderer, args),
-		removeListener: (...args) => ipcRenderer.removeListener.apply(ipcRenderer, args),
-	},
+	ipcRenderer: ipcRendererExpose("invoke", "on", "addListener", "send", "removeListener"),
 	shell: {
 		openExternal: (...args) => shell.openExternal.apply(shell, args),
 	},
