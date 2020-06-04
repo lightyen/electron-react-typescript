@@ -125,11 +125,11 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			}
 			return eventChannel(emitter => {
 				const callback = (e: IpcRendererEvent, res: ReturnPayload) => {
-					if (res.error) {
+					if (Object.prototype.hasOwnProperty.call(res, "error")) {
 						emitter(res.error)
 						return
 					}
-					if (res.data) {
+					if (Object.prototype.hasOwnProperty.call(res, "data")) {
 						emitter(res.data)
 						return
 					}

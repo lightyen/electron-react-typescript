@@ -10,7 +10,7 @@
 .titlebar-content {
 	display: flex;
 	position: relative;
-	flex-grow: 1;
+	flex: auto;
 }
 
 .titlebar-drag-region {
@@ -30,7 +30,7 @@
 }
 
 .titlebar-text {
-	flex: 1 1 auto;
+	flex: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -43,18 +43,22 @@
 	zoom: 1;
 }
 
+.titlebar-text-padding-left {
+	flex: 0 0
+		calc((var(--titlebar-height) + var(--titlebar-controls-width)) / 2);
+}
+
 .titlebar-controls {
 	-webkit-app-region: no-drag;
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
 	transition: all ease 0.2s;
-	width: calc(var(--titlebar-height) / 30 * 138);
+	width: var(--titlebar-controls-width);
 }
 .titlebar-control-button {
 	display: flex;
-	height: 100%;
-	width: calc(var(--titlebar-height) / 30 * 46);
+	width: calc(var(--titlebar-controls-width) / 3);
 	justify-content: center;
 	align-items: center;
 	user-select: none;

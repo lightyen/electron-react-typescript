@@ -50,7 +50,7 @@ const TitleBar: React.FC = () => {
 					<img src={icon} alt="appicon" />
 				</div>
 				<div className="titlebar-text">
-					<div style={{ flex: "0 0 65px", height: "100%" }}></div>
+					<div className="titlebar-text-padding-left" />
 					<span>{process.env.APP_NAME}</span>
 				</div>
 			</div>

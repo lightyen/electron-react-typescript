@@ -1,4 +1,5 @@
 :root {
-	--titlebar-height: 32px;
+	--titlebar-height: 30px;
+	--titlebar-controls-width: 138px;
 	--footer-height: 0px;
 }
