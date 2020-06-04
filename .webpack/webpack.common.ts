@@ -39,12 +39,10 @@ export default function (): Configuration {
 			chunkFilename: join_network(outputCSS, "[name].[contenthash:8].chunk.css"),
 		}),
 		new HtmlWebpackPlugin({
-			inject: false,
-			filename: "index.html",
+			inject: true,
 			title: packageJSON.name,
-			minify: false,
-			template: path.join(src, "template", "index.pug"),
-			favicon: path.join(workingDirectory, "assets", "images", "favicon.ico"),
+			minify: true,
+			template: path.join(src, "index.ejs"),
 			isDevelopment,
 		}),
 	]
@@ -85,16 +83,6 @@ export default function (): Configuration {
 
 		module: {
 			rules: [
-				{
-					test: /\.pug$/,
-					include: /template/,
-					use: [
-						{
-							loader: "pug-loader",
-							options: { pretty: true },
-						},
-					],
-				},
 				{
 					test: /\.(png|jpe?g|gif|svg|ico)$/i,
 					use: [

@@ -11,11 +11,16 @@ charset = utf-8
 indent_style = tab
 indent_size = 4
 
-[*.{tsx,ts,jsx,js,html,ejs}]
+[*.{tsx,ts,jsx,js}]
 max_line_length = 120
 
 [*.{scss,less,css}]
 max_line_length = 80
+
+[*.{html,ejs}]
+max_line_length = 80
+indent_style = space
+indent_size = 2
 
 [*.yml]
 indent_style = space
