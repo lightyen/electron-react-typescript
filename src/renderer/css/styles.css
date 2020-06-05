@@ -2,10 +2,11 @@
 /* https://tailwindcss.com/docs/using-with-preprocessors/ */
 
 @import "tailwindcss/base";
-/* @import "./custom-base-styles.css"; */
+@import "./custom/_variables.css";
+@import "/custom/_base.css";
 
 @import "tailwindcss/components";
-@import "./custom-components.css";
+@import "./custom/_components.css";
 
 @import "tailwindcss/utilities";
-/* @import "./custom-utilities.css"; */
+@import "./custom/_utilities.css";

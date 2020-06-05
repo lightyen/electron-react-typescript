@@ -90,9 +90,9 @@ const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
 
 const AppPaths: React.FC = () => {
 	const textColor = useSelector(state => state.theme.textColor)
-	const color1 = useSelector(state => state.theme.primaryHoverColor)
-	const color2 = useSelector(state => state.theme.primaryColor)
-	const color3 = useSelector(state => state.theme.textHoverColor)
+	const oddColor = useSelector(state => state.theme.secondaryColor)
+	const evenColor = useSelector(state => state.theme.primaryColor)
+	const hoverColor = useSelector(state => state.theme.hoverColor)
 	const paths = useSelector(state => state.app.paths)
 	const { getAppPaths } = useAction().app
 
@@ -110,7 +110,12 @@ const AppPaths: React.FC = () => {
 			</thead>
 			<tbody>
 				{Object.keys(paths).map((k, i) => (
-					<TableRow key={k} className="hover:bg-gray-100" color={i % 2 ? color1 : color2} hoverColor={color3}>
+					<TableRow
+						key={k}
+						className="hover:bg-gray-100"
+						color={i % 2 ? oddColor : evenColor}
+						hoverColor={hoverColor}
+					>
 						<td className="border px-4 py-2 border-gray-400">{k}</td>
 						<td
 							className="border px-4 py-2 border-gray-400 cursor-pointer"

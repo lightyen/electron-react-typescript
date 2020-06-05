@@ -1,4 +1,5 @@
-import Electron from "electron"
+import { app, globalShortcut, Menu } from "electron"
+import type { MenuItem, MenuItemConstructorOptions, BrowserWindow } from "electron"
 import { isDev } from "./is"
 import { windowFullscreen } from "shared/ipc"
 
@@ -8,7 +9,7 @@ import { windowFullscreen } from "shared/ipc"
 // NOTE: 可以使用 globalShortcut 模組來偵測鍵盤事件，就算你的應用程式視窗沒有 focus 也能作用。
 function setGlobalShortcut() {
 	if (isDev) {
-		Electron.globalShortcut.register("CmdOrCtrl+G", () => {
+		globalShortcut.register("CmdOrCtrl+G", () => {
 			if (process.platform === "darwin") {
 				console.log("Press Command+G")
 			} else {
@@ -16,22 +17,22 @@ function setGlobalShortcut() {
 			}
 		})
 	}
-	Electron.app.on("will-quit", () => {
+	app.on("will-quit", () => {
 		// 取消訂閱所有快速鍵
-		Electron.globalShortcut.unregisterAll()
+		globalShortcut.unregisterAll()
 	})
 }
 
 export function newMenu() {
 	setGlobalShortcut()
-	const menuTemplate: Electron.MenuItemConstructorOptions[] = [
+	const menuTemplate: MenuItemConstructorOptions[] = [
 		{
 			label: "Help",
 			submenu: [
 				{
 					label: "Toggle Developer Tools",
 					accelerator: "F12",
-					click: (item: Electron.MenuItem, win: Electron.BrowserWindow) => {
+					click: (item: MenuItem, win: BrowserWindow) => {
 						win.webContents.toggleDevTools()
 					},
 				},
@@ -56,6 +57,6 @@ export function newMenu() {
 		menuTemplate.unshift({})
 	}
 
-	const mainMenu: Electron.Menu = Electron.Menu.buildFromTemplate(menuTemplate)
-	Electron.Menu.setApplicationMenu(mainMenu)
+	const mainMenu: Menu = Menu.buildFromTemplate(menuTemplate)
+	Menu.setApplicationMenu(mainMenu)
 }

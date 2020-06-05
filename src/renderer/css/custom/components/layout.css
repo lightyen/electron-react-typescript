@@ -4,11 +4,11 @@
 }
 
 .scrollbar {
+	height: 100%;
 	color: transparent;
-	transition: color ease 0.6s;
+	transition: color 0.6s ease;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	height: 100%;
 }
 
 .app-footer {
@@ -16,5 +16,11 @@
 	bottom: 0;
 	margin-top: 0;
 	width: 100%;
-	height: var(--footer-height);
+	height: calc(var(--footer-height));
+}
+
+@variants hover {
+	.test {
+		transform: rotate(90deg);
+	}
 }

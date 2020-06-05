@@ -2,7 +2,8 @@ import { tailwindcssconfig } from "~/tailwind.config"
 
 export interface Theme {
 	primaryColor: string
-	primaryHoverColor: string
+	secondaryColor: string
+	hoverColor: string
 	dangerColor: string
 	textColor: string
 	textHoverColor: string
@@ -14,7 +15,8 @@ const colors = tailwindcssconfig.theme.colors
 export const themes: { [key: string]: Theme } = {
 	light: {
 		primaryColor: colors.gray[100],
-		primaryHoverColor: colors.gray[300],
+		secondaryColor: colors.gray[200],
+		hoverColor: colors.gray[300],
 		dangerColor: colors.red[400],
 		backgroundColor: colors.gray[100],
 		textColor: colors.gray[800],
@@ -22,7 +24,8 @@ export const themes: { [key: string]: Theme } = {
 	},
 	dark: {
 		primaryColor: colors.gray[900],
-		primaryHoverColor: colors.gray[800],
+		secondaryColor: colors.gray[800],
+		hoverColor: colors.gray[700],
 		dangerColor: colors.red[700],
 		backgroundColor: colors.gray[900],
 		textColor: colors.gray[200],

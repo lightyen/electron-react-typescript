@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useSelector } from "~/store"
 import { FormattedMessage } from "react-intl"
 
-import "./index.css"
+import "./Home.css"
 
 import logo from "assets/images/logo.svg"
 
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 					Learn React
 				</a>
 				<Link to="/version">
-					<button className="btn btn-blue my-2">Version</button>
+					<button className="btn btn-blue my-2 helloworld">Version</button>
 				</Link>
 			</header>
 		</div>

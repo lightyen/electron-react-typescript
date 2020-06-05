@@ -1,4 +1,4 @@
-import Electron from "electron"
+import { BrowserWindow, screen } from "electron"
 import url from "url"
 import path from "path"
 
@@ -11,7 +11,7 @@ import "~/routes"
 
 export function createMainWindow() {
 	const backgroundColor = global.storage.get("backgroundColor") || "#1a202c"
-	const main = new Electron.BrowserWindow({
+	const main = new BrowserWindow({
 		title: appName,
 		show: false,
 		minWidth: 820,
@@ -37,7 +37,7 @@ export function createMainWindow() {
 		if (!main.isMaximized()) {
 			const width = 1080
 			const height = 680
-			const display = Electron.screen.getPrimaryDisplay()
+			const display = screen.getPrimaryDisplay()
 			main.setBounds(
 				{ width, height, x: (display.bounds.width - width) / 2, y: (display.bounds.height - height) / 2 },
 				false,

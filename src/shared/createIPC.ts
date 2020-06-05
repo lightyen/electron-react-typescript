@@ -1,6 +1,5 @@
 import { serializeError } from "serialize-error"
 import { eventChannel } from "redux-saga"
-
 import type { IpcRendererEvent, IpcMainEvent, IpcMainInvokeEvent, WebContents } from "electron"
 
 interface ReturnPayload<T = unknown> {

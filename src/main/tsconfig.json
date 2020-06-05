@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "lib": ["esnext"],
     "target": "es6",
+    "types": ["electron"],
     "typeRoots": ["./typings"],
     "baseUrl": ".",
     "paths": {

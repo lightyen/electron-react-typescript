@@ -1,8 +1,8 @@
-import Electron from "electron"
+import { app } from "electron"
 import { isDev } from "./is"
 
 import pack from "../../package.json"
 
 export const appName = process.env.APP_NAME
-export const appPath = isDev ? process.cwd() : Electron.app.getAppPath()
-export const appVersion = isDev ? pack.version : Electron.app.getVersion()
+export const appPath = isDev ? process.cwd() : app.getAppPath()
+export const appVersion = isDev ? pack.version : app.getVersion()

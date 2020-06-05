@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import type { IpcRenderer, IpcMain, Shell, BrowserWindow } from "electron"
 import type { ElectronLog } from "electron-log"
 declare global {
@@ -23,8 +22,10 @@ declare global {
 		}
 	}
 
-	namespace globalThis {
-		declare var electron: Renderer & Main
-		declare var log: LogFunctions
+	declare namespace globalThis {
+		// eslint-disable-next-line no-var
+		export var electron: Renderer & Main
+		// eslint-disable-next-line no-var
+		export var log: LogFunctions
 	}
 }

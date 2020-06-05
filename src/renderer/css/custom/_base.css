@@ -1,11 +1,3 @@
-@import "./var.css";
-@import "./titlebar.css";
-@import "./layout.css";
-
-.transition-all {
-	transition: all ease 0.16s;
-}
-
 @font-face {
 	font-family: Fira Code;
 	/* https://github.com/webpack-contrib/sass-loader#resolving-import-at-rules */

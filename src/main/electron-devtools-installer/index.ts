@@ -1,5 +1,4 @@
-/* eslint-disable no-empty */
-import Electron, { net, BrowserWindow } from "electron"
+import { app, net, BrowserWindow } from "electron"
 import { promises as fs, createWriteStream, existsSync } from "fs"
 import path from "path"
 import semver from "semver"
@@ -93,7 +92,7 @@ export const MOBX_DEVTOOLS: ExtensionReference = {
 type ID = string
 type Name = string
 let extensionNames: Record<ID, Name> | undefined
-const extensionsPath = path.resolve(Electron.app.getPath("userData"), "extensions")
+const extensionsPath = path.resolve(app.getPath("userData"), "extensions")
 const NamesPath = path.join(extensionsPath, "IDMap.json")
 
 async function init(): Promise<Record<ID, Name>> {

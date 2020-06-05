@@ -1,4 +1,4 @@
-import Electron from "electron"
+import { app } from "electron"
 import { autoUpdater } from "electron-updater"
 import path from "path"
 import log from "electron-log"
@@ -11,7 +11,7 @@ import { updateAndRestart, autoUpdateDownloaded } from "shared/ipc"
 import semver from "semver"
 
 if (semver.satisfies(process.versions.electron, "<9.0.0")) {
-	Electron.app.allowRendererProcessReuse = true
+	app.allowRendererProcessReuse = true
 }
 
 export function initWindow() {
@@ -22,11 +22,9 @@ export function initWindow() {
 	})
 }
 
-Electron.app.on("will-finish-launching", () =>
-	Electron.app.setAppLogsPath(path.join(Electron.app.getPath("userData"), "logs")),
-)
+app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("userData"), "logs")))
 
-Electron.app.on("ready", () => {
+app.on("ready", () => {
 	if (isDev) {
 		install(REACT_DEVELOPER_TOOLS).catch(err => console.error(err))
 	}
@@ -56,12 +54,12 @@ Electron.app.on("ready", () => {
 	}
 })
 
-Electron.app.on("activate", () => {
+app.on("activate", () => {
 	if (!global.mainWindow) {
 		initWindow()
 	}
 })
 
-Electron.app.on("window-all-closed", () => {
-	Electron.app.quit()
+app.on("window-all-closed", () => {
+	app.quit()
 })
