@@ -70,7 +70,6 @@ const config: Configuration = {
 		publicPath: "/",
 		clientLogLevel: "none",
 		contentBase: false,
-		quiet: true,
 		noInfo: true,
 		historyApiFallback: true,
 	},

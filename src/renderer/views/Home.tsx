@@ -13,23 +13,21 @@ const Home: React.FC = () => {
 	return (
 		<div className="Home select-none">
 			<header className="Home-header">
-				<motion.img
-					animate={{ rotate: [0, 360] }}
-					transition={{ duration: 20, loop: Infinity }}
-					src={logo}
-					className="Home-logo"
-					alt="logo"
-				/>
+				<img src={logo} className="Home-logo" alt="logo" />
 				<p className="select-text" style={{ color: textColor }}>
-					Edit <code className="text-indigo-500">renderer/views/Home/index.tsx</code> and save to reload.
+					Edit{" "}
+					<motion.code whileHover={{ color: "#02dddd" }} className="text-indigo-500 hover:underline">
+						renderer/views/Home/index.tsx
+					</motion.code>{" "}
+					and save to reload.
 				</p>
 				<span className="select-text" style={{ color: textColor }}>
 					<FormattedMessage id="test" values={{ name: "React" }} />
 				</span>
-				<a className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
+				<a tabIndex={-1} className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
 					Learn React
 				</a>
-				<Link to="/version">
+				<Link to="/version" tabIndex={-1}>
 					<button className="btn btn-blue my-2 helloworld">Version</button>
 				</Link>
 			</header>

@@ -1,6 +1,6 @@
 import { put, take, fork, call, takeEvery } from "redux-saga/effects"
 import {
-	titlebarHideS,
+	isFullscreenS,
 	getAppVersion,
 	getAppVersionS,
 	getAppPathsS,
@@ -60,10 +60,16 @@ function* _getSystemMemory() {
 }
 
 function* subscribeWindowFullScreen() {
+	const h = getComputedStyle(document.documentElement).getPropertyValue("--control-ratio")
 	const chan = yield windowFullscreen.sagaEventChannel()
 	while (true) {
 		const isFullScreen: boolean = yield take(chan)
-		yield put(titlebarHideS({ hide: isFullScreen }))
+		if (isFullScreen) {
+			document.documentElement.style.setProperty("--control-ratio", "0")
+		} else {
+			document.documentElement.style.setProperty("--control-ratio", h)
+		}
+		yield put(isFullscreenS({ isFullScreen }))
 	}
 }
 

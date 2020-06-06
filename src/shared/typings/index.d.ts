@@ -1,15 +1,18 @@
-import type { IpcRenderer, IpcMain, Shell, BrowserWindow } from "electron"
+import type { IpcMain, BrowserWindow } from "electron"
+import type { IpcRenderer, Shell } from "electron"
 import type { ElectronLog } from "electron-log"
+
 declare global {
 	interface Renderer {
+		log: ElectronLog
 		ipcRenderer: IpcRenderer
 		shell: Shell
 	}
 
 	interface Main {
+		log: ElectronLog
 		ipcMain: IpcMain
 		BrowserWindow: BrowserWindow
-		log: ElectronLog
 	}
 
 	interface Window {
@@ -20,12 +23,5 @@ declare global {
 		interface Global {
 			electron: Main
 		}
-	}
-
-	declare namespace globalThis {
-		// eslint-disable-next-line no-var
-		export var electron: Renderer & Main
-		// eslint-disable-next-line no-var
-		export var log: LogFunctions
 	}
 }

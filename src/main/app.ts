@@ -1,7 +1,6 @@
 import { app } from "electron"
 import { autoUpdater } from "electron-updater"
 import path from "path"
-import log from "electron-log"
 
 import { createMainWindow } from "~/window"
 import { createStorage } from "~/storage"
@@ -13,6 +12,8 @@ import semver from "semver"
 if (semver.satisfies(process.versions.electron, "<9.0.0")) {
 	app.allowRendererProcessReuse = true
 }
+
+const log = global.electron.log
 
 export function initWindow() {
 	global.storage = createStorage()
@@ -26,7 +27,7 @@ app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("
 
 app.on("ready", () => {
 	if (isDev) {
-		install(REACT_DEVELOPER_TOOLS).catch(err => console.error(err))
+		install(REACT_DEVELOPER_TOOLS).catch(err => log.error(err))
 	}
 	initWindow()
 	autoUpdater.autoDownload = true

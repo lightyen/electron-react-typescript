@@ -9,7 +9,6 @@
     "moduleResolution": "node",
     "target": "esnext",
     "lib": ["esnext", "dom", "dom.iterable", "webworker"],
-    "types": ["react", "webpack-env"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
@@ -17,5 +16,5 @@
       "assets/*": ["../../assets/*"]
     }
   },
-  "include": ["./**/*", "../shared/typings/electron.d.ts"]
+  "include": ["./**/*", "../shared/typings/index.d.ts"]
 }

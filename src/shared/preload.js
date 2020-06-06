@@ -8,10 +8,16 @@ function ipcRendererExpose(...expose) {
 	return ret
 }
 
+const log = require("electron-log")
+
 contextBridge.exposeInMainWorld("electron", {
 	ipcRenderer: ipcRendererExpose("invoke", "on", "addListener", "send", "removeListener"),
 	shell: {
 		openExternal: (...args) => shell.openExternal.apply(shell, args),
 	},
-	log: require("electron-log"),
+	log,
 })
+
+console.log = log.log
+console.error = log.error
+console.warn = log.warn

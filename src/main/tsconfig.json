@@ -7,13 +7,11 @@
     "moduleResolution": "node",
     "lib": ["esnext"],
     "target": "es6",
-    "types": ["electron"],
-    "typeRoots": ["./typings"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
       "shared/*": ["../shared/*"]
     }
   },
-  "include": ["./**/*", "../shared/typings/electron.d.ts"]
+  "include": ["./**/*", "../shared/typings/index.d.ts"]
 }

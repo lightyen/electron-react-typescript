@@ -3,7 +3,7 @@ import { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "shared/mode
 import { Versions } from "shared/model"
 import { windowClose, windowMaximize, windowMinimize, windowRestore, updateAndRestart } from "shared/ipc"
 
-export const titlebarHideS = createAction<{ hide: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
+export const isFullscreenS = createAction<{ isFullScreen: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
 export const getAppVersion = createAction("GET_APP_VERSION_REQUEST")
 export const getAppVersionS = createAction<{ versions: Versions }>("GET_APP_VERSION_SUCCESS")
 export const getAppPaths = createAction("GET_APP_PATHS_REQUEST")

@@ -31,7 +31,8 @@
 	@apply outline-none;
 }
 .btn-blue:hover {
-	@apply bg-blue-400;
+	box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+	@apply bg-blue-600;
 }
 
 .btn-green {
@@ -42,7 +43,8 @@
 	@apply outline-none;
 }
 .btn-green:hover {
-	@apply bg-green-400;
+	box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5);
+	@apply bg-green-600;
 }
 
 .btn-orange {
@@ -53,7 +55,8 @@
 	@apply outline-none;
 }
 .btn-orange:hover {
-	@apply bg-orange-400;
+	box-shadow: 0 0 0 3px rgba(237, 137, 54, 0.5);
+	@apply bg-orange-600;
 }
 
 .btn-red {
@@ -64,5 +67,6 @@
 	@apply outline-none;
 }
 .btn-red:hover {
-	@apply bg-red-400;
+	box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.5);
+	@apply bg-red-600;
 }

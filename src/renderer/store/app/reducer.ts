@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit"
 import { SystemMemoryInfo, AppPaths } from "shared/model"
 import { Versions } from "shared/model"
 import {
-	titlebarHideS,
+	isFullscreenS,
 	getAppVersionS,
 	getAppPathsS,
 	getCpuUsageS,
@@ -12,7 +12,7 @@ import {
 } from "./action"
 
 interface AppStoreType {
-	hide: boolean
+	isFullscreen: boolean
 	versions: Versions
 	paths: AppPaths
 	cpuusage: number
@@ -25,7 +25,7 @@ interface AppStoreType {
 export type AppStore = Readonly<AppStoreType>
 
 const init: AppStore = {
-	hide: false,
+	isFullscreen: false,
 	maximized: false,
 	versions: {
 		app: "",
@@ -58,7 +58,7 @@ const init: AppStore = {
 
 export const app = createReducer(init, builder =>
 	builder
-		.addCase(titlebarHideS, (s, { payload }) => ({ ...s, ...payload }))
+		.addCase(isFullscreenS, (s, { payload }) => ({ ...s, ...payload }))
 		.addCase(getAppVersionS, (s, { payload }) => ({ ...s, ...payload }))
 		.addCase(getAppPathsS, (s, { payload }) => ({ ...s, ...payload }))
 		.addCase(getCpuUsageS, (state, { payload }) => {

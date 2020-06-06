@@ -5,7 +5,7 @@ export function createStorage() {
 	return new ElectronStore<StorageType>({
 		defaults: {
 			autoUpdate: false,
-			backgroundColor: "#1a202c",
+			backgroundColor: "#f7fafc",
 		},
 	})
 }

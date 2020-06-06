@@ -48,7 +48,11 @@ const CustomScrollBar: React.FC = ({ children, ...rest }) => {
 
 	return (
 		<ScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
-			{target && <ScrollBarContext.Provider value={target}>{children}</ScrollBarContext.Provider>}
+			{target && (
+				<ScrollBarContext.Provider value={target}>
+					<div style={{ color }}>{children}</div>
+				</ScrollBarContext.Provider>
+			)}
 		</ScrollBar>
 	)
 }

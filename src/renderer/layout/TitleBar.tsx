@@ -4,13 +4,11 @@ import { useSelector, useAction } from "~/store"
 import icon from "assets/images/favicon.ico"
 
 interface HeaderTitleBarProps {
-	hide: boolean
 	titleBarColor: string
 	textTolor: string
 }
 
 const HeaderTitleBar = styled.header`
-	display: ${(props: HeaderTitleBarProps) => (props.hide ? "none" : "flex")};
 	background: ${props => props.titleBarColor};
 	color: ${(props: HeaderTitleBarProps) => props.textTolor};
 `
@@ -27,11 +25,10 @@ const ControlButton = styled.div`
 
 const TitleBar: React.FC = () => {
 	const theme = useSelector(state => state.theme)
-	const hide = useSelector(state => state.app.hide)
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
 	return (
-		<HeaderTitleBar className="titlebar" hide={hide} titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
+		<HeaderTitleBar className="titlebar" titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
 			<div className="titlebar-content">
 				<div className="titlebar-drag-region" />
 				<div className="titlebar-appicon">

@@ -30,10 +30,10 @@ export function newMenu() {
 			label: "Help",
 			submenu: [
 				{
-					label: "Toggle Developer Tools",
+					label: "Open Developer Tools",
 					accelerator: "F12",
 					click: (item: MenuItem, win: BrowserWindow) => {
-						win.webContents.toggleDevTools()
+						win.webContents.openDevTools({ mode: "undocked" })
 					},
 				},
 				{

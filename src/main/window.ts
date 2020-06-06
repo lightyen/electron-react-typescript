@@ -1,4 +1,4 @@
-import { BrowserWindow, screen } from "electron"
+import { BrowserWindow, screen, app } from "electron"
 import url from "url"
 import path from "path"
 
@@ -7,10 +7,13 @@ import { isDev } from "~/is"
 
 import { newMenu } from "~/menu"
 import { windowIsMaximized } from "shared/ipc"
+
 import "~/routes"
 
+const log = global.electron.log
+
 export function createMainWindow() {
-	const backgroundColor = global.storage.get("backgroundColor") || "#1a202c"
+	const backgroundColor = global.storage.get("backgroundColor")
 	const main = new BrowserWindow({
 		title: appName,
 		show: false,
@@ -64,6 +67,11 @@ export function createMainWindow() {
 				}),
 		  )
 
-	loadURL.then(() => main.show())
+	loadURL
+		.then(() => main.show())
+		.catch(err => {
+			log.error(err)
+			app.quit()
+		})
 	return main
 }

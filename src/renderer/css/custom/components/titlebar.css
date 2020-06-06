@@ -1,10 +1,9 @@
 .titlebar {
 	height: calc(var(--titlebar-height));
 	line-height: calc(var(--titlebar-height));
-
 	display: flex;
 	justify-content: space-between;
-	transition: all 0.2s ease;
+	transition: all 0.15s ease;
 }
 
 .titlebar-content {
@@ -38,7 +37,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	font-size: calc((var(--titlebar-height) - 4px) * 0.5);
-	transition: font-size 0.2s ease;
+	transition: all ease 0.15s;
 	user-select: none;
 	zoom: 1;
 }
@@ -53,7 +52,7 @@
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
-	transition: all ease 0.2s;
+	transition: all ease 0.15s;
 	width: calc(var(--titlebar-controls-width));
 }
 .titlebar-control-button {
@@ -63,7 +62,7 @@
 	align-items: center;
 	user-select: none;
 	opacity: 0.8;
-	transition: all 0.2s ease;
+	transition: all 0.15s ease;
 }
 
 .titlebar-control-button:hover {
