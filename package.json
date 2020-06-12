@@ -2,7 +2,7 @@
   "name": "electron-react-typescript",
   "main": "main.js",
   "description": "use electron and react with typescript",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "author": {
     "name": "lightyen <lightyen0123@gmail.com>"
   },
@@ -68,7 +68,7 @@
     "cross-env": "7.0.2",
     "css-loader": "3.5.3",
     "date-fns": "2.14.0",
-    "electron": "8.3.0",
+    "electron": "9.0.3",
     "electron-builder": "22.7.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
@@ -123,7 +123,7 @@
     "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
     "webpackbar": "4.0.0",
-    "worker-loader": "^2.0.0"
+    "worker-loader": "2.0.0"
   },
   "dependencies": {
     "electron-log": "4.2.1",

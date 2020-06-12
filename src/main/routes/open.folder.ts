@@ -4,5 +4,5 @@ import { promises as fs } from "fs"
 
 openFolder.on(async (_, fullpath) => {
 	const stat = await fs.stat(fullpath)
-	stat.isDirectory() && shell.openItem(fullpath)
+	stat.isDirectory() && shell.openPath(fullpath)
 })
