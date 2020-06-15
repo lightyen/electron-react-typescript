@@ -2,10 +2,14 @@ import { app } from "electron"
 import { autoUpdater } from "electron-updater"
 import path from "path"
 
+import { setGlobalShortcut } from "~/globalShortcut"
+import { setMenu } from "~/menu"
+import "~/router"
+
 import { createMainWindow } from "~/window"
 import { createStorage } from "~/storage"
-import { isDev } from "~/is"
-import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
+// import { isDev } from "~/is"
+// import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 import { updateAndRestart, autoUpdateDownloaded } from "shared/ipc"
 import semver from "semver"
 
@@ -18,6 +22,9 @@ const log = global.electron.log
 export function initWindow() {
 	global.storage = createStorage()
 	global.mainWindow = createMainWindow()
+	// if (isDev) {
+	// 	install( global.mainWindow, REACT_DEVELOPER_TOOLS).catch(err => log.error(err))
+	// }
 	global.mainWindow.on("closed", () => {
 		global.mainWindow = undefined
 	})
@@ -26,9 +33,8 @@ export function initWindow() {
 app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("userData"), "logs")))
 
 app.on("ready", () => {
-	if (isDev) {
-		install(REACT_DEVELOPER_TOOLS).catch(err => log.error(err))
-	}
+	setGlobalShortcut()
+	setMenu()
 	initWindow()
 	autoUpdater.autoDownload = true
 	autoUpdater.autoInstallOnAppQuit = false

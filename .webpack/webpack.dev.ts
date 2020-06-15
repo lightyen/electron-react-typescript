@@ -56,8 +56,12 @@ const config: Configuration = {
 	plugins: [
 		new HotModuleReplacementPlugin(),
 		new ForkTsCheckerWebpackPlugin({
-			checkSyntacticErrors: true,
-			tsconfig: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
+			typescript: {
+				configFile: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
+			},
+			eslint: {
+				files: path.join(process.cwd(), "src", "**/*"),
+			},
 		}),
 	],
 	devServer: {

@@ -140,7 +140,7 @@ function downloadChromeExtension(chromeStoreID: string, extensionFolder: string,
 	})
 }
 
-export async function install(extensionReference: ExtensionReference, forceDownload?: boolean) {
+export async function install(w: BrowserWindow, extensionReference: ExtensionReference, forceDownload?: boolean) {
 	const extensionNames = (await init()) || {}
 	const chromeStoreID: string = extensionReference.id
 	const electronVersion = process.versions.electron.split("-")[0]
@@ -151,7 +151,7 @@ export async function install(extensionReference: ExtensionReference, forceDownl
 	}
 
 	const extensionName = extensionNames[chromeStoreID]
-	const devtoolsExts = BrowserWindow.getDevToolsExtensions()
+	const devtoolsExts = w.webContents.session.getAllExtensions()
 
 	const extensionInstalled = !!extensionName && !!devtoolsExts[extensionName]
 	if (!forceDownload && extensionInstalled) {

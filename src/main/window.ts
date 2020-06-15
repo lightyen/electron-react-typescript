@@ -5,10 +5,7 @@ import path from "path"
 import { appPath, appName } from "~/const"
 import { isDev } from "~/is"
 
-import { newMenu } from "~/menu"
 import { windowIsMaximized } from "shared/ipc"
-
-import "~/routes"
 
 const log = global.electron.log
 
@@ -33,7 +30,6 @@ export function createMainWindow() {
 	})
 
 	main.setMenuBarVisibility(false)
-	newMenu()
 	main.on("maximize", () => windowIsMaximized.sendWithWebContents(main.webContents, true))
 	main.on("unmaximize", () => windowIsMaximized.sendWithWebContents(main.webContents, false))
 	main.on("show", () => {
