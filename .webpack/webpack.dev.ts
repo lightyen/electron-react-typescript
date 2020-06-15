@@ -59,9 +59,6 @@ const config: Configuration = {
 			typescript: {
 				configFile: path.join(process.cwd(), "src", "renderer", "tsconfig.json"),
 			},
-			eslint: {
-				files: path.join(process.cwd(), "src", "**/*"),
-			},
 		}),
 	],
 	devServer: {
