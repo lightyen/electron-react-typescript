@@ -3,7 +3,7 @@
 
 @import "tailwindcss/base";
 @import "./custom/_variables.css";
-@import "/custom/_base.css";
+@import "./custom/_base.css";
 
 @import "tailwindcss/components";
 @import "./custom/_components.css";
