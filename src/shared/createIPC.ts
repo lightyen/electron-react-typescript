@@ -15,27 +15,27 @@ const RendererNotSupportError = (channel: string, method: string) =>
 const pubsub = ".pub/sub"
 const reqres = ".req/res"
 
-const channelSet = new Set<string>()
+export const channels = new Set<string>()
 
-export default function createIPC<Payload = unknown, Return = unknown>(channel: string) {
+export default function createIPC<MT = void, RP = void, MP = void, RT = never>(channel: string) {
 	if (channel == undefined || channel == "") {
-		throw new Error("invalid channel name!")
+		throw new Error("invalid channel")
 	}
-	if (channelSet.has(channel)) {
-		throw new Error("channel name is duplicate!")
+	if (channels.has(channel)) {
+		throw new Error("channel is duplicate")
 	}
-	channelSet.add(channel)
+	channels.add(channel)
 
 	return {
 		/**
 		 * Listens to `channel`, when a new message arrives `listener` would be called with
 		 * `listener(event, payload)`.
 		 */
-		on(listener: (event: IpcMainEvent, payload?: Payload) => Promise<void> | void) {
+		on(listener: (event: IpcMainEvent, payload: RP) => Promise<void> | void) {
 			if (globalThis.electron.ipcRenderer) {
 				throw RendererNotSupportError(channel, "on")
 			}
-			globalThis.electron.ipcMain?.on(channel + pubsub, async (event, payload) => {
+			globalThis.electron.ipcMain.on(channel + pubsub, async (event, payload) => {
 				try {
 					await listener(event, payload)
 				} catch (err) {
@@ -54,11 +54,11 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 * Electron objects is deprecated, and will begin throwing an exception starting
 		 * with Electron 9.
 		 */
-		send(payload?: Payload) {
+		send(payload: RP) {
 			if (globalThis.electron.ipcMain) {
 				throw MainNotSupportError(channel, "send")
 			}
-			globalThis.electron.ipcRenderer?.send(channel + pubsub, payload)
+			globalThis.electron.ipcRenderer.send(channel + pubsub, payload)
 		},
 		/**
 		 * Adds a handler for an `invoke`able IPC. This handler will be called whenever a
@@ -72,13 +72,13 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 * that passed to a regular event listener. It includes information about which
 		 * WebContents is the source of the invoke request.
 		 */
-		handle(listener: (event: IpcMainInvokeEvent, payload?: Payload) => Promise<Return> | Return) {
+		handle(listener: (event: IpcMainInvokeEvent, payload: RP) => Promise<MT> | MT) {
 			if (globalThis.electron.ipcRenderer) {
 				throw RendererNotSupportError(channel, "handle")
 			}
-			globalThis.electron.ipcMain?.handle(
+			globalThis.electron.ipcMain.handle(
 				channel + reqres,
-				async (event, payload): Promise<ReturnPayload> => {
+				async (event, payload: RP): Promise<ReturnPayload<MT>> => {
 					try {
 						const data = await listener(event, payload)
 						return { data }
@@ -103,18 +103,21 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 		 * Electron objects is deprecated, and will begin throwing an exception starting
 		 * with Electron 9.
 		 */
-		async invoke(payload?: Payload): Promise<Return> {
+		async invoke(payload: RP): Promise<MT> {
 			if (globalThis.electron.ipcMain) {
 				throw MainNotSupportError(channel, "invoke")
 			}
-			const { data, error } = await globalThis.electron.ipcRenderer?.invoke(channel + reqres, payload)
+			const { data, error }: ReturnPayload<MT> = await globalThis.electron.ipcRenderer.invoke(
+				channel + reqres,
+				payload,
+			)
 			if (error) {
 				throw error
 			}
 			return data
 		},
 
-		sendWithWebContents(webContents: WebContents, payload?: Payload) {
+		sendWithWebContents(webContents: WebContents, payload: MP) {
 			if (globalThis.electron.ipcRenderer) {
 				throw RendererNotSupportError(channel, "sendWithWebContents")
 			}
@@ -124,8 +127,8 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 			if (globalThis.electron.ipcMain) {
 				throw MainNotSupportError(channel, "sagaEventChannel")
 			}
-			return eventChannel(emitter => {
-				const callback = (e: IpcRendererEvent, res: ReturnPayload) => {
+			return eventChannel<MT | Error>(emitter => {
+				const callback = (e: IpcRendererEvent, res: ReturnPayload<MT>) => {
 					if (Object.prototype.hasOwnProperty.call(res, "error")) {
 						emitter(res.error)
 						return
@@ -136,8 +139,8 @@ export default function createIPC<Payload = unknown, Return = unknown>(channel: 
 					}
 					globalThis.electron.log.error("[%s] Unexpected response format:", channel, JSON.stringify(res))
 				}
-				globalThis.electron.ipcRenderer?.on(channel + pubsub, callback)
-				return () => globalThis.electron.ipcRenderer?.removeListener(channel + pubsub, callback)
+				globalThis.electron.ipcRenderer.on(channel + pubsub, callback)
+				return () => globalThis.electron.ipcRenderer.removeListener(channel + pubsub, callback)
 			})
 		},
 	}

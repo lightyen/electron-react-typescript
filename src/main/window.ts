@@ -24,6 +24,7 @@ export function createMainWindow() {
 			nodeIntegrationInWorker: false,
 			enableRemoteModule: false,
 			contextIsolation: true,
+			sandbox: false,
 			preload: isDev ? path.resolve(__dirname, "../shared/preload.js") : path.resolve(appPath, "preload.js"),
 		},
 		icon: path.join(appPath, "assets", "appicons", "256x256.png"),
