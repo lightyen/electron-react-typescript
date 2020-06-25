@@ -28,7 +28,7 @@ const TitleBar: React.FC = () => {
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
 	return (
-		<HeaderTitleBar className="titlebar" titleBarColor={theme.primaryColor} textTolor={theme.textColor}>
+		<HeaderTitleBar className="titlebar" titleBarColor={theme.secondary} textTolor={theme.text.secondary}>
 			<div className="titlebar-content">
 				<div className="titlebar-drag-region" />
 				<div className="titlebar-appicon">
@@ -42,7 +42,7 @@ const TitleBar: React.FC = () => {
 			<div className="titlebar-controls">
 				<ControlButton
 					className="titlebar-control-button"
-					hoverColor={theme.hoverColor}
+					hoverColor={theme.hover.secondary}
 					onClick={window_minimize}
 				>
 					<svg
@@ -52,13 +52,13 @@ const TitleBar: React.FC = () => {
 						y="0px"
 						viewBox="0 0 10 1.5"
 					>
-						<rect fill={theme.textColor} width="10" height="1.5" />
+						<rect fill={theme.text.secondary} width="10" height="1.5" />
 					</svg>
 				</ControlButton>
 				{maximized ? (
 					<ControlButton
 						className="titlebar-control-button"
-						hoverColor={theme.hoverColor}
+						hoverColor={theme.hover.secondary}
 						onClick={window_restore}
 					>
 						<svg
@@ -74,7 +74,7 @@ const TitleBar: React.FC = () => {
 								<path fill="#000000" d="M 1 3 L 7 3 L 7 9 L 1 9 L 1 3 z" />
 							</mask>
 							<path
-								fill={theme.textColor}
+								fill={theme.text.secondary}
 								d="M 2 0 L 10 0 L 10 8 L 8 8 L 8 10 L 0 10 L 0 2 L 2 2 L 2 0 z"
 								mask="url(#Mask)"
 							/>
@@ -83,11 +83,11 @@ const TitleBar: React.FC = () => {
 				) : (
 					<ControlButton
 						className="titlebar-control-button"
-						hoverColor={theme.hoverColor}
+						hoverColor={theme.hover.secondary}
 						onClick={window_maximize}
 					>
 						<svg
-							fill={theme.textColor}
+							fill={theme.text.secondary}
 							xmlns="http://www.w3.org/2000/svg"
 							className="titlebar-control-button-icon"
 							viewBox="0 0 10 10"
@@ -96,11 +96,7 @@ const TitleBar: React.FC = () => {
 						</svg>
 					</ControlButton>
 				)}
-				<ControlButton
-					className="titlebar-control-button"
-					hoverColor={theme.dangerColor}
-					onClick={window_close}
-				>
+				<ControlButton className="titlebar-control-button" hoverColor={theme.error} onClick={window_close}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="titlebar-control-button-icon"
@@ -108,7 +104,7 @@ const TitleBar: React.FC = () => {
 						y="0px"
 						viewBox="0 0 10 10"
 					>
-						<polygon fill={theme.textColor} points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
+						<polygon fill={theme.text.error} points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
 					</svg>
 				</ControlButton>
 			</div>

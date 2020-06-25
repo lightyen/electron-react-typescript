@@ -4,7 +4,7 @@ import { useSelector } from "~/store"
 import { appLogs } from "shared/ipc"
 
 const Page: React.FC = () => {
-	const color = useSelector(state => state.theme.textColor)
+	const color = useSelector(state => state.theme.text.primary)
 	const [log, setLog] = React.useState("")
 	React.useEffect(() => {
 		appLogs

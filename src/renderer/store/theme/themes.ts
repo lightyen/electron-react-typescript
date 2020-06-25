@@ -1,35 +1,86 @@
 import { tailwindcssconfig } from "~/tailwind.config"
 
 export interface Theme {
-	primaryColor: string
-	secondaryColor: string
-	hoverColor: string
-	dangerColor: string
-	textColor: string
-	textHoverColor: string
-	backgroundColor: string
+	primary: string
+	primaryVariant: string
+	secondary: string
+	secondaryVariant: string
+	background: string
+	surface: string
+	error: string
+	success: string
+	text: {
+		primary: string
+		secondary: string
+		background: string
+		surface: string
+		error: string
+		success: string
+	}
+	hover: {
+		primary: string
+		secondary: string
+		background: string
+		surface: string
+		error: string
+		success: string
+	}
 }
 
 const colors = tailwindcssconfig.theme.colors
 
 export const themes: { [key: string]: Theme } = {
 	light: {
-		primaryColor: colors.gray[100],
-		secondaryColor: colors.gray[200],
-		hoverColor: colors.gray[300],
-		dangerColor: colors.red[400],
-		backgroundColor: colors.gray[100],
-		textColor: colors.gray[800],
-		textHoverColor: colors.gray[600],
+		primary: colors.gray[300],
+		primaryVariant: colors.gray[200],
+		secondary: colors.teal[200],
+		secondaryVariant: colors.teal[300],
+		background: colors.gray[100],
+		surface: colors.gray[100],
+		error: colors.red[500],
+		success: colors.green[500],
+		text: {
+			primary: colors.gray[900],
+			secondary: colors.gray[900],
+			background: colors.gray[900],
+			surface: colors.gray[900],
+			error: colors.gray[900],
+			success: colors.gray[900],
+		},
+		hover: {
+			primary: colors.gray[400],
+			secondary: colors.teal[400],
+			background: colors.gray[200],
+			surface: colors.gray[200],
+			error: colors.red[200],
+			success: colors.green[200],
+		},
 	},
 	dark: {
-		primaryColor: colors.gray[900],
-		secondaryColor: colors.gray[800],
-		hoverColor: colors.gray[700],
-		dangerColor: colors.red[700],
-		backgroundColor: colors.gray[900],
-		textColor: colors.gray[200],
-		textHoverColor: colors.gray[500],
+		primary: colors.gray[900],
+		primaryVariant: colors.gray[800],
+		secondary: colors.blue[900],
+		secondaryVariant: colors.blue[700],
+		background: colors.gray[900],
+		surface: colors.gray[900],
+		error: colors.red[700],
+		success: colors.green[700],
+		text: {
+			primary: colors.gray[100],
+			secondary: colors.gray[100],
+			background: colors.gray[100],
+			surface: colors.gray[100],
+			error: colors.gray[100],
+			success: colors.gray[100],
+		},
+		hover: {
+			primary: colors.gray[700],
+			secondary: colors.blue[700],
+			background: colors.gray[700],
+			surface: colors.gray[700],
+			error: colors.red[500],
+			success: colors.green[500],
+		},
 	},
 }
 

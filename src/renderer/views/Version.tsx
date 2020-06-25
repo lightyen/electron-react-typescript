@@ -11,7 +11,7 @@ import { useInView } from "react-intersection-observer"
 import { openFolderDialog } from "shared/ipc"
 
 const Page: React.FC = () => {
-	const textColor = useSelector(state => state.theme.textColor)
+	const color = useSelector(state => state.theme.text.primary)
 	const [text, setText] = React.useState("")
 	const history = useHistory()
 
@@ -46,7 +46,7 @@ const Page: React.FC = () => {
 					</button>
 				</div>
 				{text && (
-					<div className="mt-2" style={{ color: textColor }}>
+					<div className="mt-2" style={{ color }}>
 						{text}
 					</div>
 				)}

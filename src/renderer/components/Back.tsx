@@ -31,8 +31,8 @@ const HoverSvg = styled.svg.attrs(props => ({ ...props }))<HoverProps>`
 `
 
 const Button: React.FC<BackProps> = ({ to, className }) => {
-	const textColor = useSelector(state => state.theme.textColor)
-	const textHoverColor = useSelector(state => state.theme.textHoverColor)
+	const textColor = useSelector(state => state.theme.text.surface)
+	const textHoverColor = useSelector(state => state.theme.hover.surface)
 	const colors = { color: textColor, hoverColor: textHoverColor }
 	const history = useHistory()
 	return (

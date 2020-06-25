@@ -20,7 +20,7 @@ const variants: Variants = {
 const LanguageProvider: React.FC = ({ children }) => {
 	const locale = useSelector(state => state.i18n.locale)
 	const messages = useSelector(state => state.i18n.messages)
-	const backgroundColor = useSelector(state => state.theme.backgroundColor)
+	const backgroundColor = useSelector(state => state.theme.background)
 	return (
 		<div style={{ backgroundColor }}>
 			<AnimatePresence initial={false}>

@@ -25,8 +25,8 @@ const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 		!hide && (
 			<Bar
 				className="app-footer"
-				textColor={theme.textColor}
-				background={theme.primaryColor}
+				background={theme.primary}
+				textColor={theme.text.primary}
 				style={{ userSelect: "none" }}
 			>
 				<BarContent />

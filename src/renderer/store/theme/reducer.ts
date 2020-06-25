@@ -22,9 +22,9 @@ const init: ThemeStore = {
 
 export const theme = createReducer(init, builder =>
 	builder.addCase(changeTheme, (state, { payload: { name } }) => {
-		const backgroundColor = themes[name].backgroundColor
-		setDefaultBackgroundColor.send(backgroundColor)
-		document.body.style.backgroundColor = backgroundColor
+		const background = themes[name].background
+		setDefaultBackgroundColor.send(background)
+		document.body.style.backgroundColor = background
 		return { ...state, name, ...themes[name] }
 	}),
 )
