@@ -39,7 +39,8 @@ export function useScrollBarSource() {
 }
 
 const CustomScrollBar: React.FC = ({ children, ...rest }) => {
-	const color = useSelector(state => state.theme.text.primary)
+	const color = useSelector(state => state.theme.text.surface)
+	const backgroundColor = useSelector(state => state.theme.surface)
 	const ref = React.useRef<HTMLDivElement>()
 	const [target, setTarget] = React.useState<HTMLDivElement>(ref.current)
 	React.useEffect(() => {
@@ -50,7 +51,7 @@ const CustomScrollBar: React.FC = ({ children, ...rest }) => {
 		<ScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
 			{target && (
 				<ScrollBarContext.Provider value={target}>
-					<div style={{ color }}>{children}</div>
+					<div style={{ color, backgroundColor }}>{children}</div>
 				</ScrollBarContext.Provider>
 			)}
 		</ScrollBar>

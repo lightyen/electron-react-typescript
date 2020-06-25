@@ -4,14 +4,12 @@ import { motion } from "framer-motion"
 import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 
-import { useSelector } from "~/store"
 import { useScrollBarSource } from "~/components/ScrollBar"
 
 import { useInView } from "react-intersection-observer"
 import { openFolderDialog } from "shared/ipc"
 
 const Page: React.FC = () => {
-	const color = useSelector(state => state.theme.text.primary)
 	const [text, setText] = React.useState("")
 	const history = useHistory()
 
@@ -45,11 +43,7 @@ const Page: React.FC = () => {
 						Log
 					</button>
 				</div>
-				{text && (
-					<div className="mt-2" style={{ color }}>
-						{text}
-					</div>
-				)}
+				{text && <div className="mt-2">{text}</div>}
 				<div className="mt-2 bg-gray-500 flex items-end" style={{ width: 300, height: 1300 }}>
 					<IntersectTarget />
 				</div>

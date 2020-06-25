@@ -1,8 +1,13 @@
-import { ThemeName } from "./themes"
+import { ThemeName, themes } from "./themes"
 import { createAction } from "@reduxjs/toolkit"
+import { setDefaultBackgroundColor } from "shared/ipc"
 
 export const changeTheme = createAction("CHANGE_THEME", (payload: { name: ThemeName }) => {
-	localStorage.setItem("theme", payload.name)
+	const { name } = payload
+	localStorage.setItem("theme", name)
+	setDefaultBackgroundColor.send(themes[name].background)
+	document.body.style.color = themes[name].text.background
+	document.body.style.backgroundColor = themes[name].background
 	return { payload }
 })
 

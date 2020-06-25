@@ -14,8 +14,6 @@ interface OptionType {
 }
 
 const Page: React.FC = () => {
-	const color = useSelector(state => state.theme.text.primary)
-
 	const { setLocale } = useAction().i18n
 	const locale = useSelector(state => state.i18n.locale)
 	const langOpts = Object.entries(languageNames).map<OptionType>(([value, label]) => ({ value, label }))
@@ -33,7 +31,7 @@ const Page: React.FC = () => {
 			<Back to="/version" />
 			<div className="pt-3 pl-3">
 				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ color, textTransform: "capitalize" }}>
+					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
 						<FormattedMessage id="themes" />
 					</label>
 					<div className="w-64">
@@ -51,7 +49,7 @@ const Page: React.FC = () => {
 					</div>
 				</div>
 				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ color, textTransform: "capitalize" }}>
+					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
 						<FormattedMessage id="language" />
 					</label>
 					<div className="w-64">
@@ -65,7 +63,7 @@ const Page: React.FC = () => {
 					</div>
 				</div>
 				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ color, textTransform: "capitalize" }}>
+					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
 						Paths
 					</label>
 					<AppPaths />
@@ -89,7 +87,6 @@ const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
 `
 
 const AppPaths: React.FC = () => {
-	const color = useSelector(state => state.theme.text.primary)
 	const oddColor = useSelector(state => state.theme.primary)
 	const evenColor = useSelector(state => state.theme.primaryVariant)
 	const hoverColor = useSelector(state => state.theme.hover.primary)
@@ -101,7 +98,7 @@ const AppPaths: React.FC = () => {
 	}, [getAppPaths])
 
 	return (
-		<table className="table-auto" style={{ color }}>
+		<table className="table-auto">
 			<thead>
 				<tr>
 					<th className="px-4 py-2">Key</th>
