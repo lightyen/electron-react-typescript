@@ -5,22 +5,7 @@ import { useSelector, useAction } from "~/store"
 
 const Versions = styled.div`
 	font-family: Fira Code;
-	background: #eeeeee;
-	color: #000000;
 	text-align: center;
-`
-
-const Table = styled.table`
-	width: 100%;
-`
-
-const THead = styled.thead`
-	height: 20px;
-	text-align: center;
-`
-
-const TBody = styled.tbody`
-	background: #e7e7e7;
 `
 
 interface Versions {
@@ -32,44 +17,46 @@ interface Versions {
 const AppVersion: React.FC = () => {
 	const versions = useSelector(state => state.app.versions)
 	const { getAppVersion } = useAction().app
+	const backgroundColor = useSelector(state => state.theme.primaryVariant)
+	const color = useSelector(state => state.theme.text.primary)
 	React.useEffect(() => {
 		getAppVersion()
 	}, [getAppVersion])
 	return (
-		<Versions className="select-text">
+		<Versions className="select-text" style={{ backgroundColor, color }}>
 			<h1 className="font-bold" style={{ textTransform: "capitalize", fontSize: "1.5em" }}>
-				<FormattedMessage id="version" /> =&gt;
+				<FormattedMessage id="version" />
 			</h1>
-			<Table>
-				<THead>
+			<table className="w-full">
+				<thead className="text-center" style={{ height: 20 }}>
 					<tr>
 						<th>Name</th>
 						<th>Number</th>
 					</tr>
-				</THead>
-				<TBody>
+				</thead>
+				<tbody>
 					<tr>
-						<td>Version</td>
-						<td>{versions.app}</td>
+						<td className="border border-gray-500">Version</td>
+						<td className="border border-gray-500">{versions.app}</td>
 					</tr>
 					<tr>
-						<td>Electron</td>
-						<td>{versions.electron}</td>
+						<td className="border border-gray-500">Electron</td>
+						<td className="border border-gray-500">{versions.electron}</td>
 					</tr>
 					<tr>
-						<td>NodeJS</td>
-						<td>{versions.node}</td>
+						<td className="border border-gray-500">NodeJS</td>
+						<td className="border border-gray-500">{versions.node}</td>
 					</tr>
 					<tr>
-						<td>Chrome</td>
-						<td>{versions.chrome}</td>
+						<td className="border border-gray-500">Chrome</td>
+						<td className="border border-gray-500">{versions.chrome}</td>
 					</tr>
 					<tr>
-						<td>{versions.os.name}</td>
-						<td>{versions.os.version}</td>
+						<td className="border border-gray-500">{versions.os.name}</td>
+						<td className="border border-gray-500">{versions.os.version}</td>
 					</tr>
-				</TBody>
-			</Table>
+				</tbody>
+			</table>
 		</Versions>
 	)
 }

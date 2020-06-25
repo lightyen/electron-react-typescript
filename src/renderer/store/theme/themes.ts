@@ -31,8 +31,8 @@ const colors = tailwindcssconfig.theme.colors
 
 export const themes: { [key: string]: Theme } = {
 	light: {
-		primary: colors.gray[300],
-		primaryVariant: colors.gray[200],
+		primary: colors.gray[100],
+		primaryVariant: colors.gray[300],
 		secondary: colors.teal[200],
 		secondaryVariant: colors.teal[300],
 		background: colors.gray[100],
@@ -63,8 +63,8 @@ export const themes: { [key: string]: Theme } = {
 		secondaryVariant: colors.blue[700],
 		background: colors.gray[900],
 		surface: colors.gray[900],
-		error: colors.red[700],
-		success: colors.green[700],
+		error: colors.red[600],
+		success: colors.green[600],
 		text: {
 			primary: colors.gray[100],
 			secondary: colors.gray[100],

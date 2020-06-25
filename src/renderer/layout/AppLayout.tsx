@@ -3,7 +3,7 @@ import { hot } from "react-hot-loader/root"
 
 import TitleBar from "./TitleBar"
 import AutoUpdater from "./AutoUpdater"
-import { ErrorBoundary } from "~/components/ErrorBoundary"
+import ErrorBoundary from "~/components/ErrorBoundary"
 import { AppRouter } from "~/router"
 import StatusBar from "./StatusBar"
 

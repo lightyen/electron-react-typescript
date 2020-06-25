@@ -28,7 +28,7 @@ const TitleBar: React.FC = () => {
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
 	return (
-		<HeaderTitleBar className="titlebar" titleBarColor={theme.secondary} textTolor={theme.text.secondary}>
+		<HeaderTitleBar className="titlebar" titleBarColor={theme.primaryVariant} textTolor={theme.text.primary}>
 			<div className="titlebar-content">
 				<div className="titlebar-drag-region" />
 				<div className="titlebar-appicon">
@@ -42,7 +42,7 @@ const TitleBar: React.FC = () => {
 			<div className="titlebar-controls">
 				<ControlButton
 					className="titlebar-control-button"
-					hoverColor={theme.hover.secondary}
+					hoverColor={theme.hover.primary}
 					onClick={window_minimize}
 				>
 					<svg
@@ -52,13 +52,13 @@ const TitleBar: React.FC = () => {
 						y="0px"
 						viewBox="0 0 10 1.5"
 					>
-						<rect fill={theme.text.secondary} width="10" height="1.5" />
+						<rect fill={theme.text.primary} width="10" height="1.5" />
 					</svg>
 				</ControlButton>
 				{maximized ? (
 					<ControlButton
 						className="titlebar-control-button"
-						hoverColor={theme.hover.secondary}
+						hoverColor={theme.hover.primary}
 						onClick={window_restore}
 					>
 						<svg
@@ -74,7 +74,7 @@ const TitleBar: React.FC = () => {
 								<path fill="#000000" d="M 1 3 L 7 3 L 7 9 L 1 9 L 1 3 z" />
 							</mask>
 							<path
-								fill={theme.text.secondary}
+								fill={theme.text.primary}
 								d="M 2 0 L 10 0 L 10 8 L 8 8 L 8 10 L 0 10 L 0 2 L 2 2 L 2 0 z"
 								mask="url(#Mask)"
 							/>
@@ -83,11 +83,11 @@ const TitleBar: React.FC = () => {
 				) : (
 					<ControlButton
 						className="titlebar-control-button"
-						hoverColor={theme.hover.secondary}
+						hoverColor={theme.hover.primary}
 						onClick={window_maximize}
 					>
 						<svg
-							fill={theme.text.secondary}
+							fill={theme.text.primary}
 							xmlns="http://www.w3.org/2000/svg"
 							className="titlebar-control-button-icon"
 							viewBox="0 0 10 10"
