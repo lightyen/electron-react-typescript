@@ -61,7 +61,7 @@ function* _getSystemMemory() {
 
 function* subscribeWindowFullScreen() {
 	const h = getComputedStyle(document.documentElement).getPropertyValue("--control-ratio")
-	const chan = yield windowFullscreen.sagaEventChannel()
+	const chan = yield windowFullscreen.saga()
 	while (true) {
 		const isFullScreen: boolean = yield take(chan)
 		if (isFullScreen) {
@@ -74,7 +74,7 @@ function* subscribeWindowFullScreen() {
 }
 
 function* subscribeUpdateDownloaded() {
-	const chan = yield autoUpdateDownloaded.sagaEventChannel()
+	const chan = yield autoUpdateDownloaded.saga()
 	const info = yield take(chan)
 	yield put(appNewVersion({ info }))
 }
@@ -83,7 +83,7 @@ function* subscribeWindowMaximized() {
 	const { data } = yield call(windowIsMaximized.invoke)
 	yield put(windowMaximized({ maximized: data }))
 
-	const chan = yield windowIsMaximized.sagaEventChannel()
+	const chan = yield windowIsMaximized.saga()
 	while (true) {
 		const maximized = yield take(chan)
 		yield put(windowMaximized({ maximized }))

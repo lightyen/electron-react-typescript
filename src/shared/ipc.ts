@@ -15,12 +15,12 @@ export const windowClose = createIPC("window.close")
 export const windowMaximize = createIPC("window.maximize")
 export const windowMinimize = createIPC("window.minimize")
 export const windowRestore = createIPC("window.restore")
-export const windowIsMaximized = createIPC<boolean, void, boolean>("window.ismaximized")
-export const windowFullscreen = createIPC<boolean, void, boolean>("window.fullscreen")
+export const windowIsMaximized = createIPC<boolean>("window.ismaximized")
+export const windowFullscreen = createIPC<boolean>("window.fullscreen")
 
 // app auto-update
 export const updateAndRestart = createIPC("auto-update.restart")
-export const autoUpdateDownloaded = createIPC<AutoUpdateInfo, void, AutoUpdateInfo>("auto-update.downloaded")
+export const autoUpdateDownloaded = createIPC<AutoUpdateInfo>("auto-update.downloaded")
 
 export const openFolder = createIPC<void, string>("open.item.folder")
 export const openFolderDialog = createIPC<Partial<OpenDialogReturnValue & { files: string[] }>, OpenDialogOptions>(
