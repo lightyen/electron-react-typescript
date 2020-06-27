@@ -2,6 +2,7 @@ import React from "react"
 import chroma from "chroma-js"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons/faExchangeAlt"
+
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max)
 }
@@ -27,8 +28,33 @@ function useMousemove(ref: React.MutableRefObject<HTMLElement>, callback: (e: Mo
 	}, [ref, callback])
 }
 
-const ColorPicker: React.FC = () => {
-	const picker = React.useRef<HTMLDivElement>()
+interface Props {
+	onChange?: (color: chroma.Color) => void
+	defaultValue?: string | chroma.Color
+}
+
+function useCombinedRefs(
+	...refs: Array<React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)>
+) {
+	const targetRef = React.useRef<HTMLDivElement>()
+	React.useEffect(() => {
+		for (const ref of refs) {
+			if (!ref) continue
+			if (typeof ref === "function") {
+				ref(targetRef.current)
+			} else {
+				ref.current = targetRef.current
+			}
+		}
+	}, [refs])
+	return targetRef
+}
+
+const ColorPicker = React.forwardRef<
+	HTMLDivElement,
+	Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> & Props
+>(({ onChange, defaultValue = chroma("#ff0000") }, ref) => {
+	const picker = useCombinedRefs(React.useRef<HTMLDivElement>(), ref)
 	const palette = React.useRef<HTMLDivElement>()
 	const alpha = React.useRef<HTMLDivElement>()
 	const hue = React.useRef<HTMLDivElement>()
@@ -39,51 +65,48 @@ const ColorPicker: React.FC = () => {
 	const updateText = React.useCallback(() => {
 		const el = resultText.current
 		const root = picker.current
-		const color = chroma(root.style.getPropertyValue("--selected-color"))
 		const alpha = parseFloat(root.style.getPropertyValue("--selected-alpha"))
-		if (alpha < 1.0) {
-			switch (el.dataset["type"]) {
-				case "hex":
-					el.innerText = color.alpha(alpha).hex()
-					break
-				case "rgba":
-					el.innerText = color.alpha(alpha).css()
-					break
-				case "hsla":
-					el.innerText = color.alpha(alpha).css("hsl")
-					break
-			}
-		} else {
-			switch (el.dataset["type"]) {
-				case "hex":
-					el.innerText = color.hex()
-					break
-				case "rgba":
-					el.innerText = color.css()
-					break
-				case "hsla":
-					el.innerText = color.css("hsl")
-					break
-			}
+		const color = chroma(root.style.getPropertyValue("--selected-color")).alpha(alpha)
+		switch (el.dataset["type"]) {
+			case "hex":
+				el.innerText = color.alpha(alpha).hex()
+				break
+			case "rgba":
+				el.innerText = color.alpha(alpha).css()
+				break
+			case "hsla":
+				el.innerText = color.alpha(alpha).css("hsl")
+				break
 		}
+		onChange && onChange(color.alpha(alpha))
 		const bg = chroma(document.body.style.backgroundColor)
-		if (chroma.contrast(chroma.scale([bg, color])(alpha), "white") < 3) {
+		if (chroma.scale([bg, color])(alpha).luminance() > 0.5) {
 			result.current.style.setProperty("--result-text-color", "#1a202c")
 		} else {
 			result.current.style.setProperty("--result-text-color", " #f7fafc")
 		}
-	}, [])
+	}, [picker, onChange])
 
 	React.useEffect(() => {
 		const root = picker.current
-		root.style.setProperty("--selected-hue", "#ff0000")
-		root.style.setProperty("--selected-color", "#ffffff")
-		root.style.setProperty("--selected-alpha", "1.0")
-		root.style.setProperty("--palette-pointer-x", "0")
-		root.style.setProperty("--palette-pointer-y", "0")
-		resultText.current.innerText = "#ffffff"
+		const c = typeof defaultValue === "string" ? chroma(defaultValue) : defaultValue
+		root.style.setProperty("--selected-hue", chroma.hsl(c.get("hsl.h"), 1, 0.5).hex())
+		root.style.setProperty("--selected-color", c.hex())
+		const el = palette.current
+		const elRect = el.getBoundingClientRect()
+		root.style.setProperty("--palette-pointer-x", (elRect.width * c.get("hsv.s")).toString())
+		root.style.setProperty("--palette-pointer-y", (elRect.height * (1 - c.get("hsv.v"))).toString())
+		root.style.setProperty("--hue-slider-y", ((c.get("hsl.h") / 360) * elRect.height).toString())
+		root.style.setProperty("--selected-alpha", c.alpha().toString())
+		root.style.setProperty("--alpha-slider-y", (elRect.height * (1 - c.alpha())).toString())
+		const bg = chroma(document.body.style.backgroundColor)
+		root.style.setProperty(
+			"--color-picker-background",
+			bg.luminance() > 0.5 ? bg.darken().css() : bg.brighten().css(),
+		)
 		resultText.current.dataset["type"] = "hex"
-	}, [])
+		updateText()
+	}, [picker, updateText, defaultValue])
 
 	useMousemove(
 		palette,
@@ -92,18 +115,22 @@ const ColorPicker: React.FC = () => {
 				const el = palette.current
 				const root = picker.current
 				const elRect = el.getBoundingClientRect()
-				const x = clamp(e.clientX - elRect.left, 0, elRect.width)
-				const y = clamp(e.clientY - elRect.top, 0, elRect.height)
-
-				const c1 = chroma.scale(["#fff", "#000"])(y / elRect.height)
-				const c2 = chroma.scale([root.style.getPropertyValue("--selected-hue"), "#000"])(y / elRect.height)
-				const selectedColor = chroma.scale([c1, c2])(x / elRect.width)
+				let x = clamp(e.clientX - elRect.left, 0, elRect.width)
+				if (e.ctrlKey) {
+					x = parseFloat(root.style.getPropertyValue("--palette-pointer-x"))
+				}
+				let y = clamp(e.clientY - elRect.top, 0, elRect.height)
+				if (e.shiftKey) {
+					y = parseFloat(root.style.getPropertyValue("--palette-pointer-y"))
+				}
+				const h = chroma(root.style.getPropertyValue("--selected-hue")).get("hsv.h")
+				const selectedColor = chroma.hsv(h, x / elRect.width, 1 - y / elRect.height)
 				root.style.setProperty("--selected-color", selectedColor.hex())
 				root.style.setProperty("--palette-pointer-x", x.toString())
 				root.style.setProperty("--palette-pointer-y", y.toString())
 				updateText()
 			},
-			[updateText],
+			[picker, updateText],
 		),
 	)
 
@@ -129,7 +156,7 @@ const ColorPicker: React.FC = () => {
 				root.style.setProperty("--selected-color", selectedColor.hex())
 				updateText()
 			},
-			[updateText],
+			[picker, updateText],
 		),
 	)
 	useMousemove(
@@ -145,9 +172,30 @@ const ColorPicker: React.FC = () => {
 				root.style.setProperty("--alpha-slider-y", y.toString())
 				updateText()
 			},
-			[updateText],
+			[picker, updateText],
 		),
 	)
+
+	function changeText() {
+		const el = resultText.current
+		const root = picker.current
+		const color = chroma(root.style.getPropertyValue("--selected-color"))
+		const alpha = parseFloat(root.style.getPropertyValue("--selected-alpha"))
+		switch (el.dataset["type"]) {
+			case "hex":
+				el.dataset["type"] = "rgba"
+				alpha < 1.0 ? (el.innerText = color.alpha(alpha).css()) : (el.innerText = color.css())
+				break
+			case "rgba":
+				el.dataset["type"] = "hsla"
+				alpha < 1.0 ? (el.innerText = color.alpha(alpha).css("hsl")) : (el.innerText = color.css("hsl"))
+				break
+			case "hsla":
+				el.dataset["type"] = "hex"
+				alpha < 1.0 ? (el.innerText = color.alpha(alpha).hex()) : (el.innerText = color.hex())
+				break
+		}
+	}
 
 	return (
 		<div ref={picker} className="color-picker" style={{ width: 460 }}>
@@ -156,35 +204,7 @@ const ColorPicker: React.FC = () => {
 				<div ref={resultColor} className="color-picker-result-bg" />
 				<div className="absolute w-full h-full flex items-center justify-center select-text">
 					<div ref={resultText} className="px-1" />
-					<button
-						className="px-2 rounded-lg focus:outline-none hover:text-gray-600"
-						onClick={() => {
-							const el = resultText.current
-							const root = picker.current
-							const color = chroma(root.style.getPropertyValue("--selected-color"))
-							const alpha = parseFloat(root.style.getPropertyValue("--selected-alpha"))
-							switch (el.dataset["type"]) {
-								case "hex":
-									el.dataset["type"] = "rgba"
-									alpha < 1.0
-										? (el.innerText = color.alpha(alpha).css())
-										: (el.innerText = color.css())
-									break
-								case "rgba":
-									el.dataset["type"] = "hsla"
-									alpha < 1.0
-										? (el.innerText = color.alpha(alpha).css("hsl"))
-										: (el.innerText = color.css("hsl"))
-									break
-								case "hsla":
-									el.dataset["type"] = "hex"
-									alpha < 1.0
-										? (el.innerText = color.alpha(alpha).hex())
-										: (el.innerText = color.hex())
-									break
-							}
-						}}
-					>
+					<button className="px-2 rounded-lg focus:outline-none hover:text-gray-600" onClick={changeText}>
 						<FontAwesomeIcon icon={faExchangeAlt} />
 					</button>
 				</div>
@@ -210,6 +230,6 @@ const ColorPicker: React.FC = () => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default ColorPicker

@@ -1,25 +1,33 @@
 .color-picker {
-	--selected-color: #c24747;
+	padding: 0.75rem;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
+	--selected-color: #ffffff;
 	--selected-hue: #ff0000;
 	--palette-pointer-x: 0;
 	--palette-pointer-y: 0;
 	--hue-slider-y: 0;
 	--alpha-slider-y: 0;
-	@apply m-3;
+	background: var(--color-picker-background);
 }
 
 .color-picker-controls {
-	@apply mt-3 grid gap-3;
+	margin-top: 0.75rem;
+	display: grid;
+	gap: 0.75rem;
+	grid-gap: 0.75rem;
 	grid-template-columns: 1fr 50px 50px;
 }
 
 .color-picker-palette {
-	@apply relative bg-white;
+	position: relative;
+	background-color: #ffffff;
 }
 
 .color-picker-palette-pointer {
-	@apply absolute border-gray-100 rounded-full;
-	background: var(--selected-color);
+	position: absolute;
+	border-color: #f7fafc;
+	border-radius: 9999px;
+	background-color: var(--selected-color);
 	border-width: 2px;
 	width: 16px;
 	height: 16px;
@@ -30,25 +38,34 @@
 }
 
 .color-picker-palette-bg {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: var(--selected-hue);
 }
 .color-picker-palette-bg1 {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: linear-gradient(to right, #fff 0%, transparent 100%);
 }
 .color-picker-palette-bg2 {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: linear-gradient(to bottom, transparent 0%, #000 100%);
 }
 
 .color-picker-hue {
-	@apply relative bg-white;
+	position: relative;
+	background-color: #ffffff;
 }
 
 .color-picker-hue-slider {
-	@apply absolute border-gray-100 rounded-full;
-	background: var(--selected-hue);
+	position: absolute;
+	border-color: #f7fafc;
+	border-radius: 9999px;
+	background-color: var(--selected-hue);
 	border-width: 2px;
 	width: calc(100% + 4px);
 	left: -2px;
@@ -57,7 +74,9 @@
 }
 
 .color-picker-hue-bg {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: linear-gradient(
 		to bottom,
 		hsl(0, 100%, 50%),
@@ -71,11 +90,15 @@
 }
 
 .color-picker-alpha {
-	@apply relative h-full bg-white;
+	height: 100%;
+	position: relative;
+	background-color: #ffffff;
 }
 
 .color-picker-alpha-bg1 {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background-image: linear-gradient(45deg, #888 25%, transparent 25%),
 		linear-gradient(-45deg, #888 25%, transparent 25%),
 		linear-gradient(45deg, transparent 75%, #888 75%),
@@ -85,7 +108,9 @@
 }
 
 .color-picker-alpha-bg2 {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: linear-gradient(
 		to bottom,
 		var(--selected-color) 0%,
@@ -94,7 +119,9 @@
 }
 
 .color-picker-alpha-slider {
-	@apply absolute border-gray-100 rounded-full;
+	position: absolute;
+	border-color: #f7fafc;
+	border-radius: 9999px;
 	border-width: 2px;
 	width: calc(100% + 4px);
 	left: -2px;
@@ -104,12 +131,14 @@
 }
 
 .color-picker-result {
-	@apply relative rounded-lg overflow-hidden;
+	position: relative;
 	color: var(--result-text-color);
 }
 
 .color-picker-result-bg {
-	@apply absolute w-full h-full;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	background: var(--selected-color);
 	opacity: var(--selected-alpha);
 }

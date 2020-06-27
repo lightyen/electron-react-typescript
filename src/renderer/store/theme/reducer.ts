@@ -20,7 +20,7 @@ function getTheme(): Theme & { name: ThemeName } {
 function initTheme(theme: Theme) {
 	const root = document.documentElement
 	const color = chroma(theme.primary)
-	// const light = chroma.contrast(color, "white") < 2
+	// const light = color.luminance() > 0.5
 	root.style.setProperty("--theme-btn-background", color.set("hsv.v", "0.5").css())
 	root.style.setProperty("--theme-btn-background-hover", color.set("hsv.v", "0.7").css())
 	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).css())
