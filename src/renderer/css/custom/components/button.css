@@ -2,14 +2,18 @@
 	transition-property: background-color, box-shadow;
 	transition-duration: 200ms;
 	transition-timing-function: ease;
-	@apply py-3 px-6 rounded bg-gray-500 text-white leading-none;
+	background: var(--theme-btn-background, #333333);
+	@apply py-3 px-6 rounded text-white leading-none;
 }
+
 .btn:focus {
-	box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.5);
+	box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
+	background: var(--theme-btn-background-hover, #575757);
 	@apply outline-none;
 }
 .btn:hover {
-	@apply bg-gray-400;
+	box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
+	background: var(--theme-btn-background-hover, #575757);
 }
 
 .btn-black {

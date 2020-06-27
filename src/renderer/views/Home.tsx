@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 					Learn React
 				</a>
 				<Link to="/version" tabIndex={-1}>
-					<button className="btn btn-blue my-2 helloworld">Version</button>
+					<button className="btn my-2">Version</button>
 				</Link>
 			</header>
 		</div>

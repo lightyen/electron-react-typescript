@@ -17,13 +17,13 @@ interface Versions {
 const AppVersion: React.FC = () => {
 	const versions = useSelector(state => state.app.versions)
 	const { getAppVersion } = useAction().app
-	const backgroundColor = useSelector(state => state.theme.primaryVariant)
-	const color = useSelector(state => state.theme.text.primary)
+	const backgroundColor = useSelector(state => state.theme.surface)
+	const color = useSelector(state => state.theme.text.surface)
 	React.useEffect(() => {
 		getAppVersion()
 	}, [getAppVersion])
 	return (
-		<Versions className="select-text" style={{ backgroundColor, color }}>
+		<Versions className="select-text p-3" style={{ backgroundColor, color }}>
 			<h1 className="font-bold" style={{ textTransform: "capitalize", fontSize: "1.5em" }}>
 				<FormattedMessage id="version" />
 			</h1>

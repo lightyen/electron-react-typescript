@@ -87,9 +87,9 @@ const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
 `
 
 const AppPaths: React.FC = () => {
-	const oddColor = useSelector(state => state.theme.primary)
-	const evenColor = useSelector(state => state.theme.primaryVariant)
-	const hoverColor = useSelector(state => state.theme.hover.primary)
+	const oddColor = useSelector(state => state.theme.secondary)
+	const evenColor = useSelector(state => state.theme.secondaryVariant)
+	const hoverColor = useSelector(state => state.theme.hover.secondary)
 	const paths = useSelector(state => state.app.paths)
 	const { getAppPaths } = useAction().app
 

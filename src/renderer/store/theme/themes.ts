@@ -25,6 +25,9 @@ export interface Theme {
 		error: string
 		success: string
 	}
+	titlebar: {
+		background: string
+	}
 }
 
 const colors = tailwindcssconfig.theme.colors
@@ -32,9 +35,9 @@ const colors = tailwindcssconfig.theme.colors
 export const themes: { [key: string]: Theme } = {
 	light: {
 		primary: colors.gray[100],
-		primaryVariant: colors.gray[300],
-		secondary: colors.teal[200],
-		secondaryVariant: colors.teal[300],
+		primaryVariant: colors.gray[200],
+		secondary: "#f0eceb",
+		secondaryVariant: "#e8d9d5",
 		background: colors.gray[100],
 		surface: colors.gray[100],
 		error: colors.red[500],
@@ -48,19 +51,22 @@ export const themes: { [key: string]: Theme } = {
 			success: colors.gray[900],
 		},
 		hover: {
-			primary: colors.gray[400],
-			secondary: colors.teal[400],
-			background: colors.gray[200],
-			surface: colors.gray[200],
+			primary: colors.gray[500],
+			secondary: "#f5eadc",
+			background: colors.gray[500],
+			surface: colors.gray[500],
 			error: colors.red[200],
 			success: colors.green[200],
 		},
+		titlebar: {
+			background: "#e8d9d5",
+		},
 	},
 	dark: {
-		primary: colors.gray[900],
-		primaryVariant: colors.gray[800],
-		secondary: colors.blue[900],
-		secondaryVariant: colors.blue[700],
+		primary: "#152840",
+		primaryVariant: "#1c324f",
+		secondary: "#153640",
+		secondaryVariant: "#154039",
 		background: colors.gray[900],
 		surface: colors.gray[900],
 		error: colors.red[600],
@@ -75,11 +81,14 @@ export const themes: { [key: string]: Theme } = {
 		},
 		hover: {
 			primary: colors.gray[700],
-			secondary: colors.blue[700],
+			secondary: "#1f5e54",
 			background: colors.gray[700],
 			surface: colors.gray[700],
 			error: colors.red[500],
 			success: colors.green[500],
+		},
+		titlebar: {
+			background: "#154039",
 		},
 	},
 }

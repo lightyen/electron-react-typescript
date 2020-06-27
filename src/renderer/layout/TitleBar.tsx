@@ -27,8 +27,9 @@ const TitleBar: React.FC = () => {
 	const theme = useSelector(state => state.theme)
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
+
 	return (
-		<HeaderTitleBar className="titlebar" titleBarColor={theme.primaryVariant} textTolor={theme.text.primary}>
+		<HeaderTitleBar className="titlebar" titleBarColor={theme.titlebar.background} textTolor={theme.text.primary}>
 			<div className="titlebar-content">
 				<div className="titlebar-drag-region" />
 				<div className="titlebar-appicon">
