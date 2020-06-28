@@ -126,7 +126,6 @@
 	width: calc(100% + 4px);
 	left: -2px;
 	height: 10px;
-	/* background: var(--selected-color); */
 	transform: translate(0px, calc(var(--alpha-slider-y, 0) * 1px - 5px));
 }
 

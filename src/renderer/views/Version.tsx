@@ -47,7 +47,7 @@ const Page: React.FC = () => {
 				{text && <div className="mt-2">{text}</div>}
 				<div>
 					<h2 className="text-lg mt-6 mb-3">Color Picker</h2>
-					<ColorPicker />
+					<ColorPicker onChange={e => console.log(e.hex())} />
 				</div>
 				<div className="mt-2 bg-gray-500 flex items-end" style={{ width: 300, height: 1300 }}>
 					<IntersectTarget />

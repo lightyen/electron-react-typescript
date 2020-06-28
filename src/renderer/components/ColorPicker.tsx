@@ -8,15 +8,24 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function useMousemove(ref: React.MutableRefObject<HTMLElement>, callback: (e: MouseEvent) => void) {
+	const cb = React.useRef<(e: MouseEvent) => void>()
+	React.useEffect(() => {
+		cb.current = callback
+	}, [callback])
 	React.useEffect(() => {
 		const el = ref.current
-		const onmousemove = (e: MouseEvent) => callback(e)
+		const onmousemove = (e: MouseEvent) => {
+			e.preventDefault()
+			cb.current(e)
+		}
 		const onmousedown = (e: MouseEvent) => {
+			e.preventDefault()
 			window.addEventListener("mousemove", onmousemove)
 			window.addEventListener("mouseup", onmouseup)
-			callback(e)
+			cb.current(e)
 		}
 		const onmouseup = (e: MouseEvent) => {
+			e.preventDefault()
 			window.removeEventListener("mousemove", onmousemove)
 		}
 		el.addEventListener("mousedown", onmousedown)
@@ -25,12 +34,7 @@ function useMousemove(ref: React.MutableRefObject<HTMLElement>, callback: (e: Mo
 			window.removeEventListener("mousemove", onmousemove)
 			window.removeEventListener("mouseup", onmouseup)
 		}
-	}, [ref, callback])
-}
-
-interface Props {
-	onChange?: (color: chroma.Color) => void
-	defaultValue?: string | chroma.Color
+	}, [ref])
 }
 
 function useCombinedRefs(
@@ -50,6 +54,11 @@ function useCombinedRefs(
 	return targetRef
 }
 
+interface Props {
+	onChange?: (color: chroma.Color) => void
+	defaultValue?: string | chroma.Color
+}
+
 const ColorPicker = React.forwardRef<
 	HTMLDivElement,
 	Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> & Props
@@ -59,8 +68,12 @@ const ColorPicker = React.forwardRef<
 	const alpha = React.useRef<HTMLDivElement>()
 	const hue = React.useRef<HTMLDivElement>()
 	const result = React.useRef<HTMLDivElement>()
-	const resultColor = React.useRef<HTMLDivElement>()
 	const resultText = React.useRef<HTMLDivElement>()
+
+	const handleChange = React.useRef<(color: chroma.Color) => void>()
+	React.useEffect(() => {
+		handleChange.current = onChange
+	}, [onChange])
 
 	const updateText = React.useCallback(() => {
 		const el = resultText.current
@@ -78,103 +91,86 @@ const ColorPicker = React.forwardRef<
 				el.innerText = color.alpha(alpha).css("hsl")
 				break
 		}
-		onChange && onChange(color.alpha(alpha))
 		const bg = chroma(document.body.style.backgroundColor)
 		if (chroma.scale([bg, color])(alpha).luminance() > 0.5) {
 			result.current.style.setProperty("--result-text-color", "#1a202c")
 		} else {
 			result.current.style.setProperty("--result-text-color", " #f7fafc")
 		}
-	}, [picker, onChange])
+		handleChange.current && handleChange.current(color.alpha(alpha))
+	}, [picker])
 
 	React.useEffect(() => {
 		const root = picker.current
 		const c = typeof defaultValue === "string" ? chroma(defaultValue) : defaultValue
-		root.style.setProperty("--selected-hue", chroma.hsl(c.get("hsl.h"), 1, 0.5).hex())
+		const h = c.get("hsl.h") || 0
+		root.style.setProperty("--selected-hue", chroma.hsl(h, 1, 0.5).hex())
 		root.style.setProperty("--selected-color", c.hex())
 		const el = palette.current
 		const elRect = el.getBoundingClientRect()
 		root.style.setProperty("--palette-pointer-x", (elRect.width * c.get("hsv.s")).toString())
 		root.style.setProperty("--palette-pointer-y", (elRect.height * (1 - c.get("hsv.v"))).toString())
-		root.style.setProperty("--hue-slider-y", ((c.get("hsl.h") / 360) * elRect.height).toString())
+		root.style.setProperty("--hue-slider-y", ((h / 360) * elRect.height).toString())
 		root.style.setProperty("--selected-alpha", c.alpha().toString())
 		root.style.setProperty("--alpha-slider-y", (elRect.height * (1 - c.alpha())).toString())
 		const bg = chroma(document.body.style.backgroundColor)
 		root.style.setProperty(
 			"--color-picker-background",
-			bg.luminance() > 0.5 ? bg.darken().css() : bg.brighten().css(),
+			bg.luminance() > 0.5 ? bg.darken(0.5).css() : bg.brighten(0.5).css(),
 		)
 		resultText.current.dataset["type"] = "hex"
 		updateText()
 	}, [picker, updateText, defaultValue])
 
-	useMousemove(
-		palette,
-		React.useCallback(
-			(e: MouseEvent) => {
-				const el = palette.current
-				const root = picker.current
-				const elRect = el.getBoundingClientRect()
-				let x = clamp(e.clientX - elRect.left, 0, elRect.width)
-				if (e.ctrlKey) {
-					x = parseFloat(root.style.getPropertyValue("--palette-pointer-x"))
-				}
-				let y = clamp(e.clientY - elRect.top, 0, elRect.height)
-				if (e.shiftKey) {
-					y = parseFloat(root.style.getPropertyValue("--palette-pointer-y"))
-				}
-				const h = chroma(root.style.getPropertyValue("--selected-hue")).get("hsv.h")
-				const selectedColor = chroma.hsv(h, x / elRect.width, 1 - y / elRect.height)
-				root.style.setProperty("--selected-color", selectedColor.hex())
-				root.style.setProperty("--palette-pointer-x", x.toString())
-				root.style.setProperty("--palette-pointer-y", y.toString())
-				updateText()
-			},
-			[picker, updateText],
-		),
-	)
+	useMousemove(palette, (e: MouseEvent) => {
+		const el = palette.current
+		const root = picker.current
+		const elRect = el.getBoundingClientRect()
+		let x = clamp(e.clientX - elRect.left, 0, elRect.width)
+		if (e.ctrlKey) {
+			x = parseFloat(root.style.getPropertyValue("--palette-pointer-x"))
+		}
+		let y = clamp(e.clientY - elRect.top, 0, elRect.height)
+		if (e.shiftKey) {
+			y = parseFloat(root.style.getPropertyValue("--palette-pointer-y"))
+		}
+		const h = chroma(root.style.getPropertyValue("--selected-hue")).get("hsv.h")
+		const selectedColor = chroma.hsv(h, x / elRect.width, 1 - y / elRect.height)
+		root.style.setProperty("--selected-color", selectedColor.hex())
+		root.style.setProperty("--palette-pointer-x", x.toString())
+		root.style.setProperty("--palette-pointer-y", y.toString())
+		updateText()
+	})
 
-	useMousemove(
-		hue,
-		React.useCallback(
-			(e: MouseEvent) => {
-				const el = hue.current
-				const root = picker.current
-				const pl = palette.current
-				const elRect = el.getBoundingClientRect()
-				const y = clamp(e.clientY - elRect.top, 0, elRect.height)
-				const selectedHue = chroma.hsl((y / elRect.height) * 360, 1, 0.5)
-				root.style.setProperty("--selected-hue", selectedHue.css("hsl"))
-				root.style.setProperty("--hue-slider-y", y.toString())
+	useMousemove(hue, (e: MouseEvent) => {
+		const el = hue.current
+		const root = picker.current
+		const pl = palette.current
+		const elRect = el.getBoundingClientRect()
+		const y = clamp(e.clientY - elRect.top, 0, elRect.height)
+		const selectedHue = chroma.hsl((y / elRect.height) * 360, 1, 0.5)
+		root.style.setProperty("--selected-hue", selectedHue.css("hsl"))
+		root.style.setProperty("--hue-slider-y", y.toString())
 
-				const plRect = pl.getBoundingClientRect()
-				const px = root.style.getPropertyValue("--palette-pointer-x")
-				const py = root.style.getPropertyValue("--palette-pointer-y")
-				const c1 = chroma.mix("#fff", "#000", parseFloat(py) / plRect.height, "rgb")
-				const c2 = chroma.mix(selectedHue, "#000", parseFloat(py) / plRect.height, "rgb")
-				const selectedColor = chroma.mix(c1, c2, parseFloat(px) / plRect.width, "rgb")
-				root.style.setProperty("--selected-color", selectedColor.hex())
-				updateText()
-			},
-			[picker, updateText],
-		),
-	)
-	useMousemove(
-		alpha,
-		React.useCallback(
-			(e: MouseEvent) => {
-				const el = alpha.current
-				const root = picker.current
-				const elRect = el.getBoundingClientRect()
-				const y = clamp(e.clientY - elRect.top, 0, elRect.height)
-				const selectedAlpha = 1 - y / elRect.height
-				root.style.setProperty("--selected-alpha", selectedAlpha.toString())
-				root.style.setProperty("--alpha-slider-y", y.toString())
-				updateText()
-			},
-			[picker, updateText],
-		),
-	)
+		const plRect = pl.getBoundingClientRect()
+		const px = root.style.getPropertyValue("--palette-pointer-x")
+		const py = root.style.getPropertyValue("--palette-pointer-y")
+		const c1 = chroma.mix("#fff", "#000", parseFloat(py) / plRect.height, "rgb")
+		const c2 = chroma.mix(selectedHue, "#000", parseFloat(py) / plRect.height, "rgb")
+		const selectedColor = chroma.mix(c1, c2, parseFloat(px) / plRect.width, "rgb")
+		root.style.setProperty("--selected-color", selectedColor.hex())
+		updateText()
+	})
+	useMousemove(alpha, (e: MouseEvent) => {
+		const el = alpha.current
+		const root = picker.current
+		const elRect = el.getBoundingClientRect()
+		const y = clamp(e.clientY - elRect.top, 0, elRect.height)
+		const selectedAlpha = 1 - y / elRect.height
+		root.style.setProperty("--selected-alpha", selectedAlpha.toString())
+		root.style.setProperty("--alpha-slider-y", y.toString())
+		updateText()
+	})
 
 	function changeText() {
 		const el = resultText.current
@@ -184,15 +180,15 @@ const ColorPicker = React.forwardRef<
 		switch (el.dataset["type"]) {
 			case "hex":
 				el.dataset["type"] = "rgba"
-				alpha < 1.0 ? (el.innerText = color.alpha(alpha).css()) : (el.innerText = color.css())
+				el.innerText = color.alpha(alpha).css()
 				break
 			case "rgba":
 				el.dataset["type"] = "hsla"
-				alpha < 1.0 ? (el.innerText = color.alpha(alpha).css("hsl")) : (el.innerText = color.css("hsl"))
+				el.innerText = color.alpha(alpha).css("hsl")
 				break
 			case "hsla":
 				el.dataset["type"] = "hex"
-				alpha < 1.0 ? (el.innerText = color.alpha(alpha).hex()) : (el.innerText = color.hex())
+				el.innerText = color.alpha(alpha).hex()
 				break
 		}
 	}
@@ -201,7 +197,7 @@ const ColorPicker = React.forwardRef<
 		<div ref={picker} className="color-picker" style={{ width: 460 }}>
 			<div ref={result} className="color-picker-result" style={{ height: 46 }}>
 				<div className="color-picker-alpha-bg1" />
-				<div ref={resultColor} className="color-picker-result-bg" />
+				<div className="color-picker-result-bg" />
 				<div className="absolute w-full h-full flex items-center justify-center select-text">
 					<div ref={resultText} className="px-1" />
 					<button className="px-2 rounded-lg focus:outline-none hover:text-gray-600" onClick={changeText}>
