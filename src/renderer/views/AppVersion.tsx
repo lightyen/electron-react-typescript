@@ -1,12 +1,6 @@
 import React from "react"
-import styled from "styled-components"
 import { FormattedMessage } from "react-intl"
 import { useSelector, useAction } from "~/store"
-
-const Versions = styled.div`
-	font-family: Fira Code;
-	text-align: center;
-`
 
 interface Versions {
 	electron: string
@@ -23,7 +17,7 @@ const AppVersion: React.FC = () => {
 		getAppVersion()
 	}, [getAppVersion])
 	return (
-		<Versions className="select-text p-3" style={{ backgroundColor, color }}>
+		<div className="select-text p-3 text-center" style={{ backgroundColor, color }}>
 			<h1 className="font-bold" style={{ textTransform: "capitalize", fontSize: "1.5em" }}>
 				<FormattedMessage id="version" />
 			</h1>
@@ -57,7 +51,7 @@ const AppVersion: React.FC = () => {
 					</tr>
 				</tbody>
 			</table>
-		</Versions>
+		</div>
 	)
 }
 

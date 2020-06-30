@@ -35,8 +35,8 @@ export default function (): Configuration {
 			TAILWIND_CONFIG: JSON.stringify(require(path.resolve(workingDirectory, "tailwind.config"))),
 		}),
 		new MiniCssExtractPlugin({
-			filename: join_network(outputCSS, "[name].[contenthash:8].css"),
-			chunkFilename: join_network(outputCSS, "[name].[contenthash:8].chunk.css"),
+			filename: join_network(outputCSS, "[name].css?[contenthash:8]"),
+			chunkFilename: join_network(outputCSS, "[name].chunk.css?[contenthash:8]"),
 		}),
 		new HtmlWebpackPlugin({
 			inject: true,
@@ -76,11 +76,10 @@ export default function (): Configuration {
 		},
 		output: {
 			path: dist,
-			filename: join_network(outputJS, "[name].[hash:8].js"),
-			chunkFilename: join_network(outputJS, "[name].[hash:8].chunk.js"),
+			filename: join_network(outputJS, "[name].js?[hash:8]"),
+			chunkFilename: join_network(outputJS, "[name].js?.[hash:8]"),
 			publicPath,
 		},
-
 		module: {
 			rules: [
 				{
