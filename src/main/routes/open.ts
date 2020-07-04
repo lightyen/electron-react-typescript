@@ -1,6 +1,6 @@
-import { BrowserWindow, dialog } from "electron"
+import { BrowserWindow, dialog, shell } from "electron"
 import { promises as fs } from "fs"
-import { openFolderDialog } from "shared/ipc"
+import { openFolderDialog, openFolder } from "shared/ipc"
 
 openFolderDialog.handle(async (e, options = {}) => {
 	const { canceled, ...rest } = await dialog.showOpenDialog(BrowserWindow.fromWebContents(e.sender), options)
@@ -14,4 +14,9 @@ openFolderDialog.handle(async (e, options = {}) => {
 		...rest,
 		files: list,
 	}
+})
+
+openFolder.on(async (_, fullpath) => {
+	const stat = await fs.stat(fullpath)
+	stat.isDirectory() && shell.openPath(fullpath)
 })

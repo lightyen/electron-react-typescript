@@ -11,7 +11,7 @@ export const setLocale = createAction("SET_LOCALE", ({ locale }: { locale: strin
 			locale = "zh-TW"
 			break
 		default:
-			window.electron.log.warn(`"${locale} is not found, select "en-US"`)
+			console.warn(`"${locale} is not found, select "en-US"`)
 			locale = "en-US"
 			break
 	}

@@ -27,7 +27,7 @@ export function setMenu() {
 				},
 				{
 					label: "Toggle Fullscreen",
-					accelerator: "F11",
+					accelerator: "f11",
 					click: (item, w) => {
 						if (w.isFullScreen()) {
 							windowFullscreen.sendWithWebContents(w.webContents, false)
@@ -40,16 +40,20 @@ export function setMenu() {
 				},
 				{
 					label: "Open Developer Tools",
-					accelerator: "F12",
+					accelerator: "f12",
 					click: (item: MenuItem, win: BrowserWindow) => {
-						win.webContents.openDevTools({ mode: "undocked" })
+						win.webContents.isDevToolsOpened()
+							? win.webContents.closeDevTools()
+							: win.webContents.openDevTools({ mode: "right" })
 					},
 				},
 				{
-					label: "Open Developer Tools (Docked)",
-					accelerator: "Alt+F12",
+					label: "Open Developer Tools (Undocked)",
+					accelerator: "shift+f12",
 					click: (item: MenuItem, win: BrowserWindow) => {
-						win.webContents.openDevTools({ mode: "right" })
+						win.webContents.isDevToolsOpened()
+							? win.webContents.closeDevTools()
+							: win.webContents.openDevTools({ mode: "undocked" })
 					},
 				},
 			],

@@ -1,4 +1,5 @@
 const { contextBridge, ipcRenderer, shell } = require("electron")
+const log = require("electron-log")
 
 function ipcRendererExpose(...expose) {
 	const ret = {}
@@ -7,8 +8,6 @@ function ipcRendererExpose(...expose) {
 	}
 	return ret
 }
-
-const log = require("electron-log")
 
 contextBridge.exposeInMainWorld("electron", {
 	ipcRenderer: ipcRendererExpose("invoke", "on", "addListener", "send", "removeListener"),

@@ -75,6 +75,15 @@ const ColorPicker = React.forwardRef<
 		handleChange.current = onChange
 	}, [onChange])
 
+	const onchange = React.useCallback(() => {
+		if (handleChange.current) {
+			const root = picker.current
+			const alpha = parseFloat(root.style.getPropertyValue("--selected-alpha"))
+			const color = chroma(root.style.getPropertyValue("--selected-color")).alpha(alpha)
+			handleChange.current(color.alpha(alpha))
+		}
+	}, [picker])
+
 	const updateText = React.useCallback(() => {
 		const el = resultText.current
 		const root = picker.current
@@ -97,7 +106,6 @@ const ColorPicker = React.forwardRef<
 		} else {
 			result.current.style.setProperty("--result-text-color", " #f7fafc")
 		}
-		handleChange.current && handleChange.current(color.alpha(alpha))
 	}, [picker])
 
 	React.useEffect(() => {
@@ -140,6 +148,7 @@ const ColorPicker = React.forwardRef<
 		root.style.setProperty("--palette-pointer-x", x.toString())
 		root.style.setProperty("--palette-pointer-y", y.toString())
 		updateText()
+		onchange()
 	})
 
 	useMousemove(hue, (e: MouseEvent) => {
@@ -160,6 +169,7 @@ const ColorPicker = React.forwardRef<
 		const selectedColor = chroma.mix(c1, c2, parseFloat(px) / plRect.width, "rgb")
 		root.style.setProperty("--selected-color", selectedColor.hex())
 		updateText()
+		onchange()
 	})
 	useMousemove(alpha, (e: MouseEvent) => {
 		const el = alpha.current
@@ -170,6 +180,7 @@ const ColorPicker = React.forwardRef<
 		root.style.setProperty("--selected-alpha", selectedAlpha.toString())
 		root.style.setProperty("--alpha-slider-y", y.toString())
 		updateText()
+		onchange()
 	})
 
 	function changeText() {

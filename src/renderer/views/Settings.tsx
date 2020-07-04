@@ -2,7 +2,7 @@ import React from "react"
 import { FormattedMessage, useIntl } from "react-intl"
 import Select from "react-select"
 import { useSelector, useAction } from "~/store"
-import { languageNames } from "~/store/i18n/languages"
+import { supports } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
 import styled from "styled-components"
@@ -16,7 +16,7 @@ interface OptionType {
 const Page: React.FC = () => {
 	const { setLocale } = useAction().i18n
 	const locale = useSelector(state => state.i18n.locale)
-	const langOpts = Object.entries(languageNames).map<OptionType>(([value, label]) => ({ value, label }))
+	const langOpts = Object.entries(supports).map<OptionType>(([value, label]) => ({ value, label }))
 
 	const { changeTheme } = useAction().theme
 	const theme = useSelector(state => state.theme.name)

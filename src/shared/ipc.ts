@@ -4,12 +4,12 @@ import type { OpenDialogOptions, OpenDialogReturnValue } from "electron"
 
 // export const custom = createIPC<MainReturn, RendererPayload, MainPayload, RendererReturn>("custom")
 
-export const appPaths = createIPC<AppPaths>("get.appPaths")
-export const cpuInfo = createIPC<CPUInfo>("get.cpu")
-export const memoryUsage = createIPC<SystemMemoryInfo>("get.memory.usage")
-export const appLogs = createIPC<string>("app.get.logs")
-export const getAppLocale = createIPC<string>("app.get.locale")
+export const appPaths = createIPC<AppPaths>("app.paths")
+export const appLogs = createIPC<string>("app.logs")
+export const appLocale = createIPC<string>("app.locale")
 export const windowReady = createIPC("window.ready")
+export const cpuInfo = createIPC<CPUInfo>("monitor.cpu")
+export const memoryUsage = createIPC<SystemMemoryInfo>("monitor.memory")
 
 // window
 export const windowClose = createIPC("window.close")

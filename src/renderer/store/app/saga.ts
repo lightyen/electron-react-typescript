@@ -19,7 +19,7 @@ import {
 	cpuInfo,
 	memoryUsage,
 	windowReady,
-	getAppLocale,
+	appLocale,
 } from "shared/ipc"
 import { setLocale } from "../i18n/action"
 
@@ -85,7 +85,7 @@ export default function* sagas() {
 	// init
 	yield fork(function* () {
 		if (!localStorage.getItem("locale")) {
-			const locale: string = yield call(getAppLocale.invoke)
+			const locale: string = yield call(appLocale.invoke)
 			yield put(setLocale({ locale }))
 		}
 		yield call(windowReady.send)
