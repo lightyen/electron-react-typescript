@@ -1,5 +1,4 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { getVersionsS } from "./action"
 import { Versions } from "shared/model"
 
 export interface AppStoreType {
@@ -18,6 +17,4 @@ const init: AppStore = {
 	},
 }
 
-export const app = createReducer(init, builder =>
-	builder.addCase(getVersionsS, (state, { payload: { versions } }) => ({ ...state, versions })),
-)
+export const app = createReducer(init, builder => builder)

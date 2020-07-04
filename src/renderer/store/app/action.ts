@@ -1,11 +1,8 @@
 import { createAction } from "@reduxjs/toolkit"
 import { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "shared/model"
-import { Versions } from "shared/model"
 import { windowClose, windowMaximize, windowMinimize, windowRestore, updateAndRestart } from "shared/ipc"
 
 export const isFullscreenS = createAction<{ isFullScreen: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
-export const getAppVersion = createAction("GET_APP_VERSION_REQUEST")
-export const getAppVersionS = createAction<{ versions: Versions }>("GET_APP_VERSION_SUCCESS")
 export const getAppPaths = createAction("GET_APP_PATHS_REQUEST")
 export const getAppPathsS = createAction<{ paths: AppPaths }>("GET_APP_PATHS_SUCCESS")
 export const getCpuUsage = createAction("GET_APP_CPU_USAGE_REQUEST")
@@ -40,7 +37,6 @@ export const window_restore = createAction("window.restore", () => {
 export const windowMaximized = createAction<{ maximized: boolean }>("window.maximized")
 
 export default {
-	getAppVersion,
 	getAppPaths,
 	getCpuUsage,
 	getSystemMemoryInfo,

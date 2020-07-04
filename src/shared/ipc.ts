@@ -1,14 +1,15 @@
 import createIPC from "./createIPC"
-import type { Versions, AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "./model"
+import type { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "./model"
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron"
 
 // export const custom = createIPC<MainReturn, RendererPayload, MainPayload, RendererReturn>("custom")
 
-export const appVersions = createIPC<Versions>("get.versions")
 export const appPaths = createIPC<AppPaths>("get.appPaths")
 export const cpuInfo = createIPC<CPUInfo>("get.cpu")
 export const memoryUsage = createIPC<SystemMemoryInfo>("get.memory.usage")
-export const appLogs = createIPC<string>("get.app.logs")
+export const appLogs = createIPC<string>("app.get.logs")
+export const getAppLocale = createIPC<string>("app.get.locale")
+export const windowReady = createIPC("window.ready")
 
 // window
 export const windowClose = createIPC("window.close")

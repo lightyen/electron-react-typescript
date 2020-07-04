@@ -2,6 +2,7 @@ import React from "react"
 import { IntlProvider } from "react-intl"
 import { useSelector } from "~/store"
 import { motion, Variants, AnimatePresence } from "framer-motion"
+import { getLocaleMessages } from "./store/i18n/languages"
 
 const variants: Variants = {
 	initial: {
@@ -19,12 +20,11 @@ const variants: Variants = {
 
 const LanguageProvider: React.FC = ({ children }) => {
 	const locale = useSelector(state => state.i18n.locale)
-	const messages = useSelector(state => state.i18n.messages)
 	const backgroundColor = useSelector(state => state.theme.background)
 	return (
 		<div style={{ backgroundColor }}>
 			<AnimatePresence initial={false}>
-				<IntlProvider key={locale} locale={locale} messages={messages}>
+				<IntlProvider key={locale} locale={locale} messages={getLocaleMessages(locale)}>
 					<motion.div key={locale} variants={variants} initial="initial" animate="in" exit="out">
 						{children}
 					</motion.div>

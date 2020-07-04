@@ -4,7 +4,7 @@ import { HashRouter, useLocation } from "react-router-dom"
 import { Switch, Route } from "~/MotionRouter"
 
 import Home from "~/views/Home"
-import Version from "~/views/Version"
+import Demo from "~/views/Demo"
 import Settings from "~/views/Settings"
 import AppLog from "~/views/AppLog"
 import ReactDnD from "~/views/ReactDnD"
@@ -66,7 +66,7 @@ const AppSwitch: React.FC = () => {
 				<Home />
 			</Route>
 			<Route path="/version">
-				<Version />
+				<Demo />
 			</Route>
 			<Route path="/settings">
 				<Settings />

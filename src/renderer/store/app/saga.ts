@@ -1,8 +1,6 @@
 import { put, take, fork, call, takeEvery } from "redux-saga/effects"
 import {
 	isFullscreenS,
-	getAppVersion,
-	getAppVersionS,
 	getAppPathsS,
 	getCpuUsageS,
 	getSystemMemoryInfoS,
@@ -14,23 +12,16 @@ import {
 } from "./action"
 
 import {
-	appVersions,
 	autoUpdateDownloaded,
 	windowIsMaximized,
 	windowFullscreen,
 	appPaths,
 	cpuInfo,
 	memoryUsage,
+	windowReady,
+	getAppLocale,
 } from "shared/ipc"
-
-function* _getAppVersion() {
-	try {
-		const versions = yield call(appVersions.invoke)
-		yield put(getAppVersionS({ versions }))
-	} catch (e) {
-		// do nothing
-	}
-}
+import { setLocale } from "../i18n/action"
 
 function* _getAppPaths() {
 	try {
@@ -91,7 +82,14 @@ function* subscribeWindowMaximized() {
 }
 
 export default function* sagas() {
-	yield takeEvery(getAppVersion.type, _getAppVersion)
+	// init
+	yield fork(function* () {
+		if (!localStorage.getItem("locale")) {
+			const locale: string = yield call(getAppLocale.invoke)
+			yield put(setLocale({ locale }))
+		}
+		yield call(windowReady.send)
+	})
 	yield takeEvery(getAppPaths.type, _getAppPaths)
 	yield takeEvery(getCpuUsage.type, _getCPUUsage)
 	yield takeEvery(getSystemMemoryInfo.type, _getSystemMemory)

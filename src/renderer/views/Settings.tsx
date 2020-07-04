@@ -1,5 +1,5 @@
 import React from "react"
-import { FormattedMessage } from "react-intl"
+import { FormattedMessage, useIntl } from "react-intl"
 import Select from "react-select"
 import { useSelector, useAction } from "~/store"
 import { languageNames } from "~/store/i18n/languages"
@@ -19,11 +19,11 @@ const Page: React.FC = () => {
 	const langOpts = Object.entries(languageNames).map<OptionType>(([value, label]) => ({ value, label }))
 
 	const { changeTheme } = useAction().theme
-	const messages = useSelector(state => state.i18n.messages)
 	const theme = useSelector(state => state.theme.name)
+	const intl = useIntl()
 	const themeOpts: OptionType[] = [
-		{ value: "light", label: messages["themes.light"] },
-		{ value: "dark", label: messages["themes.dark"] },
+		{ value: "light", label: intl.formatMessage({ id: "themes.light" }) },
+		{ value: "dark", label: intl.formatMessage({ id: "themes.dark" }) },
 	]
 
 	return (

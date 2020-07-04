@@ -2,17 +2,15 @@ import { BrowserWindow, screen, app } from "electron"
 import url from "url"
 import path from "path"
 
-import { appPath, appName } from "~/const"
+import { appPath } from "~/const"
 import { isDev } from "~/is"
 
-import { windowIsMaximized } from "shared/ipc"
-
-const log = global.electron.log
+import { windowIsMaximized, windowReady } from "shared/ipc"
 
 export function createMainWindow() {
 	const backgroundColor = global.storage.get("backgroundColor")
 	const main = new BrowserWindow({
-		title: appName,
+		title: app.getName(),
 		show: false,
 		minWidth: 820,
 		minHeight: 600,
@@ -30,7 +28,6 @@ export function createMainWindow() {
 		icon: path.join(appPath, "assets", "appicons", "256x256.png"),
 	})
 
-	main.setMenuBarVisibility(false)
 	main.on("maximize", () => windowIsMaximized.sendWithWebContents(main.webContents, true))
 	main.on("unmaximize", () => windowIsMaximized.sendWithWebContents(main.webContents, false))
 	main.on("show", () => {
@@ -45,7 +42,7 @@ export function createMainWindow() {
 		}
 	})
 
-	const loadURL = isDev
+	isDev
 		? main.loadURL(
 				url.format({
 					protocol: "http",
@@ -64,11 +61,8 @@ export function createMainWindow() {
 				}),
 		  )
 
-	loadURL
-		.then(() => main.show())
-		.catch(err => {
-			log.error(err)
-			app.quit()
-		})
+	windowReady.once(() => {
+		main.show()
+	})
 	return main
 }

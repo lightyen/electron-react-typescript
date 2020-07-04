@@ -7,13 +7,18 @@ import { isDev } from "./is"
 // NOTE: 可以使用 globalShortcut 模組來偵測鍵盤事件，就算你的應用程式視窗沒有 focused 也能作用。
 export function setGlobalShortcut() {
 	if (isDev) {
-		globalShortcut.register("CmdOrCtrl+G", () => {
-			if (process.platform === "darwin") {
-				console.log("Press Command+G")
-			} else {
-				console.log("Press Control+G")
-			}
-		})
+		// globalShortcut.register("f1", () => {
+		// 	dialog.showMessageBox(null, {
+		// 		type: "info",
+		// 		title: app.getName(),
+		// 		message: app.getName(),
+		// 		detail: `Version: ${version}\nElectron: ${process.versions.electron}\nChrome: ${
+		// 			process.versions.chrome
+		// 		}\nNode.js: ${process.versions.node}\nV8: ${process.versions.v8}\nOS: ${process.env.OS} ${
+		// 			process.arch
+		// 		} ${os.release()}`,
+		// 	})
+		// })
 	}
 	app.on("will-quit", () => {
 		// 取消訂閱所有快速鍵

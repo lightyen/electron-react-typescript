@@ -1,7 +1,6 @@
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
 import { motion } from "framer-motion"
-import AppVersion from "./AppVersion"
 import Back from "~/components/Back"
 
 import { useScrollBarSource } from "~/components/ScrollBar"
@@ -18,7 +17,6 @@ const Page: React.FC = () => {
 		<div className="select-none">
 			<Back to="/" />
 			<div className="mx-3 my-2">
-				<AppVersion />
 				<div className="mt-2">
 					<button
 						className="mr-2 btn btn-blue"
