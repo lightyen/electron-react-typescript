@@ -68,10 +68,6 @@ const mainConfig = (function (): Configuration {
 		},
 		plugins: [
 			new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true }),
-			new CleanWebpackPlugin({
-				verbose: true,
-				cleanOnceBeforeBuildPatterns: ["**/*"],
-			}),
 			new ExNodeTargetPlugin(),
 		],
 	}
@@ -148,6 +144,7 @@ const rendererConfig = (function (): Configuration {
 		},
 		plugins: [
 			new CleanWebpackPlugin({
+				verbose: true,
 				cleanOnceBeforeBuildPatterns: ["**/*", "!main.js"],
 				cleanAfterEveryBuildPatterns: ["assets"],
 			}),

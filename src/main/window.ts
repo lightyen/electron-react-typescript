@@ -60,9 +60,6 @@ export function createMainWindow() {
 					slashes: true,
 				}),
 		  )
-
-	windowReady.once(() => {
-		main.show()
-	})
+	windowReady.once(() => main.show())
 	return main
 }
