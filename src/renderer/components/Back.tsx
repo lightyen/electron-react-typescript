@@ -2,7 +2,7 @@ import React from "react"
 import { useHistory } from "react-router-dom"
 import classnames from "classnames"
 import styled from "styled-components"
-import { useSelector } from "~/store"
+import { useTheme } from "~/store"
 
 interface BackProps {
 	to?: string
@@ -31,9 +31,11 @@ const HoverSvg = styled.svg.attrs(props => ({ ...props }))<HoverProps>`
 `
 
 const Button: React.FC<BackProps> = ({ to, className }) => {
-	const textColor = useSelector(state => state.theme.text.surface)
-	const textHoverColor = useSelector(state => state.theme.hover.surface)
-	const colors = { color: textColor, hoverColor: textHoverColor }
+	const {
+		text: { surface: color },
+		hover: { surface: hoverColor },
+	} = useTheme()
+
 	const history = useHistory()
 	return (
 		<HoverButton
@@ -45,7 +47,7 @@ const Button: React.FC<BackProps> = ({ to, className }) => {
 				}
 			}}
 			className={classnames("font-bold py-2 px-4 rounded focus:outline-none flex", className)}
-			{...colors}
+			{...{ color, hoverColor }}
 		>
 			<HoverSvg
 				xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +55,7 @@ const Button: React.FC<BackProps> = ({ to, className }) => {
 				width="24"
 				height="24"
 				className="mr-1"
-				{...colors}
+				{...{ color, hoverColor }}
 			>
 				<path d="M5.41 11H21a1 1 0 0 1 0 2H5.41l5.3 5.3a1 1 0 0 1-1.42 1.4l-7-7a1 1 0 0 1 0-1.4l7-7a1 1 0 0 1 1.42 1.4L5.4 11z" />
 			</HoverSvg>

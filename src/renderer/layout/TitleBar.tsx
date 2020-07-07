@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useSelector, useAction } from "~/store"
+import { useTheme, useSelector, useAction } from "~/store"
 import icon from "assets/images/favicon.ico"
 
 interface HeaderTitleBarProps {
@@ -24,10 +24,9 @@ const ControlButton = styled.div`
 `
 
 const TitleBar: React.FC = () => {
-	const theme = useSelector(state => state.theme)
+	const theme = useTheme()
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
-
 	return (
 		<HeaderTitleBar className="titlebar" titleBarColor={theme.titlebar.background} textTolor={theme.text.primary}>
 			<div className="titlebar-content">

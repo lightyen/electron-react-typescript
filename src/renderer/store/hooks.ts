@@ -20,3 +20,11 @@ export function useAction() {
 		[dispatch],
 	)
 }
+
+export function useTheme() {
+	return useSelector(state => state.theme)
+}
+
+export function useI18n() {
+	return useSelector(state => state.i18n)
+}

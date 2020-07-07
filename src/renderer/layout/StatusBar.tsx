@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction, useTheme } from "~/store"
 
 interface BarProps {
 	background: string
@@ -13,7 +13,7 @@ const Bar = styled.div`
 `
 
 const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
-	const theme = useSelector(state => state.theme)
+	const theme = useTheme()
 
 	if (hide) {
 		document.documentElement.style.setProperty("--footer-height", "0px")

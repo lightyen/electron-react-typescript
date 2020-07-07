@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useSelector } from "~/store"
+import { useTheme } from "~/store"
 
 interface ScrollBarProps {
 	/** Color with scrollbar thumb, ex: #cccccc */
@@ -39,8 +39,10 @@ export function useScrollBarSource() {
 }
 
 const CustomScrollBar: React.FC = ({ children, ...rest }) => {
-	const color = useSelector(state => state.theme.text.background)
-	const backgroundColor = useSelector(state => state.theme.background)
+	const {
+		background: backgroundColor,
+		text: { background: color },
+	} = useTheme()
 	const ref = React.useRef<HTMLDivElement>()
 	const [target, setTarget] = React.useState<HTMLDivElement>(ref.current)
 	React.useEffect(() => {

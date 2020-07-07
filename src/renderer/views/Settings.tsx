@@ -1,7 +1,7 @@
 import React from "react"
 import { FormattedMessage, useIntl } from "react-intl"
 import Select from "react-select"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction, useI18n, useTheme } from "~/store"
 import { supports } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
@@ -15,11 +15,11 @@ interface OptionType {
 
 const Page: React.FC = () => {
 	const { setLocale } = useAction().i18n
-	const locale = useSelector(state => state.i18n.locale)
+	const { locale } = useI18n()
 	const langOpts = Object.entries(supports).map<OptionType>(([value, label]) => ({ value, label }))
 
 	const { changeTheme } = useAction().theme
-	const theme = useSelector(state => state.theme.name)
+	const theme = useTheme()
 	const intl = useIntl()
 	const themeOpts: OptionType[] = [
 		{ value: "light", label: intl.formatMessage({ id: "themes.light" }) },
@@ -38,7 +38,7 @@ const Page: React.FC = () => {
 						<Select
 							className="text-blue-500"
 							options={themeOpts}
-							value={themeOpts.find(v => v.value == theme)}
+							value={themeOpts.find(v => v.value == theme.name)}
 							onChange={v => changeTheme({ name: v["value"] })}
 							isSearchable={false}
 							styles={{
@@ -87,9 +87,11 @@ const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
 `
 
 const AppPaths: React.FC = () => {
-	const oddColor = useSelector(state => state.theme.secondary)
-	const evenColor = useSelector(state => state.theme.secondaryVariant)
-	const hoverColor = useSelector(state => state.theme.hover.secondary)
+	const {
+		secondary: oddColor,
+		secondaryVariant: evenColor,
+		hover: { secondary: hoverColor },
+	} = useTheme()
 	const paths = useSelector(state => state.app.paths)
 	const { getAppPaths } = useAction().app
 
