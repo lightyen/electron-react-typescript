@@ -6,3 +6,7 @@
 .border-file-uploader:hover {
 	@apply border-orange-500;
 }
+
+.hover.border-file-uploader {
+	@apply border-orange-500;
+}
