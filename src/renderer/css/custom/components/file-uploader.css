@@ -1,12 +1,4 @@
 .border-file-uploader {
 	border-width: 5px;
-	@apply transition-all-200ms rounded-lg border-dashed border-darkslateblue-300;
-}
-
-.border-file-uploader:hover {
-	@apply border-orange-500;
-}
-
-.hover.border-file-uploader {
-	@apply border-orange-500;
+	@apply flex flex-grow justify-center items-center m-3 transition-all-200ms rounded-lg border-dashed border-darkslateblue-300;
 }

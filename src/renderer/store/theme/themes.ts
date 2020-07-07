@@ -52,7 +52,7 @@ export const themes: { [key: string]: Theme } = {
 		},
 		hover: {
 			primary: colors.gray[500],
-			secondary: "#f5eadc",
+			secondary: "#c7aea7",
 			background: colors.gray[500],
 			surface: colors.gray[500],
 			error: colors.red[200],

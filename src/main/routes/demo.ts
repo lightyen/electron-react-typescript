@@ -1,15 +1,18 @@
 import { dialog } from "electron"
 import { dndimages } from "@shared/ipc"
 import path from "path"
-// import { appPath } from "~/const"
+import { promises as fs } from "fs"
 
 async function findImages(filePaths: string[]) {
 	const result: string[] = []
 	try {
 		for (const p of filePaths) {
-			const ext = path.extname(p)
-			if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif" || ext == ".ico") {
-				result.push(p)
+			const s = await fs.stat(p)
+			if (s.isFile()) {
+				const ext = path.extname(p)
+				if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif" || ext == ".ico") {
+					result.push(p)
+				}
 			}
 		}
 	} catch (err) {
