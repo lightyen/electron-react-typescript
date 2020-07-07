@@ -1,5 +1,5 @@
 import { HotModuleReplacementPlugin } from "webpack"
-import webpackMerge from "webpack-merge"
+import { merge } from "webpack-merge"
 import createBaseConfig from "./webpack.common"
 import type { Configuration } from "webpack"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
@@ -76,4 +76,4 @@ const config: Configuration = {
 	},
 }
 
-export default webpackMerge(createBaseConfig(), config)
+export default merge(createBaseConfig(), config)
