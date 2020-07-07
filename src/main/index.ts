@@ -1,2 +1,2 @@
-import "shared/register"
+import "@shared/register"
 import "~/app"

@@ -1,5 +1,5 @@
 import { app } from "electron"
-import { appLogs, appPaths, appLocale, setDefaultBackgroundColor, setDefaultAutoUpdate } from "shared/ipc"
+import { appLogs, appPaths, appLocale, setDefaultBackgroundColor, setDefaultAutoUpdate } from "@shared/ipc"
 import { promises as fs } from "fs"
 
 appLogs.handle(async () => await fs.readFile(global.electron.log.transports.file.getFile().path, { encoding: "utf-8" }))

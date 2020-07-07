@@ -1,6 +1,6 @@
 import React from "react"
 import Back from "~/components/Back"
-import { appLogs } from "shared/ipc"
+import { appLogs } from "@shared/ipc"
 
 const Page: React.FC = () => {
 	const [log, setLog] = React.useState("")

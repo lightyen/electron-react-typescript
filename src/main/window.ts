@@ -5,7 +5,7 @@ import path from "path"
 import { appPath } from "~/const"
 import { isDev } from "~/is"
 
-import { windowIsMaximized, windowReady } from "shared/ipc"
+import { windowIsMaximized, windowReady } from "@shared/ipc"
 
 export function createMainWindow() {
 	const backgroundColor = global.storage.get("backgroundColor")

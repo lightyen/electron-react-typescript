@@ -1,6 +1,6 @@
 import { createAction } from "@reduxjs/toolkit"
-import { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "shared/model"
-import { windowClose, windowMaximize, windowMinimize, windowRestore, updateAndRestart } from "shared/ipc"
+import { AppPaths, CPUInfo, SystemMemoryInfo, AutoUpdateInfo } from "@shared/model"
+import { windowClose, windowMaximize, windowMinimize, windowRestore, updateAndRestart } from "@shared/ipc"
 
 export const isFullscreenS = createAction<{ isFullScreen: boolean }>("GET_TITLEBAR_HIDE_SUCCESS")
 export const getAppPaths = createAction("GET_APP_PATHS_REQUEST")

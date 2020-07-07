@@ -30,3 +30,5 @@ export const openFolderDialog = createIPC<Partial<OpenDialogReturnValue & { file
 
 export const setDefaultBackgroundColor = createIPC<void, string>("set.default.backgroundColor")
 export const setDefaultAutoUpdate = createIPC<void, boolean>("set.default.autoUpdate")
+
+export const dndimages = createIPC<void, string[] | void>("dndfiles")

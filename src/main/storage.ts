@@ -1,5 +1,5 @@
 import ElectronStore from "electron-store"
-import { StorageType } from "shared/model/storage"
+import { StorageType } from "@shared/model/storage"
 
 export function createStorage() {
 	return new ElectronStore<StorageType>({

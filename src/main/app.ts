@@ -8,13 +8,17 @@ import "~/router"
 
 import { createMainWindow } from "~/window"
 import { createStorage } from "~/storage"
-import { updateAndRestart, autoUpdateDownloaded } from "shared/ipc"
+import { updateAndRestart, autoUpdateDownloaded } from "@shared/ipc"
 import semver from "semver"
-// import { isDev } from "~/is"
+import { isDev } from "~/is"
 // import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
 if (semver.satisfies(process.versions.electron, "<9.0.0")) {
 	app.allowRendererProcessReuse = true
+}
+
+if (isDev) {
+	process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 }
 
 const log = global.electron.log

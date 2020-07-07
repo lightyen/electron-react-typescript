@@ -1,4 +1,4 @@
-import { windowClose, windowMaximize, windowMinimize, windowRestore, windowIsMaximized } from "shared/ipc"
+import { windowClose, windowMaximize, windowMinimize, windowRestore, windowIsMaximized } from "@shared/ipc"
 
 windowClose.on(() => global.mainWindow.close())
 windowMaximize.on(() => global.mainWindow.maximize())

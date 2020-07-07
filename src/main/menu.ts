@@ -1,6 +1,6 @@
 import { Menu, app, dialog } from "electron"
 import type { MenuItem, MenuItemConstructorOptions, BrowserWindow } from "electron"
-import { windowFullscreen } from "shared/ipc"
+import { windowFullscreen } from "@shared/ipc"
 import os from "os"
 import { version } from "~/const"
 

@@ -2,7 +2,7 @@ import { Theme, ThemeName, themes } from "./themes"
 import { createReducer } from "@reduxjs/toolkit"
 import { changeTheme } from "./action"
 import chroma from "chroma-js"
-import { setDefaultBackgroundColor } from "shared/ipc"
+import { setDefaultBackgroundColor } from "@shared/ipc"
 
 export interface ThemeStore extends Theme {
 	name: ThemeName

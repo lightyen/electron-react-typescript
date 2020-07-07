@@ -1,5 +1,5 @@
 import os from "os"
-import { memoryUsage, cpuInfo } from "shared/ipc"
+import { memoryUsage, cpuInfo } from "@shared/ipc"
 
 memoryUsage.handle(() => ({
 	free: os.freemem(),

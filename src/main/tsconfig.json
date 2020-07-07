@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
-      "shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"]
     }
   },
   "include": ["./**/*", "../shared/typings/index.d.ts"]

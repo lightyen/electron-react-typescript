@@ -6,7 +6,7 @@ import { supports } from "~/store/i18n/languages"
 
 import Back from "~/components/Back"
 import styled from "styled-components"
-import { openFolder } from "shared/ipc"
+import { openFolder } from "@shared/ipc"
 
 interface OptionType {
 	label: string

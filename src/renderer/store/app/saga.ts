@@ -20,7 +20,7 @@ import {
 	memoryUsage,
 	windowReady,
 	appLocale,
-} from "shared/ipc"
+} from "@shared/ipc"
 import { setLocale } from "../i18n/action"
 
 function* _getAppPaths() {

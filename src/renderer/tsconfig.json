@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
-      "shared/*": ["../shared/*"],
+      "@shared/*": ["../shared/*"],
       "assets/*": ["../../assets/*"]
     }
   },

@@ -6,8 +6,9 @@ import Back from "~/components/Back"
 import { useScrollBarSource } from "~/components/ScrollBar"
 
 import { useInView } from "react-intersection-observer"
-import { openFolderDialog } from "shared/ipc"
+import { openFolderDialog } from "@shared/ipc"
 import ColorPicker from "~/components/ColorPicker"
+import FileUploader from "~/components/FileUploader"
 
 const Page: React.FC = () => {
 	const [text, setText] = React.useState("")
@@ -17,6 +18,7 @@ const Page: React.FC = () => {
 		<div className="select-none">
 			<Back to="/" />
 			<div className="mx-3 my-2">
+				<FileUploader />
 				<div className="mt-2">
 					<button
 						className="mr-2 btn btn-blue"

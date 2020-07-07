@@ -1,0 +1,8 @@
+.border-file-uploader {
+	border-width: 5px;
+	@apply transition-all-200ms rounded-lg border-dashed border-darkslateblue-300;
+}
+
+.border-file-uploader:hover {
+	@apply border-orange-500;
+}

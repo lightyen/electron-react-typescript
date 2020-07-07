@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog, shell } from "electron"
 import { promises as fs } from "fs"
-import { openFolderDialog, openFolder } from "shared/ipc"
+import { openFolderDialog, openFolder } from "@shared/ipc"
 
 openFolderDialog.handle(async (e, options = {}) => {
 	const { canceled, ...rest } = await dialog.showOpenDialog(BrowserWindow.fromWebContents(e.sender), options)

@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { SystemMemoryInfo, AppPaths } from "shared/model"
+import { SystemMemoryInfo, AppPaths } from "@shared/model"
 import {
 	isFullscreenS,
 	getAppPathsS,
