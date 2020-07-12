@@ -1,7 +1,7 @@
 language: 語言
 themes: 佈景主題
-light: 亮色
-dark: 暗色
+light: 淺色
+dark: 深色
 update.available: "有可用的新版本 {version}"
 update.restart: 重啟
 update.later: 稍後在說
