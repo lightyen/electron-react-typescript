@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { FormattedMessage } from "react-intl"
 
@@ -25,9 +24,6 @@ export default () => {
 				<a tabIndex={-1} className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
 					Learn React
 				</a>
-				<Link to="/demo" tabIndex={-1}>
-					<button className="btn my-2">Demo</button>
-				</Link>
 			</header>
 		</div>
 	)

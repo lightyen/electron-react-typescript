@@ -1,20 +1,7 @@
 import React from "react"
-import styled from "styled-components"
-import { useSelector, useAction, useTheme } from "~/store"
-
-interface BarProps {
-	background: string
-	textColor: string
-}
-
-const Bar = styled.div`
-	background: ${(props: BarProps) => props.background};
-	color: ${(props: BarProps) => props.textColor};
-`
+import { useSelector, useAction } from "~/store"
 
 const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
-	const theme = useTheme()
-
 	if (hide) {
 		document.documentElement.style.setProperty("--footer-height", "0px")
 	} else {
@@ -23,14 +10,9 @@ const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 
 	return (
 		!hide && (
-			<Bar
-				className="app-footer"
-				background={theme.primary}
-				textColor={theme.text.primary}
-				style={{ userSelect: "none" }}
-			>
+			<div className="app-footer">
 				<BarContent />
-			</Bar>
+			</div>
 		)
 	)
 }

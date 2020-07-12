@@ -13,3 +13,7 @@ hello: "Hello World!"
 test: "{name} is awesome!"
 nav_home: Home
 nav_settings: Settings
+app_minimize: Minimize
+app_maximize: Maximize
+app_restore: Restore
+app_quit: Quit

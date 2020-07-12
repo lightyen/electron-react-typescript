@@ -17,6 +17,9 @@
 	margin-top: 0;
 	width: 100%;
 	height: calc(var(--footer-height));
+	background: var(--theme-primary);
+	user-select: none;
+	color: var(--theme-text-primary);
 }
 
 @variants hover {

@@ -52,7 +52,7 @@ export const themes = {
 		success: colors.green[600],
 		hover: {
 			primary: colors.darkslategray[700],
-			secondary: colors.gray[500],
+			secondary: colors.gray[700],
 			background: colors.gray[700],
 			surface: "#838383",
 			error: colors.red[500],

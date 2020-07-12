@@ -1,7 +1,10 @@
 .sider {
 	@apply transition-all-200ms select-none w-16;
-	/** collapse */
-	/* @apply -ml-16; */
+	background-color: var(--theme-primaryvarient);
+}
+
+.sider.collapsed {
+	@apply -ml-16;
 }
 
 .sider-btn {

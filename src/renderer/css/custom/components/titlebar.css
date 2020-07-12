@@ -4,6 +4,8 @@
 	display: flex;
 	justify-content: space-between;
 	transition: all 0.15s ease;
+	color: var(--theme-text-primary);
+	background: var(--theme-titlebar.background);
 }
 
 .titlebar-content {
@@ -55,7 +57,7 @@
 	transition: all ease 0.15s;
 	width: calc(var(--titlebar-controls-width));
 }
-.titlebar-control-button {
+.titlebar-control-btn {
 	display: flex;
 	width: calc(var(--titlebar-controls-width) / 2);
 	justify-content: center;
@@ -63,13 +65,24 @@
 	user-select: none;
 	opacity: 0.8;
 	transition: all 0.15s ease;
+	color: var(--theme-text-primary);
 }
 
-.titlebar-control-button:hover {
+.titlebar-control-btn > svg {
+	fill: var(--theme-text-primary);
+}
+
+.titlebar-control-btn:hover {
 	opacity: 1;
+	background: var(--theme-hover-primary);
 }
 
-.titlebar-control-button-icon {
+.titlebar-control-btn:hover.quit {
+	opacity: 1;
+	background: var(--theme-error);
+}
+
+.titlebar-control-btn-icon {
 	width: calc(var(--icon-size));
 	height: calc(var(--icon-size));
 }

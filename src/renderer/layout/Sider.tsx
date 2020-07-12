@@ -1,14 +1,12 @@
 import React from "react"
-import { useTheme } from "~/store"
 import { NavLink } from "react-router-dom"
 import { useIntl } from "react-intl"
 
 const Sider = () => {
 	// https://github.com/danklammer/bytesize-icons
-	const theme = useTheme()
 	const intl = useIntl()
 	return (
-		<div className="sider" style={{ backgroundColor: theme.primaryVariant }}>
+		<div className="sider">
 			<NavLink to="/" exact className="sider-btn" title={intl.formatMessage({ id: "nav_home" })}>
 				<svg
 					id="i-home"

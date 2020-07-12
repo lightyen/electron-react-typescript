@@ -10,10 +10,6 @@
 	height: var(--dm-switch-height);
 }
 
-.dm-switch > input {
-	display: none;
-}
-
 .dm-switch > label {
 	user-select: none;
 	position: relative;
