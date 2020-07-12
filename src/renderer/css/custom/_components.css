@@ -5,3 +5,5 @@
 @import "./components/file-uploader.css";
 @import "./components/sider.css";
 @import "./components/modal.css";
+@import "./components/darkmode-switch.css";
+@import "./components/locale-select.css";

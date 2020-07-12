@@ -50,7 +50,7 @@ export const Modal: React.FC<Props> = ({ children, open = false, exitAnime = tru
 			e.className = "modal-base"
 			modalRoot.appendChild(e)
 			modalRoot.style.bottom = "0%"
-			modalRoot.addEventListener("wheel", wheel)
+			modalRoot.addEventListener("wheel", wheel, { passive: true })
 			root.addEventListener("keydown", keydown)
 		}
 		return () => {

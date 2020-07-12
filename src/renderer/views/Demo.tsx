@@ -55,7 +55,7 @@ export default () => {
 							fill="none"
 							stroke="currentcolor"
 							strokeLinecap="round"
-							stroke-Linejoin="round"
+							strokeLinejoin="round"
 							strokeWidth="2"
 						>
 							<path d="M30 18 L16 5 2 18Z M2 25 L30 25" />

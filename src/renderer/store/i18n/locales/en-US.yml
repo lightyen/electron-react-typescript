@@ -1,7 +1,7 @@
 language: language
 themes: themes
-themes.light: light
-themes.dark: dark
+light: light
+dark: dark
 update.available: "New version {version} available."
 update.restart: Restart Now?
 update.later: Later

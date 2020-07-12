@@ -1,0 +1,68 @@
+.dm-switch {
+	--dm-switch-width: 100px;
+	--dm-switch-height: 36px;
+}
+
+.dm-switch {
+	position: relative;
+	display: inline-block;
+	width: var(--dm-switch-width);
+	height: var(--dm-switch-height);
+}
+
+.dm-switch > input {
+	display: none;
+}
+
+.dm-switch > label {
+	user-select: none;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: block;
+	overflow: hidden;
+	transition: all 200ms ease;
+}
+
+.dm-switch > label:hover {
+	cursor: pointer;
+}
+
+.dm-switch > label > * {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	text-align: center;
+	line-height: var(--dm-switch-height);
+	backface-visibility: hidden;
+	transition: transform 300ms ease;
+	transform-origin: 0% 200%;
+}
+
+.dm-switch > label:hover {
+	box-shadow: 0 0 3px 4px rgba(110, 190, 255, 0.8);
+}
+
+/** checked */
+
+.dm-switch > label {
+	color: var(--theme-text-surface);
+	background: var(--theme-surface);
+}
+
+.dm-switch > input:not(:checked) + label > *:first-child {
+	transform: rotate(0deg);
+}
+
+.dm-switch > input:checked + label > *:first-child {
+	transform: rotate(-90deg);
+}
+
+.dm-switch > input:not(:checked) + label > *:last-child {
+	transform: rotate(90deg);
+}
+
+.dm-switch > input:checked + label > *:last-child {
+	transform: rotate(0deg);
+}
