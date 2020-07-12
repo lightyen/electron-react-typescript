@@ -1,21 +1,19 @@
 import React from "react"
 import { AnimatePresence } from "framer-motion"
-import { HashRouter, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { Switch, Route } from "~/MotionRouter"
 
 import Home from "~/views/Home"
 import Demo from "~/views/Demo"
 import Settings from "~/views/Settings"
-import AppLog from "~/views/AppLog"
+import Log from "~/views/Log"
 import ReactDnD from "~/views/ReactDnD"
 
 export const AppRouter: React.FC = () => {
 	return (
-		<HashRouter>
-			<AnimatePresence exitBeforeEnter>
-				<AppSwitch />
-			</AnimatePresence>
-		</HashRouter>
+		<AnimatePresence exitBeforeEnter>
+			<AppSwitch />
+		</AnimatePresence>
 	)
 }
 
@@ -65,7 +63,7 @@ const AppSwitch: React.FC = () => {
 			>
 				<Home />
 			</Route>
-			<Route path="/version">
+			<Route path="/demo">
 				<Demo />
 			</Route>
 			<Route path="/settings">
@@ -75,7 +73,7 @@ const AppSwitch: React.FC = () => {
 				<ReactDnD />
 			</Route>
 			<Route path="/log">
-				<AppLog />
+				<Log />
 			</Route>
 		</Switch>
 	)

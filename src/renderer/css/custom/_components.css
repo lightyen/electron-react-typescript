@@ -3,3 +3,5 @@
 @import "./components/layout.css";
 @import "./components/color-picker.css";
 @import "./components/file-uploader.css";
+@import "./components/sider.css";
+@import "./components/modal.css";

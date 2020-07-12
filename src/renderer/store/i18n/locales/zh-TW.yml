@@ -2,9 +2,14 @@ language: 語言
 themes: 佈景主題
 themes.light: 亮色
 themes.dark: 暗色
-update.available: '有可用的新版本 {version}'
+update.available: "有可用的新版本 {version}"
 update.restart: 重啟
 update.later: 稍後在說
 version: 版本
-hello: 'Hello World!'
-test: '{name} 真他麻香！'
+title: 標題
+ok: 確定
+modal: 互動對話框
+hello: "Hello World!"
+test: "{name} 真他麻香！"
+nav_home: 主頁
+nav_settings: 設定

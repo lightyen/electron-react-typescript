@@ -6,5 +6,10 @@ update.available: "New version {version} available."
 update.restart: Restart Now?
 update.later: Later
 version: version
+title: title
+ok: ok
+modal: modal
 hello: "Hello World!"
 test: "{name} is awesome!"
+nav_home: Home
+nav_settings: Settings

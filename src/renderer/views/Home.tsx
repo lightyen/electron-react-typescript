@@ -7,7 +7,7 @@ import "./Home.css"
 
 import logo from "assets/images/logo.svg"
 
-const Home: React.FC = () => {
+export default () => {
 	return (
 		<div className="Home select-none">
 			<header className="Home-header">
@@ -25,12 +25,10 @@ const Home: React.FC = () => {
 				<a tabIndex={-1} className="Home-link" href="https://reactjs.org" rel="noopener noreferrer">
 					Learn React
 				</a>
-				<Link to="/version" tabIndex={-1}>
-					<button className="btn my-2">Enter</button>
+				<Link to="/demo" tabIndex={-1}>
+					<button className="btn my-2">Demo</button>
 				</Link>
 			</header>
 		</div>
 	)
 }
-
-export default Home

@@ -1,7 +1,5 @@
 import React from "react"
 import { dndimages } from "@shared/ipc"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFileUpload } from "@fortawesome/free-solid-svg-icons/faFileUpload"
 import styled from "styled-components"
 
 import { ThemedStyledProps } from "styled-components"
@@ -33,7 +31,22 @@ const FileUploader: React.FC = () => {
 					setHover(false)
 				}}
 			>
-				<FontAwesomeIcon className="pointer-events-none" icon={faFileUpload} size="2x" />
+				<div className="pointer-events-none">
+					<svg
+						id="i-import"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 32 32"
+						width="32"
+						height="32"
+						fill="none"
+						stroke="currentcolor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth="2"
+					>
+						<path d="M28 22 L28 30 4 30 4 22 M16 4 L16 24 M8 16 L16 24 24 16" />
+					</svg>
+				</div>
 			</Container>
 		</div>
 	)

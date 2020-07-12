@@ -1,7 +1,5 @@
 import React from "react"
 import chroma from "chroma-js"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons/faExchangeAlt"
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max)
@@ -212,7 +210,20 @@ const ColorPicker = React.forwardRef<
 				<div className="absolute w-full h-full flex items-center justify-center select-text">
 					<div ref={resultText} className="px-1" />
 					<button className="px-2 rounded-lg focus:outline-none hover:text-gray-600" onClick={changeText}>
-						<FontAwesomeIcon icon={faExchangeAlt} />
+						<svg
+							id="i-options"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 32 32"
+							width="16"
+							height="16"
+							fill="none"
+							stroke="currentcolor"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+						>
+							<path d="M28 6 L4 6 M28 16 L4 16 M28 26 L4 26 M24 3 L24 9 M8 13 L8 19 M20 23 L20 29" />
+						</svg>
 					</button>
 				</div>
 			</div>

@@ -1,0 +1,22 @@
+#modal-root {
+	position: absolute;
+	bottom: 100%;
+	@apply left-0 right-0 top-0;
+}
+
+.modal-base {
+	@apply w-full h-full;
+}
+
+.modal-cover {
+	background-color: var(--theme-modal-cover-bg);
+	backdrop-filter: blur(1px);
+	z-index: 9999;
+	@apply w-full h-full flex justify-center items-center;
+}
+
+.modal {
+	background-color: var(--theme-surface);
+	box-shadow: 2px 2px 12px -1px var(--theme-modal-shadow);
+	@apply w-64 rounded;
+}

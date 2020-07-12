@@ -1,75 +1,35 @@
 import React from "react"
-import { FormattedMessage, useIntl } from "react-intl"
-import Select from "react-select"
-import { useSelector, useAction, useI18n, useTheme } from "~/store"
-import { supports } from "~/store/i18n/languages"
+import { FormattedMessage } from "react-intl"
+import { useSelector, useAction, useTheme } from "~/store"
 
-import Back from "~/components/Back"
+import Page from "~/components/Page"
+import DarkModeToggle from "~/components/DarkModeToggle"
 import styled from "styled-components"
 import { openFolder } from "@shared/ipc"
+import LocaleSelect from "~/components/LocaleSelect"
 
-interface OptionType {
-	label: string
-	value: string
-}
-
-const Page: React.FC = () => {
-	const { setLocale } = useAction().i18n
-	const { locale } = useI18n()
-	const langOpts = Object.entries(supports).map<OptionType>(([value, label]) => ({ value, label }))
-
-	const { changeTheme } = useAction().theme
-	const theme = useTheme()
-	const intl = useIntl()
-	const themeOpts: OptionType[] = [
-		{ value: "light", label: intl.formatMessage({ id: "themes.light" }) },
-		{ value: "dark", label: intl.formatMessage({ id: "themes.dark" }) },
-	]
-
+export default () => {
 	return (
-		<>
-			<Back to="/version" />
-			<div className="pt-3 pl-3">
-				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
-						<FormattedMessage id="themes" />
-					</label>
-					<div className="w-64">
-						<Select
-							className="text-blue-500"
-							options={themeOpts}
-							value={themeOpts.find(v => v.value == theme.name)}
-							onChange={v => changeTheme({ name: v["value"] })}
-							isSearchable={false}
-							styles={{
-								option: s => ({ ...s, textTransform: "capitalize" }),
-								container: s => ({ ...s, textTransform: "capitalize" }),
-							}}
-						/>
-					</div>
-				</div>
-				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
-						<FormattedMessage id="language" />
-					</label>
-					<div className="w-64">
-						<Select<OptionType>
-							className="text-blue-500"
-							options={langOpts}
-							value={langOpts.find(v => v.value == locale)}
-							onChange={v => setLocale({ locale: v["value"] })}
-							isSearchable={false}
-						/>
-					</div>
-				</div>
-				<div className="mb-10">
-					<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
-						Paths
-					</label>
-					<AppPaths />
-				</div>
+		<Page>
+			<div className="mb-10">
+				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
+					<FormattedMessage id="themes" />
+				</label>
+				<DarkModeToggle />
 			</div>
-		</>
+			<div className="mb-10">
+				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
+					<FormattedMessage id="language" />
+				</label>
+				<LocaleSelect />
+			</div>
+			<div className="mb-10">
+				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
+					Paths
+				</label>
+				<AppPaths />
+			</div>
+		</Page>
 	)
 }
 
@@ -130,5 +90,3 @@ const AppPaths: React.FC = () => {
 		</table>
 	)
 }
-
-export default Page

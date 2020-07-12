@@ -46,5 +46,6 @@
   },
   "javascript.suggestionActions.enabled": false,
   "i18n-ally.localesPaths": ["src/renderer/store/i18n/locales"],
-  "i18n-ally.sourceLanguage": "en-US"
+  "i18n-ally.sourceLanguage": "en-US",
+  "i18n-ally.keystyle": "nested"
 }

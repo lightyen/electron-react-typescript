@@ -1,0 +1,27 @@
+.sider {
+	@apply transition-all-200ms select-none w-16;
+	/** collapse */
+	/* @apply -ml-16; */
+}
+
+.sider-btn {
+	@apply transition-all-200ms p-3 flex outline-none items-center justify-center relative;
+	opacity: 0.5;
+}
+
+.sider-btn.active::after {
+	content: "";
+	width: 0.3rem;
+	background: var(--theme-success);
+	@apply h-full absolute left-0;
+}
+
+.sider-btn:hover,
+.sider-btn.active {
+	background-color: var(--theme-hover-primary);
+	opacity: 1;
+}
+
+.sider-btn > svg {
+	width: 24px;
+}

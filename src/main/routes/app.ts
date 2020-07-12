@@ -1,5 +1,5 @@
 import { app } from "electron"
-import { appLogs, appPaths, appLocale, setDefaultBackgroundColor, setDefaultAutoUpdate } from "@shared/ipc"
+import { appLogs, appPaths, setDefaultBackgroundColor, setDefaultAutoUpdate } from "@shared/ipc"
 import { promises as fs } from "fs"
 
 appLogs.handle(async () => await fs.readFile(global.electron.log.transports.file.getFile().path, { encoding: "utf-8" }))
@@ -16,6 +16,5 @@ appPaths.handle(() => ({
 	pictures: app.getPath("pictures"),
 	downloads: app.getPath("downloads"),
 }))
-appLocale.handle(() => app.getLocale())
 setDefaultBackgroundColor.on((_, color) => global.storage.set("backgroundColor", color))
 setDefaultAutoUpdate.on((_, enable) => global.storage.set("autoUpdate", enable))

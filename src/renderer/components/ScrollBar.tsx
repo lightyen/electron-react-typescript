@@ -11,7 +11,9 @@ interface ScrollBarProps {
 }
 
 // https://css-tricks.com/custom-scrollbars-in-webkit/
-const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "black", ...props }))<ScrollBarProps>`
+const CustomScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "black", ...props }))<ScrollBarProps>`
+	flex-grow: 1;
+
 	&::-webkit-scrollbar {
 		width: ${({ width, padding }) => width + padding * 2}px;
 		height: ${({ width, padding }) => width + padding * 2}px;
@@ -33,32 +35,58 @@ const ScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "bla
 `
 
 export const ScrollBarContext = React.createContext<HTMLDivElement>(null)
+const ScrollBarVisibleContext = React.createContext<boolean>(null)
 
 export function useScrollBarSource() {
 	return React.useContext(ScrollBarContext)
 }
 
-const CustomScrollBar: React.FC = ({ children, ...rest }) => {
+export function useScollBarVisible() {
+	return React.useContext(ScrollBarVisibleContext)
+}
+
+const ScrollBar: React.FC = ({ children, ...rest }) => {
 	const {
 		background: backgroundColor,
 		text: { background: color },
 	} = useTheme()
 	const ref = React.useRef<HTMLDivElement>()
-	const [target, setTarget] = React.useState<HTMLDivElement>(ref.current)
+	const [handle, setHandle] = React.useState<HTMLDivElement>()
+	const isMount = React.useRef(false)
 	React.useEffect(() => {
-		setTarget(ref.current)
+		isMount.current = true
+		setHandle(ref.current)
+		return () => {
+			isMount.current = false
+		}
 	}, [])
 
+	const [visible, setVisible] = React.useState(false)
+	React.useEffect(() => {
+		if (!handle) {
+			return () => {
+				/** */
+			}
+		}
+		const el = handle.children[0]
+		const observer = new ResizeObserver(entries => {
+			setVisible(handle.scrollHeight > handle.clientHeight)
+		})
+		observer.observe(el)
+		return () => observer.disconnect()
+	}, [handle])
+
 	return (
-		<ScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
-			{target && (
-				<ScrollBarContext.Provider value={target}>
-					<div style={{ color, backgroundColor }}>{children}</div>
+		<CustomScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
+			{handle && (
+				<ScrollBarContext.Provider value={handle}>
+					<div style={{ color, backgroundColor }}>
+						<ScrollBarVisibleContext.Provider value={visible}>{children}</ScrollBarVisibleContext.Provider>
+					</div>
 				</ScrollBarContext.Provider>
 			)}
-		</ScrollBar>
+		</CustomScrollBar>
 	)
 }
 
-CustomScrollBar.displayName = "CustomScrollBar"
-export default CustomScrollBar
+export default ScrollBar

@@ -14,7 +14,6 @@ import { motion, Variants } from "framer-motion"
 
 export const pageVariants: Variants = {
 	initial: {
-		x: "12%",
 		opacity: 0,
 	},
 	in: {
@@ -23,7 +22,6 @@ export const pageVariants: Variants = {
 	},
 	out: {
 		opacity: 0,
-		transition: { duration: 0.15 },
 	},
 }
 
@@ -38,7 +36,13 @@ export const Switch: React.FC<SwitchProps> = ({ children, ...props }) => {
 export const Route: React.FC<RouteProps & ExtraProps> = ({ children, custom, ...props }) => {
 	return (
 		<_Route {...props}>
-			<motion.div initial="initial" className="h-full" animate="in" exit="out" variants={custom || pageVariants}>
+			<motion.div
+				initial="initial"
+				className="flex-grow"
+				animate="in"
+				exit="out"
+				variants={custom || pageVariants}
+			>
 				<ScrollBar>{children}</ScrollBar>
 			</motion.div>
 		</_Route>

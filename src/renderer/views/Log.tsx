@@ -1,8 +1,7 @@
 import React from "react"
-import Back from "~/components/Back"
 import { appLogs } from "@shared/ipc"
 
-const Page: React.FC = () => {
+export default () => {
 	const [log, setLog] = React.useState("")
 	React.useEffect(() => {
 		appLogs
@@ -13,12 +12,9 @@ const Page: React.FC = () => {
 
 	return (
 		<div>
-			<Back to="/version" />
 			<p className="p-3" style={{ whiteSpace: "pre-wrap" }}>
 				{log === "" ? "Empty" : log}
 			</p>
 		</div>
 	)
 }
-
-export default Page

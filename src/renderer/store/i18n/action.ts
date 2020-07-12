@@ -1,27 +1,20 @@
 import { createAction } from "@reduxjs/toolkit"
-import { setLocale as __setLocale } from "./languages"
 
-export const setLocale = createAction("SET_LOCALE", ({ locale }: { locale: string }) => {
-	const [primary] = locale.toLocaleLowerCase().split(/-/)
+export const setLocale = createAction("SET_LOCALE", (payload: { locale: string; cached?: boolean }) => {
+	const [primary] = payload.locale.toLocaleLowerCase().split(/-/)
 	switch (primary) {
 		case "en":
-			locale = "en-US"
+			payload.locale = "en-US"
 			break
 		case "zh":
-			locale = "zh-TW"
+			payload.locale = "zh-TW"
 			break
 		default:
-			console.warn(`"${locale} is not found, select "en-US"`)
-			locale = "en-US"
+			console.warn(`"${payload.locale} is not found, select "en-US"`)
+			payload.locale = "en-US"
 			break
 	}
-
-	__setLocale(locale)
-	return {
-		payload: {
-			locale,
-		},
-	}
+	return { payload }
 })
 
 export default { setLocale }
