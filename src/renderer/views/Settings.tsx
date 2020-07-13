@@ -6,7 +6,7 @@ import Page from "~/components/Page"
 import DarkModeSwitch from "~/components/DarkModeSwitch"
 import styled from "styled-components"
 import { openFolder } from "@shared/ipc"
-import LocaleSelect from "~/components/LocaleSelect"
+import LocaleDropdown from "~/components/LocaleDropdown"
 
 export default () => {
 	return (
@@ -21,7 +21,7 @@ export default () => {
 				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
 					<FormattedMessage id="language" />
 				</label>
-				<LocaleSelect />
+				<LocaleDropdown />
 			</div>
 			<div className="mb-10">
 				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>

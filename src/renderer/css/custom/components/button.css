@@ -8,7 +8,6 @@
 
 .btn:focus {
 	box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
-	background: var(--theme-btn-background-hover, #575757);
 	@apply outline-none;
 }
 .btn:hover {

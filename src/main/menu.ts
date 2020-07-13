@@ -19,7 +19,7 @@ export function setMenu() {
 							message: app.getName(),
 							detail: `Version: ${version}\nElectron: ${process.versions.electron}\nChrome: ${
 								process.versions.chrome
-							}\nNode.js: ${process.versions.node}\nV8: ${process.versions.v8}\nOS: ${process.env.OS} ${
+							}\nNode.js: ${process.versions.node}\nV8: ${process.versions.v8}\nOS: ${os.type()} ${
 								process.arch
 							} ${os.release()}`,
 						})

@@ -19,98 +19,98 @@ export default () => {
 	const [open, setOpen] = React.useState(false)
 	return (
 		<Page>
-			<div className="mx-3 my-2">
+			<div className="mb-2">
 				<FileUploader />
-				<div className="mt-2">
-					<button
-						className="mr-2 btn btn-blue"
-						onClick={async () => {
-							const { filePaths } = await openFolderDialog.invoke({
-								title: "Select a folder",
-								properties: ["openDirectory"],
-							})
-							if (filePaths) {
-								setText(filePaths.length > 0 ? filePaths[0] : "")
-							}
-						}}
+			</div>
+			<div>
+				<button
+					className="mr-2 mb-2 btn btn-blue"
+					onClick={async () => {
+						const { filePaths } = await openFolderDialog.invoke({
+							title: "Select a folder",
+							properties: ["openDirectory"],
+						})
+						if (filePaths) {
+							setText(filePaths.length > 0 ? filePaths[0] : "")
+						}
+					}}
+				>
+					Open Dialog
+				</button>
+				<button className="mr-2 mb-2 btn btn-blue" onClick={() => history.push("/settings")}>
+					<FormattedMessage id="nav_settings" />
+				</button>
+				<button className="mr-2 mb-2 btn btn-orange" onClick={() => history.push("/dnd")}>
+					DnD
+				</button>
+				<button className="mr-2 mb-2 btn btn-green" onClick={() => history.push("/log")}>
+					Log
+				</button>
+				<button className="mr-2 mb-2 btn inline-flex items-center" onClick={e => setOpen(true)}>
+					<svg
+						id="i-eject"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 32 32"
+						width="14"
+						height="14"
+						fill="none"
+						stroke="currentcolor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth="2"
 					>
-						Open Dialog
-					</button>
-					<button className="mr-2 btn btn-blue" onClick={() => history.push("/settings")}>
-						<FormattedMessage id="nav_settings" />
-					</button>
-					<button className="mr-2 btn btn-orange" onClick={() => history.push("/dnd")}>
-						DnD
-					</button>
-					<button className="mr-2 btn btn-green" onClick={() => history.push("/log")}>
-						Log
-					</button>
-					<button className="btn mr-3 inline-flex items-center" onClick={e => setOpen(true)}>
-						<svg
-							id="i-eject"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 32 32"
-							width="14"
-							height="14"
-							fill="none"
-							stroke="currentcolor"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-						>
-							<path d="M30 18 L16 5 2 18Z M2 25 L30 25" />
-						</svg>
-						<span className="pl-2">
-							<FormattedMessage id="modal" />
-						</span>
-					</button>
-					<Modal open={open} onMouseDownOutside={e => setOpen(false)}>
-						<div className="px-6 my-3">
-							<div className="mt-4 mb-2">
-								<div className="font-bold text-xl mb-2 capitalize">
-									<FormattedMessage id="title" />
-								</div>
-							</div>
-							<div className="h-12 mb-3">bla bla bla...</div>
-							<div className="mb-3 flex justify-end">
-								<button
-									className="btn btn-blue flex items-center"
-									onClick={e => {
-										e.preventDefault()
-										e.stopPropagation()
-										setOpen(false)
-									}}
-								>
-									<svg
-										id="i-checkmark"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 32 32"
-										width="16"
-										height="16"
-										fill="none"
-										stroke="currentcolor"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="4"
-									>
-										<path d="M2 20 L12 28 30 4" />
-									</svg>
-									<span className="pl-2">
-										<FormattedMessage id="ok" />
-									</span>
-								</button>
+						<path d="M30 18 L16 5 2 18Z M2 25 L30 25" />
+					</svg>
+					<span className="pl-2">
+						<FormattedMessage id="modal" />
+					</span>
+				</button>
+				<Modal open={open} onMouseDownOutside={e => setOpen(false)}>
+					<div className="px-6 my-3">
+						<div className="mt-4 mb-2">
+							<div className="font-bold text-xl mb-2 capitalize">
+								<FormattedMessage id="title" />
 							</div>
 						</div>
-					</Modal>
-				</div>
-				{text && <div className="mt-2">{text}</div>}
-				<div>
-					<h2 className="text-lg mt-6 mb-3">Color Picker</h2>
-					<ColorPicker onChange={e => console.log(e.hex())} />
-				</div>
-				<div className="mt-2 bg-gray-500 flex items-end" style={{ width: 300, height: 1300 }}>
-					<IntersectTarget />
-				</div>
+						<div className="h-12 mb-3">bla bla bla...</div>
+						<div className="mb-3 flex justify-end">
+							<button
+								className="btn btn-blue flex items-center"
+								onClick={e => {
+									e.preventDefault()
+									e.stopPropagation()
+									setOpen(false)
+								}}
+							>
+								<svg
+									id="i-checkmark"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 32 32"
+									width="16"
+									height="16"
+									fill="none"
+									stroke="currentcolor"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="4"
+								>
+									<path d="M2 20 L12 28 30 4" />
+								</svg>
+								<span className="pl-2">
+									<FormattedMessage id="ok" />
+								</span>
+							</button>
+						</div>
+					</div>
+				</Modal>
+			</div>
+			{text && <div className="mt-2">{text}</div>}
+			<div>
+				<h2 className="text-lg mt-6 mb-3">Color Picker</h2>
+				<ColorPicker />
+			</div>
+			<div className="mt-2 bg-gray-500 flex items-end" style={{ width: 300, height: 1300 }}>
+				<IntersectTarget />
 			</div>
 		</Page>
 	)
