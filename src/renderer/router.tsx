@@ -17,9 +17,7 @@ export const AppRouter: React.FC = () => {
 	)
 }
 
-const AppSwitch: React.FC = () => {
-	const location = useLocation()
-
+function useExternalLink() {
 	React.useEffect(() => {
 		// Link to anchor with default browser
 		const h = (event: MouseEvent) => {
@@ -37,12 +35,16 @@ const AppSwitch: React.FC = () => {
 				window.electron.shell.openExternal(url.href)
 			}
 		}
-		document.querySelector("body").addEventListener("click", h)
-		return () => document.querySelector("body").removeEventListener("click", h)
+		document.documentElement.addEventListener("click", h)
+		return () => document.documentElement.removeEventListener("click", h)
 	}, [])
+}
 
+const AppSwitch: React.FC = () => {
+	const location = useLocation()
+	useExternalLink()
 	return (
-		<Switch location={location} key={location.pathname}>
+		<Switch key={location.pathname}>
 			<Route
 				path="/"
 				exact
