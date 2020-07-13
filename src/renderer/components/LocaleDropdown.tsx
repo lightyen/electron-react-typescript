@@ -41,13 +41,13 @@ export default () => {
 							opacity: 1,
 							scaleY: 1,
 							translateY: 0,
-							transition: { ease: "linear", duration: 0.1 },
+							transition: { ease: "linear", duration: 0.05 },
 						}}
 						exit={{
 							opacity: 0,
 							scaleY: 0.2,
 							translateY: -30,
-							transition: { ease: "linear", duration: 0.1 },
+							transition: { ease: "linear", duration: 0.05 },
 						}}
 					>
 						{Object.entries(supports).map(([locale, value]) => (
