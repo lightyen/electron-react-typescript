@@ -1,6 +1,137 @@
 import React from "react"
 import chroma from "chroma-js"
 
+import styled from "styled-components"
+import tw from "twin.macro"
+
+const ColorPicker = styled.div`
+	--selected-color: #ffffff;
+	--selected-hue: #ff0000;
+	--palette-pointer-x: 0;
+	--palette-pointer-y: 0;
+	--hue-slider-y: 0;
+	--alpha-slider-y: 0;
+	${tw`p-3`}
+	width: 340px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
+	background: var(--color-picker-background);
+	> #result {
+		position: relative;
+		height: 46px;
+		color: var(--result-text-color);
+		> #alpha {
+			${tw`w-full h-full absolute`}
+			background-image: linear-gradient(45deg, #888 25%, transparent 25%),
+				linear-gradient(-45deg, #888 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #888 75%),
+				linear-gradient(-45deg, transparent 75%, #888 75%);
+			background-size: 16px 16px;
+			background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+		}
+		> #bg {
+			${tw`w-full h-full absolute`}
+			background: var(--selected-color);
+			opacity: var(--selected-alpha);
+		}
+		> #text {
+			${tw`absolute w-full h-full flex items-center justify-center select-text`}
+			#switch {
+				${tw`px-2 rounded-lg`}
+				:focus {
+					${tw`outline-none`}
+				}
+				:hover {
+					${tw`text-gray-600`}
+				}
+			}
+		}
+	}
+`
+
+const Panel = styled.div`
+	height: 200px;
+	margin-top: 0.75rem;
+	display: grid;
+	gap: 0.75rem;
+	grid-gap: 0.75rem;
+	grid-template-columns: 1fr 50px 50px;
+	> #palette {
+		${tw`relative bg-white`}
+		> #pointer {
+			${tw`absolute w-4 h-4 rounded-full`}
+			border-color: #f7fafc;
+			background-color: var(--selected-color);
+			border-width: 2px;
+			transform: translate(
+				calc(var(--palette-pointer-x, 0) * 1px - 8px),
+				calc(var(--palette-pointer-y, 0) * 1px - 8px)
+			);
+		}
+		> #bg {
+			${tw`w-full h-full absolute`}
+			background: var(--selected-hue);
+			> #bg1 {
+				${tw`w-full h-full absolute`}
+				background: linear-gradient(to right, #fff 0%, transparent 100%);
+			}
+			> #bg2 {
+				${tw`w-full h-full absolute`}
+				background: linear-gradient(to bottom, transparent 0%, #000 100%);
+			}
+		}
+	}
+	> #alpha {
+		${tw`relative h-full bg-white`}
+		> #bg1 {
+			${tw`w-full h-full absolute`}
+			background-image: linear-gradient(45deg, #888 25%, transparent 25%),
+				linear-gradient(-45deg, #888 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #888 75%),
+				linear-gradient(-45deg, transparent 75%, #888 75%);
+			background-size: 16px 16px;
+			background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+		}
+		> #bg2 {
+			${tw`w-full h-full absolute`}
+			background: linear-gradient(to bottom, var(--selected-color) 0%, transparent 100%);
+		}
+		> #slider {
+			${tw`absolute rounded-full`}
+			position: absolute;
+			border-color: #f7fafc;
+			border-width: 2px;
+			width: calc(100% + 4px);
+			left: -2px;
+			height: 10px;
+			transform: translate(0px, calc(var(--alpha-slider-y, 0) * 1px - 5px));
+		}
+	}
+	> #hue {
+		${tw`relative bg-white`}
+		> #bg {
+			${tw`w-full h-full absolute`}
+			background: linear-gradient(
+				to bottom,
+				hsl(0, 100%, 50%),
+				hsl(60, 100%, 50%),
+				hsl(120, 100%, 50%),
+				hsl(180, 100%, 50%),
+				hsl(240, 100%, 50%),
+				hsl(300, 100%, 50%),
+				hsl(360, 100%, 50%)
+			);
+		}
+		> #slider {
+			${tw`absolute rounded-full`}
+			border-color: #f7fafc;
+			background-color: var(--selected-hue);
+			border-width: 2px;
+			width: calc(100% + 4px);
+			left: -2px;
+			height: 10px;
+			transform: translate(0px, calc(var(--hue-slider-y, 0) * 1px - 5px));
+		}
+	}
+`
+
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max)
 }
@@ -57,7 +188,7 @@ interface Props {
 	defaultValue?: string | chroma.Color
 }
 
-const ColorPicker = React.forwardRef<
+export default React.forwardRef<
 	HTMLDivElement,
 	Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> & Props
 >(({ onChange, defaultValue = chroma("#ff0000") }, ref) => {
@@ -124,6 +255,7 @@ const ColorPicker = React.forwardRef<
 			"--color-picker-background",
 			bg.luminance() > 0.5 ? bg.darken(0.5).css() : bg.brighten(0.5).css(),
 		)
+		console.log(bg.brighten(0.5).hex())
 		resultText.current.dataset["type"] = "hex"
 		updateText()
 	}, [picker, updateText, defaultValue])
@@ -203,13 +335,13 @@ const ColorPicker = React.forwardRef<
 	}
 
 	return (
-		<div ref={picker} className="color-picker" style={{ width: 460 }}>
-			<div ref={result} className="color-picker-result" style={{ height: 46 }}>
-				<div className="color-picker-alpha-bg1" />
-				<div className="color-picker-result-bg" />
-				<div className="absolute w-full h-full flex items-center justify-center select-text">
-					<div ref={resultText} className="px-1" />
-					<button className="px-2 rounded-lg focus:outline-none hover:text-gray-600" onClick={changeText}>
+		<ColorPicker ref={picker}>
+			<div id="result" ref={result}>
+				<div id="alpha" />
+				<div id="bg" />
+				<div id="text">
+					<div ref={resultText} />
+					<button id="switch" onClick={changeText}>
 						<svg
 							id="i-options"
 							xmlns="http://www.w3.org/2000/svg"
@@ -227,27 +359,25 @@ const ColorPicker = React.forwardRef<
 					</button>
 				</div>
 			</div>
-			<div className="color-picker-controls" style={{ height: 300 }}>
-				<div ref={palette} className="color-picker-palette">
-					<div className="color-picker-palette-bg">
-						<div className="color-picker-palette-bg1" />
-						<div className="color-picker-palette-bg2" />
-						<div className="color-picker-palette-bg2" />
+			<Panel>
+				<div id="palette" ref={palette}>
+					<div id="bg">
+						<div id="bg1" />
+						<div id="bg2" />
+						<div id="bg2" />
 					</div>
-					<div className="color-picker-palette-pointer" />
+					<div id="pointer" />
 				</div>
-				<div ref={alpha} className="color-picker-alpha">
-					<div className="color-picker-alpha-bg1" />
-					<div className="color-picker-alpha-bg2" />
-					<div className="color-picker-alpha-slider" />
+				<div id="alpha" ref={alpha}>
+					<div id="bg1" />
+					<div id="bg2" />
+					<div id="slider" />
 				</div>
-				<div ref={hue} className="color-picker-hue">
-					<div className="color-picker-hue-bg" />
-					<div className="color-picker-hue-slider" />
+				<div ref={hue} id="hue">
+					<div id="bg" />
+					<div id="slider" />
 				</div>
-			</div>
-		</div>
+			</Panel>
+		</ColorPicker>
 	)
 })
-
-export default ColorPicker

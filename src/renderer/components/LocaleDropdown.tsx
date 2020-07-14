@@ -48,23 +48,23 @@ const DropdownMenu = styled.ul`
 	min-width: var(--lc-dropdown-control-width);
 	filter: drop-shadow(1px 1px 2px var(--theme-shadow)) drop-shadow(1px 1px 2px var(--theme-shadow-ambient));
 	${tw`absolute right-0 mt-2`}
-	li:first-child.selected ~ ${DropdownMenuCaret} {
+	> li:first-child.selected ~ ${DropdownMenuCaret} {
 		background-color: var(--theme-active-surface);
 	}
-	li {
+	> li {
 		color: var(--theme-text-surface);
 		background-color: var(--theme-surface);
 		transition: all 200ms ease;
 		margin-top: -1px;
 		${tw`px-4 py-2 cursor-pointer select-none`}
 	}
-	li.selected {
+	> li.selected {
 		background-color: var(--theme-active-surface);
 	}
-	li:hover {
+	> li:hover {
 		background-color: var(--theme-hover-surface);
 	}
-	li:first-child:hover ~ ${DropdownMenuCaret} {
+	> li:first-child:hover ~ ${DropdownMenuCaret} {
 		background-color: var(--theme-hover-surface);
 	}
 `

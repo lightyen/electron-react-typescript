@@ -18,15 +18,15 @@ const styles = css`
 	${tw`inline-block relative`}
 	width: var(--dm-switch-width);
 	height: var(--dm-switch-height);
-	label {
+	> label {
 		${tw`relative w-full h-full block overflow-hidden select-none`}
 		transition: all 200ms ease;
 	}
-	label:hover {
+	> label:hover {
 		${tw`cursor-pointer`}
 		box-shadow: 0 0 3px 4px rgba(110, 190, 255, 0.8);
 	}
-	label > div {
+	> label > div {
 		${tw`absolute w-full h-full select-none text-center`}
 		line-height: var(--dm-switch-height);
 		backface-visibility: hidden;
@@ -34,20 +34,20 @@ const styles = css`
 		transform-origin: 0% 200%;
 	}
 	/** checked */
-	label {
+	> label {
 		color: var(--theme-text-surface);
 		background: var(--theme-surface);
 	}
-	input:not(:checked) + label > *:first-child {
+	> input:not(:checked) + label > *:first-child {
 		transform: rotate(0deg);
 	}
-	input:checked + label > *:first-child {
+	> input:checked + label > *:first-child {
 		transform: rotate(-90deg);
 	}
-	input:not(:checked) + label > *:last-child {
+	> input:not(:checked) + label > *:last-child {
 		transform: rotate(90deg);
 	}
-	input:checked + label > *:last-child {
+	> input:checked + label > *:last-child {
 		transform: rotate(0deg);
 	}
 `
