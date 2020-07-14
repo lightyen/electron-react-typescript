@@ -58,6 +58,16 @@ export function setMenu() {
 				},
 			],
 		},
+		{
+			label: "Esc",
+			accelerator: "esc",
+			click: (item: MenuItem, w: BrowserWindow) => {
+				if (w.isFullScreen()) {
+					windowFullscreen.sendWithWebContents(w.webContents, false)
+					w.setFullScreen(false)
+				}
+			},
+		},
 	]
 
 	if (process.platform === "darwin") {

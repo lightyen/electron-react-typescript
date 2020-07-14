@@ -12,6 +12,97 @@ import FileUploader from "~/components/FileUploader"
 
 import { FormattedMessage } from "react-intl"
 import { Modal } from "~/components/Modal"
+
+import { css } from "@emotion/core"
+import styled from "@emotion/styled"
+import tw from "twin.macro"
+
+interface ButtonProps {
+	varient?: "none" | "black" | "blue" | "green" | "orange" | "red"
+}
+
+const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
+	return [
+		css`
+			transition-property: background-color, box-shadow;
+			transition-duration: 200ms;
+			transition-timing-function: ease;
+		`,
+		tw`py-3 px-6 rounded text-white leading-none`,
+		varient === "none" &&
+			css`
+				background: var(--theme-btn-background, #333333);
+				:focus {
+					box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
+					${tw`outline-none`}
+				}
+				:hover {
+					box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
+					background: var(--theme-btn-background-hover, #575757);
+				}
+			`,
+		varient === "black" &&
+			css`
+				${tw`bg-gray-900 text-white`}
+				:focus {
+					box-shadow: 0 0 0 3px rgba(26, 32, 44, 0.5);
+					${tw`outline-none`}
+				}
+				:hover {
+					${tw`bg-gray-800`}
+				}
+			`,
+		varient === "blue" &&
+			css`
+				${tw`bg-blue-500 text-white`}
+				:focus {
+					box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+					${tw`outline-none`}
+				}
+				:hover {
+					box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+					${tw`bg-blue-600`}
+				}
+			`,
+		varient === "green" &&
+			css`
+				${tw`bg-green-500 text-white`}
+				:focus {
+					box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5);
+					${tw`outline-none`}
+				}
+				:hover {
+					box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5);
+					${tw`bg-green-600`}
+				}
+			`,
+		varient === "orange" &&
+			css`
+				${tw`bg-orange-500 text-white`}
+				:focus {
+					box-shadow: 0 0 0 3px rgba(237, 137, 54, 0.5);
+					${tw`outline-none`}
+				}
+				:hover {
+					box-shadow: 0 0 0 3px rgba(237, 137, 54, 0.5);
+					${tw`bg-orange-600`}
+				}
+			`,
+		varient === "red" &&
+			css`
+				${tw`bg-red-500 text-white`}
+				:focus {
+					box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.5);
+					${tw`outline-none`}
+				}
+				:hover {
+					box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.5);
+					${tw`bg-red-600`}
+				}
+			`,
+	]
+})
+
 export default () => {
 	const [text, setText] = React.useState("")
 	const history = useHistory()
@@ -23,8 +114,9 @@ export default () => {
 				<FileUploader />
 			</div>
 			<div>
-				<button
-					className="mr-2 mb-2 btn btn-blue"
+				<Button
+					varient="blue"
+					className="mr-2 mb-2"
 					onClick={async () => {
 						const { filePaths } = await openFolderDialog.invoke({
 							title: "Select a folder",
@@ -36,17 +128,17 @@ export default () => {
 					}}
 				>
 					Open Dialog
-				</button>
-				<button className="mr-2 mb-2 btn btn-blue" onClick={() => history.push("/settings")}>
+				</Button>
+				<Button varient="blue" className="mr-2 mb-2" onClick={() => history.push("/settings")}>
 					<FormattedMessage id="nav_settings" />
-				</button>
-				<button className="mr-2 mb-2 btn btn-orange" onClick={() => history.push("/dnd")}>
+				</Button>
+				<Button varient="orange" className="mr-2 mb-2" onClick={() => history.push("/dnd")}>
 					DnD
-				</button>
-				<button className="mr-2 mb-2 btn btn-green" onClick={() => history.push("/log")}>
+				</Button>
+				<Button varient="green" className="mr-2 mb-2" onClick={() => history.push("/log")}>
 					Log
-				</button>
-				<button className="mr-2 mb-2 btn inline-flex items-center" onClick={e => setOpen(true)}>
+				</Button>
+				<Button className="mr-2 mb-2 inline-flex items-center" onClick={e => setOpen(true)}>
 					<svg
 						id="i-eject"
 						xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +156,7 @@ export default () => {
 					<span className="pl-2">
 						<FormattedMessage id="modal" />
 					</span>
-				</button>
+				</Button>
 				<Modal open={open} onMouseDownOutside={e => setOpen(false)}>
 					<div className="px-6 my-3">
 						<div className="mt-4 mb-2">
@@ -74,8 +166,8 @@ export default () => {
 						</div>
 						<div className="h-12 mb-3">bla bla bla...</div>
 						<div className="mb-3 flex justify-end">
-							<button
-								className="btn btn-blue flex items-center"
+							<Button
+								className="flex items-center"
 								onClick={e => {
 									e.preventDefault()
 									e.stopPropagation()
@@ -99,7 +191,7 @@ export default () => {
 								<span className="pl-2">
 									<FormattedMessage id="ok" />
 								</span>
-							</button>
+							</Button>
 						</div>
 					</div>
 				</Modal>
