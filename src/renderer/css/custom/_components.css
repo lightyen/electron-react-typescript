@@ -1,9 +1,5 @@
 @import "./components/button.css";
-@import "./components/titlebar.css";
 @import "./components/layout.css";
 @import "./components/color-picker.css";
 @import "./components/file-uploader.css";
-@import "./components/sider.css";
 @import "./components/modal.css";
-@import "./components/darkmode-switch.css";
-@import "./components/locale-dropdown.css";

@@ -1,7 +1,5 @@
 :root {
 	--control-ratio: 1;
 	--titlebar-height: (var(--control-ratio) * 30px);
-	--titlebar-controls-width: (var(--control-ratio) * 138px);
-	--icon-size: (var(--control-ratio) * 10px);
 	--footer-height: (var(--control-ratio) * 0px);
 }
