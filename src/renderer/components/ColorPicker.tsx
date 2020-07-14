@@ -1,6 +1,5 @@
 import React from "react"
 import chroma from "chroma-js"
-
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -11,13 +10,12 @@ const ColorPicker = styled.div`
 	--palette-pointer-y: 0;
 	--hue-slider-y: 0;
 	--alpha-slider-y: 0;
-	${tw`p-3`}
 	width: 340px;
+	${tw`p-3`}
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
 	background: var(--color-picker-background);
 	> #result {
-		position: relative;
-		height: 46px;
+		${tw`relative h-12`}
 		color: var(--result-text-color);
 		> #alpha {
 			${tw`w-full h-full absolute`}
@@ -48,11 +46,7 @@ const ColorPicker = styled.div`
 `
 
 const Panel = styled.div`
-	height: 200px;
-	margin-top: 0.75rem;
-	display: grid;
-	gap: 0.75rem;
-	grid-gap: 0.75rem;
+	${tw`mt-3 grid gap-3 h-48`}
 	grid-template-columns: 1fr 50px 50px;
 	> #palette {
 		${tw`relative bg-white`}
@@ -95,7 +89,6 @@ const Panel = styled.div`
 		}
 		> #slider {
 			${tw`absolute rounded-full`}
-			position: absolute;
 			border-color: #f7fafc;
 			border-width: 2px;
 			width: calc(100% + 4px);
