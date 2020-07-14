@@ -18,7 +18,7 @@ export const themes = {
 		hover: {
 			primary: colors.gray[400],
 			secondary: "#c7aea7",
-			background: colors.gray[500],
+			background: colors.gray[400],
 			surface: colors.gray[500],
 			error: colors.red[200],
 			success: colors.green[200],
@@ -32,10 +32,10 @@ export const themes = {
 			success: colors.gray[900],
 		},
 		active: {
-			primary: colors.gray[700],
-			secondary: colors.gray[700],
-			background: colors.gray[700],
-			surface: colors.gray[700],
+			primary: colors.gray[300],
+			secondary: colors.gray[400],
+			background: colors.gray[300],
+			surface: colors.gray[400],
 		},
 		titlebar: {
 			background: colors.gray[100],
@@ -67,10 +67,10 @@ export const themes = {
 			success: colors.gray[100],
 		},
 		active: {
-			primary: colors.darkslategray[300],
-			secondary: colors.gray[300],
-			background: colors.gray[300],
-			surface: colors.darkslategray[300],
+			primary: colors.darkslategray[800],
+			secondary: colors.gray[800],
+			background: colors.gray[800],
+			surface: "#404040",
 		},
 		titlebar: {
 			background: colors.gray[900],
@@ -125,8 +125,8 @@ export function prepareTheme(name = "", cached = false) {
 
 	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).css())
 	root.style.setProperty("--theme-modal-shadow", chroma(theme.background).alpha(0.2).css())
-	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.2).css())
-	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.05).css())
+	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.5).css())
+	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.1).css())
 
 	const bg = chroma(theme.primary)
 	const darkmode = bg.luminance() < 0.3

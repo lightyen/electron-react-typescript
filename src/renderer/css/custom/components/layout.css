@@ -9,6 +9,11 @@
 	transition: color 0.6s ease;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	flex-grow: 1;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+	display: none;
 }
 
 .app-footer {
@@ -20,6 +25,12 @@
 	background: var(--theme-primary);
 	user-select: none;
 	color: var(--theme-text-primary);
+}
+
+.page {
+	@apply m-3 px-3;
+	color: var(--theme-text-background);
+	background-color: var(--theme-background);
 }
 
 @variants hover {

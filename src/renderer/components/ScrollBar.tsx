@@ -12,15 +12,9 @@ interface ScrollBarProps {
 
 // https://css-tricks.com/custom-scrollbars-in-webkit/
 const CustomScrollBar = styled.div.attrs(props => ({ width: 8, padding: 6, color: "black", ...props }))<ScrollBarProps>`
-	flex-grow: 1;
-
 	&::-webkit-scrollbar {
 		width: ${({ width, padding }) => width + padding * 2}px;
 		height: ${({ width, padding }) => width + padding * 2}px;
-	}
-
-	&::-webkit-scrollbar-track {
-		display: none;
 	}
 
 	&:hover {
@@ -47,7 +41,6 @@ export function useScollBarVisible() {
 
 const ScrollBar: React.FC = ({ children, ...rest }) => {
 	const {
-		background: backgroundColor,
 		text: { background: color },
 	} = useTheme()
 	const ref = React.useRef<HTMLDivElement>()
@@ -80,9 +73,7 @@ const ScrollBar: React.FC = ({ children, ...rest }) => {
 		<CustomScrollBar ref={ref} color={color} className="scrollbar" {...rest}>
 			{handle && (
 				<ScrollBarContext.Provider value={handle}>
-					<div style={{ color, backgroundColor }}>
-						<ScrollBarVisibleContext.Provider value={visible}>{children}</ScrollBarVisibleContext.Provider>
-					</div>
+					<ScrollBarVisibleContext.Provider value={visible}>{children}</ScrollBarVisibleContext.Provider>
 				</ScrollBarContext.Provider>
 			)}
 		</CustomScrollBar>

@@ -12,14 +12,14 @@ const init: I18nStore = {
 	locale: getLocale(),
 }
 
-globalThis.__locale__ = getLocale()
+window.__locale__ = getLocale()
 
 export const i18n = createReducer(init, builder =>
 	builder.addCase(setLocale, (state, { payload: { locale, cached = false } }) => {
 		if (cached) {
 			storeLocale(locale)
 		}
-		globalThis.__locale__ = locale
+		window.__locale__ = locale
 		state.locale = locale
 	}),
 )

@@ -19,8 +19,13 @@
 	@apply h-full absolute left-0;
 }
 
-.sider-btn:hover,
 .sider-btn.active {
+	background-color: var(--theme-active-primary);
+	opacity: 0.9;
+}
+
+.sider-btn:hover,
+.sider-btn:focus {
 	background-color: var(--theme-hover-primary);
 	opacity: 1;
 }

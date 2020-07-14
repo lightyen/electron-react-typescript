@@ -12,7 +12,7 @@ zhTW.formatLong.date = buildFormatLongFn({
 })
 
 export function getDateLocale() {
-	const locale = globalThis.__locale__
+	const locale = window.__locale__
 	const [primary] = locale.toLocaleLowerCase().split(/-/)
 	switch (primary) {
 		case "en":
