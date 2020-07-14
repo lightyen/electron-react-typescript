@@ -55,10 +55,11 @@ function* subscribeWindowFullScreen() {
 		const isFullScreen: boolean = yield take(chan)
 		if (isFullScreen) {
 			document.documentElement.style.setProperty("--control-ratio", "0")
-			document.documentElement.requestFullscreen()
+			// FIXME
+			// document.documentElement.requestFullscreen()
 		} else {
 			document.documentElement.style.setProperty("--control-ratio", h)
-			document.exitFullscreen()
+			// document.exitFullscreen()
 		}
 		yield put(isFullscreenS({ isFullScreen }))
 	}
