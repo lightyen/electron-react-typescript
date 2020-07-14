@@ -3,7 +3,7 @@ import { useSelector, useAction } from "~/store"
 import icon from "assets/images/favicon.ico"
 import { useIntl } from "react-intl"
 
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 const Titlebar = styled.header`

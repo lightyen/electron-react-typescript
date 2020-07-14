@@ -1,5 +1,17 @@
 import React from "react"
 import { useSelector, useAction } from "~/store"
+import styled from "@emotion/styled"
+
+const AppFooter = styled.div`
+	position: fixed;
+	bottom: 0;
+	margin-top: 0;
+	width: 100%;
+	height: calc(var(--footer-height));
+	background: var(--theme-primary);
+	user-select: none;
+	color: var(--theme-text-primary);
+`
 
 const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 	if (hide) {
@@ -10,9 +22,9 @@ const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 
 	return (
 		!hide && (
-			<div className="app-footer">
+			<AppFooter>
 				<BarContent />
-			</div>
+			</AppFooter>
 		)
 	)
 }

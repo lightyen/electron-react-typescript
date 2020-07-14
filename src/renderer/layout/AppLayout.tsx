@@ -9,20 +9,29 @@ import StatusBar from "./StatusBar"
 import Sider from "./Sider"
 import { HashRouter } from "react-router-dom"
 
+import styled from "@emotion/styled"
+import tw from "twin.macro"
+
+const View = styled.div`
+	height: calc(100vh - var(--titlebar-height) - var(--footer-height));
+`
+
+const Main = tw.div`h-full w-full flex`
+
 const AppLayout: React.FC = () => {
 	return (
 		<div className="overflow-hidden">
 			<TitleBar />
 			<HashRouter>
-				<div className="view">
-					<div className="h-full w-full flex">
+				<View>
+					<Main>
 						<Sider />
 						<ErrorBoundary>
 							<AppRouter />
 						</ErrorBoundary>
-					</div>
+					</Main>
 					<AutoUpdater />
-				</div>
+				</View>
 				<StatusBar hide />
 			</HashRouter>
 		</div>

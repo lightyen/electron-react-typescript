@@ -1,5 +1,0 @@
-:root {
-	--control-ratio: 1;
-	--titlebar-height: (var(--control-ratio) * 30px);
-	--footer-height: (var(--control-ratio) * 0px);
-}

@@ -1,5 +1,6 @@
 import React from "react"
 import { appLogs } from "@shared/ipc"
+import Page from "~/components/Page"
 
 export default () => {
 	const [log, setLog] = React.useState("")
@@ -11,10 +12,10 @@ export default () => {
 	}, [])
 
 	return (
-		<div>
+		<Page>
 			<p className="p-3" style={{ whiteSpace: "pre-wrap" }}>
 				{log === "" ? "Empty" : log}
 			</p>
-		</div>
+		</Page>
 	)
 }

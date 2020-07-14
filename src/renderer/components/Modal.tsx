@@ -1,7 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import classnames from "classnames"
 import { motion, AnimatePresence } from "framer-motion"
+import styled from "@emotion/styled"
+import tw from "twin.macro"
 
 interface Props extends ModalContentProps {
 	open?: boolean
@@ -47,7 +48,8 @@ export const Modal: React.FC<Props> = ({ children, open = false, exitAnime = tru
 			e.preventDefault()
 		}
 		if (visible) {
-			e.className = "modal-base"
+			e.style.width = "100%"
+			e.style.height = "100%"
 			modalRoot.appendChild(e)
 			modalRoot.style.bottom = "0%"
 			modalRoot.addEventListener("wheel", wheel, { passive: true })
@@ -90,11 +92,24 @@ interface ModalContentProps {
 	onMouseDownOutside?: (e: MouseEvent) => void
 }
 
+const Cover = styled.div`
+	background-color: var(--theme-modal-cover-bg);
+	backdrop-filter: blur(1px);
+	z-index: 9999;
+	${tw`w-full h-full flex justify-center items-center`}
+`
+
+const ModalBox = styled.div`
+	background-color: var(--theme-surface);
+	filter: drop-shadow(2px 2px 8px var(--theme-modal-shadow));
+	${tw` w-64 rounded`}
+`
+
 const ModalContent: React.FC<ModalContentProps> = ({
 	children,
 	onMouseDownOutside,
 	exitAnime,
-	className,
+	className = "",
 	...props
 }) => {
 	const ref = React.useRef<HTMLDivElement>()
@@ -111,14 +126,16 @@ const ModalContent: React.FC<ModalContentProps> = ({
 
 	return (
 		<motion.div
-			className="modal-cover"
+			style={{ height: "100%" }}
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={exitAnime ? { opacity: 0 } : undefined}
 		>
-			<div ref={ref} className={classnames("modal", className)} {...props}>
-				{children}
-			</div>
+			<Cover>
+				<ModalBox ref={ref} className={className} {...props}>
+					{children}
+				</ModalBox>
+			</Cover>
 		</motion.div>
 	)
 }

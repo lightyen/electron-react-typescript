@@ -1,6 +1,6 @@
 import React from "react"
 import { useTheme } from "~/store"
-import { ThemeProvider } from "styled-components"
+import { ThemeProvider } from "emotion-theming"
 
 const StyledThemeProvider: React.FC = ({ children }) => {
 	const theme = useTheme()

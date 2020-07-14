@@ -4,7 +4,7 @@ import { supports } from "~/store/i18n/languages"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLanguage } from "@fortawesome/free-solid-svg-icons/faLanguage"
 
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 const Dropdown = styled.div`
@@ -48,7 +48,7 @@ const DropdownMenu = styled.ul`
 	min-width: var(--lc-dropdown-control-width);
 	filter: drop-shadow(1px 1px 2px var(--theme-shadow)) drop-shadow(1px 1px 2px var(--theme-shadow-ambient));
 	${tw`absolute right-0 mt-2`}
-	> li:first-child.selected ~ ${DropdownMenuCaret} {
+	> li:first-of-type.selected ~ ${DropdownMenuCaret} {
 		background-color: var(--theme-active-surface);
 	}
 	> li {
@@ -64,7 +64,7 @@ const DropdownMenu = styled.ul`
 	> li:hover {
 		background-color: var(--theme-hover-surface);
 	}
-	> li:first-child:hover ~ ${DropdownMenuCaret} {
+	> li:first-of-type:hover ~ ${DropdownMenuCaret} {
 		background-color: var(--theme-hover-surface);
 	}
 `

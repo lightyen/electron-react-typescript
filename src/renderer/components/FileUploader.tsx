@@ -1,17 +1,16 @@
 import React from "react"
 import { dndimages } from "@shared/ipc"
-import styled from "styled-components"
+import styled from "@emotion/styled"
+import tw from "twin.macro"
 
-import { ThemedStyledProps } from "styled-components"
-import { Theme } from "~/store/theme/themes"
-
-type Props = ThemedStyledProps<{ hover: boolean }, Theme>
-
-const Container = styled.div`
-	border-color: ${({ hover, theme }: Props) => (hover ? theme.hover.secondary : theme.secondaryVariant)};
+const Container = styled(`div`)<{ hover: boolean }>`
+	border-color: ${({ hover }) => (hover ? "var(--theme-hover-secondary)" : "var(--theme-secondaryvariant)")};
 	:hover {
-		border-color: ${({ theme }: Props) => theme.hover.secondary};
+		border-color: var(--theme-hover-secondary);
 	}
+	border-width: 5px;
+	transition: all 200ms ease;
+	${tw`flex flex-grow justify-center items-center m-3 rounded-lg border-dashed`}
 `
 
 const FileUploader: React.FC = () => {

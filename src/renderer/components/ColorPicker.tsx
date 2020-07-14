@@ -1,6 +1,6 @@
 import React from "react"
 import chroma from "chroma-js"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 const ColorPicker = styled.div`
@@ -248,7 +248,6 @@ export default React.forwardRef<
 			"--color-picker-background",
 			bg.luminance() > 0.5 ? bg.darken(0.5).css() : bg.brighten(0.5).css(),
 		)
-		console.log(bg.brighten(0.5).hex())
 		resultText.current.dataset["type"] = "hex"
 		updateText()
 	}, [picker, updateText, defaultValue])

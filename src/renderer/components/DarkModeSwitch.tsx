@@ -7,12 +7,10 @@ import { useTheme, useAction } from "~/store"
 import { FormattedMessage } from "react-intl"
 import { v4 as uuidv4 } from "uuid"
 
-import { css } from "styled-components"
+import styled from "@emotion/styled"
 import tw from "twin.macro"
-// To prevent TypeScript errors on the css prop on arbitrary elements
-import {} from "styled-components/cssprop"
 
-const styles = css`
+const Switch = styled.div`
 	--dm-switch-width: 100px;
 	--dm-switch-height: 36px;
 	${tw`inline-block relative`}
@@ -38,10 +36,10 @@ const styles = css`
 		color: var(--theme-text-surface);
 		background: var(--theme-surface);
 	}
-	> input:not(:checked) + label > *:first-child {
+	> input:not(:checked) + label > *:first-of-type {
 		transform: rotate(0deg);
 	}
-	> input:checked + label > *:first-child {
+	> input:checked + label > *:first-of-type {
 		transform: rotate(-90deg);
 	}
 	> input:not(:checked) + label > *:last-child {
@@ -57,7 +55,7 @@ export default () => {
 	const { changeTheme } = useAction().theme
 	const uuid = React.useRef(uuidv4())
 	return (
-		<div css={styles}>
+		<Switch>
 			<input
 				id={uuid.current}
 				type="checkbox"
@@ -79,6 +77,6 @@ export default () => {
 					</span>
 				</div>
 			</label>
-		</div>
+		</Switch>
 	)
 }

@@ -2,7 +2,7 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import { useIntl } from "react-intl"
 
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 const Sider = styled.div`
@@ -13,7 +13,7 @@ const Sider = styled.div`
 	&.collapsed {
 		margin-left: -4rem;
 	}
-	a {
+	> a {
 		${tw`p-3 flex outline-none items-center justify-center relative`}
 		transition: all 200ms ease;
 		opacity: 0.5;
@@ -21,19 +21,18 @@ const Sider = styled.div`
 			width: 24px;
 		}
 	}
-
-	a.active {
+	> a.active {
 		background-color: var(--theme-active-primary);
 		opacity: 0.9;
 	}
-	a.active::after {
+	> a.active::after {
 		content: "";
 		width: 0.3rem;
 		background: var(--theme-success);
 		${tw`h-full absolute left-0`}
 	}
-	a:hover,
-	a:focus {
+	> a:hover,
+	> a:focus {
 		background-color: var(--theme-hover-primary);
 		opacity: 1;
 	}

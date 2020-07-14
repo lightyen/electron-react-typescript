@@ -4,9 +4,9 @@ import { useSelector, useAction, useTheme } from "~/store"
 
 import Page from "~/components/Page"
 import DarkModeSwitch from "~/components/DarkModeSwitch"
-import styled from "styled-components"
 import { openFolder } from "@shared/ipc"
 import LocaleDropdown from "~/components/LocaleDropdown"
+import styled from "@emotion/styled"
 
 export default () => {
 	return (
@@ -38,7 +38,7 @@ interface TableRowProps {
 	hoverColor: string
 }
 
-const TableRow = styled.tr.attrs(props => props)<TableRowProps>`
+const TableRow = styled.tr<TableRowProps>`
 	transition: background-color 0.2s ease;
 	background-color: ${props => props.color};
 	:hover {
