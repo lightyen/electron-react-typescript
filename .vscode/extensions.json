@@ -10,7 +10,6 @@
     "stylelint.vscode-stylelint",
     "bradlc.vscode-tailwindcss",
     "jpoissonnier.vscode-styled-components",
-    "arthie.vscode-tailwindcssinjs",
     "antfu.i18n-ally"
   ]
 }

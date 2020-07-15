@@ -3,7 +3,7 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun } from "@fortawesome/free-solid-svg-icons/faSun"
 import { faMoon } from "@fortawesome/free-solid-svg-icons/faMoon"
-import { useTheme, useAction } from "~/store"
+import { useSelector, useAction } from "~/store"
 import { FormattedMessage } from "react-intl"
 import { v4 as uuidv4 } from "uuid"
 
@@ -57,7 +57,7 @@ const Switch = styled.div`
 `
 
 export default () => {
-	const { name } = useTheme()
+	const name = useSelector(state => state.theme.name)
 	const { changeTheme } = useAction().theme
 	const uuid = React.useRef(uuidv4())
 	return (
