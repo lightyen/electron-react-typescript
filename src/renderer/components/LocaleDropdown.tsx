@@ -87,7 +87,6 @@ export default () => {
 		window.addEventListener("mousedown", onMouseDown)
 		return () => window.removeEventListener("mousedown", onMouseDown)
 	}, [open])
-	console.log(locale, Object.entries(supports))
 	return (
 		<Dropdown>
 			<DropdownControl ref={btn} onMouseDown={() => setOpen(!open)}>

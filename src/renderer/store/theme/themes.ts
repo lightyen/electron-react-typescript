@@ -19,7 +19,7 @@ export const themes = {
 			primary: colors.gray[400],
 			secondary: "#c7aea7",
 			background: colors.gray[400],
-			surface: colors.gray[500],
+			surface: colors.gray[400],
 			error: colors.red[200],
 			success: colors.green[200],
 		},
@@ -35,7 +35,7 @@ export const themes = {
 			primary: colors.gray[300],
 			secondary: colors.gray[400],
 			background: colors.gray[300],
-			surface: colors.gray[400],
+			surface: colors.gray[300],
 		},
 		titlebar: {
 			background: colors.gray[100],
