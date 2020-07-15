@@ -7,7 +7,7 @@ import { makeStore } from "~/store"
 import { Global, css } from "@emotion/core"
 import tw from "twin.macro"
 
-import "~/css/styles.css"
+import "tailwindcss/dist/base.min.css"
 
 const globalStyle = css`
 	:root {
