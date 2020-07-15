@@ -16,6 +16,9 @@ const Switch = styled.div`
 	${tw`inline-block relative`}
 	width: var(--dm-switch-width);
 	height: var(--dm-switch-height);
+	> input {
+		display: none;
+	}
 	> label {
 		${tw`relative w-full h-full block overflow-hidden select-none`}
 		transition: all 200ms ease;
@@ -30,6 +33,9 @@ const Switch = styled.div`
 		backface-visibility: hidden;
 		transition: transform 300ms ease;
 		transform-origin: 0% 200%;
+	}
+	> label > div > span {
+		${tw`pl-2 capitalize`}
 	}
 	/** checked */
 	> label {
@@ -59,20 +65,19 @@ export default () => {
 			<input
 				id={uuid.current}
 				type="checkbox"
-				className="hidden"
 				defaultChecked={name == "dark"}
 				onChange={e => changeTheme({ name: e.target.checked ? "dark" : "light", cached: true })}
 			/>
 			<label htmlFor={uuid.current}>
 				<div>
 					<FontAwesomeIcon icon={faSun} />
-					<span className="pl-1 capitalize">
+					<span>
 						<FormattedMessage id="light" />
 					</span>
 				</div>
 				<div>
 					<FontAwesomeIcon icon={faMoon} />
-					<span className="pl-1 capitalize">
+					<span>
 						<FormattedMessage id="dark" />
 					</span>
 				</div>

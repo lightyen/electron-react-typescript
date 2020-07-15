@@ -2,6 +2,8 @@ import React from "react"
 
 import { motion, TargetAndTransition, useMotionValue } from "framer-motion"
 
+import tw from "twin.macro"
+
 interface Position {
 	top: number
 	height: number
@@ -77,7 +79,7 @@ const source: Item[] = [
 	{
 		key: "#00BCD4",
 		background: "#00BCD4",
-		content: <div className="p-3">Dynamic Width/Height</div>,
+		content: <div css={tw`p-3`}>Dynamic Width/Height</div>,
 	},
 	{ key: "#009688", background: "#009688", width: 300, height: 50 },
 ]
@@ -114,7 +116,7 @@ function DraggableItem({ data, setPosition, moveItem, i }: DraggableItemProps) {
 	return (
 		<motion.li
 			ref={ref}
-			className="relative flex z-0"
+			css={tw`relative flex z-0`}
 			style={{
 				listStyle: "none",
 				color: "#fff",
@@ -150,7 +152,7 @@ function DraggableItem({ data, setPosition, moveItem, i }: DraggableItemProps) {
 			<motion.div
 				// If we're dragging, we want to set the zIndex of that item to be on top of the other items.
 				title={data.background}
-				className="relative mb-3 rounded-lg"
+				css={tw`relative mb-3 rounded-lg`}
 				animate={
 					isDragging ? { boxShadow: "3px 3px 8px 0px #eeeecc" } : { boxShadow: "0px 0px 0px 0px #eeeecc" }
 				}
@@ -219,7 +221,7 @@ const MyItem: React.FC = () => {
 	return (
 		<motion.div
 			ref={ref}
-			className="w-10 h-10 mb-3 rounded-lg bg-green-600 relative"
+			css={tw`w-10 h-10 mb-3 rounded-lg bg-green-600 relative`}
 			animate={isDragging ? drag : flat}
 			whileHover={hover}
 			whileTap={tap}
@@ -250,10 +252,10 @@ const Page: React.FC = () => {
 	const arr = [0, 1, 2, 3, 4]
 
 	return (
-		<div className="p-3 pl-12 relative flex justify-around">
+		<div css={tw`p-3 pl-12 relative flex justify-around`}>
 			<Example />
 			<div
-				className="relative m-3 mt-0 rounded"
+				css={tw`relative m-3 mt-0 rounded`}
 				style={{
 					minWidth: 300,
 					maxWidth: 800,

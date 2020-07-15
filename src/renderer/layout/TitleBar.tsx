@@ -4,6 +4,7 @@ import icon from "assets/images/favicon.ico"
 import { useIntl } from "react-intl"
 
 import styled from "@emotion/styled"
+import { css } from "@emotion/core"
 import tw from "twin.macro"
 
 const Titlebar = styled.header`
@@ -66,10 +67,6 @@ const Control = styled.div`
 		opacity: 1;
 		background: rgb(var(--theme-hover-primary));
 	}
-	:hover.quit {
-		opacity: 1;
-		background: rgb(var(--theme-error));
-	}
 `
 
 export default () => {
@@ -78,7 +75,7 @@ export default () => {
 	const intl = useIntl()
 	return (
 		<Titlebar>
-			<div className="relative flex flex-auto">
+			<div css={tw`relative flex flex-auto`}>
 				<DragRegion />
 				<AppIcon>
 					<img src={icon} alt="appicon" />
@@ -112,7 +109,16 @@ export default () => {
 						</svg>
 					</Control>
 				)}
-				<Control className="quit" onClick={window_close} title={intl.formatMessage({ id: "app_quit" })}>
+				<Control
+					css={css`
+						:hover {
+							opacity: 1;
+							background: rgb(var(--theme-error));
+						}
+					`}
+					onClick={window_close}
+					title={intl.formatMessage({ id: "app_quit" })}
+				>
 					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 10 10">
 						<polygon points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
 					</svg>

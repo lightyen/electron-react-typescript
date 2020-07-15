@@ -2,6 +2,8 @@ import React from "react"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import { FormattedMessage } from "react-intl"
 import { useSelector, useAction } from "~/store"
+import { css } from "@emotion/core"
+import tw from "twin.macro"
 
 const variants: Variants = {
 	open: {
@@ -29,17 +31,49 @@ const AutoUpdater: React.FC = () => {
 					initial="close"
 					animate="open"
 					exit="close"
-					className="fixed bg-gray-700 border-gray-300 text-gray-100 shadow p-3 flex flex-col"
+					css={tw`fixed bg-gray-700 border-gray-300 text-gray-100 shadow p-3 flex flex-col`}
 					style={{ bottom: 13, left: 13 }}
 				>
-					<p className="mb-3">
+					<p css={tw`mb-3`}>
 						<FormattedMessage id="update.available" values={{ version }} />
 					</p>
 					<div>
-						<button className="btn btn-blue select-none" onClick={() => updateAppAndRestart()}>
+						<button
+							css={[
+								tw`select-none`,
+								css`
+									${tw`bg-blue-500 text-white`}
+									:focus {
+										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+										${tw`outline-none`}
+									}
+									:hover {
+										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+										${tw`bg-blue-600`}
+									}
+								`,
+							]}
+							onClick={() => updateAppAndRestart()}
+						>
 							<FormattedMessage id="update.restart" />
 						</button>
-						<button className="btn btn-blue ml-3 select-none" onClick={() => setOpen(false)}>
+						<button
+							css={[
+								tw`ml-3 select-none`,
+								css`
+									${tw`bg-blue-500 text-white`}
+									:focus {
+										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+										${tw`outline-none`}
+									}
+									:hover {
+										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+										${tw`bg-blue-600`}
+									}
+								`,
+							]}
+							onClick={() => setOpen(false)}
+						>
 							<FormattedMessage id="update.later" />
 						</button>
 					</div>

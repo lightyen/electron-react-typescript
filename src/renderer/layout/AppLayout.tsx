@@ -20,7 +20,7 @@ const Main = tw.div`h-full w-full flex`
 
 const AppLayout: React.FC = () => {
 	return (
-		<div className="overflow-hidden">
+		<div css={{ overflow: "hidden" }}>
 			<TitleBar />
 			<HashRouter>
 				<View>

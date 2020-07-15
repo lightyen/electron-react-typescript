@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLanguage } from "@fortawesome/free-solid-svg-icons/faLanguage"
 
 import styled from "@emotion/styled"
+import { css } from "@emotion/core"
 import tw from "twin.macro"
 
 const Dropdown = styled.div`
@@ -29,6 +30,9 @@ const DropdownControl = styled.button`
 	:hover {
 		box-shadow: 0 0 3px 4px rgba(110, 190, 255, 0.8);
 	}
+	> span {
+		${tw`pl-2`}
+	}
 `
 const DropdownMenuCaret = styled.div`
 	position: absolute;
@@ -48,18 +52,12 @@ const DropdownMenu = styled.ul`
 	min-width: var(--lc-dropdown-control-width);
 	filter: drop-shadow(1px 1px 2px rgb(var(--theme-shadow))) drop-shadow(1px 1px 2px rgb(var(--theme-shadow-ambient)));
 	${tw`absolute right-0 mt-2`}
-	> li:first-of-type.selected ~ ${DropdownMenuCaret} {
-		background-color: rgb(var(--theme-active-surface));
-	}
+
 	> li {
 		color: rgb(var(--theme-text-surface));
-		background-color: rgb(var(--theme-surface));
 		transition: all 200ms ease;
 		margin-top: -1px;
 		${tw`px-4 py-2 cursor-pointer select-none`}
-	}
-	> li.selected {
-		background-color: rgb(var(--theme-active-surface));
 	}
 	> li:hover {
 		background-color: rgb(var(--theme-hover-surface));
@@ -88,25 +86,40 @@ export default () => {
 		window.addEventListener("mousedown", onMouseDown)
 		return () => window.removeEventListener("mousedown", onMouseDown)
 	}, [open])
-
+	console.log(locale, Object.entries(supports))
 	return (
 		<Dropdown>
 			<DropdownControl ref={btn} onMouseDown={() => setOpen(!open)}>
 				<FontAwesomeIcon icon={faLanguage} />
-				<span className="pl-2">{supports[locale]}</span>
+				<span>{supports[locale]}</span>
 			</DropdownControl>
 			{open && (
 				<DropdownMenu ref={ul}>
 					{Object.entries(supports).map(([k, v]) => (
 						<li
 							key={k}
-							className={locale == k ? "selected" : ""}
+							css={
+								locale === k
+									? css`
+											background: rgb(var(--theme-active-surface));
+									  `
+									: css`
+											background: rgb(var(--theme-surface));
+									  `
+							}
 							onClick={() => setLocale({ locale: k, cached: true })}
 						>
 							{v}
 						</li>
 					))}
-					<DropdownMenuCaret />
+					<DropdownMenuCaret
+						css={
+							locale === Object.keys(supports)[0] &&
+							css`
+								background: rgb(var(--theme-active-surface));
+							`
+						}
+					/>
 				</DropdownMenu>
 			)}
 		</Dropdown>

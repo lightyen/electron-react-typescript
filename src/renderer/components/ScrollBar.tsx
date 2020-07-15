@@ -40,7 +40,7 @@ export function useScollBarVisible() {
 	return React.useContext(ScrollBarVisibleContext)
 }
 
-const ScrollBar: React.FC = ({ children, ...rest }) => {
+const ScrollBar: React.FC = ({ children }) => {
 	const ref = React.useRef<HTMLDivElement>()
 	const [handle, setHandle] = React.useState<HTMLDivElement>()
 	const isMount = React.useRef(false)
@@ -68,7 +68,7 @@ const ScrollBar: React.FC = ({ children, ...rest }) => {
 	}, [handle])
 
 	return (
-		<CustomScrollBar ref={ref} width={8} padding={6} className="scrollbar" {...rest}>
+		<CustomScrollBar ref={ref} width={8} padding={6}>
 			{handle && (
 				<ScrollBarContext.Provider value={handle}>
 					<ScrollBarVisibleContext.Provider value={visible}>{children}</ScrollBarVisibleContext.Provider>

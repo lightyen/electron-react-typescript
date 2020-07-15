@@ -1,22 +1,27 @@
 import React from "react"
-import classnames from "classnames"
 import { useScollBarVisible } from "./ScrollBar"
 
 import tw, { styled } from "twin.macro"
 
+import type { InterpolationWithTheme } from "@emotion/core"
 interface Props {
-	className?: string
+	css?: InterpolationWithTheme<unknown>
 }
 
-const Container = styled.div`
+const Container = styled.div<{ hasScrollbar: boolean }>`
 	${tw`m-3 px-3`}
 	color: rgb(var(--theme-text-background));
 	background-color: rgb(var(--theme-background));
+	${({ hasScrollbar }) => hasScrollbar && tw`mr-1`}
 `
 
-const Page: React.FC<Props> = ({ children, className }) => {
+const Page: React.FC<Props> = ({ children, css }) => {
 	const visible = useScollBarVisible()
-	return <Container className={classnames({ "mr-1": visible }, className)}>{children}</Container>
+	return (
+		<Container hasScrollbar={visible} css={css}>
+			{children}
+		</Container>
+	)
 }
 
 export default Page

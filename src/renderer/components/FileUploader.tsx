@@ -3,6 +3,8 @@ import { dndimages } from "@shared/ipc"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
 
+const FileUploader = tw.div`flex flex-col cursor-pointer`
+
 const Container = styled(`div`)<{ hover: boolean }>`
 	border-color: ${({ hover }) =>
 		hover ? "rgb(var(--theme-hover-secondary))" : "rgb(var(--theme-secondaryvariant))"};
@@ -12,15 +14,17 @@ const Container = styled(`div`)<{ hover: boolean }>`
 	border-width: 5px;
 	transition: all 200ms ease;
 	${tw`flex flex-grow justify-center items-center m-3 rounded-lg border-dashed`}
+	> div {
+		pointer-events: none;
+	}
 `
 
-const FileUploader: React.FC = () => {
+export default () => {
 	const [hover, setHover] = React.useState(false)
 	return (
-		<div className="flex flex-col cursor-pointer" style={{ width: 300, height: 220 }}>
+		<FileUploader style={{ width: 300, height: 220 }}>
 			<Container
 				hover={hover}
-				className="border-file-uploader"
 				onClick={() => dndimages.send()}
 				onDragOver={e => e.preventDefault()}
 				onDragEnter={e => setHover(true)}
@@ -31,7 +35,7 @@ const FileUploader: React.FC = () => {
 					setHover(false)
 				}}
 			>
-				<div className="pointer-events-none">
+				<div>
 					<svg
 						id="i-import"
 						xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +52,6 @@ const FileUploader: React.FC = () => {
 					</svg>
 				</div>
 			</Container>
-		</div>
+		</FileUploader>
 	)
 }
-
-export default FileUploader

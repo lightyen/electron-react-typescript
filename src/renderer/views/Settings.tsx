@@ -7,37 +7,48 @@ import DarkModeSwitch from "~/components/DarkModeSwitch"
 import { openFolder } from "@shared/ipc"
 import LocaleDropdown from "~/components/LocaleDropdown"
 import styled from "@emotion/styled"
+import tw from "twin.macro"
+
+const Field = styled.div`
+	${tw`mb-10`}
+	> label {
+		${tw`block font-bold mb-2 capitalize`}
+	}
+`
 
 export default () => {
 	return (
 		<Page>
-			<div className="mb-10">
-				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
+			<Field>
+				<label>
 					<FormattedMessage id="themes" />
 				</label>
 				<DarkModeSwitch />
-			</div>
-			<div className="mb-10">
-				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
+			</Field>
+			<Field>
+				<label>
 					<FormattedMessage id="language" />
 				</label>
 				<LocaleDropdown />
-			</div>
-			<div className="mb-10">
-				<label className="block font-bold mb-2" style={{ textTransform: "capitalize" }}>
-					Paths
-				</label>
+			</Field>
+			<Field>
+				<label>Paths</label>
 				<AppPaths />
-			</div>
+			</Field>
 		</Page>
 	)
 }
+
+const Th = tw.th`px-4 py-2`
+
+const Td = tw.td`border px-4 py-2 border-gray-400`
 
 interface TableRowProps {
 	odd: boolean
 }
 
 const TableRow = styled.tr<TableRowProps>`
+	${tw`cursor-pointer`}
 	transition: background-color 0.2s ease;
 	background-color: rgb(var(${({ odd }: TableRowProps) => (odd ? "--theme-secondary" : "--theme-secondaryvariant")}));
 	:hover {
@@ -54,25 +65,24 @@ const AppPaths: React.FC = () => {
 	}, [getAppPaths])
 
 	return (
-		<table className="table-auto">
+		<table css={tw`table-auto`}>
 			<thead>
 				<tr>
-					<th className="px-4 py-2">Key</th>
-					<th className="px-4 py-2">Value</th>
+					<Th>Key</Th>
+					<Th>Value</Th>
 				</tr>
 			</thead>
 			<tbody>
 				{Object.keys(paths).map((k, i) => (
-					<TableRow key={k} className="hover:bg-gray-100" odd={i % 2 == 1}>
-						<td className="border px-4 py-2 border-gray-400">{k}</td>
-						<td
-							className="border px-4 py-2 border-gray-400 cursor-pointer"
-							onClick={() => {
-								openFolder.send(paths[k])
-							}}
-						>
-							{paths[k]}
-						</td>
+					<TableRow
+						key={k}
+						odd={i % 2 == 1}
+						onClick={() => {
+							openFolder.send(paths[k])
+						}}
+					>
+						<Td>{k}</Td>
+						<Td>{paths[k]}</Td>
 					</TableRow>
 				))}
 			</tbody>

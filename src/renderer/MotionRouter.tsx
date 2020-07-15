@@ -11,6 +11,7 @@ import {
 
 import ScrollBar from "~/components/ScrollBar"
 import { motion, Variants } from "framer-motion"
+import tw from "twin.macro"
 
 export const pageVariants: Variants = {
 	initial: {
@@ -36,13 +37,7 @@ export const Switch: React.FC<SwitchProps> = ({ children, ...props }) => {
 export const Route: React.FC<RouteProps & ExtraProps> = ({ children, custom, ...props }) => {
 	return (
 		<_Route {...props}>
-			<motion.div
-				initial="initial"
-				className="flex-grow"
-				animate="in"
-				exit="out"
-				variants={custom || pageVariants}
-			>
+			<motion.div initial="initial" css={tw`flex-grow`} animate="in" exit="out" variants={custom || pageVariants}>
 				<ScrollBar>{children}</ScrollBar>
 			</motion.div>
 		</_Route>

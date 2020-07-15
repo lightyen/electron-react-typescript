@@ -2,6 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import styled from "@emotion/styled"
+import type { InterpolationWithTheme } from "@emotion/core"
 import tw from "twin.macro"
 
 interface Props extends ModalContentProps {
@@ -86,8 +87,7 @@ export const Modal: React.FC<Props> = ({ children, open = false, exitAnime = tru
 
 interface ModalContentProps {
 	id?: string
-	className?: string
-	style?: React.CSSProperties
+	css?: InterpolationWithTheme<unknown>
 	exitAnime?: boolean
 	onMouseDownOutside?: (e: MouseEvent) => void
 }
@@ -105,13 +105,7 @@ const ModalBox = styled.div`
 	${tw` w-64 rounded`}
 `
 
-const ModalContent: React.FC<ModalContentProps> = ({
-	children,
-	onMouseDownOutside,
-	exitAnime,
-	className = "",
-	...props
-}) => {
+const ModalContent: React.FC<ModalContentProps> = ({ children, onMouseDownOutside, exitAnime, ...props }) => {
 	const ref = React.useRef<HTMLDivElement>()
 	React.useEffect(() => {
 		const modal = ref.current
@@ -132,7 +126,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
 			exit={exitAnime ? { opacity: 0 } : undefined}
 		>
 			<Cover>
-				<ModalBox ref={ref} className={className} {...props}>
+				<ModalBox ref={ref} {...props}>
 					{children}
 				</ModalBox>
 			</Cover>
