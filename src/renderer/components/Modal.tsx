@@ -93,7 +93,7 @@ interface ModalContentProps {
 }
 
 const Cover = styled.div`
-	background-color: rgb(var(--theme-modal-cover-bg));
+	background-color: rgba(var(--theme-modal-cover-bg));
 	backdrop-filter: blur(1px);
 	z-index: 9999;
 	${tw`w-full h-full flex justify-center items-center`}
@@ -101,8 +101,8 @@ const Cover = styled.div`
 
 const ModalBox = styled.div`
 	background-color: rgb(var(--theme-surface));
-	filter: drop-shadow(2px 2px 8px rgb(var(--theme-modal-shadow)));
-	${tw` w-64 rounded`}
+	filter: drop-shadow(2px 2px 8px rgba(var(--theme-modal-shadow)));
+	${tw`w-64 rounded`}
 `
 
 const ModalContent: React.FC<ModalContentProps> = ({ children, onMouseDownOutside, exitAnime, ...props }) => {

@@ -50,7 +50,8 @@ const DropdownMenu = styled.ul`
 	left: 3rem;
 	z-index: inherit;
 	min-width: var(--lc-dropdown-control-width);
-	filter: drop-shadow(1px 1px 2px rgb(var(--theme-shadow))) drop-shadow(1px 1px 2px rgb(var(--theme-shadow-ambient)));
+	filter: drop-shadow(1px 1px 2px rgba(var(--theme-shadow)))
+		drop-shadow(1px 1px 2px rgba(var(--theme-shadow-ambient)));
 	${tw`absolute right-0 mt-2`}
 
 	> li {

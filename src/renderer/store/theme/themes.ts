@@ -122,9 +122,9 @@ export function prepareTheme(name?: ThemeMode, cached = false) {
 	const color = chroma(theme.primary)
 	root.style.setProperty("--theme-btn-background", color.set("hsv.v", "0.5").rgb().join(","))
 	root.style.setProperty("--theme-btn-background-hover", color.set("hsv.v", "0.7").rgb().join(","))
-	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).rgba().join(","))
 
-	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).rgb().join(","))
+	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).rgba().join(","))
+	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).rgba().join(","))
 	root.style.setProperty("--theme-modal-shadow", chroma(theme.background).alpha(0.2).rgba().join(","))
 	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.5).rgba().join(","))
 	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.1).rgba().join(","))
