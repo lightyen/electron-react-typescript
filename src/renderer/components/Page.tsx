@@ -10,8 +10,8 @@ interface Props {
 
 const Container = styled.div`
 	${tw`m-3 px-3`}
-	color: var(--theme-text-background);
-	background-color: var(--theme-background);
+	color: rgb(var(--theme-text-background));
+	background-color: rgb(var(--theme-background));
 `
 
 const Page: React.FC<Props> = ({ children, className }) => {

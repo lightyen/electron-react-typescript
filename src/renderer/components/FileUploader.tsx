@@ -4,9 +4,10 @@ import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 const Container = styled(`div`)<{ hover: boolean }>`
-	border-color: ${({ hover }) => (hover ? "var(--theme-hover-secondary)" : "var(--theme-secondaryvariant)")};
+	border-color: ${({ hover }) =>
+		hover ? "rgb(var(--theme-hover-secondary))" : "rgb(var(--theme-secondaryvariant))"};
 	:hover {
-		border-color: var(--theme-hover-secondary);
+		border-color: rgb(var(--theme-hover-secondary));
 	}
 	border-width: 5px;
 	transition: all 200ms ease;

@@ -8,9 +8,9 @@ const AppFooter = styled.div`
 	margin-top: 0;
 	width: 100%;
 	height: calc(var(--footer-height));
-	background: var(--theme-primary);
+	background: rgb(var(--theme-primary));
 	user-select: none;
-	color: var(--theme-text-primary);
+	color: rgb(var(--theme-text-primary));
 `
 
 const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {

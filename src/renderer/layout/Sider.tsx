@@ -9,7 +9,7 @@ const Sider = styled.div`
 	user-select: none;
 	min-width: 4rem;
 	transition: all 200ms ease;
-	background-color: var(--theme-primaryvarient);
+	background-color: rgb(var(--theme-background));
 	&.collapsed {
 		margin-left: -4rem;
 	}
@@ -22,18 +22,22 @@ const Sider = styled.div`
 		}
 	}
 	> a.active {
-		background-color: var(--theme-active-primary);
+		background-color: rgb(var(--theme-active-primary));
 		opacity: 0.9;
 	}
 	> a.active::after {
 		content: "";
 		width: 0.3rem;
-		background: var(--theme-success);
+		background: rgb(var(--theme-success));
 		${tw`h-full absolute left-0`}
 	}
-	> a:hover,
+	> a:hover {
+		background-color: rgb(var(--theme-hover-primary));
+		opacity: 1;
+	}
 	> a:focus {
-		background-color: var(--theme-hover-primary);
+		background-color: rgb(var(--theme-hover-primary));
+		box-shadow: inset 0 0 10px rgb(var(--theme-shadow));
 		opacity: 1;
 	}
 `

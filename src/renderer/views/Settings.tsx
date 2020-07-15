@@ -1,6 +1,6 @@
 import React from "react"
 import { FormattedMessage } from "react-intl"
-import { useSelector, useAction, useTheme } from "~/store"
+import { useSelector, useAction } from "~/store"
 
 import Page from "~/components/Page"
 import DarkModeSwitch from "~/components/DarkModeSwitch"
@@ -34,24 +34,18 @@ export default () => {
 }
 
 interface TableRowProps {
-	color: string
-	hoverColor: string
+	odd: boolean
 }
 
 const TableRow = styled.tr<TableRowProps>`
 	transition: background-color 0.2s ease;
-	background-color: ${props => props.color};
+	background-color: rgb(var(${({ odd }: TableRowProps) => (odd ? "--theme-secondary" : "--theme-secondaryvariant")}));
 	:hover {
-		background-color: ${props => props.hoverColor};
+		background-color: rgb(var(--theme-hover-secondary));
 	}
 `
 
 const AppPaths: React.FC = () => {
-	const {
-		secondary: oddColor,
-		secondaryVariant: evenColor,
-		hover: { secondary: hoverColor },
-	} = useTheme()
 	const paths = useSelector(state => state.app.paths)
 	const { getAppPaths } = useAction().app
 
@@ -69,12 +63,7 @@ const AppPaths: React.FC = () => {
 			</thead>
 			<tbody>
 				{Object.keys(paths).map((k, i) => (
-					<TableRow
-						key={k}
-						className="hover:bg-gray-100"
-						color={i % 2 ? oddColor : evenColor}
-						hoverColor={hoverColor}
-					>
+					<TableRow key={k} className="hover:bg-gray-100" odd={i % 2 == 1}>
 						<td className="border px-4 py-2 border-gray-400">{k}</td>
 						<td
 							className="border px-4 py-2 border-gray-400 cursor-pointer"

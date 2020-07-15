@@ -13,8 +13,8 @@ const Titlebar = styled.header`
 	line-height: calc(var(--titlebar-height));
 	${tw`flex justify-between`}
 	transition: all 0.15s ease;
-	color: var(--theme-text-primary);
-	background: var(--theme-titlebar-background);
+	color: rgb(var(--theme-text-primary));
+	background: rgb(var(--theme-titlebar-background));
 `
 
 const DragRegion = styled.div`
@@ -38,7 +38,6 @@ const Text = styled.div`
 	text-overflow: ellipsis;
 	font-size: calc((var(--titlebar-height) - 4px) * 0.5);
 	transition: all ease 0.15s;
-	zoom: 1;
 `
 
 const Padding = styled.div`
@@ -57,19 +56,19 @@ const Control = styled.div`
 	width: calc(var(--control-panel-width) / 2);
 	opacity: 0.8;
 	transition: all 0.15s ease;
-	color: var(--theme-text-primary);
+	color: rgb(var(--theme-text-primary));
 	svg {
-		fill: var(--theme-text-primary);
+		fill: rgb(var(--theme-text-primary));
 		width: calc(var(--icon-size));
 		height: calc(var(--icon-size));
 	}
 	:hover {
 		opacity: 1;
-		background: var(--theme-hover-primary);
+		background: rgb(var(--theme-hover-primary));
 	}
 	:hover.quit {
 		opacity: 1;
-		background: var(--theme-error);
+		background: rgb(var(--theme-error));
 	}
 `
 

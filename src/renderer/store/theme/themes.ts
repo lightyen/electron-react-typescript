@@ -105,28 +105,29 @@ function setTheme(obj: Theme, prefix = "--theme") {
 	const root = document.documentElement
 	for (const key in obj) {
 		if (typeof obj[key] === "string") {
-			root.style.setProperty(prefix + "-" + key.toLowerCase(), obj[key])
+			const color = chroma(obj[key])
+			root.style.setProperty(prefix + "-" + key.toLowerCase(), color.rgb().join(","))
 		} else {
 			setTheme(obj[key], prefix + "-" + key.toLowerCase())
 		}
 	}
 }
 
-export function prepareTheme(name = "", cached = false) {
+export function prepareTheme(name?: ThemeMode, cached = false) {
 	const theme = themes[name || getTheme()]
 	document.body.style.color = theme.text.background
 	document.body.style.backgroundColor = theme.background
+	setTheme(theme)
 	const root = document.documentElement
 	const color = chroma(theme.primary)
-	root.style.setProperty("--theme-btn-background", color.set("hsv.v", "0.5").css())
-	root.style.setProperty("--theme-btn-background-hover", color.set("hsv.v", "0.7").css())
-	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).css())
-	setTheme(theme)
+	root.style.setProperty("--theme-btn-background", color.set("hsv.v", "0.5").rgb().join(","))
+	root.style.setProperty("--theme-btn-background-hover", color.set("hsv.v", "0.7").rgb().join(","))
+	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).rgba().join(","))
 
-	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).css())
-	root.style.setProperty("--theme-modal-shadow", chroma(theme.background).alpha(0.2).css())
-	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.5).css())
-	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.1).css())
+	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).rgb().join(","))
+	root.style.setProperty("--theme-modal-shadow", chroma(theme.background).alpha(0.2).rgba().join(","))
+	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.5).rgba().join(","))
+	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.1).rgba().join(","))
 
 	const bg = chroma(theme.primary)
 	const darkmode = bg.luminance() < 0.3

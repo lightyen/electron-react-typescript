@@ -33,8 +33,8 @@ const Switch = styled.div`
 	}
 	/** checked */
 	> label {
-		color: var(--theme-text-surface);
-		background: var(--theme-surface);
+		color: rgb(var(--theme-text-surface));
+		background: rgb(var(--theme-surface));
 	}
 	> input:not(:checked) + label > *:first-of-type {
 		transform: rotate(0deg);

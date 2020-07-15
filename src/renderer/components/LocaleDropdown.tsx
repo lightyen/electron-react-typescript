@@ -14,8 +14,8 @@ const Dropdown = styled.div`
 `
 
 const DropdownControl = styled.button`
-	color: var(--theme-text-surface);
-	background: var(--theme-surface);
+	color: rgb(var(--theme-text-surface));
+	background: rgb(var(--theme-surface));
 	width: var(--lc-dropdown-control-width);
 	height: var(--lc-dropdown-control-height);
 	transition: all 200ms ease;
@@ -38,7 +38,7 @@ const DropdownMenuCaret = styled.div`
 	left: 0.8rem;
 	transition: background-color 200ms ease;
 	clip-path: polygon(50% 20%, 0% 100%, 100% 100%);
-	background-color: var(--theme-surface);
+	background-color: rgb(var(--theme-surface));
 `
 
 const DropdownMenu = styled.ul`
@@ -46,26 +46,26 @@ const DropdownMenu = styled.ul`
 	left: 3rem;
 	z-index: inherit;
 	min-width: var(--lc-dropdown-control-width);
-	filter: drop-shadow(1px 1px 2px var(--theme-shadow)) drop-shadow(1px 1px 2px var(--theme-shadow-ambient));
+	filter: drop-shadow(1px 1px 2px rgb(var(--theme-shadow))) drop-shadow(1px 1px 2px rgb(var(--theme-shadow-ambient)));
 	${tw`absolute right-0 mt-2`}
 	> li:first-of-type.selected ~ ${DropdownMenuCaret} {
-		background-color: var(--theme-active-surface);
+		background-color: rgb(var(--theme-active-surface));
 	}
 	> li {
-		color: var(--theme-text-surface);
-		background-color: var(--theme-surface);
+		color: rgb(var(--theme-text-surface));
+		background-color: rgb(var(--theme-surface));
 		transition: all 200ms ease;
 		margin-top: -1px;
 		${tw`px-4 py-2 cursor-pointer select-none`}
 	}
 	> li.selected {
-		background-color: var(--theme-active-surface);
+		background-color: rgb(var(--theme-active-surface));
 	}
 	> li:hover {
-		background-color: var(--theme-hover-surface);
+		background-color: rgb(var(--theme-hover-surface));
 	}
 	> li:first-of-type:hover ~ ${DropdownMenuCaret} {
-		background-color: var(--theme-hover-surface);
+		background-color: rgb(var(--theme-hover-surface));
 	}
 `
 

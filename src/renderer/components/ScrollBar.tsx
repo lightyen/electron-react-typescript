@@ -1,10 +1,7 @@
 import React from "react"
-import { useTheme } from "~/store"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
 interface ScrollBarProps {
-	/** Color with scrollbar thumb, ex: #cccccc */
-	color: string
 	/** The width of scrollbar thumb */
 	width: number
 	padding: number
@@ -22,8 +19,8 @@ const CustomScrollBar = styled.div`
 		width: ${({ width, padding }: ScrollBarProps) => width + padding * 2}px;
 		height: ${({ width, padding }: ScrollBarProps) => width + padding * 2}px;
 	}
-	:hover {
-		color: ${({ color }) => color}80;
+	&:hover {
+		color: rgba(var(--theme-text-background), 0.5);
 	}
 	::-webkit-scrollbar-thumb {
 		border-radius: ${({ width, padding }) => width / 2 + padding}px;
@@ -44,9 +41,6 @@ export function useScollBarVisible() {
 }
 
 const ScrollBar: React.FC = ({ children, ...rest }) => {
-	const {
-		text: { background: color },
-	} = useTheme()
 	const ref = React.useRef<HTMLDivElement>()
 	const [handle, setHandle] = React.useState<HTMLDivElement>()
 	const isMount = React.useRef(false)
@@ -74,7 +68,7 @@ const ScrollBar: React.FC = ({ children, ...rest }) => {
 	}, [handle])
 
 	return (
-		<CustomScrollBar ref={ref} color={color} width={8} padding={6} className="scrollbar" {...rest}>
+		<CustomScrollBar ref={ref} width={8} padding={6} className="scrollbar" {...rest}>
 			{handle && (
 				<ScrollBarContext.Provider value={handle}>
 					<ScrollBarVisibleContext.Provider value={visible}>{children}</ScrollBarVisibleContext.Provider>

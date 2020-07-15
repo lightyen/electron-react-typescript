@@ -18,10 +18,10 @@ import styled from "@emotion/styled"
 import tw from "twin.macro"
 
 interface ButtonProps {
-	varient?: "none" | "black" | "blue" | "green" | "orange" | "red"
+	variant?: "none" | "black" | "blue" | "green" | "orange" | "red"
 }
 
-const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
+const Button = styled.button<ButtonProps>(({ variant = "none" }) => {
 	return [
 		css`
 			transition-property: background-color, box-shadow;
@@ -29,19 +29,19 @@ const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
 			transition-timing-function: ease;
 		`,
 		tw`py-3 px-6 rounded text-white leading-none`,
-		varient === "none" &&
+		variant === "none" &&
 			css`
-				background: var(--theme-btn-background, #333333);
+				background: rgb(var(--theme-btn-background));
 				:focus {
-					box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
+					box-shadow: 0 0 0 3px rgb(var(--theme-btn-focus-shadow));
 					${tw`outline-none`}
 				}
 				:hover {
-					box-shadow: 0 0 0 3px var(--theme-btn-focus-shadow, #a0aec080);
-					background: var(--theme-btn-background-hover, #575757);
+					box-shadow: 0 0 0 3px rgb(var(--theme-btn-focus-shadow));
+					background: rgb(var(--theme-btn-background-hover));
 				}
 			`,
-		varient === "black" &&
+		variant === "black" &&
 			css`
 				${tw`bg-gray-900 text-white`}
 				:focus {
@@ -52,7 +52,7 @@ const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
 					${tw`bg-gray-800`}
 				}
 			`,
-		varient === "blue" &&
+		variant === "blue" &&
 			css`
 				${tw`bg-blue-500 text-white`}
 				:focus {
@@ -64,7 +64,7 @@ const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
 					${tw`bg-blue-600`}
 				}
 			`,
-		varient === "green" &&
+		variant === "green" &&
 			css`
 				${tw`bg-green-500 text-white`}
 				:focus {
@@ -76,7 +76,7 @@ const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
 					${tw`bg-green-600`}
 				}
 			`,
-		varient === "orange" &&
+		variant === "orange" &&
 			css`
 				${tw`bg-orange-500 text-white`}
 				:focus {
@@ -88,7 +88,7 @@ const Button = styled.button<ButtonProps>(({ varient = "none" }) => {
 					${tw`bg-orange-600`}
 				}
 			`,
-		varient === "red" &&
+		variant === "red" &&
 			css`
 				${tw`bg-red-500 text-white`}
 				:focus {
@@ -115,7 +115,7 @@ export default () => {
 			</div>
 			<div>
 				<Button
-					varient="blue"
+					variant="blue"
 					className="mr-2 mb-2"
 					onClick={async () => {
 						const { filePaths } = await openFolderDialog.invoke({
@@ -129,13 +129,13 @@ export default () => {
 				>
 					Open Dialog
 				</Button>
-				<Button varient="blue" className="mr-2 mb-2" onClick={() => history.push("/settings")}>
+				<Button variant="blue" className="mr-2 mb-2" onClick={() => history.push("/settings")}>
 					<FormattedMessage id="nav_settings" />
 				</Button>
-				<Button varient="orange" className="mr-2 mb-2" onClick={() => history.push("/dnd")}>
+				<Button variant="orange" className="mr-2 mb-2" onClick={() => history.push("/dnd")}>
 					DnD
 				</Button>
-				<Button varient="green" className="mr-2 mb-2" onClick={() => history.push("/log")}>
+				<Button variant="green" className="mr-2 mb-2" onClick={() => history.push("/log")}>
 					Log
 				</Button>
 				<Button className="mr-2 mb-2 inline-flex items-center" onClick={e => setOpen(true)}>
