@@ -110,13 +110,13 @@ export default () => {
 	const [open, setOpen] = React.useState(false)
 	return (
 		<Page>
-			<div css={tw`mb-2`}>
+			<div tw="mb-2">
 				<FileUploader />
 			</div>
 			<div>
 				<Button
 					variant="blue"
-					css={tw`mr-2 mb-2`}
+					tw="mr-2 mb-2"
 					onClick={async () => {
 						const { filePaths } = await openFolderDialog.invoke({
 							title: "Select a folder",
@@ -129,16 +129,16 @@ export default () => {
 				>
 					Open Dialog
 				</Button>
-				<Button variant="blue" css={tw`mr-2 mb-2`} onClick={() => history.push("/settings")}>
+				<Button variant="blue" tw="mr-2 mb-2" onClick={() => history.push("/settings")}>
 					<FormattedMessage id="nav_settings" />
 				</Button>
-				<Button variant="orange" css={tw`mr-2 mb-2`} onClick={() => history.push("/dnd")}>
+				<Button variant="orange" tw="mr-2 mb-2" onClick={() => history.push("/dnd")}>
 					DnD
 				</Button>
-				<Button variant="green" css={tw`mr-2 mb-2`} onClick={() => history.push("/log")}>
+				<Button variant="green" tw="mr-2 mb-2" onClick={() => history.push("/log")}>
 					Log
 				</Button>
-				<Button css={tw`mr-2 mb-2 inline-flex items-center`} onClick={e => setOpen(true)}>
+				<Button tw="mr-2 mb-2 inline-flex items-center" onClick={e => setOpen(true)}>
 					<svg
 						id="i-eject"
 						xmlns="http://www.w3.org/2000/svg"
@@ -153,21 +153,21 @@ export default () => {
 					>
 						<path d="M30 18 L16 5 2 18Z M2 25 L30 25" />
 					</svg>
-					<span css={tw`pl-2`}>
+					<span tw="pl-2">
 						<FormattedMessage id="modal" />
 					</span>
 				</Button>
 				<Modal open={open} onMouseDownOutside={e => setOpen(false)}>
-					<div css={tw`px-6 my-3`}>
-						<div css={tw`mt-4 mb-2`}>
-							<div css={tw`font-bold text-xl mb-2 capitalize`}>
+					<div tw="px-6 my-3">
+						<div tw="mt-4 mb-2">
+							<div tw="font-bold text-xl mb-2 capitalize">
 								<FormattedMessage id="title" />
 							</div>
 						</div>
-						<div css={tw`h-12 mb-3`}>bla bla bla...</div>
-						<div css={tw`mb-3 flex justify-end`}>
+						<div tw="h-12 mb-3">bla bla bla...</div>
+						<div tw="mb-3 flex justify-end">
 							<Button
-								css={tw`flex items-center`}
+								tw="flex items-center"
 								onClick={e => {
 									e.preventDefault()
 									e.stopPropagation()
@@ -188,7 +188,7 @@ export default () => {
 								>
 									<path d="M2 20 L12 28 30 4" />
 								</svg>
-								<span css={tw`pl-2`}>
+								<span tw="pl-2">
 									<FormattedMessage id="ok" />
 								</span>
 							</Button>
@@ -196,12 +196,12 @@ export default () => {
 					</div>
 				</Modal>
 			</div>
-			{text && <div css={tw`mt-2`}>{text}</div>}
+			{text && <div tw="mt-2">{text}</div>}
 			<div>
-				<h2 css={tw`text-lg mt-6 mb-3`}>Color Picker</h2>
+				<h2 tw="text-lg mt-6 mb-3">Color Picker</h2>
 				<ColorPicker />
 			</div>
-			<div css={tw`mt-2 bg-gray-500 flex items-end`} style={{ width: 300, height: 1300 }}>
+			<div tw="mt-2 bg-gray-500 flex items-end" style={{ width: 300, height: 1300 }}>
 				<IntersectTarget />
 			</div>
 		</Page>
@@ -219,7 +219,7 @@ const IntersectTarget: React.FC = () => {
 	return (
 		<motion.div
 			ref={ref}
-			css={tw`p-6 mb-24 ml-3 w-40 text-center`}
+			tw="p-6 mb-24 ml-3 w-40 text-center"
 			initial={{
 				color: "rgb(26, 32, 44)",
 				backgroundColor: "rgb(237, 242, 247)",

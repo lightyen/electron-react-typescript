@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector, useAction } from "~/store"
 import styled from "@emotion/styled"
-import tw from "twin.macro"
+import "twin.macro"
 
 const AppFooter = styled.div`
 	position: fixed;
@@ -65,9 +65,9 @@ const BarContent: React.FC = () => {
 		return `${n.toFixed(1)} GB`
 	}
 	return (
-		<div css={tw`px-3 py-1 flex`}>
-			<div css={tw`w-1/2`}>{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>
-			<div css={tw`w-1/2`}>
+		<div tw="px-3 py-1 flex">
+			<div tw="w-1/2">{usage ? `CPU: ${usage.toFixed(1)}%` : "～"}</div>
+			<div tw="w-1/2">
 				{memory.free
 					? `Memory: ${getMemInfoString(memory.total - memory.free)}/${getMemInfoString(memory.total)}`
 					: "～"}

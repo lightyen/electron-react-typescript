@@ -31,47 +31,43 @@ const AutoUpdater: React.FC = () => {
 					initial="close"
 					animate="open"
 					exit="close"
-					css={tw`fixed bg-gray-700 border-gray-300 text-gray-100 shadow p-3 flex flex-col`}
+					tw="fixed bg-gray-700 border-gray-300 text-gray-100 shadow p-3 flex flex-col"
 					style={{ bottom: 13, left: 13 }}
 				>
-					<p css={tw`mb-3`}>
+					<p tw="mb-3">
 						<FormattedMessage id="update.available" values={{ version }} />
 					</p>
 					<div>
 						<button
-							css={[
-								tw`select-none`,
-								css`
-									${tw`bg-blue-500 text-white`}
-									:focus {
-										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-										${tw`outline-none`}
-									}
-									:hover {
-										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-										${tw`bg-blue-600`}
-									}
-								`,
-							]}
+							tw="select-none"
+							css={css`
+								${tw`bg-blue-500 text-white`}
+								:focus {
+									box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+									${tw`outline-none`}
+								}
+								:hover {
+									box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+									${tw`bg-blue-600`}
+								}
+							`}
 							onClick={() => updateAppAndRestart()}
 						>
 							<FormattedMessage id="update.restart" />
 						</button>
 						<button
-							css={[
-								tw`ml-3 select-none`,
-								css`
-									${tw`bg-blue-500 text-white`}
-									:focus {
-										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-										${tw`outline-none`}
-									}
-									:hover {
-										box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-										${tw`bg-blue-600`}
-									}
-								`,
-							]}
+							tw="ml-3 select-none"
+							css={css`
+								${tw`bg-blue-500 text-white`}
+								:focus {
+									box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+									${tw`outline-none`}
+								}
+								:hover {
+									box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+									${tw`bg-blue-600`}
+								}
+							`}
 							onClick={() => setOpen(false)}
 						>
 							<FormattedMessage id="update.later" />

@@ -62,7 +62,7 @@ interface Props {
 export default React.forwardRef<
 	HTMLDivElement,
 	Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> & Props
->(({ onChange, defaultValue = chroma("#ff0000") }, ref) => {
+>(({ onChange, defaultValue = "#ff0000" }, ref) => {
 	const picker = useCombinedRefs(React.useRef<HTMLDivElement>(), ref)
 	const palette = React.useRef<HTMLDivElement>()
 	const alpha = React.useRef<HTMLDivElement>()
@@ -208,68 +208,58 @@ export default React.forwardRef<
 		<div
 			aria-label="color-picker"
 			ref={picker}
-			css={[
-				tw`p-3`,
-				css`
-					--selected-color: #ffffff;
-					--selected-hue: #ff0000;
-					--palette-marker-x: 0;
-					--palette-marker-y: 0;
-					--hue-slider-y: 0;
-					--alpha-slider-y: 0;
-					width: 340px;
-					box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
-					background: var(--color-picker-background);
-				`,
-			]}
+			tw="p-3"
+			css={css`
+				--selected-color: #ffffff;
+				--selected-hue: #ff0000;
+				--palette-marker-x: 0;
+				--palette-marker-y: 0;
+				--hue-slider-y: 0;
+				--alpha-slider-y: 0;
+				width: 340px;
+				box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
+				background: var(--color-picker-background);
+			`}
 		>
 			<div
 				aria-label="result"
 				ref={result}
-				css={[
-					tw`relative h-12`,
-					css`
-						color: var(--result-text-color);
-					`,
-				]}
+				tw="relative h-12"
+				css={css`
+					color: var(--result-text-color);
+				`}
 			>
 				<div
-					css={[
-						tw`w-full h-full absolute`,
-						css`
-							background-image: linear-gradient(45deg, #888 25%, transparent 25%),
-								linear-gradient(-45deg, #888 25%, transparent 25%),
-								linear-gradient(45deg, transparent 75%, #888 75%),
-								linear-gradient(-45deg, transparent 75%, #888 75%);
-							background-size: 16px 16px;
-							background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-						`,
-					]}
+					tw="w-full h-full absolute"
+					css={css`
+						background-image: linear-gradient(45deg, #888 25%, transparent 25%),
+							linear-gradient(-45deg, #888 25%, transparent 25%),
+							linear-gradient(45deg, transparent 75%, #888 75%),
+							linear-gradient(-45deg, transparent 75%, #888 75%);
+						background-size: 16px 16px;
+						background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+					`}
 				/>
 				<div
-					css={[
-						tw`w-full h-full absolute`,
-						css`
-							background: var(--selected-color);
-							opacity: var(--selected-alpha);
-						`,
-					]}
+					tw="w-full h-full absolute"
+					css={css`
+						background: var(--selected-color);
+						opacity: var(--selected-alpha);
+					`}
 				/>
-				<div css={tw`absolute w-full h-full flex items-center justify-center select-text`}>
+				<div tw="absolute w-full h-full flex items-center justify-center select-text">
 					<div ref={resultText} />
 					<button
 						onClick={changeText}
-						css={[
-							tw`px-2 rounded-lg`,
-							css`
-								:focus {
-									${tw`outline-none`}
-								}
-								:hover {
-									${tw`text-gray-600`}
-								}
-							`,
-						]}
+						tw="px-2 rounded-lg"
+						css={css`
+							:focus {
+								${tw`outline-none`}
+							}
+							:hover {
+								${tw`text-gray-600`}
+							}
+						`}
 					>
 						<svg
 							id="i-options"
@@ -290,132 +280,110 @@ export default React.forwardRef<
 			</div>
 			<div
 				aria-label="panel"
-				css={[
-					tw`mt-3 grid gap-3 h-48`,
-					css`
-						grid-template-columns: 1fr 50px 50px;
-					`,
-				]}
+				tw="mt-3 grid gap-3 h-48"
+				css={css`
+					grid-template-columns: 1fr 50px 50px;
+				`}
 			>
-				<div aria-label="palette" css={tw`relative bg-white`} ref={palette}>
+				<div aria-label="palette" tw="relative bg-white" ref={palette}>
 					<div
-						css={[
-							tw`w-full h-full absolute`,
-							css`
-								background: var(--selected-hue);
-							`,
-						]}
+						tw="w-full h-full absolute"
+						css={css`
+							background: var(--selected-hue);
+						`}
 					>
 						<div
-							css={[
-								tw`w-full h-full absolute`,
-								css`
-									background: linear-gradient(to right, #fff 0%, transparent 100%);
-								`,
-							]}
+							tw="w-full h-full absolute"
+							css={css`
+								background: linear-gradient(to right, #fff 0%, transparent 100%);
+							`}
 						/>
 						<div
-							css={[
-								tw`w-full h-full absolute`,
-								css`
-									background: linear-gradient(to bottom, transparent 0%, #000 100%);
-								`,
-							]}
+							tw="w-full h-full absolute"
+							css={css`
+								background: linear-gradient(to bottom, transparent 0%, #000 100%);
+							`}
 						/>
 						<div
-							css={[
-								tw`w-full h-full absolute`,
-								css`
-									background: linear-gradient(to bottom, transparent 0%, #000 100%);
-								`,
-							]}
+							tw="w-full h-full absolute"
+							css={css`
+								background: linear-gradient(to bottom, transparent 0%, #000 100%);
+							`}
 						/>
 					</div>
 					<div
 						aria-label="marker"
-						css={[
-							tw`absolute w-4 h-4 rounded-full`,
-							css`
-								border-color: #f7fafc;
-								background-color: var(--selected-color);
-								border-width: 2px;
-								transform: translate(
-									calc(var(--palette-marker-x, 0) * 1px - 8px),
-									calc(var(--palette-marker-y, 0) * 1px - 8px)
-								);
-							`,
-						]}
+						tw="absolute w-4 h-4 rounded-full"
+						css={css`
+							border-color: #f7fafc;
+							background-color: var(--selected-color);
+							border-width: 2px;
+							transform: translate(
+								calc(var(--palette-marker-x, 0) * 1px - 8px),
+								calc(var(--palette-marker-y, 0) * 1px - 8px)
+							);
+						`}
 					/>
 				</div>
-				<div aria-label="alpha" ref={alpha} css={tw`relative h-full bg-white`}>
+				<div aria-label="alpha" ref={alpha} tw="relative h-full bg-white">
 					<div
-						css={[
-							tw`w-full h-full absolute`,
-							css`
-								background-image: linear-gradient(45deg, #888 25%, transparent 25%),
-									linear-gradient(-45deg, #888 25%, transparent 25%),
-									linear-gradient(45deg, transparent 75%, #888 75%),
-									linear-gradient(-45deg, transparent 75%, #888 75%);
-								background-size: 16px 16px;
-								background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-							`,
-						]}
+						tw="w-full h-full absolute"
+						css={css`
+							background-image: linear-gradient(45deg, #888 25%, transparent 25%),
+								linear-gradient(-45deg, #888 25%, transparent 25%),
+								linear-gradient(45deg, transparent 75%, #888 75%),
+								linear-gradient(-45deg, transparent 75%, #888 75%);
+							background-size: 16px 16px;
+							background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+						`}
 					/>
 					<div
-						css={[
-							tw`w-full h-full absolute`,
-							css`
-								background: linear-gradient(to bottom, var(--selected-color) 0%, transparent 100%);
-							`,
-						]}
+						tw="w-full h-full absolute"
+						css={css`
+							background: linear-gradient(to bottom, var(--selected-color) 0%, transparent 100%);
+						`}
 					/>
 					<div
 						aria-label="slider"
-						css={[
-							tw`absolute rounded-full`,
-							css`
-								border-color: #f7fafc;
-								border-width: 2px;
-								width: calc(100% + 4px);
-								left: -2px;
-								height: 10px;
-								transform: translate(0px, calc(var(--alpha-slider-y, 0) * 1px - 5px));
-							`,
-						]}
+						tw="absolute rounded-full"
+						css={css`
+							border-color: #f7fafc;
+							border-width: 2px;
+							width: calc(100% + 4px);
+							left: -2px;
+							height: 10px;
+							transform: translate(0px, calc(var(--alpha-slider-y, 0) * 1px - 5px));
+						`}
 					/>
 				</div>
-				<div aria-label="hue" ref={hue} css={tw`relative bg-white`}>
+				<div aria-label="hue" ref={hue} tw="relative bg-white">
 					<div
-						css={[
-							tw`w-full h-full absolute`,
-							css`
-								background: linear-gradient(
-									to bottom,
-									hsl(0, 100%, 50%),
-									hsl(60, 100%, 50%),
-									hsl(120, 100%, 50%),
-									hsl(180, 100%, 50%),
-									hsl(240, 100%, 50%),
-									hsl(300, 100%, 50%),
-									hsl(360, 100%, 50%)
-								);
-							`,
-						]}
+						tw="w-full h-full absolute"
+						css={css`
+							background: linear-gradient(
+								to bottom,
+								hsl(0, 100%, 50%),
+								hsl(60, 100%, 50%),
+								hsl(120, 100%, 50%),
+								hsl(180, 100%, 50%),
+								hsl(240, 100%, 50%),
+								hsl(300, 100%, 50%),
+								hsl(360, 100%, 50%)
+							);
+						`}
 					/>
 					<div
 						aria-label="slider"
-						css={[
-							tw`absolute rounded-full`,
-							css`
-								border-color: #f7fafc;
-								background-color: var(--selected-hue);
-								border-width: 2px;
-								width: calc(100% + 4px);
-								left: -2px;
-								height: 10px;
-								transform: translate(0px, calc(var(--hue-slider-y, 0) * 1px - 5px));
-							`,
-						]}
+						tw="absolute rounded-full"
+						css={css`
+							border-color: #f7fafc;
+							background-color: var(--selected-hue);
+							border-width: 2px;
+							width: calc(100% + 4px);
+							left: -2px;
+							height: 10px;
+							transform: translate(0px, calc(var(--hue-slider-y, 0) * 1px - 5px));
+						`}
 					/>
 				</div>
 			</div>

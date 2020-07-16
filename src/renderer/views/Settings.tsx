@@ -65,7 +65,7 @@ const AppPaths: React.FC = () => {
 	}, [getAppPaths])
 
 	return (
-		<table css={tw`table-auto`}>
+		<table tw="table-auto">
 			<thead>
 				<tr>
 					<Th>Key</Th>

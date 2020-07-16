@@ -3,8 +3,8 @@ import ScrollBar from "./ScrollBar"
 import { connect, MapStateToProps } from "react-redux"
 import { RootStore } from "~/store"
 import { Theme } from "~/store/theme/themes"
-import tw from "twin.macro"
 import Page from "./Page"
+import "twin.macro"
 
 interface Props {}
 
@@ -45,19 +45,19 @@ class ErrorBoundary extends React.Component<StateProps & OwnProps, State> {
 		if (info) {
 			return (
 				<ScrollBar>
-					<Page css={tw`flex-grow`}>
+					<Page tw="flex-grow">
 						<button
-							css={tw`bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded`}
+							tw="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
 							onClick={() => window.location.reload()}
 						>
 							Reload
 						</button>
-						<div css={tw`m-3`}>
-							<h1 css={tw`text-red-500 font-black`}>Error!</h1>
-							<p css={tw`whitespace-pre-wrap`} style={{ color: theme.error }}>
+						<div tw="m-3">
+							<h1 tw="text-red-500 font-black">Error!</h1>
+							<p tw="whitespace-pre-wrap" style={{ color: theme.error }}>
 								{error.toString()}
 							</p>
-							<code css={tw`whitespace-pre-wrap`} style={{ color: theme.error }}>
+							<code tw="whitespace-pre-wrap" style={{ color: theme.error }}>
 								{info.componentStack}
 							</code>
 						</div>

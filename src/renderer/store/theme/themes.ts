@@ -123,14 +123,14 @@ export function prepareTheme(name?: ThemeMode, cached = false) {
 	root.style.setProperty("--theme-btn-background", color.set("hsv.v", "0.5").rgb().join(","))
 	root.style.setProperty("--theme-btn-background-hover", color.set("hsv.v", "0.7").rgb().join(","))
 
+	const bg = chroma(theme.background)
+	const darkmode = bg.luminance() < 0.3
+	const cover = darkmode ? bg.brighten(3).alpha(0.5) : bg.darken(3).alpha(0.5)
+	root.style.setProperty("--theme-modal-cover-bg", cover.rgba().join(","))
 	root.style.setProperty("--theme-btn-focus-shadow", color.set("hsv.v", "0.5").alpha(0.7).rgba().join(","))
-	root.style.setProperty("--theme-modal-cover-bg", chroma(theme.text.background).alpha(0.5).rgba().join(","))
 	root.style.setProperty("--theme-modal-shadow", chroma(theme.background).alpha(0.2).rgba().join(","))
 	root.style.setProperty("--theme-shadow", chroma(theme.text.background).alpha(0.5).rgba().join(","))
 	root.style.setProperty("--theme-shadow-ambient", chroma(theme.text.background).alpha(0.1).rgba().join(","))
-
-	const bg = chroma(theme.primary)
-	const darkmode = bg.luminance() < 0.3
 
 	if (cached) {
 		localStorage.setItem("theme", name)

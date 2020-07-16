@@ -75,7 +75,7 @@ export default () => {
 	const intl = useIntl()
 	return (
 		<Titlebar>
-			<div css={tw`relative flex flex-auto`}>
+			<div tw="relative flex flex-auto">
 				<DragRegion />
 				<AppIcon>
 					<img src={icon} alt="appicon" />

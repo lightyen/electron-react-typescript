@@ -7,6 +7,7 @@ import { makeStore } from "~/store"
 import { Global, css } from "@emotion/core"
 import tw from "twin.macro"
 
+import "~/fonts.css"
 import "tailwindcss/dist/base.min.css"
 
 const globalStyle = css`
@@ -18,10 +19,6 @@ const globalStyle = css`
 	#modal-root {
 		${tw`absolute left-0 right-0 top-0`}
 		bottom: 100%;
-	}
-	@font-face {
-		font-family: Fira Code;
-		src: url(~assets/fonts/FiraCode-Regular.woff2);
 	}
 	body {
 		margin: 0;
