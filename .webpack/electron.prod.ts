@@ -11,9 +11,16 @@ import path from "path"
 
 process.env.NODE_ENV = "production"
 
-class ExNodeTargetPlugin implements Plugin {
+class ExternalsVendorPlugin implements Plugin {
+	externals: Record<string, string>
+	constructor(...deps: string[]) {
+		this.externals = {}
+		for (const dep of deps) {
+			this.externals[dep] = dep
+		}
+	}
 	apply(compiler: Compiler) {
-		new ExternalsPlugin("commonjs", "sharp")
+		new ExternalsPlugin("commonjs", this.externals).apply(compiler)
 	}
 }
 
@@ -68,7 +75,7 @@ const mainConfig = (function (): Configuration {
 		},
 		plugins: [
 			new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true }),
-			new ExNodeTargetPlugin(),
+			new ExternalsVendorPlugin("rocksdb"),
 		],
 	}
 })()

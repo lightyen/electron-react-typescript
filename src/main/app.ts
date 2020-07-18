@@ -13,6 +13,15 @@ import semver from "semver"
 import { isDev } from "~/is"
 // import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
+// import LevelRocksDB from "level-rocksdb"
+
+const log = global.electron.log
+
+process.on("uncaughtException", error => {
+	log.error(error)
+	app.quit()
+})
+
 if (semver.satisfies(process.versions.electron, "<9.0.0")) {
 	app.allowRendererProcessReuse = true
 }
@@ -20,8 +29,6 @@ if (semver.satisfies(process.versions.electron, "<9.0.0")) {
 if (isDev) {
 	process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 }
-
-const log = global.electron.log
 
 export function initWindow() {
 	global.storage = createStorage()
@@ -36,7 +43,9 @@ export function initWindow() {
 
 app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("userData"), "logs")))
 
-app.on("ready", () => {
+app.on("ready", async () => {
+	// const db = new LevelRocksDB(path.resolve(app.getPath("userData"), "rocksdb"))
+
 	setGlobalShortcut()
 	setMenu()
 	initWindow()
