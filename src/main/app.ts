@@ -1,4 +1,4 @@
-import { app } from "electron"
+import { app, dialog } from "electron"
 import { autoUpdater } from "electron-updater"
 import path from "path"
 
@@ -11,14 +11,13 @@ import { createStorage } from "~/storage"
 import { updateAndRestart, autoUpdateDownloaded } from "@shared/ipc"
 import semver from "semver"
 import { isDev } from "~/is"
+import log from "electron-log"
 // import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
 // import LevelRocksDB from "level-rocksdb"
-
-const log = global.electron.log
-
-process.on("uncaughtException", error => {
-	log.error(error)
+process.on("uncaughtException", err => {
+	log.error(err)
+	dialog.showErrorBox(err.name, err.stack)
 	app.quit()
 })
 
@@ -44,8 +43,7 @@ export function initWindow() {
 app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("userData"), "logs")))
 
 app.on("ready", async () => {
-	// const db = new LevelRocksDB(path.resolve(app.getPath("userData"), "rocksdb"))
-
+	// new LevelRocksDB(path.resolve(app.getPath("userData"), "rocksdb"))
 	setGlobalShortcut()
 	setMenu()
 	initWindow()

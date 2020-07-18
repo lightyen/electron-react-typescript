@@ -13,3 +13,4 @@ package-lock.json
 yarn.lock
 thumbs.db
 stat.json
+rocksdb
