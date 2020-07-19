@@ -1,6 +1,6 @@
 import { merge } from "webpack-merge"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
-import baseConfig from "./webpack.prod"
+import baseConfig from "./webpack.dev"
 
 export default merge(baseConfig, {
 	plugins: [

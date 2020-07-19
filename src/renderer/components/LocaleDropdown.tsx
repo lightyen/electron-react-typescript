@@ -1,8 +1,7 @@
 import React from "react"
 import { useAction, useI18n } from "~/store"
 import { supports } from "~/store/i18n/languages"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLanguage } from "@fortawesome/free-solid-svg-icons/faLanguage"
+import { Translate24 } from "@carbon/icons-react"
 
 import styled from "@emotion/styled"
 import { css } from "@emotion/core"
@@ -17,12 +16,10 @@ const Dropdown = styled.div`
 const DropdownControl = styled.button`
 	color: rgb(var(--theme-text-surface));
 	background: rgb(var(--theme-surface));
-	width: var(--lc-dropdown-control-width);
-	height: var(--lc-dropdown-control-height);
 	transition: all 200ms ease;
 	text-align: center;
 	text-align-last: center;
-	${tw`relative inline-flex outline-none appearance-none capitalize select-none`}
+	${tw`relative inline-flex outline-none appearance-none capitalize select-none px-5 py-2`}
 	${tw`justify-center items-center`}
 	:focus {
 		${tw`outline-none`}
@@ -53,17 +50,18 @@ const DropdownMenu = styled.ul`
 	filter: drop-shadow(1px 1px 2px rgba(var(--theme-shadow)))
 		drop-shadow(1px 1px 2px rgba(var(--theme-shadow-ambient)));
 	${tw`absolute right-0 mt-2`}
+`
 
-	> li {
-		color: rgb(var(--theme-text-surface));
-		transition: all 200ms ease;
-		margin-top: -1px;
-		${tw`px-4 py-2 cursor-pointer select-none`}
-	}
-	> li:hover {
+const DropdownMenuItem = styled.li`
+	color: rgb(var(--theme-text-surface));
+	transition: all 200ms ease;
+	margin-top: -1px;
+	${tw`px-4 py-2 cursor-pointer select-none`}
+
+	:hover {
 		background-color: rgb(var(--theme-hover-surface));
 	}
-	> li:first-of-type:hover ~ ${DropdownMenuCaret} {
+	:first-of-type:hover ~ ${DropdownMenuCaret} {
 		background-color: rgb(var(--theme-hover-surface));
 	}
 `
@@ -90,13 +88,13 @@ export default () => {
 	return (
 		<Dropdown>
 			<DropdownControl ref={btn} onMouseDown={() => setOpen(!open)}>
-				<FontAwesomeIcon icon={faLanguage} />
+				<Translate24 aria-label="translate" />
 				<span>{supports[locale]}</span>
 			</DropdownControl>
 			{open && (
 				<DropdownMenu ref={ul}>
 					{Object.entries(supports).map(([k, v]) => (
-						<li
+						<DropdownMenuItem
 							key={k}
 							css={
 								locale === k
@@ -110,7 +108,7 @@ export default () => {
 							onClick={() => setLocale({ locale: k, cached: true })}
 						>
 							{v}
-						</li>
+						</DropdownMenuItem>
 					))}
 					<DropdownMenuCaret
 						css={

@@ -37,33 +37,13 @@ function useMousemove(ref: React.MutableRefObject<HTMLElement>, callback: (e: Mo
 	}, [ref])
 }
 
-function useCombinedRefs(
-	...refs: Array<React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)>
-) {
-	const targetRef = React.useRef<HTMLDivElement>()
-	React.useEffect(() => {
-		for (const ref of refs) {
-			if (!ref) continue
-			if (typeof ref === "function") {
-				ref(targetRef.current)
-			} else {
-				ref.current = targetRef.current
-			}
-		}
-	}, [refs])
-	return targetRef
-}
-
 interface Props {
 	onChange?: (color: chroma.Color) => void
 	defaultValue?: string | chroma.Color
 }
 
-export default React.forwardRef<
-	HTMLDivElement,
-	Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> & Props
->(({ onChange, defaultValue = "#ff0000" }, ref) => {
-	const picker = useCombinedRefs(React.useRef<HTMLDivElement>(), ref)
+const ColorPicker: React.FC<Props> = ({ onChange, defaultValue = "#ff0000" }) => {
+	const picker = React.useRef<HTMLDivElement>()
 	const palette = React.useRef<HTMLDivElement>()
 	const alpha = React.useRef<HTMLDivElement>()
 	const hue = React.useRef<HTMLDivElement>()
@@ -389,4 +369,6 @@ export default React.forwardRef<
 			</div>
 		</div>
 	)
-})
+}
+
+export default ColorPicker

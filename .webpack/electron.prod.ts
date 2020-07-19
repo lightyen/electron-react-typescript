@@ -75,7 +75,7 @@ const mainConfig = (function (): Configuration {
 		},
 		plugins: [
 			new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true }),
-			new ExternalsVendorPlugin("rocksdb"),
+			new ExternalsVendorPlugin("leveldown"),
 		],
 	}
 })()

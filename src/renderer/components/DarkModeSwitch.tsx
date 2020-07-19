@@ -1,14 +1,10 @@
 import React from "react"
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSun } from "@fortawesome/free-solid-svg-icons/faSun"
-import { faMoon } from "@fortawesome/free-solid-svg-icons/faMoon"
+import styled from "@emotion/styled"
+import tw from "twin.macro"
 import { useSelector, useAction } from "~/store"
 import { FormattedMessage } from "react-intl"
 import { v4 as uuidv4 } from "uuid"
-
-import styled from "@emotion/styled"
-import tw from "twin.macro"
+import { Sun24, Moon24 } from "@carbon/icons-react"
 
 const Switch = styled.div`
 	--dm-switch-width: 100px;
@@ -16,42 +12,44 @@ const Switch = styled.div`
 	${tw`inline-block relative`}
 	width: var(--dm-switch-width);
 	height: var(--dm-switch-height);
-	> input {
-		display: none;
-	}
-	> label {
-		${tw`relative w-full h-full block overflow-hidden select-none`}
-		transition: all 200ms ease;
-	}
-	> label:hover {
+`
+
+const __Label = styled.label`
+	${tw`relative w-full h-full block overflow-hidden select-none`}
+	transition: all 200ms ease;
+	:hover {
 		${tw`cursor-pointer`}
 		box-shadow: 0 0 3px 4px rgba(110, 190, 255, 0.8);
 	}
-	> label > div {
-		${tw`absolute w-full h-full select-none text-center`}
-		line-height: var(--dm-switch-height);
+	> div {
+		${tw`absolute w-full h-full select-none text-center flex items-center justify-center`}
 		backface-visibility: hidden;
 		transition: transform 300ms ease;
 		transform-origin: 0% 200%;
 	}
-	> label > div > span {
+	> div > span {
 		${tw`pl-2 capitalize`}
 	}
-	/** checked */
-	> label {
-		color: rgb(var(--theme-text-surface));
-		background: rgb(var(--theme-surface));
+	> div > svg {
+		display: inline-block;
 	}
-	> input:not(:checked) + label > *:first-of-type {
+	color: rgb(var(--theme-text-surface));
+	background: rgb(var(--theme-surface));
+`
+
+const __Input = styled.input`
+	display: none;
+
+	:not(:checked) + ${__Label} > *:first-of-type {
 		transform: rotate(0deg);
 	}
-	> input:checked + label > *:first-of-type {
+	:checked + ${__Label} > *:first-of-type {
 		transform: rotate(-90deg);
 	}
-	> input:not(:checked) + label > *:last-child {
+	:not(:checked) + ${__Label} > *:last-child {
 		transform: rotate(90deg);
 	}
-	> input:checked + label > *:last-child {
+	:checked + ${__Label} > *:last-child {
 		transform: rotate(0deg);
 	}
 `
@@ -62,26 +60,26 @@ export default () => {
 	const uuid = React.useRef(uuidv4())
 	return (
 		<Switch>
-			<input
+			<__Input
 				id={uuid.current}
 				type="checkbox"
 				defaultChecked={name == "dark"}
 				onChange={e => changeTheme({ name: e.target.checked ? "dark" : "light", cached: true })}
 			/>
-			<label htmlFor={uuid.current}>
+			<__Label htmlFor={uuid.current}>
 				<div>
-					<FontAwesomeIcon icon={faSun} />
+					<Sun24 />
 					<span>
 						<FormattedMessage id="light" />
 					</span>
 				</div>
 				<div>
-					<FontAwesomeIcon icon={faMoon} />
+					<Moon24 />
 					<span>
 						<FormattedMessage id="dark" />
 					</span>
 				</div>
-			</label>
+			</__Label>
 		</Switch>
 	)
 }

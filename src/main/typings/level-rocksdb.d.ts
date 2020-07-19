@@ -1,18 +1,20 @@
 declare module "level-rocksdb" {
 	import type { Readable } from "stream"
-	type Bytes = string | Buffer
+	type KeyType = string | Buffer
+	type ValueType = KeyType
 	type ErrorCallback = (err: Error | undefined) => void
-	type ErrorValueCallback = (err: Error | undefined, value: Bytes) => void
+	type ErrorValueCallback = (err: Error | undefined, value: KeyType) => void
 	type ErrorDBCallback = (err: Error | undefined, db: LevelRocksDB) => void
+	type ErrorSizeCallback = (err: Error | undefined, size: number) => void
 
 	interface PutBatch {
 		readonly type?: "put"
-		readonly key: Bytes
-		readonly value: Bytes
+		readonly key: KeyType
+		readonly value: ValueType
 	}
 	interface DelBatch {
 		readonly type: "del"
-		readonly key: Bytes
+		readonly key: ValueType
 	}
 	type AbstractBatch = PutBatch | DelBatch
 
@@ -22,14 +24,14 @@ declare module "level-rocksdb" {
 		 *
 		 * This method may `throw` a `WriteError` if there is a problem with your put (such as the `value` being `null` or `undefined`).
 		 */
-		put: (key: Bytes, value: Bytes) => this
+		put: (key: KeyType, value: ValueType) => this
 
 		/**
 		 * Queue a del operation on the current batch, not committed until a `write()` is called on the batch.
 		 *
 		 * This method may `throw` a `WriteError` if there is a problem with your delete.
 		 */
-		del: (key: Bytes) => this
+		del: (key: KeyType) => this
 
 		/** Clear all queued operations on the current batch, any previous operations will be discarded. */
 		clear: () => this
@@ -77,16 +79,16 @@ declare module "level-rocksdb" {
 
 	interface CreateReadStreamOptions {
 		/** define the lower bound of the range to be streamed. Only entries where the key is greater than this option will be included in the range. When `reverse=true` the order will be reversed, but the entries streamed will be the same. */
-		gt: Bytes
+		gt: KeyType
 
 		/** define the lower bound of the range to be streamed. Only entries where the key is greater than (or equal to) this option will be included in the range. When `reverse=true` the order will be reversed, but the entries streamed will be the same. */
-		gte: Bytes
+		gte: KeyType
 
 		/** define the higher bound of the range to be streamed. Only entries where the key is less than this option will be included in the range. When `reverse=true` the order will be reversed, but the entries streamed will be the same. */
-		lt: Bytes
+		lt: KeyType
 
 		/** define the higher bound of the range to be streamed. Only entries where the key is less than (or equal to) this option will be included in the range. When `reverse=true` the order will be reversed, but the entries streamed will be the same. */
-		lte: Bytes
+		lte: KeyType
 
 		/**
 		 * stream entries in reverse order. Beware that due to the way that stores like LevelDB work, a reverse seek can be slower than a forward seek.
@@ -113,14 +115,18 @@ declare module "level-rocksdb" {
 		values: boolean
 
 		/** @deprecated instead use `gte` */
-		start: Bytes
+		start: KeyType
 		/** @deprecated instead use `lte` */
-		end: Bytes
+		end: KeyType
 	}
 	type CreateKeyStreamOptions = Omit<CreateReadStreamOptions, "keys" | "values">
 	type CreateValueStreamOptions = CreateKeyStreamOptions
 
 	interface LevelRocksDB {
+		iterator(): unknown
+
+		supports: unknown
+
 		/**
 		 * Opens the underlying store. In general you should never need to call this method directly as it's automatically called by `levelup()`.
 		 *
@@ -162,17 +168,17 @@ declare module "level-rocksdb" {
 		 *
 		 * If no callback is passed, a promise is returned.
 		 * */
-		get(key: Bytes, options?: Partial<GetOptions>): Promise<Bytes>
-		get(key: Bytes, callback: ErrorValueCallback): void
-		get(key: Bytes, options: Partial<GetOptions>, callback: ErrorValueCallback): void
+		get(key: KeyType, options?: Partial<GetOptions>): Promise<ValueType>
+		get(key: KeyType, callback: ErrorValueCallback): void
+		get(key: KeyType, options: Partial<GetOptions>, callback: ErrorValueCallback): void
 
 		/**
 		 * `put()` is the primary method for inserting data into the store.
 		 * Both key and value can be of any type as far as levelup is concerned.
 		 */
-		put(key: Bytes, value: Bytes, options?: Partial<PutOptions>): Promise<void>
-		put(key: Bytes, value: Bytes, callback: ErrorValueCallback): void
-		put(key: Bytes, value: Bytes, options: Partial<PutOptions>, callback: ErrorValueCallback): void
+		put(key: KeyType, value: ValueType, options?: Partial<PutOptions>): Promise<void>
+		put(key: KeyType, value: ValueType, callback: ErrorCallback): void
+		put(key: KeyType, value: ValueType, options: Partial<PutOptions>, callback: ErrorCallback): void
 
 		/**
 		 * `del()` is the primary method for removing data from the store.
@@ -187,9 +193,9 @@ declare module "level-rocksdb" {
 		 *
 		 * If no callback is passed, a promise is returned.
 		 */
-		del(key: Bytes, options?: Partial<DelOptions>): Promise<void>
-		del(key: Bytes, callback: ErrorCallback): void
-		del(key: Bytes, options: Partial<DelOptions>, callback: ErrorCallback): void
+		del(key: KeyType, options?: Partial<DelOptions>): Promise<void>
+		del(key: KeyType, callback: ErrorCallback): void
+		del(key: KeyType, options: Partial<DelOptions>, callback: ErrorCallback): void
 
 		/**
 		 * `batch()` can be used for very fast bulk-write operations (both *put* and *delete*). The `array` argument should contain a list of operations to be executed sequentially, although as a whole they are performed as an atomic operation inside the underlying store.
@@ -283,23 +289,31 @@ declare module "level-rocksdb" {
 		/** Returns a Readable Stream of values rather than key-value pairs. Use the same options as described for createReadStream to control the range and direction. */
 		createValueStream(options?: Partial<CreateValueStreamOptions>): Readable
 
-		on(event: "put", listener: (key: Bytes, value: Bytes) => void): this
-		on(event: "del", listener: (key: Bytes) => void): this
+		on(event: "put", listener: (key: KeyType, value: KeyType) => void): this
+		on(event: "del", listener: (key: KeyType) => void): this
 		on(event: "batch", listener: (operations: AbstractBatch[]) => void): this
 		on(event: "opening", listener: () => void): this
 		on(event: "open", listener: () => void): this
 		on(event: "ready", listener: () => void): this
 		on(event: "closing", listener: () => void): this
 		on(event: "closed", listener: () => void): this
+
+		approximateSize(start: KeyType, end: KeyType, callback: ErrorSizeCallback): void
 	}
 
-	interface Options {}
+	interface Options {
+		/** @default 'utf8' */
+		keyEncoding: "utf8" | "hex" | "ascii" | "binary" | "base64" | "ucs2" | "utf16le" | "json"
+
+		/** @default 'utf8' */
+		valueEncoding: "utf8" | "hex" | "ascii" | "binary" | "base64" | "ucs2" | "utf16le" | "json"
+	}
 
 	interface Constructor {
 		/** The main entry point for creating a new levelup instance. */
 		new (location: string): LevelRocksDB
-		new (location: string, options: Options): LevelRocksDB
-		new (location: string, options: Options, callback: ErrorDBCallback): LevelRocksDB
+		new (location: string, options: Partial<Options>): LevelRocksDB
+		new (location: string, options: Partial<Options>, callback: ErrorDBCallback): LevelRocksDB
 		(location: string): LevelRocksDB
 	}
 

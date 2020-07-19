@@ -14,7 +14,6 @@ import { isDev } from "~/is"
 import log from "electron-log"
 // import { install, REACT_DEVELOPER_TOOLS } from "~/electron-devtools-installer"
 
-// import LevelRocksDB from "level-rocksdb"
 process.on("uncaughtException", err => {
 	log.error(err)
 	dialog.showErrorBox(err.name, err.stack)
@@ -40,10 +39,15 @@ export function initWindow() {
 	})
 }
 
-app.on("will-finish-launching", () => app.setAppLogsPath(path.join(app.getPath("userData"), "logs")))
+app.on("will-finish-launching", () => app.setAppLogsPath(path.resolve(app.getPath("userData"), "logs")))
 
+// import LevelDB from "level"
 app.on("ready", async () => {
-	// new LevelRocksDB(path.resolve(app.getPath("userData"), "rocksdb"))
+	// try {
+	// 	const db = new LevelDB(path.resolve(app.getPath("userData"), "leveldb"))
+	// 	console.log(Object.getOwnPropertyNames(db.supports))
+	// 	await db.close()
+	// } catch {}
 	setGlobalShortcut()
 	setMenu()
 	initWindow()

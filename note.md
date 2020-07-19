@@ -1,5 +1,10 @@
 # NOTE
 
+## mark known issues
+
+- Source map: https://github.com/electron/electron/issues/22996
+- Dark mode with devtools: https://github.com/electron/electron/issues/19468
+
 ## electron module list
 
 - app
