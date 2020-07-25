@@ -1,7 +1,7 @@
 import React from "react"
 import { IntlProvider } from "react-intl"
 import { useI18n } from "~/store"
-import { getLocaleMessages } from "./store/i18n/languages"
+import { getLocaleMessages } from "~/store/i18n/languages"
 
 const LanguageProvider: React.FC = ({ children }) => {
 	const { locale } = useI18n()

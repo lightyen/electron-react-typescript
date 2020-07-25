@@ -46,47 +46,47 @@ const changePermissions = async (dir: string, mode: number) => {
 
 export const EMBER_INSPECTOR: ExtensionReference = {
 	id: "bmdblncegkenkacieihfhpjfppoconhi",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const REACT_DEVELOPER_TOOLS: ExtensionReference = {
 	id: "fmkadmapgofadopljbjfkapdkoienihi",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const BACKBONE_DEBUGGER: ExtensionReference = {
 	id: "bhljhndlimiafopmmhjlgfpnnchjjbhd",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const JQUERY_DEBUGGER: ExtensionReference = {
 	id: "dbhhnnnpaeobfddmlalhnehgclcmjimi",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const ANGULARJS_BATARANG: ExtensionReference = {
 	id: "ighdmehidhipcmcojjgiloacoafjmpfk",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const VUEJS_DEVTOOLS: ExtensionReference = {
 	id: "nhdogjmejiglipccpnnnanhbledajbpd",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const REDUX_DEVTOOLS: ExtensionReference = {
 	id: "lmhkpmbekcpmknklioeibfkpmmfibljd",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const REACT_PERF: ExtensionReference = {
 	id: "hacmcodfllhbnekmghgdlplbdnahmhmm",
-	electron: ">2.0.0",
+	electron: ">=7.0.0",
 }
 export const CYCLEJS_DEVTOOL: ExtensionReference = {
 	id: "dfgplfmhhmdekalbpejekgfegkonjpfp",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const APOLLO_DEVELOPER_TOOLS: ExtensionReference = {
 	id: "jdkknkkbebbapilgoeccciglkfbmbnfm",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 export const MOBX_DEVTOOLS: ExtensionReference = {
 	id: "pfgnfdagidkfgccljigdamigbcnndkod",
-	electron: ">=2.0.0",
+	electron: ">=7.0.0",
 }
 
 type ID = string
