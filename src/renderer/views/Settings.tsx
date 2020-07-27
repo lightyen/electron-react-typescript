@@ -18,7 +18,6 @@ const Field = styled.div`
 
 export default () => {
 	const { enable } = useI18n()
-	console.log(enable)
 	return (
 		<Page>
 			<Field>
