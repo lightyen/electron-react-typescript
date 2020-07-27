@@ -14,11 +14,12 @@ export function makeStore() {
 
 	sagaMiddleware.run(rootSaga)
 
-	// seems not work in electron
+	// NOTE: seems not work in electron
+
 	// if (module.hot) {
 	// 	module.hot.accept("~/store/reducer", () => {
 	// 		console.log("@@HMR reducer")
-	// 		store.replaceReducer(require("./reducer").default)
+	// 		store.replaceReducer(reducer)
 	// 	})
 	// 	module.hot.accept("~/store/saga", () => {
 	// 		console.log("@@HMR saga")
