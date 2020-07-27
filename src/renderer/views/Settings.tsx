@@ -1,6 +1,6 @@
 import React from "react"
 import { FormattedMessage } from "react-intl"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction, useI18n } from "~/store/hooks"
 
 import Page from "~/components/Page"
 import DarkModeSwitch from "~/components/DarkModeSwitch"
@@ -17,6 +17,8 @@ const Field = styled.div`
 `
 
 export default () => {
+	const { enable } = useI18n()
+	console.log(enable)
 	return (
 		<Page>
 			<Field>
@@ -25,12 +27,14 @@ export default () => {
 				</label>
 				<DarkModeSwitch />
 			</Field>
-			<Field>
-				<label>
-					<FormattedMessage id="language" />
-				</label>
-				<LocaleDropdown />
-			</Field>
+			{enable && (
+				<Field>
+					<label>
+						<FormattedMessage id="language" />
+					</label>
+					<LocaleDropdown />
+				</Field>
+			)}
 			<Field>
 				<label>Paths</label>
 				<AppPaths />

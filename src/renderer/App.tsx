@@ -3,7 +3,7 @@ import { Provider } from "react-redux"
 import StyledThemeProvider from "~/components/StyledThemeProvider"
 import LanguageProvider from "~/components/LanguageProvider"
 import AppLayout from "~/layout/AppLayout"
-import { makeStore } from "~/store"
+import { makeStore } from "~/store/store"
 import { Global, css } from "@emotion/core"
 import tw from "twin.macro"
 

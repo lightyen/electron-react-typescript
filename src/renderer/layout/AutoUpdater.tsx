@@ -1,7 +1,7 @@
 import React from "react"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import { FormattedMessage } from "react-intl"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction } from "~/store/hooks"
 import { css } from "@emotion/core"
 import tw from "twin.macro"
 

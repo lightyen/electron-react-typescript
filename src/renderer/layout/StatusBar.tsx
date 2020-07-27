@@ -1,5 +1,5 @@
 import React from "react"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction } from "~/store/hooks"
 import styled from "@emotion/styled"
 import "twin.macro"
 

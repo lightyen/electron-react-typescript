@@ -72,7 +72,7 @@ function* subscribeUpdateDownloaded() {
 }
 
 function* subscribeWindowMaximized() {
-	const { data } = yield call(windowIsMaximized.invoke)
+	const data = yield call(windowIsMaximized.invoke)
 	yield put(windowMaximized({ maximized: data }))
 
 	const chan = yield windowIsMaximized.saga()

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
-import { useSelector, useAction } from "~/store"
+import { useSelector, useAction } from "~/store/hooks"
 import { FormattedMessage } from "react-intl"
 import { v4 as uuidv4 } from "uuid"
 import { Sun24, Moon24 } from "@carbon/icons-react"

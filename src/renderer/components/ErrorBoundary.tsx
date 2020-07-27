@@ -1,7 +1,7 @@
 import React, { ErrorInfo } from "react"
 import ScrollBar from "./ScrollBar"
 import { connect, MapStateToProps } from "react-redux"
-import { RootStore } from "~/store"
+import { RootStore } from "~/store/reducer"
 import { Theme } from "~/store/theme/themes"
 import Page from "./Page"
 import "twin.macro"

@@ -1,5 +1,5 @@
 import React from "react"
-import { useAction, useI18n } from "~/store"
+import { useAction, useI18n } from "~/store/hooks"
 import { supports } from "~/store/i18n/languages"
 import { Translate24 } from "@carbon/icons-react"
 

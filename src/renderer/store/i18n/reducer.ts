@@ -4,12 +4,14 @@ import { setLocale } from "./action"
 
 interface I18nStoreType {
 	locale: string
+	enable: boolean
 }
 
 export type I18nStore = Readonly<I18nStoreType>
 
 const init: I18nStore = {
 	locale: getLocale(),
+	enable: true,
 }
 
 window.__locale__ = getLocale()

@@ -16,7 +16,7 @@ type DeepReadonly<T> = {
 
 export type RootStore = DeepReadonly<RootStoreType>
 
-export const reducer = combineReducers({
+export default combineReducers({
 	app,
 	theme,
 	i18n,
