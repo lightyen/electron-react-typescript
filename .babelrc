@@ -7,7 +7,7 @@
   "plugins": ["@babel/plugin-transform-runtime", "emotion", "macros"],
   "env": {
     "development": {
-      "plugins": ["react-hot-loader/babel"]
+      "plugins": ["react-refresh/babel"]
     }
   }
 }

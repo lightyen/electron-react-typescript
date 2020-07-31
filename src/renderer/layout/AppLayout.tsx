@@ -1,5 +1,4 @@
 import React from "react"
-import { hot } from "react-hot-loader/root"
 
 import TitleBar from "./TitleBar"
 import AutoUpdater from "./AutoUpdater"
@@ -38,4 +37,4 @@ const AppLayout: React.FC = () => {
 	)
 }
 
-export default hot(AppLayout)
+export default AppLayout
