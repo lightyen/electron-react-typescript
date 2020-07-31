@@ -28,7 +28,7 @@ const mainConfig = (function (): Configuration {
 	const workingDirectory = process.cwd()
 	const src = path.resolve(workingDirectory, "src", "main")
 	const dist = path.resolve(workingDirectory, "dist")
-	const tsconfigPath = path.resolve(src, "tsconfig.json")
+	const tsConfigPath = path.resolve(src, "tsconfig.json")
 	return {
 		mode: "production",
 		entry: {
@@ -71,7 +71,7 @@ const mainConfig = (function (): Configuration {
 		},
 		resolve: {
 			extensions: [".ts", ".js", ".json"],
-			plugins: [new TsPathsResolvePlugin({ configFile: tsconfigPath })],
+			plugins: [new TsPathsResolvePlugin({ tsConfigPath })],
 		},
 		plugins: [
 			new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true }),
