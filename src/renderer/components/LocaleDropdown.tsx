@@ -1,7 +1,7 @@
 import React from "react"
 import { useAction, useI18n } from "~/store/hooks"
 import { supports } from "~/store/i18n/languages"
-import { Translate24 } from "@carbon/icons-react"
+import Translate24 from "@carbon/icons-react/lib/translate/24"
 
 import styled from "@emotion/styled"
 import { css } from "@emotion/core"
