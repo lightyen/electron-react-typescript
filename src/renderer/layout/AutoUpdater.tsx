@@ -57,7 +57,7 @@ const AutoUpdater: React.FC = () => {
 							`}
 							onClick={() => updateAppAndRestart()}
 						>
-							<FormattedMessage id="6932f" defaultMessage="Restart Now?" />
+							<FormattedMessage defaultMessage="Restart Now?" />
 						</button>
 						<button
 							tw="ml-3 select-none"
@@ -74,7 +74,7 @@ const AutoUpdater: React.FC = () => {
 							`}
 							onClick={() => setOpen(false)}
 						>
-							<FormattedMessage id="61057" defaultMessage="Later" />
+							<FormattedMessage defaultMessage="Later" />
 						</button>
 					</div>
 				</motion.div>

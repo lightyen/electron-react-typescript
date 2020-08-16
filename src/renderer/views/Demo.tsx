@@ -130,7 +130,7 @@ const Demo = () => {
 					Open Dialog
 				</Button>
 				<Button variant="blue" tw="mr-2 mb-2" onClick={() => history.push("/settings")}>
-					<FormattedMessage id="f4f70" defaultMessage="Settings" />
+					<FormattedMessage defaultMessage="Settings" />
 				</Button>
 				<Button variant="orange" tw="mr-2 mb-2" onClick={() => history.push("/dnd")}>
 					DnD
@@ -154,14 +154,14 @@ const Demo = () => {
 						<path d="M30 18 L16 5 2 18Z M2 25 L30 25" />
 					</svg>
 					<span tw="pl-2">
-						<FormattedMessage id="608ec" defaultMessage="modal" />
+						<FormattedMessage defaultMessage="modal" />
 					</span>
 				</Button>
 				<Modal open={open} onMouseDownOutside={e => setOpen(false)}>
 					<div tw="px-6 my-3">
 						<div tw="mt-4 mb-2">
 							<div tw="font-bold text-xl mb-2 capitalize">
-								<FormattedMessage id="b78a3" defaultMessage="Title" />
+								<FormattedMessage defaultMessage="Title" />
 							</div>
 						</div>
 						<div tw="h-12 mb-3">bla bla bla...</div>
@@ -189,7 +189,7 @@ const Demo = () => {
 									<path d="M2 20 L12 28 30 4" />
 								</svg>
 								<span tw="pl-2">
-									<FormattedMessage id="a6085" defaultMessage="Ok" />
+									<FormattedMessage defaultMessage="Ok" />
 								</span>
 							</Button>
 						</div>

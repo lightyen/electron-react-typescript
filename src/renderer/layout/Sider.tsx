@@ -46,7 +46,7 @@ const Sider = () => {
 	const intl = useIntl()
 	return (
 		<SiderWrapper>
-			<StyledNavLink to="/" exact title={intl.formatMessage({ id: "8cf04", defaultMessage: "Home" })}>
+			<StyledNavLink to="/" exact title={intl.formatMessage({ defaultMessage: "Home" })}>
 				<svg
 					id="i-home"
 					xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const Sider = () => {
 					<path d="M12 20 L12 30 4 30 4 12 16 2 28 12 28 30 20 30 20 20 Z" />
 				</svg>
 			</StyledNavLink>
-			<StyledNavLink to="/settings" title={intl.formatMessage({ id: "f4f70", defaultMessage: "Settings" })}>
+			<StyledNavLink to="/settings" title={intl.formatMessage({ defaultMessage: "Settings" })}>
 				<svg
 					id="i-settings"
 					xmlns="http://www.w3.org/2000/svg"

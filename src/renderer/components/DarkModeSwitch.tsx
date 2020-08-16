@@ -70,13 +70,13 @@ const DarkModeSwitch = () => {
 				<div>
 					<Sun24 />
 					<span>
-						<FormattedMessage id="2ac43" defaultMessage="light" />
+						<FormattedMessage defaultMessage="light" />
 					</span>
 				</div>
 				<div>
 					<Moon24 />
 					<span>
-						<FormattedMessage id="a82fd" defaultMessage="dark" />
+						<FormattedMessage defaultMessage="dark" />
 					</span>
 				</div>
 			</__Label>

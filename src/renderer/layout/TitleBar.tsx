@@ -86,19 +86,13 @@ const TitleBar = () => {
 				</Text>
 			</div>
 			<ControlPanel>
-				<Control
-					onClick={window_minimize}
-					title={intl.formatMessage({ id: "d2753", defaultMessage: "Minimize" })}
-				>
+				<Control onClick={window_minimize} title={intl.formatMessage({ defaultMessage: "Minimize" })}>
 					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 10 1.5">
 						<rect width="10" height="1.5" />
 					</svg>
 				</Control>
 				{maximized ? (
-					<Control
-						onClick={window_restore}
-						title={intl.formatMessage({ id: "2bd33", defaultMessage: "Restore" })}
-					>
+					<Control onClick={window_restore} title={intl.formatMessage({ defaultMessage: "Restore" })}>
 						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 10 10">
 							<mask id="Mask">
 								<rect fill="#ffffff" width="10" height="10" />
@@ -109,10 +103,7 @@ const TitleBar = () => {
 						</svg>
 					</Control>
 				) : (
-					<Control
-						onClick={window_maximize}
-						title={intl.formatMessage({ id: "9369b", defaultMessage: "Maximize" })}
-					>
+					<Control onClick={window_maximize} title={intl.formatMessage({ defaultMessage: "Maximize" })}>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
 							<path d="M 0 0 L 0 9.5 L 10 9.5 L 10 0 L 0 0 z M 1 1 L 9 1 L 9 8.5 L 1 8.5 L 1 1 z " />
 						</svg>
@@ -126,7 +117,7 @@ const TitleBar = () => {
 						}
 					`}
 					onClick={window_close}
-					title={intl.formatMessage({ id: "0d827", defaultMessage: "Quit" })}
+					title={intl.formatMessage({ defaultMessage: "Quit" })}
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 10 10">
 						<polygon points="10,1 9,0 5,4 1,0 0,1 4,5 0,9 1,10 5,6 9,10 10,9 6,5" />
