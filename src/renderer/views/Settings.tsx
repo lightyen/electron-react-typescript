@@ -22,14 +22,14 @@ const Settings = () => {
 		<Page>
 			<Field>
 				<label>
-					<FormattedMessage id="themes" />
+					<FormattedMessage id="83915" defaultMessage="Themes" />
 				</label>
 				<DarkModeSwitch />
 			</Field>
 			{enable && (
 				<Field>
 					<label>
-						<FormattedMessage id="language" />
+						<FormattedMessage id="4994a" defaultMessage="Language" />
 					</label>
 					<LocaleDropdown />
 				</Field>

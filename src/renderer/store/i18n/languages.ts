@@ -22,8 +22,8 @@ export function getLocale() {
 	return window.navigator.language || defaultLocale
 }
 
-import $enUS from "./locales/en-US.yml"
-import $zhTW from "./locales/zh-TW.yml"
+import $enUS from "./locales/en-US.json"
+import $zhTW from "./locales/zh-TW.json"
 
 export function getLocaleMessages(locale: string) {
 	const [primary] = locale.toLocaleLowerCase().split(/-/)

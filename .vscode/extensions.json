@@ -9,7 +9,6 @@
     "editorconfig.editorconfig",
     "stylelint.vscode-stylelint",
     "bradlc.vscode-tailwindcss",
-    "jpoissonnier.vscode-styled-components",
-    "antfu.i18n-ally"
+    "jpoissonnier.vscode-styled-components"
   ]
 }

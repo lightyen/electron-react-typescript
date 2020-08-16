@@ -52,7 +52,7 @@ const HomePage = () => {
 						Edit <Code>renderer/views/Home/index.tsx</Code> and save to reload.
 					</p>
 					<span css={{ userSelect: "none" }}>
-						<FormattedMessage id="test" values={{ name: "React" }} />
+						<FormattedMessage id="d700b" defaultMessage="{name} is awesome!" values={{ name: "React" }} />
 					</span>
 					<HomeLink href="https://reactjs.org" rel="noopener noreferrer">
 						Learn React

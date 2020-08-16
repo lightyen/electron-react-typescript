@@ -1,0 +1,116 @@
+{
+  "0d827": [
+    {
+      "type": 0,
+      "value": "Quit"
+    }
+  ],
+  "2ac43": [
+    {
+      "type": 0,
+      "value": "light"
+    }
+  ],
+  "2bd33": [
+    {
+      "type": 0,
+      "value": "Restore"
+    }
+  ],
+  "4994a": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
+  "608ec": [
+    {
+      "type": 0,
+      "value": "modal"
+    }
+  ],
+  "61057": [
+    {
+      "type": 0,
+      "value": "Later"
+    }
+  ],
+  "6932f": [
+    {
+      "type": 0,
+      "value": "Restart Now?"
+    }
+  ],
+  "83915": [
+    {
+      "type": 0,
+      "value": "Themes"
+    }
+  ],
+  "8cf04": [
+    {
+      "type": 0,
+      "value": "Home"
+    }
+  ],
+  "9369b": [
+    {
+      "type": 0,
+      "value": "Maximize"
+    }
+  ],
+  "98879": [
+    {
+      "type": 0,
+      "value": "New version "
+    },
+    {
+      "type": 1,
+      "value": "version"
+    },
+    {
+      "type": 0,
+      "value": " available."
+    }
+  ],
+  "a6085": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "a82fd": [
+    {
+      "type": 0,
+      "value": "dark"
+    }
+  ],
+  "b78a3": [
+    {
+      "type": 0,
+      "value": "Title"
+    }
+  ],
+  "d2753": [
+    {
+      "type": 0,
+      "value": "Minimize"
+    }
+  ],
+  "d700b": [
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " is awesome!"
+    }
+  ],
+  "f4f70": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ]
+}

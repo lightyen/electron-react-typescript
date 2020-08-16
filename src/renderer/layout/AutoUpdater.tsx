@@ -35,7 +35,11 @@ const AutoUpdater: React.FC = () => {
 					style={{ bottom: 13, left: 13 }}
 				>
 					<p tw="mb-3">
-						<FormattedMessage id="update.available" values={{ version }} />
+						<FormattedMessage
+							id="98879"
+							defaultMessage="New version {version} available."
+							values={{ version }}
+						/>
 					</p>
 					<div>
 						<button
@@ -53,7 +57,7 @@ const AutoUpdater: React.FC = () => {
 							`}
 							onClick={() => updateAppAndRestart()}
 						>
-							<FormattedMessage id="update.restart" />
+							<FormattedMessage id="6932f" defaultMessage="Restart Now?" />
 						</button>
 						<button
 							tw="ml-3 select-none"
@@ -70,7 +74,7 @@ const AutoUpdater: React.FC = () => {
 							`}
 							onClick={() => setOpen(false)}
 						>
-							<FormattedMessage id="update.later" />
+							<FormattedMessage id="61057" defaultMessage="Later" />
 						</button>
 					</div>
 				</motion.div>
