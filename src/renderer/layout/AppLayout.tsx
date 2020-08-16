@@ -17,7 +17,7 @@ const View = styled.div`
 
 const Main = tw.div`h-full w-full flex`
 
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
 	return (
 		<div css={{ overflow: "hidden" }}>
 			<TitleBar />

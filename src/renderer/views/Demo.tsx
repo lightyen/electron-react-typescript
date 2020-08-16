@@ -103,7 +103,7 @@ const Button = styled.button<ButtonProps>(({ variant = "none" }) => {
 	]
 })
 
-export default () => {
+const Demo = () => {
 	const [text, setText] = React.useState("")
 	const history = useHistory()
 
@@ -207,6 +207,8 @@ export default () => {
 		</Page>
 	)
 }
+
+export default Demo
 
 const IntersectTarget: React.FC = () => {
 	const root = useScrollBarSource()

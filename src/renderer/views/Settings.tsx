@@ -16,7 +16,7 @@ const Field = styled.div`
 	}
 `
 
-export default () => {
+const Settings = () => {
 	const { enable } = useI18n()
 	return (
 		<Page>
@@ -41,6 +41,8 @@ export default () => {
 		</Page>
 	)
 }
+
+export default Settings
 
 const Th = tw.th`px-4 py-2`
 

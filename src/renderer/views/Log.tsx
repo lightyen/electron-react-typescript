@@ -3,7 +3,7 @@ import { appLogs } from "@shared/ipc"
 import Page from "~/components/Page"
 import "twin.macro"
 
-export default () => {
+const Logs = () => {
 	const [log, setLog] = React.useState("")
 	React.useEffect(() => {
 		appLogs
@@ -18,3 +18,5 @@ export default () => {
 		</Page>
 	)
 }
+
+export default Logs

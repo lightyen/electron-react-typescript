@@ -69,7 +69,7 @@ const Control = styled.div`
 	}
 `
 
-export default () => {
+const TitleBar = () => {
 	const maximized = useSelector(state => state.app.maximized)
 	const { window_close, window_maximize, window_minimize, window_restore } = useAction().app
 	const intl = useIntl()
@@ -127,3 +127,5 @@ export default () => {
 		</Titlebar>
 	)
 }
+
+export default TitleBar

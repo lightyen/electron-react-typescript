@@ -54,7 +54,7 @@ const __Input = styled.input`
 	}
 `
 
-export default () => {
+const DarkModeSwitch = () => {
 	const name = useSelector(state => state.theme.name)
 	const { changeTheme } = useAction().theme
 	const uuid = React.useRef(uuidv4())
@@ -83,3 +83,5 @@ export default () => {
 		</Switch>
 	)
 }
+
+export default DarkModeSwitch

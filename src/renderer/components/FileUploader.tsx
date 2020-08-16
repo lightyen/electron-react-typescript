@@ -3,8 +3,6 @@ import { dndimages } from "@shared/ipc"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
 
-const FileUploader = tw.div`flex flex-col cursor-pointer`
-
 const Container = styled(`div`)<{ hover: boolean }>`
 	border-color: ${({ hover }) =>
 		hover ? "rgb(var(--theme-hover-secondary))" : "rgb(var(--theme-secondaryvariant))"};
@@ -19,10 +17,10 @@ const Container = styled(`div`)<{ hover: boolean }>`
 	}
 `
 
-export default () => {
+const FileUploader = () => {
 	const [hover, setHover] = React.useState(false)
 	return (
-		<FileUploader style={{ width: 300, height: 220 }}>
+		<div tw="flex flex-col cursor-pointer" style={{ width: 300, height: 220 }}>
 			<Container
 				hover={hover}
 				onClick={() => dndimages.send()}
@@ -52,6 +50,8 @@ export default () => {
 					</svg>
 				</div>
 			</Container>
-		</FileUploader>
+		</div>
 	)
 }
+
+export default FileUploader

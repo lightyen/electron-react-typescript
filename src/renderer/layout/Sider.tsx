@@ -5,7 +5,7 @@ import { useIntl } from "react-intl"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
 
-const Sider = styled.div<{ collapsed?: boolean }>`
+const SiderWrapper = styled.div<{ collapsed?: boolean }>`
 	user-select: none;
 	min-width: 4rem;
 	transition: all 200ms ease;
@@ -41,11 +41,11 @@ const StyledNavLink = styled(NavLink)`
 	}
 `
 
-export default () => {
+const Sider = () => {
 	// https://github.com/danklammer/bytesize-icons
 	const intl = useIntl()
 	return (
-		<Sider>
+		<SiderWrapper>
 			<StyledNavLink to="/" exact title={intl.formatMessage({ id: "nav_home" })}>
 				<svg
 					id="i-home"
@@ -95,6 +95,8 @@ export default () => {
 					<path d="M10 2 L10 30 24 16 Z" />
 				</svg>
 			</StyledNavLink>
-		</Sider>
+		</SiderWrapper>
 	)
 }
+
+export default Sider

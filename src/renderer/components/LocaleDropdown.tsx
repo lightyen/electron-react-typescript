@@ -66,7 +66,7 @@ const DropdownMenuItem = styled.li`
 	}
 `
 
-export default () => {
+const LocaleDropdown = () => {
 	const { setLocale } = useAction().i18n
 	const { locale } = useI18n()
 
@@ -123,3 +123,5 @@ export default () => {
 		</Dropdown>
 	)
 }
+
+export default LocaleDropdown

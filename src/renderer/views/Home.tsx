@@ -14,8 +14,6 @@ const spin = keyframes`
 	}
 `
 
-const Home = tw.div`flex-auto flex text-center select-none`
-
 const Header = styled.header`
 	font-size: calc(10px + 2vmin);
 	${tw`flex-auto flex flex-col items-center justify-center`}
@@ -44,10 +42,10 @@ const HomeLink = styled.a`
 	}
 `
 
-export default () => {
+const HomePage = () => {
 	return (
 		<Page>
-			<Home>
+			<div tw="flex-auto flex text-center select-none">
 				<Header>
 					<Logo src={logo} alt="logo" />
 					<p css={{ userSelect: "text" }}>
@@ -60,7 +58,9 @@ export default () => {
 						Learn React
 					</HomeLink>
 				</Header>
-			</Home>
+			</div>
 		</Page>
 	)
 }
+
+export default HomePage
