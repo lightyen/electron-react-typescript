@@ -1,0 +1,53 @@
+{
+  "0d827": {
+    "defaultMessage": "Quit"
+  },
+  "2ac43": {
+    "defaultMessage": "light"
+  },
+  "2bd33": {
+    "defaultMessage": "Restore"
+  },
+  "4994a": {
+    "defaultMessage": "Language"
+  },
+  "608ec": {
+    "defaultMessage": "modal"
+  },
+  "61057": {
+    "defaultMessage": "Later"
+  },
+  "6932f": {
+    "defaultMessage": "Restart Now?"
+  },
+  "83915": {
+    "defaultMessage": "Themes"
+  },
+  "8cf04": {
+    "defaultMessage": "Home"
+  },
+  "9369b": {
+    "defaultMessage": "Maximize"
+  },
+  "98879": {
+    "defaultMessage": "New version {version} available."
+  },
+  "a6085": {
+    "defaultMessage": "Ok"
+  },
+  "a82fd": {
+    "defaultMessage": "dark"
+  },
+  "b78a3": {
+    "defaultMessage": "Title"
+  },
+  "d2753": {
+    "defaultMessage": "Minimize"
+  },
+  "d700b": {
+    "defaultMessage": "{name} is awesome!"
+  },
+  "f4f70": {
+    "defaultMessage": "Settings"
+  }
+}

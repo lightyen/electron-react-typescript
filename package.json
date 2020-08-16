@@ -24,6 +24,8 @@
     "doit": "yarn && yarn upgrade-interactive --latest",
     "test": "yarn && yarn run build:electron",
     "build": "yarn && yarn run build:electron && electron-builder --publish never",
+    "ms:extract": "formatjs extract src/renderer/**/*.ts* --out-file src/renderer/store/i18n/lang/default.json",
+    "ms:compile": "formatjs compile src/renderer/store/i18n/lang/zh-TW.json --ast --out-file src/renderer/store/i18n/locales/zh-TW.json",
     "release": "yarn && yarn run build:main && yarn run build:renderer && electron-builder build --win --publish always",
     "win-create-self-signed-cert": "electron-builder create-self-signed-cert"
   },
