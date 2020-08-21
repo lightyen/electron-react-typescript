@@ -2,6 +2,7 @@ root: true
 parser: "@typescript-eslint/parser"
 plugins:
   - "@typescript-eslint"
+  - formatjs
   - emotion
 extends:
   - "eslint:recommended"
@@ -50,6 +51,9 @@ rules:
   react/prop-types: "off"
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: error
+
+  formatjs/no-offset:
+    - error
 settings:
   react:
     version: detect

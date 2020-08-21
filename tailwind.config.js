@@ -1,4 +1,7 @@
 module.exports = {
+	future: {
+		removeDeprecatedGapUtilities: true,
+	},
 	purge: {
 		enabled: process.env.NODE_ENV === "production",
 		content: ["./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx"],

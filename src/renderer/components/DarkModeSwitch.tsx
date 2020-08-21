@@ -4,7 +4,8 @@ import tw from "twin.macro"
 import { useSelector, useAction } from "~/store/hooks"
 import { FormattedMessage } from "react-intl"
 import { v4 as uuidv4 } from "uuid"
-import { Sun24, Moon24 } from "@carbon/icons-react"
+import Sun24 from "@carbon/icons-react/lib/sun/24"
+import Moon24 from "@carbon/icons-react/lib/moon/24"
 
 const Switch = styled.div`
 	--dm-switch-width: 100px;

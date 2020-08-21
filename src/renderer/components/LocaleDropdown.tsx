@@ -1,7 +1,7 @@
 import React from "react"
 import { useAction, useI18n } from "~/store/hooks"
 import { supports } from "~/store/i18n/languages"
-import { Translate24 } from "@carbon/icons-react"
+import Translate24 from "@carbon/icons-react/lib/translate/24"
 
 import styled from "@emotion/styled"
 import { css } from "@emotion/core"
@@ -68,7 +68,7 @@ const DropdownMenuItem = styled.li`
 
 const LocaleDropdown = () => {
 	const { setLocale } = useAction().i18n
-	const { locale } = useI18n()
+	const { locale: current_locale } = useI18n()
 
 	const btn = React.useRef<HTMLButtonElement>()
 	const ul = React.useRef<HTMLUListElement>()
@@ -89,15 +89,15 @@ const LocaleDropdown = () => {
 		<Dropdown>
 			<DropdownControl ref={btn} onMouseDown={() => setOpen(!open)}>
 				<Translate24 aria-label="translate" />
-				<span>{supports[locale]}</span>
+				<span>{supports.find(([locale]) => locale === current_locale)[1]}</span>
 			</DropdownControl>
 			{open && (
 				<DropdownMenu ref={ul}>
-					{Object.entries(supports).map(([k, v]) => (
+					{supports.map(([locale, v]) => (
 						<DropdownMenuItem
-							key={k}
+							key={locale}
 							css={
-								locale === k
+								current_locale === locale
 									? css`
 											background: rgb(var(--theme-active-surface));
 									  `
@@ -105,14 +105,14 @@ const LocaleDropdown = () => {
 											background: rgb(var(--theme-surface));
 									  `
 							}
-							onClick={() => setLocale({ locale: k, cached: true })}
+							onClick={() => setLocale({ locale, cached: true })}
 						>
 							{v}
 						</DropdownMenuItem>
 					))}
 					<DropdownMenuCaret
 						css={
-							locale === Object.keys(supports)[0] &&
+							current_locale === supports[0][0] &&
 							css`
 								background: rgb(var(--theme-active-surface));
 							`
