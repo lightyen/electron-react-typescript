@@ -5,18 +5,7 @@
     ["@emotion/babel-preset-css-prop"]
   ],
   "plugins": [
-    "@babel/plugin-transform-runtime",
-    "emotion",
-    "macros",
-    [
-      "react-intl",
-      {
-        "idInterpolationPattern": "[contenthash:5]",
-        "extractFromFormatMessageCall": true,
-        "ast": true
-      }
-    ]
-  ],
+    "@babel/plugin-transform-runtime", "emotion", "macros"],
   "env": {
     "development": {
       "plugins": ["react-refresh/babel"]
