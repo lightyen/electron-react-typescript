@@ -1,4 +1,3 @@
-import React from "react"
 import { useSelector, useAction } from "~/store/hooks"
 import icon from "assets/images/favicon.ico"
 import { useIntl } from "react-intl"

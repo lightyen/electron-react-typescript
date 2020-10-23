@@ -15,7 +15,7 @@ const Container = styled.div<{ hasScrollbar: boolean }>`
 	${({ hasScrollbar }) => hasScrollbar && tw`mr-1`}
 `
 
-const Page: React.FC<Props> = ({ children, css }) => {
+const Page = ({ children, css }: React.PropsWithChildren<Props>) => {
 	const visible = useScollBarVisible()
 	return (
 		<Container hasScrollbar={visible} css={css}>

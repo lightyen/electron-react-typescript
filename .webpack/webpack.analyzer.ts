@@ -1,8 +1,8 @@
 import { merge } from "webpack-merge"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
-import base from "./webpack.common"
+import createBaseConfig from "./webpack.common"
 
-export default merge(base(), {
+export default merge(createBaseConfig(), {
 	mode: "development",
 	module: {
 		rules: [

@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from "react"
+import React from "react"
 import ScrollBar from "./ScrollBar"
 import { connect, MapStateToProps } from "react-redux"
 import { RootStore } from "~/store/reducer"
@@ -6,14 +6,11 @@ import { Theme } from "~/store/theme/themes"
 import Page from "./Page"
 import "twin.macro"
 
-interface Props {}
-
 interface StateProps {
 	theme: Theme
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type OwnProps = React.PropsWithChildren<Props>
+type OwnProps = React.PropsWithChildren<unknown>
 
 const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootStore> = state => {
 	return { theme: state.theme }
@@ -21,7 +18,7 @@ const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootStore> = state 
 
 interface State {
 	error: Error
-	info: ErrorInfo
+	info: React.ErrorInfo
 }
 
 class ErrorBoundary extends React.Component<StateProps & OwnProps, State> {
@@ -34,7 +31,7 @@ class ErrorBoundary extends React.Component<StateProps & OwnProps, State> {
 		return { error }
 	}
 
-	componentDidCatch(error: Error, info: ErrorInfo) {
+	componentDidCatch(error: Error, info: React.ErrorInfo) {
 		this.setState({ error, info })
 		console.error(error, info)
 	}

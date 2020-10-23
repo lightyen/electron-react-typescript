@@ -1,5 +1,3 @@
-import React from "react"
-
 import TitleBar from "./TitleBar"
 import AutoUpdater from "./AutoUpdater"
 import ErrorBoundary from "~/components/ErrorBoundary"

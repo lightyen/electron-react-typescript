@@ -17,7 +17,6 @@ const reqres = ".req/res"
 
 export const channels = new Set<string>()
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export default function createIPC<Message = void, InputParam = void>(channel: string) {
 	if (channel == undefined || channel == "") {
 		throw new Error("invalid channel")
@@ -167,8 +166,7 @@ export default function createIPC<Message = void, InputParam = void>(channel: st
 				})
 			}
 			// main
-			// eslint-disable-next-line @typescript-eslint/ban-types
-			return eventChannel<InputParam | {}>(emitter => {
+			return eventChannel<InputParam | unknown>(emitter => {
 				const callback = (_: Event, data: InputParam) => {
 					emitter(data || {})
 				}
@@ -198,8 +196,7 @@ export default function createIPC<Message = void, InputParam = void>(channel: st
 				})
 			}
 			// main
-			// eslint-disable-next-line @typescript-eslint/ban-types
-			return eventChannel<InputParam | {}>(emitter => {
+			return eventChannel<InputParam | unknown>(emitter => {
 				const callback = (_: Event, data: InputParam) => {
 					emitter(data || {})
 					emitter(END)

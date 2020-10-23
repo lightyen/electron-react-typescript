@@ -14,7 +14,7 @@ const variants: Variants = {
 	},
 }
 
-const AutoUpdater: React.FC = () => {
+export default () => {
 	const downloaded = useSelector(state => state.app.update_downloaded)
 	const version = useSelector(state => state.app.update_version)
 	const { updateAppAndRestart } = useAction().app
@@ -78,5 +78,3 @@ const AutoUpdater: React.FC = () => {
 		</AnimatePresence>
 	)
 }
-
-export default AutoUpdater

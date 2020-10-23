@@ -1,25 +1,19 @@
-// @ts-check
+import type { Configuration } from "webpack"
 import { merge } from "webpack-merge"
 import createBaseConfig from "./webpack.common"
-import type { Configuration, Plugin } from "webpack"
-
-import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import TerserPlugin from "terser-webpack-plugin"
-import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin"
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
+import ESLintPlugin from "eslint-webpack-plugin"
 import path from "path"
 
 process.env.NODE_ENV = "production"
 
-const plugins: Plugin[] = [
-	new CleanWebpackPlugin({
-		cleanOnceBeforeBuildPatterns: ["**/*", "!main.js"],
-		cleanAfterEveryBuildPatterns: ["assets"],
-	}),
-]
+const workingDirectory = process.cwd()
+const src = path.resolve(workingDirectory, "src", "renderer")
 
 const config: Configuration = {
 	mode: "production",
-	externals: ["lodash"],
+	target: "web",
 	stats: {
 		children: false,
 		modules: false,
@@ -37,20 +31,13 @@ const config: Configuration = {
 	optimization: {
 		minimizer: [
 			new TerserPlugin({
-				sourceMap: true,
 				parallel: true,
 			}),
-			new OptimizeCSSAssetsPlugin(),
+			new CssMinimizerPlugin(),
 		],
 	},
 	module: {
 		rules: [
-			{
-				enforce: "pre",
-				test: /\.(jsx?|tsx?)$/,
-				exclude: /node_modules/,
-				loader: "eslint-loader",
-			},
 			{
 				test: /\.worker\.ts$/,
 				exclude: /node_modules/,
@@ -59,33 +46,23 @@ const config: Configuration = {
 					"babel-loader",
 					{
 						loader: "ts-loader",
-						options: { context: path.join(process.cwd(), "src", "renderer") },
+						options: { context: src },
 					},
 				],
 			},
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
-				use: [
-					"babel-loader",
-					{
-						loader: "ts-loader",
-						options: {
-							context: path.join(process.cwd(), "src", "renderer"),
-							compilerOptions: {
-								allowJs: true,
-							},
-						},
-					},
-				],
+				use: ["babel-loader", { loader: "ts-loader", options: { context: src } }],
 			},
 			{
 				test: /\.jsx?$/,
+				exclude: /node_modules/,
 				use: ["babel-loader"],
 			},
 		],
 	},
-	plugins,
+	plugins: [new ESLintPlugin({ context: src, extensions: ["js", "jsx", "ts", "tsx"] })],
 }
 
 export default merge(createBaseConfig(), config)

@@ -14,7 +14,7 @@ const AppFooter = styled.div`
 	color: rgb(var(--theme-text-primary));
 `
 
-const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
+const StatusBar = ({ hide }: { hide?: boolean }) => {
 	if (hide) {
 		document.documentElement.style.setProperty("--footer-height", "0px")
 	} else {
@@ -30,7 +30,7 @@ const StatusBar: React.FC<{ hide?: boolean }> = ({ hide }) => {
 	)
 }
 
-const BarContent: React.FC = () => {
+const BarContent = () => {
 	const usage = useSelector(state => state.app.cpuusage)
 	const memory = useSelector(state => state.app.memory)
 	const { getCpuUsage, getSystemMemoryInfo } = useAction().app

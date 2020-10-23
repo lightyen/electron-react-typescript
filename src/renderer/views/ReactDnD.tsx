@@ -1,7 +1,5 @@
 import React from "react"
-
 import { motion, TargetAndTransition, useMotionValue } from "framer-motion"
-
 import "twin.macro"
 
 interface Position {

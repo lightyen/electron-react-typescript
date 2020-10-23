@@ -1,4 +1,3 @@
-import React from "react"
 import { AnimatePresence } from "framer-motion"
 import { useLocation, Switch } from "react-router-dom"
 import { MotionRoute, MotionRedirect } from "~/components/MotionReactRouter"
@@ -9,7 +8,7 @@ import Settings from "~/views/Settings"
 import Log from "~/views/Log"
 import ReactDnD from "~/views/ReactDnD"
 
-export const AppRouter: React.FC = () => {
+export const AppRouter = () => {
 	return (
 		<AnimatePresence exitBeforeEnter>
 			<MyRoutes />
@@ -17,7 +16,7 @@ export const AppRouter: React.FC = () => {
 	)
 }
 
-const MyRoutes: React.FC = () => {
+const MyRoutes = () => {
 	const location = useLocation()
 	return (
 		<Switch key={location.pathname}>

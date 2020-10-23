@@ -210,7 +210,7 @@ const Demo = () => {
 
 export default Demo
 
-const IntersectTarget: React.FC = () => {
+const IntersectTarget = () => {
 	const root = useScrollBarSource()
 	const [ref, inView, entry] = useInView({ root, threshold: 1 })
 	React.useEffect(() => {

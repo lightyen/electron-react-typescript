@@ -10,6 +10,8 @@ process.env.NODE_ENV = "development"
 
 const config: Configuration = {
 	mode: "development",
+	target: "web",
+	devtool: "source-map",
 	stats: {
 		children: false,
 		modules: false,

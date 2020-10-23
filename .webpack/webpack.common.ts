@@ -1,7 +1,7 @@
 import packageJSON from "../package.json"
 
 import path from "path"
-import { EnvironmentPlugin, ExtendedAPIPlugin } from "webpack"
+import { EnvironmentPlugin } from "webpack"
 
 // Plugins
 import HtmlWebpackPlugin from "html-webpack-plugin"
@@ -9,7 +9,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import WebpackBarPlugin from "webpackbar"
 import TsPathsResolvePlugin from "ts-paths-resolve-plugin"
 
-import type { Configuration, Plugin, Loader } from "webpack"
+import type { Configuration } from "webpack"
 
 // NOTE: 關閉 webpack 要求 donate 訊息
 process.env.DISABLE_OPENCOLLECTIVE = "true"
@@ -26,36 +26,11 @@ export default function (): Configuration {
 
 	const join_network = (...args: string[]) => path.join(...args).replace(path.sep, "/")
 
-	const plugins: Plugin[] = [
-		new WebpackBarPlugin({ color: "#41f4d0", name: "Electron Renderer" }),
-		new EnvironmentPlugin({
-			NODE_ENV: "development",
-			PUBLIC_URL: "",
-			APP_NAME: packageJSON.name,
-			TAILWIND_CONFIG: JSON.stringify(require(path.resolve(workingDirectory, "tailwind.config"))),
-		}),
-		new MiniCssExtractPlugin({
-			filename: join_network(outputCSS, "[name].css?[contenthash:8]"),
-			chunkFilename: join_network(outputCSS, "[name].chunk.css?[contenthash:8]"),
-		}),
-		new HtmlWebpackPlugin({
-			inject: true,
-			title: packageJSON.name,
-			minify: true,
-			template: path.join(src, "index.ejs"),
-			isDevelopment,
-		}),
-	]
-
-	if (!isDevelopment) {
-		plugins.push(new ExtendedAPIPlugin())
-	}
-
 	/**
 	 * @type {import("webpack").Loader}
 	 * See [style-loader]{@link https://github.com/webpack-contrib/style-loader} and [mini-css-extract-plugin]{@link https://github.com/webpack-contrib/mini-css-extract-plugin}.
 	 */
-	const styleLoader: Loader = {
+	const styleLoader = {
 		loader: isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
 		options: {
 			...(!isDevelopment && { publicPath: path.relative(path.join(publicPath, outputCSS), publicPath) }),
@@ -63,9 +38,26 @@ export default function (): Configuration {
 	}
 
 	return {
-		target: "web",
-		devtool: "inline-source-map",
-		plugins,
+		plugins: [
+			new WebpackBarPlugin({ color: "#41f4d0", name: "Electron Renderer" }),
+			new EnvironmentPlugin({
+				NODE_ENV: "development",
+				PUBLIC_URL: "",
+				APP_NAME: packageJSON.name,
+				TAILWIND_CONFIG: JSON.stringify(require(path.resolve(workingDirectory, "tailwind.config"))),
+			}),
+			new MiniCssExtractPlugin({
+				filename: join_network(outputCSS, "[name].css?[contenthash:8]"),
+				chunkFilename: join_network(outputCSS, "[name].chunk.css?[contenthash:8]"),
+			}),
+			new HtmlWebpackPlugin({
+				inject: true,
+				title: packageJSON.name,
+				minify: true,
+				template: path.join(src, "index.ejs"),
+				isDevelopment,
+			}),
+		],
 		// NOTE: https://webpack.js.org/configuration/resolve/
 		resolve: {
 			extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
@@ -76,8 +68,8 @@ export default function (): Configuration {
 		},
 		output: {
 			path: dist,
-			filename: join_network(outputJS, "[name].js?[hash:8]"),
-			chunkFilename: join_network(outputJS, "[name].js?.[hash:8]"),
+			filename: join_network(outputJS, "[name].js?[fullhash:8]"),
+			chunkFilename: join_network(outputJS, "[name].js?.[fullhash:8]"),
 			publicPath,
 		},
 		module: {
@@ -88,7 +80,7 @@ export default function (): Configuration {
 						{
 							loader: "url-loader",
 							options: {
-								name: join_network("assets", "images", "[name].[ext]?[hash:8]"),
+								name: join_network("assets", "images", "[name].[ext]?[fullhash:8]"),
 								limit: 8192,
 							},
 						},
@@ -104,7 +96,7 @@ export default function (): Configuration {
 						{
 							loader: "file-loader",
 							options: {
-								name: "[name].[ext]?[hash:8]",
+								name: "[name].[ext]?[fullhash:8]",
 								outputPath: join_network("assets", "fonts"),
 							},
 						},

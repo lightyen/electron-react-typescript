@@ -42,7 +42,7 @@ interface Props {
 	defaultValue?: string | chroma.Color
 }
 
-const ColorPicker: React.FC<Props> = ({ onChange, defaultValue = "#ff0000" }) => {
+const ColorPicker = ({ onChange, defaultValue = "#ff0000" }: Props) => {
 	const picker = React.useRef<HTMLDivElement>()
 	const palette = React.useRef<HTMLDivElement>()
 	const alpha = React.useRef<HTMLDivElement>()

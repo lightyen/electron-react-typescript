@@ -61,7 +61,7 @@ const TableRow = styled.tr<TableRowProps>`
 	}
 `
 
-const AppPaths: React.FC = () => {
+const AppPaths = () => {
 	const paths = useSelector(state => state.app.paths)
 	const { getAppPaths } = useAction().app
 
