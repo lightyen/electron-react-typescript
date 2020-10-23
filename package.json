@@ -17,8 +17,8 @@
     "typescript"
   ],
   "scripts": {
-    "build:renderer": "cross-env TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack --config .webpack/renderer.prod.ts",
-    "build:main": "cross-env TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack --config .webpack/main.prod.ts",
+    "build:renderer": "cross-env HAPPY_PACK_MODE=true TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack --config .webpack/renderer.prod.ts",
+    "build:main": "cross-env HAPPY_PACK_MODE=true TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack --config .webpack/main.prod.ts",
     "start:renderer": "cross-env TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack serve --config .webpack/webpack.dev.ts",
     "start:main": "node debug/nodemon.js",
     "analyzer": "cross-env TS_NODE_PROJECT=\".webpack/tsconfig.json\" webpack --config .webpack/webpack.analyzer.ts",

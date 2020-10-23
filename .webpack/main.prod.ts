@@ -6,6 +6,7 @@ import ESLintPlugin from "eslint-webpack-plugin"
 import path from "path"
 
 process.env.NODE_ENV = "production"
+const happyPackMode = new Boolean(process.env.HAPPY_PACK_MODE).valueOf()
 
 class ExternalsVendorPlugin {
 	externals: Record<string, string>
@@ -46,6 +47,7 @@ const config: Configuration = {
 						loader: "ts-loader",
 						options: {
 							context: src,
+							happyPackMode,
 							compilerOptions: {
 								allowJs: true,
 							},

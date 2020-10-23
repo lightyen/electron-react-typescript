@@ -7,6 +7,7 @@ import ESLintPlugin from "eslint-webpack-plugin"
 import path from "path"
 
 process.env.NODE_ENV = "production"
+const happyPackMode = new Boolean(process.env.HAPPY_PACK_MODE).valueOf()
 
 const workingDirectory = process.cwd()
 const src = path.resolve(workingDirectory, "src", "renderer")
@@ -46,14 +47,14 @@ const config: Configuration = {
 					"babel-loader",
 					{
 						loader: "ts-loader",
-						options: { context: src },
+						options: { context: src, happyPackMode },
 					},
 				],
 			},
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
-				use: ["babel-loader", { loader: "ts-loader", options: { context: src } }],
+				use: ["babel-loader", { loader: "ts-loader", options: { context: src, happyPackMode } }],
 			},
 			{
 				test: /\.jsx?$/,
