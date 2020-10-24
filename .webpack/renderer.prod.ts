@@ -1,25 +1,22 @@
 import type { Configuration } from "webpack"
 import { merge } from "webpack-merge"
 import createBaseConfig from "./webpack.common"
+import path from "path"
+
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import TerserPlugin from "terser-webpack-plugin"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import ESLintPlugin from "eslint-webpack-plugin"
-import path from "path"
 
 process.env.NODE_ENV = "production"
-const happyPackMode = new Boolean(process.env.HAPPY_PACK_MODE).valueOf()
 
 const workingDirectory = process.cwd()
 const src = path.resolve(workingDirectory, "src", "renderer")
+const tsConfigPath = path.resolve(src, "tsconfig.json")
 
 const config: Configuration = {
 	mode: "production",
 	target: "web",
-	stats: {
-		children: false,
-		modules: false,
-		entrypoints: false,
-	},
 	performance: {
 		hints: "warning",
 		maxEntrypointSize: 10 << 20, // Make it bigger in electron?
@@ -47,14 +44,14 @@ const config: Configuration = {
 					"babel-loader",
 					{
 						loader: "ts-loader",
-						options: { context: src, happyPackMode },
+						options: { context: src, happyPackMode: true },
 					},
 				],
 			},
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules|\.test.tsx?|\.worker\.ts$/,
-				use: ["babel-loader", { loader: "ts-loader", options: { context: src, happyPackMode } }],
+				use: ["babel-loader", { loader: "ts-loader", options: { context: src, happyPackMode: true } }],
 			},
 			{
 				test: /\.jsx?$/,
@@ -63,7 +60,18 @@ const config: Configuration = {
 			},
 		],
 	},
-	plugins: [new ESLintPlugin({ context: src, extensions: ["js", "jsx", "ts", "tsx"] })],
+	plugins: [
+		new ESLintPlugin({ context: src, extensions: ["js", "jsx", "ts", "tsx"] }),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: tsConfigPath,
+				diagnosticOptions: {
+					semantic: true,
+					syntactic: true,
+				},
+			},
+		}),
+	],
 }
 
 export default merge(createBaseConfig(), config)

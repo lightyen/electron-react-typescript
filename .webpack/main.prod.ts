@@ -1,12 +1,13 @@
 import WebpackBarPlugin from "webpackbar"
-import TsPathsResolvePlugin from "ts-paths-resolve-plugin"
 import type { Configuration, Compiler } from "webpack"
 import { ExternalsPlugin } from "webpack"
-import ESLintPlugin from "eslint-webpack-plugin"
 import path from "path"
 
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import TsPathsResolvePlugin from "ts-paths-resolve-plugin"
+import ESLintPlugin from "eslint-webpack-plugin"
+
 process.env.NODE_ENV = "production"
-const happyPackMode = new Boolean(process.env.HAPPY_PACK_MODE).valueOf()
 
 class ExternalsVendorPlugin {
 	externals: Record<string, string>
@@ -47,7 +48,7 @@ const config: Configuration = {
 						loader: "ts-loader",
 						options: {
 							context: src,
-							happyPackMode,
+							happyPackMode: true,
 							compilerOptions: {
 								allowJs: true,
 							},
@@ -66,7 +67,16 @@ const config: Configuration = {
 		plugins: [new TsPathsResolvePlugin({ tsConfigPath })],
 	},
 	plugins: [
-		new ESLintPlugin({ context: src, extensions: ["js", "jsx", "ts", "tsx"] }),
+		new ESLintPlugin({ context: src, extensions: ["js", "ts"] }),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: tsConfigPath,
+				diagnosticOptions: {
+					semantic: true,
+					syntactic: true,
+				},
+			},
+		}),
 		new WebpackBarPlugin({ name: "Electron Main", color: "blue", profile: true }),
 		new ExternalsVendorPlugin("leveldown"),
 	],
