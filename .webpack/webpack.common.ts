@@ -75,7 +75,7 @@ export default function (): Configuration {
 		module: {
 			rules: [
 				{
-					test: /\.(png|jpe?g|gif|svg|ico)$/i,
+					test: /\.(png|jpe?g|gif|ico)$/i,
 					use: [
 						{
 							loader: "url-loader",
@@ -85,6 +85,10 @@ export default function (): Configuration {
 							},
 						},
 					],
+				},
+				{
+					test: /\.svg$/i,
+					use: ["babel-loader", "@svgr/webpack"],
 				},
 				{
 					test: /\.ya?ml$/,

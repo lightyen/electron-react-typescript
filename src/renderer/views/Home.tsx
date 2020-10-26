@@ -1,9 +1,9 @@
 import { FormattedMessage } from "react-intl"
 
-import logo from "assets/images/logo.svg"
+import ReactLogo from "assets/images/logo.svg"
 import Page from "~/components/Page"
 
-import { keyframes } from "@emotion/core"
+import { keyframes, css } from "@emotion/core"
 import styled from "@emotion/styled"
 import tw from "twin.macro"
 
@@ -16,12 +16,6 @@ const spin = keyframes`
 const Header = styled.header`
 	font-size: calc(10px + 2vmin);
 	${tw`flex-auto flex flex-col items-center justify-center`}
-`
-
-const Logo = styled.img`
-	height: 40vmin;
-	animation: ${spin} 60s linear infinite;
-	${tw`pointer-events-none`}
 `
 
 const Code = styled.code`
@@ -46,7 +40,13 @@ const HomePage = () => {
 		<Page>
 			<div tw="flex-auto flex text-center select-none">
 				<Header>
-					<Logo src={logo} alt="logo" />
+					<ReactLogo
+						css={css`
+							height: 40vmin;
+							animation: ${spin} 60s linear infinite;
+							${tw`pointer-events-none`}
+						`}
+					/>
 					<p css={{ userSelect: "text" }}>
 						Edit <Code>renderer/views/Home/index.tsx</Code> and save to reload.
 					</p>
